@@ -26,18 +26,7 @@
       <div class="p-t-35 p-b-9">
         <span class="font-weight-bold"> Password </span>
       </div>
-      <div
-        class="wrap-input100 validate-input"
-        data-validate="Password is required"
-      >
-        <input
-          class="input100"
-          type="password"
-          name="email"
-          placeholder="Enter your password"
-          v-model="password"
-        />
-      </div>
+      <PasswordInput :isValid="true" v-model="password" />
 
       <div class="w-full text-right p-t-15 p-r-10">
         <span class="font-weight-bold"> Forgot Password </span>
@@ -53,12 +42,12 @@
 </template>
 
 <script>
-// import PasswordInput from "@/components/PasswordInput";
+import PasswordInput from "@/components/PasswordInput";
 
 export default {
   name: "LoginPage",
   components: {
-    // PasswordInput,
+    PasswordInput,
   },
   data() {
     return {
@@ -69,18 +58,16 @@ export default {
   computed: {},
   methods: {
     async login() {
-      const auth = { username: this.username, password: this.password };
-      this.$axios
-        .post(`api/v1/User/Login`, auth)
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            this.$router.push({ name: "changePass" });
-          }
-        })
-        .catch((e) => {
-          console.log(e.response);
-        });
+      try {
+        const auth = { username: this.username, password: this.password };
+        const res = await this.$axios.post(`api/v1/User/Login`, auth);
+        console.log(res);
+        if (res.status === 200) {
+          this.$router.push({ name: "changePass" });
+        }
+      } catch (e) {
+        console.log(e.response);
+      }
     },
   },
   created() {},

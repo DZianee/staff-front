@@ -9,6 +9,8 @@
       name="pass"
       placeholder="Enter your password"
       autocomplete="false"
+      v-model="content"
+      @input="handleInput"
     />
     <i
       class="bi form-control-feedback"
@@ -30,15 +32,24 @@ export default {
       required: false,
       default: true,
     },
+    value: {
+      type: [String],
+      required: false,
+      default: "",
+    },
   },
   data() {
     return {
       isShow: false,
+      content: this.value,
     };
   },
   components: {},
   computed: {},
   methods: {
+    handleInput() {
+      this.$emit("input", this.content);
+    },
     toggle() {
       this.isShow = !this.isShow;
     },
