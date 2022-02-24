@@ -1,26 +1,19 @@
 <template>
-  <div
-    class="wrap-input100 validate-input has-feedback"
-    data-validate="Password is required"
-  >
+  <div class="wrap-input100 validate-input has-feedback" data-validate="Password is required">
     <input
       class="input100"
       :type="isShow ? 'text' : 'password'"
       name="pass"
       placeholder="Enter your password"
       autocomplete="false"
-      v-model="content"
-      @input="handleInput"
-    />
+      :value="value"
+      @input="handleInput" />
     <i
       class="bi form-control-feedback"
       :class="[{ 'bi-eye-slash-fill': !isShow }, { 'bi-eye-fill': isShow }]"
       style="font-size: 22px"
-      @click="toggle"
-    ></i>
-    <span v-if="!isValid" class="txt2 m-t-15 m-l-15">
-      Must at least 8 characters
-    </span>
+      @click="toggle"></i>
+    <span v-if="!isValid" class="txt2 m-t-15 m-l-15"> Must at least 8 characters </span>
   </div>
 </template>
 <script>
@@ -41,14 +34,14 @@ export default {
   data() {
     return {
       isShow: false,
-      content: this.value,
     };
   },
   components: {},
   computed: {},
+  emits: ["update:value"],
   methods: {
-    handleInput() {
-      this.$emit("input", this.content);
+    handleInput(event) {
+      this.$emit("update:value", event.target.value);
     },
     toggle() {
       this.isShow = !this.isShow;
