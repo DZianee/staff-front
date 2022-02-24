@@ -65,6 +65,7 @@
 .nav .nav-item:hover {
     border-radius: 9px;
     background-color: pink;
+    border-right: 0px;
 }
 
 .nav .nav-items .nav-item img {
@@ -88,6 +89,11 @@
 
 .nav .nav-item:hover .tooltiptext {
     display: inline-block;
+}
+
+.pageSignal {
+    border-right: 5px solid pink;
+    border-radius: 5px;
 }
 
 .modal {
