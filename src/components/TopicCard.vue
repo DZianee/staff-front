@@ -1,28 +1,34 @@
 <template>
   <div class="topic-card">
     <a href="#">
-      <div class="card">
-        <div class="card-content">
-          <div class="topic-card_adjust">
-            <button
-              class="icon icon_info"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-            >
-              <i class="bx bx-info-circle bx-sm" />
-            </button>
-            <span class="icon icon_delete" @click="onDelete()">
-              <i class="bx bx-x bx-sm" />
-            </span>
+      <div class="card_border--effect">
+        <div class="card">
+          <div class="card-content">
+            <div class="topic-card_adjust">
+              <button
+                class="icon icon_info"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <i class="bx bx-info-circle bx-sm" />
+              </button>
+              <button
+                class="icon icon_delete"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal2"
+              >
+                <i class="bx bx-x bx-sm" />
+              </button>
+            </div>
+            <br />
+            <div class="content">
+              <h1>Blackpink in your area</h1>
+            </div>
           </div>
-          <br />
-          <div class="content">
-            <h1>Workplace</h1>
-          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item total-ideas">12 ideas</p>
+          </footer>
         </div>
-        <footer class="card-footer">
-          <p class="card-footer-item total-ideas">12 ideas</p>
-        </footer>
       </div></a
     >
   </div>
@@ -31,9 +37,6 @@
 export default {
   name: "TopicCard",
   props: {},
-  methods: {
-    onDelete() {},
-  },
 };
 </script>
 <style scoped>
@@ -44,11 +47,42 @@ export default {
   row-gap: 80px;
   padding: 50px 0 0 90px;
 }
+.card_border--effect {
+  width: 370px;
+  padding: 8px;
+  border-radius: 23px;
+  position: relative;
+  background: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82
+  );
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 a {
   text-decoration: none;
 }
 .card {
-  width: 390px;
+  width: 370px;
   height: 268px;
   border-radius: 23px;
 }
@@ -58,6 +92,9 @@ a {
 }
 .card-content {
   border-bottom-color: black;
+  border-top-right-radius: 23px;
+  border-top-left-radius: 23px;
+  background-color: rgb(231, 245, 231);
 }
 .topic-card_adjust {
   line-height: 10px;
@@ -82,9 +119,13 @@ span:hover {
   position: absolute;
   right: 0;
 }
+.icon_delete:hover {
+  color: red;
+}
 .content {
   overflow: hidden;
   height: 115px;
+  border-radius: 23px;
 }
 h1 {
   font-size: 22px;
@@ -104,10 +145,6 @@ h1 {
   font-weight: 500;
   padding-top: 18px;
 }
-.card-content {
-  background-color: rgb(231, 245, 231);
-}
-
 @media screen and (max-width: 1440px) {
   .topic-card {
     display: grid;
@@ -118,7 +155,6 @@ h1 {
   .card {
     width: 340px;
     height: 268px;
-    border-radius: 23px;
   }
 }
 @media screen and (max-width: 1280px) {
@@ -131,7 +167,9 @@ h1 {
   .card {
     width: 355px;
     height: 268px;
-    border-radius: 23px;
+  }
+  .card_border--effect {
+    width: 355px;
   }
 }
 @media screen and (max-width: 1025px) {
@@ -145,7 +183,9 @@ h1 {
   .card {
     width: 355px;
     height: 268px;
-    border-radius: 23px;
+  }
+  .card_border--effect {
+    width: 355px;
   }
 }
 @media screen and (max-width: 780px) {
@@ -157,9 +197,26 @@ h1 {
     padding: 50px;
   }
   .card {
-    width: 310px;
+    width: 295px;
     height: 268px;
-    border-radius: 23px;
+  }
+  /* .card-content {
+    width: 207px;
+    height: 150px;
+  }
+  .content {
+    overflow: hidden;
+    height: 50px;
+  } */
+  h1 {
+    font-size: 16px;
+  }
+  .card-footer p {
+    font-size: 14px;
+    padding-top: 18px;
+  }
+  .card_border--effect {
+    width: 295px;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
@@ -172,7 +229,9 @@ h1 {
   .card {
     width: 300px;
     height: 268px;
-    border-radius: 23px;
+  }
+  .card_border--effect {
+    width: 300px;
   }
 }
 </style>

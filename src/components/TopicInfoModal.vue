@@ -56,16 +56,15 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .modal {
-  margin-top: 180px;
+  margin-top: 140px;
   border-radius: 7px;
 }
 
 .modal-content {
   height: 470px;
   position: relative;
-  border: solid red;
 }
 .modal-title {
   margin-left: 150px;
@@ -85,7 +84,7 @@ input {
   justify-content: flex-start;
 }
 label {
-  font-size: 15px;
+  font-size: 16px;
   color: rgb(124, 117, 117);
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -97,7 +96,7 @@ input {
   border-radius: 5px;
   outline-color: rgb(255, 255, 255);
   background-color: white;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   padding: 14px;
 }
@@ -113,7 +112,7 @@ input {
 .btn_bar--close button {
   background-color: #0750dc;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 19px;
   width: 100%;
   color: white;
   border-radius: 7px;
