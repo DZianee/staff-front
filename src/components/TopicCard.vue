@@ -4,9 +4,9 @@
       <div class="card">
         <div class="card-content">
           <div class="topic-card_adjust">
-            <span class="icon icon_info">
+            <button class="icon icon_info" data-target="modal-js-example">
               <i class="bx bx-info-circle bx-sm" />
-            </span>
+            </button>
             <span class="icon icon_delete">
               <i class="bx bx-x bx-sm" />
             </span>
@@ -124,6 +124,13 @@
   position: relative;
   height: 27px;
 }
+button {
+  border: none;
+  background-color: rgb(231, 245, 231);
+}
+button:hover {
+  background-color: rgb(236, 229, 229);
+}
 span:hover {
   background-color: rgb(236, 229, 229);
 }
@@ -160,48 +167,6 @@ h1 {
 .card-content {
   background-color: rgb(231, 245, 231);
 }
-
-/* @media (min-width: 320px) {
-  .topic-card {
-    display: grid;
-    grid-template-columns: 100%;
-    row-gap: 60px;
-    padding: 48px;
-  }
-  .card {
-    width: 300px;
-    height: 268px;
-    border-radius: 23px;
-  }
-  .card-footer p {
-    position: absolute;
-    left: 100px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-  }
-} */
-/* @media (min-width: 480px) {
-  .topic-card {
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    column-gap: 30px;
-    row-gap: 70px;
-    padding: 70px;
-  }
-  .card {
-    width: 300px;
-    height: 268px;
-    border-radius: 23px;
-  }
-  .card-footer p {
-    position: absolute;
-    left: 100px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-  }
-} */
 
 @media screen and (max-width: 1440px) {
   .topic-card {
@@ -272,29 +237,4 @@ h1 {
     border-radius: 23px;
   }
 }
-/* @media screen and (min-width: 320px) and (max-width: 480px) and (orientation: landscape) {
-  .topic-card {
-    display: grid;
-    grid-template-columns: repeat(3, 25%);
-    row-gap: 60px;
-    padding-left: 47px;
-    column-gap: 20px;
-  }
-  .card {
-    width: 220px;
-    height: 228px;
-    border-radius: 23px;
-  }
-  h1 {
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    height: 110px;
-  }
-  .card-footer p {
-    font-size: 16px;
-  }
-} */
 </style>

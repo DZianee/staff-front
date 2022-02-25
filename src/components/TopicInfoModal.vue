@@ -1,8 +1,5 @@
 <template>
-  <button class="js-modal-trigger" data-target="modal-js-example">
-    Open JS example modal
-  </button>
-  <div class="modal">
+  <div class="modal" isOpen="modalStatus">
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
@@ -21,7 +18,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "TopicInfoModal",
+  props: {
+    modalStatus: String,
+  },
+};
 </script>
 
 <style scope></style>
