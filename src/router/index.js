@@ -4,7 +4,7 @@ import TopicView from "../views/TopicView.vue";
 const routes = [
   {
     path: "/",
-    name: "topic",
+    name: "TopicView",
     component: TopicView,
   },
   {

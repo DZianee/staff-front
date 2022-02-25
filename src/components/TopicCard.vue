@@ -1,10 +1,15 @@
 <template>
   <div class="topic-card">
+    <h1>e</h1>
     <a href="#">
       <div class="card">
         <div class="card-content">
           <div class="topic-card_adjust">
-            <button class="icon icon_info" data-target="modal-js-example">
+            <button
+              class="icon icon_info"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
               <i class="bx bx-info-circle bx-sm" />
             </button>
             <span class="icon icon_delete">
@@ -42,66 +47,13 @@
         </footer>
       </div></a
     >
-    <div class="card">
-      <div class="card-content">
-        <div class="topic-card_adjust">
-          <span class="icon icon_info">
-            <i class="bx bx-info-circle bx-sm" />
-          </span>
-          <span class="icon icon_delete">
-            <i class="bx bx-x bx-sm" />
-          </span>
-        </div>
-        <div class="content">
-          <h1>Workplace</h1>
-        </div>
-      </div>
-      <footer class="card-footer">
-        <!-- <a href="#" class="card-footer-item">Save</a> -->
-        <p class="card-footer-item total-ideas">12 ideas</p>
-      </footer>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <div class="topic-card_adjust">
-          <span class="icon icon_info">
-            <i class="bx bx-info-circle bx-sm" />
-          </span>
-          <span class="icon icon_delete">
-            <i class="bx bx-x bx-sm" />
-          </span>
-        </div>
-        <div class="content">
-          <h1>Workplace testing ne</h1>
-        </div>
-      </div>
-      <footer class="card-footer">
-        <!-- <a href="#" class="card-footer-item">Save</a> -->
-        <p class="card-footer-item total-ideas">12 ideas</p>
-      </footer>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <div class="topic-card_adjust">
-          <span class="icon icon_info">
-            <i class="bx bx-info-circle bx-sm" />
-          </span>
-          <span class="icon icon_delete">
-            <i class="bx bx-x bx-sm" />
-          </span>
-        </div>
-        <div class="content">
-          <h1>Workplace</h1>
-        </div>
-      </div>
-      <footer class="card-footer">
-        <!-- <a href="#" class="card-footer-item">Save</a> -->
-        <p class="card-footer-item total-ideas">12 ideas</p>
-      </footer>
-    </div>
   </div>
 </template>
-
+<script>
+export default {
+  name: "TopicCard",
+};
+</script>
 <style scoped>
 .topic-card {
   display: grid;
@@ -109,6 +61,9 @@
   column-gap: 40px;
   row-gap: 80px;
   padding: 50px 0 0 90px;
+}
+a {
+  text-decoration: none;
 }
 .card {
   width: 400px;
@@ -156,6 +111,7 @@ h1 {
 }
 .card-footer {
   border-top-color: rgb(177, 177, 177);
+  background-color: none;
 }
 .card-footer p {
   display: flex;
@@ -187,8 +143,6 @@ h1 {
     grid-template-columns: repeat(3, 27%);
     column-gap: 50px;
     row-gap: 100px;
-    /* padding: 40px; */
-    /* padding-left: 100px; */
   }
   .card {
     width: 355px;
