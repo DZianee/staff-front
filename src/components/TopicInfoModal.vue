@@ -1,6 +1,5 @@
 <template>
   <div class="topic-info_modal">
-    <h1>hello</h1>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -20,7 +19,7 @@
                 <input
                   type="text"
                   class="topicName_input"
-                  :value="topicInfo.topicName"
+                  value="value"
                   disabled
                 />
               </div>
@@ -29,13 +28,13 @@
                 <input
                   type="text"
                   class="topicType_input"
-                  :value="topicInfo.topicType"
+                  value="value"
                   disabled
                 />
               </div>
               <div class="closure-date">
                 <label for="closureDate">Closure date</label>
-                <input type="text" :value="topicInfo.closureDate" disabled />
+                <input type="text" value="value" disabled />
               </div>
             </div>
           </div>
@@ -59,11 +58,12 @@ export default {
 
 <style scope>
 .modal {
-  margin-top: 200px;
+  margin-top: 180px;
   border-radius: 7px;
 }
+
 .modal-content {
-  height: 490px;
+  height: 470px;
   position: relative;
   border: solid red;
 }
@@ -106,7 +106,7 @@ input {
 }
 .btn_bar--close {
   position: absolute;
-  bottom: 40px;
+  bottom: 35px;
   width: 100%;
   padding: 0 43px;
 }
@@ -119,5 +119,58 @@ input {
   border-radius: 7px;
   height: 42px;
   line-height: 10px;
+}
+
+@media screen and (max-width: 580px) {
+  .modal-dialog {
+    padding: 0 70px 0 30px;
+    border-radius: 7px;
+  }
+  .modal-title {
+    margin-left: 120px;
+  }
+  input {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .modal-title {
+    margin-left: 70px;
+    font-size: 18px;
+  }
+  .modal-content {
+    height: 410px;
+    position: relative;
+  }
+  input {
+    width: 100%;
+  }
+  .modal-dialog {
+    padding: 0 50px 0 10px;
+    border-radius: 7px;
+  }
+  .body {
+    padding: 0;
+  }
+  label {
+    font-size: 14px;
+  }
+  input {
+    width: 100%;
+    height: 32px;
+    font-size: 17px;
+  }
+  .closure-date input {
+    width: 70%;
+  }
+  .btn_bar--close {
+    bottom: 30px;
+    width: 100%;
+    padding: 0 30px;
+  }
+  .btn_bar--close button {
+    font-size: 17px;
+    height: 32px;
+  }
 }
 </style>

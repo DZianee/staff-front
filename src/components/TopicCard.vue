@@ -1,6 +1,5 @@
 <template>
   <div class="topic-card">
-    <h1>e</h1>
     <a href="#">
       <div class="card">
         <div class="card-content">
@@ -12,28 +11,7 @@
             >
               <i class="bx bx-info-circle bx-sm" />
             </button>
-            <span class="icon icon_delete">
-              <i class="bx bx-x bx-sm" />
-            </span>
-          </div>
-          <br />
-          <div class="content">
-            <h1>Workplace</h1>
-          </div>
-        </div>
-        <footer class="card-footer">
-          <p class="card-footer-item total-ideas">12 ideas</p>
-        </footer>
-      </div></a
-    >
-    <a href="#">
-      <div class="card">
-        <div class="card-content">
-          <div class="topic-card_adjust">
-            <span class="icon icon_info">
-              <i class="bx bx-info-circle bx-sm" />
-            </span>
-            <span class="icon icon_delete">
+            <span class="icon icon_delete" @click="onDelete()">
               <i class="bx bx-x bx-sm" />
             </span>
           </div>
@@ -52,6 +30,10 @@
 <script>
 export default {
   name: "TopicCard",
+  props: {},
+  methods: {
+    onDelete() {},
+  },
 };
 </script>
 <style scoped>
@@ -66,13 +48,16 @@ a {
   text-decoration: none;
 }
 .card {
-  width: 400px;
+  width: 390px;
   height: 268px;
   border-radius: 23px;
 }
 .card:hover {
   transform: scale(1.1, 1.1);
   transition: ease-in-out 0.6s;
+}
+.card-content {
+  border-bottom-color: black;
 }
 .topic-card_adjust {
   line-height: 10px;
@@ -99,7 +84,7 @@ span:hover {
 }
 .content {
   overflow: hidden;
-  height: 110px;
+  height: 115px;
 }
 h1 {
   font-size: 22px;
@@ -111,14 +96,13 @@ h1 {
 }
 .card-footer {
   border-top-color: rgb(177, 177, 177);
-  background-color: none;
+  background-color: white;
+  height: 40px;
 }
 .card-footer p {
-  display: flex;
-  justify-content: center;
   font-size: 18px;
-  align-items: center;
   font-weight: 500;
+  padding-top: 18px;
 }
 .card-content {
   background-color: rgb(231, 245, 231);
@@ -156,7 +140,7 @@ h1 {
     grid-template-columns: repeat(3, 28%);
     column-gap: 30px;
     row-gap: 100px;
-    padding-left: 20px;
+    padding-left: 24px;
   }
   .card {
     width: 355px;
