@@ -11,12 +11,7 @@
         </header>
         <div class="modal-body">
           <label for="topic-name" class="modal-label"> Topic's Name </label>
-          <input
-            type="text"
-            class="modal-input"
-            maxlength="35"
-            placeholder="Topic's Name"
-          />
+          <input type="text" class="modal-input" maxlength="35" placeholder="Topic's Name" />
 
           <label for="topic-type" class="modal-label"> Topic's Type </label>
           <select class="modal-input">
@@ -29,16 +24,8 @@
           <label for="color" class="modal-label"> Color </label>
           <div class="modal-color">
             <div v-for="color in colors" :key="color">
-              <span
-                class="inner-circle"
-                v-bind:style="{ backgroundColor: color }"
-                @click="checkColor(color)"
-              >
-                <span
-                  v-if="Colorcheck === color"
-                  style="color: white; font-weight: 700"
-                  >&#10003;</span
-                >
+              <span class="inner-circle" v-bind:style="{ backgroundColor: color }" @click="checkColor(color)">
+                <span v-if="Colorcheck === color" style="color: white; font-weight: 700">&#10003;</span>
               </span>
             </div>
           </div>

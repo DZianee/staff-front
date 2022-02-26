@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <!-- <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>nice yougicdt</h2>
     <h3>khung long cute qua nha></h3>
@@ -56,7 +56,8 @@
         <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a>
       </li>
     </ul>
-  </div>
+  </div> -->
+  <div></div>
 </template>
 
 <script>
