@@ -1,7 +1,11 @@
+// import store from "@/store";
+// import { createRouter, createWebHashHistory } from "vue-router";
+
 import HomeView from "../views/HomeView.vue";
-import Login from "../views/login/Index.vue";
-import ChangePassword from "../views/changePassword/Index.vue";
-const routes = [
+import Login from "../views/LoginView.vue";
+import ChangePassword from "../views/ChangePassView.vue";
+
+const router = [
   {
     path: "/",
     name: "home",
@@ -26,4 +30,4 @@ const routes = [
   },
 ];
 
-export default routes;
+export default router;

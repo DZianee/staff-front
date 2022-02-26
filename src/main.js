@@ -10,8 +10,25 @@ import "@/assets/css/util.css";
 import "@/assets/css/main.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 const app = createApp(App);
-app.config.globalProperties.$axios = axios;
 app.use(store);
+app.config.globalProperties.$axios = axios;
+
+axios.interceptors.response.use(
+  function (response) {
+    console.log(response);
+    return response;
+  },
+  function (error) {
+    switch (error.response.status) {
+      case 400:
+        console.log(error.response);
+        break;
+      default:
+        break;
+    }
+  }
+);
+
 app.use(router);
 app.component("default-layout", DefaultLayout);
 app.component("empty-layout", EmptyLayout);

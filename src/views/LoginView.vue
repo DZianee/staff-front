@@ -47,13 +47,16 @@ export default {
       try {
         const auth = { username: this.username, password: this.password };
         const res = await this.$axios.post(`api/v1/User/Login`, auth);
-        console.log(res);
         if (res.status === 200) {
           this.$store.dispatch("login", res.data);
-          this.$router.push({ name: "changePass" });
+          if (this.password === "admin") {
+            this.$router.push({ name: "changePass" });
+          } else {
+            this.$router.push({ name: "about" });
+          }
         }
       } catch (e) {
-        console.log(e.response);
+        //
       }
     },
   },
