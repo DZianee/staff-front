@@ -30,7 +30,7 @@
             </div>
           </div>
 
-          <button class="submit-add">Submit</button>
+          <button class="submit-add" @click="submit">Submit</button>
         </div>
       </div>
     </div>
@@ -44,6 +44,8 @@ export default {
     return {
       colors: ["red", "purple", "blue"],
       Colorcheck: "",
+      TopicName: "",
+      TopicType: "",
     };
   },
 
@@ -59,6 +61,7 @@ export default {
     checkColor(color) {
       this.Colorcheck = color;
     },
+    submit() {},
   },
 };
 </script>
