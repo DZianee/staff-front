@@ -1,39 +1,19 @@
 <template>
-  <div class="header">
-    <div class="header-user">
-      <img src="./assets/pic/users.png" />
-    </div>
-  </div>
-  <div class="router-view">
+  <component :is="layout">
     <router-view />
-  </div>
-
-  <Nav-Form />
+  </component>
 </template>
 
 <script>
-import NavForm from "@/components/NavForm.vue";
+import { useRouter } from "vue-router";
 
+const defaultLayout = "default";
 export default {
-  components: {
-    NavForm,
+  computed: {
+    layout() {
+      const { currentRoute } = useRouter();
+      return `${currentRoute.value.meta.layout || defaultLayout}-layout`;
+    },
   },
-  data() {
-    return {};
-  },
-
-  methods: {},
-
-  setup() {},
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  height: 1000px;
-}
-@import "./assets/style/main.css";
-</style>

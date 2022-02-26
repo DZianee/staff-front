@@ -1,26 +1,39 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import AboutView from "../views/AboutView.vue";
 
-const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: HomeView,
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: AboutView,
-  },
-];
+import routes from "./routes";
+// import store from "@/store";
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+// router.beforeEach((to, from, next) => {
+//   if (sessionStorage.getItem("Auth") != null) {
+//     switch (to.name) {
+//       case "login":
+//         next("/");
+//         break;
+//       case "about":
+//         // if (sessionStorage.getItem("Auth") !== "Admin") {
+//         next();
+//         // } else {
+//         //   next("/");
+//         // }
+//         break;
+//       case "changePass":
+//         next();
+//         break;
+//       default:
+//         next();
+//     }
+//   } else {
+//     if (to.name !== "login") {
+//       next("/login");
+//     } else {
+//       next();
+//     }
+//   }
+// });
 
 export default router;
