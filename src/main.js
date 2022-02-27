@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
 import axios from "./plugins/axios";
 import store from "./store/index";
 import DefaultLayout from "./layout/DefaultLayout.vue";
@@ -22,6 +24,9 @@ axios.interceptors.response.use(
     switch (error.response.status) {
       case 400:
         console.log(error.response);
+        break;
+      case 401:
+        console.log("khong co quyen, chua dang nhap");
         break;
       default:
         break;

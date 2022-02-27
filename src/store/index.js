@@ -3,14 +3,14 @@ import axios from "../plugins/axios";
 
 export default createStore({
   state: {
-    // token: null,
+    token: null,
     authenticated: false,
     user: null,
   },
   mutations: {
     setUser: (state, user) => (state.user = user),
     setAuth: (state, status) => (state.authenticated = status),
-    // setToken: (state, accessToken) => (state.token = accessToken),
+    setToken: (state, accessToken) => (state.token = accessToken),
   },
   actions: {
     login({ commit }, res) {
@@ -29,6 +29,7 @@ export default createStore({
     },
     fetchAccessToken({ commit }) {
       commit("setToken", sessionStorage.getItem("Token"));
+      axios.defaults.headers["Authorization"] = `Bearer ${sessionStorage.getItem("Token")}`;
     },
   },
 });

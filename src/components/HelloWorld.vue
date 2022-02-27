@@ -1,8 +1,9 @@
 <template>
-  <!-- <div class="hello">
+  <div class="hello content">
     <h1>{{ msg }}</h1>
     <h2>nice yougicdt</h2>
     <h3>khung long cute qua nha></h3>
+    <h1>hey</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
       check out the
@@ -56,7 +57,8 @@
         <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a>
       </li>
     </ul>
-  </div> -->
+  </div>
+  -->
   <div></div>
 </template>
 
