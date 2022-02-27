@@ -10,16 +10,8 @@
             <p>Are you sure you want to remove this item ?</p>
           </div>
           <div class="remove-btns">
-            <button type="button" data-bs-dismiss="modal" class="btn_cancel">
-              Cancel
-            </button>
-            <button
-              type="button"
-              data-bs-dismiss="modal"
-              class="btn_remove btn-danger"
-            >
-              Remove
-            </button>
+            <button type="button" data-bs-dismiss="modal" class="btn_cancel">Cancel</button>
+            <button type="button" data-bs-dismiss="modal" class="btn_remove btn-danger">Remove</button>
           </div>
         </div>
       </div>

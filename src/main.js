@@ -25,6 +25,9 @@ axios.interceptors.response.use(
       case 400:
         console.log(error.response);
         break;
+      case 401:
+        console.log("khong co quyen, chua dang nhap");
+        break;
       default:
         break;
     }

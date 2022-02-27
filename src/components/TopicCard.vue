@@ -1,34 +1,64 @@
 <template>
   <div class="topic-card">
-    <a href="#">
-      <div class="card_border--effect">
-        <div class="card">
-          <div class="card-content">
-            <div class="topic-card_adjust">
-              <button
-                class="icon icon_info"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                <i class="bx bx-info-circle bx-sm" />
-              </button>
-              <button
-                class="icon icon_delete"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal2"
-              >
-                <i class="bx bx-x bx-sm" />
-              </button>
-            </div>
-            <br />
-            <div class="content">
-              <h1>Blackpink in your area</h1>
-            </div>
-          </div>
-          <footer class="card-footer">
-            <p class="card-footer-item total-ideas">12 ideas</p>
-          </footer>
+    <div class="card">
+      <div class="card-content">
+        <div class="topic-card_adjust">
+          <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="bx bx-info-circle bx-sm" />
+          </button>
+          <button class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            <i class="bx bx-x bx-sm" />
+          </button>
         </div>
+        <br />
+        <div class="content">
+          <h1>Blackpink in your area</h1>
+        </div>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item total-ideas">12 ideas</p>
+      </footer>
+    </div>
+    <a href="#">
+      <div class="card">
+        <div class="card-content">
+          <div class="topic-card_adjust">
+            <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="bx bx-info-circle bx-sm" />
+            </button>
+            <button class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              <i class="bx bx-x bx-sm" />
+            </button>
+          </div>
+          <br />
+          <div class="content">
+            <h1>Blackpink in your area</h1>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <p class="card-footer-item total-ideas">12 ideas</p>
+        </footer>
+      </div></a
+    >
+    <a href="#">
+      <div class="card">
+        <div class="card-content">
+          <div class="topic-card_adjust">
+            <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="bx bx-info-circle bx-sm" />
+            </button>
+            <button class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              <i class="bx bx-x bx-sm" />
+            </button>
+          </div>
+          <br />
+          <div class="content">
+            <h1>Blackpink in your area</h1>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <p class="card-footer-item total-ideas">12 ideas</p>
+        </footer>
       </div></a
     >
   </div>
@@ -52,17 +82,7 @@ export default {
   padding: 8px;
   border-radius: 23px;
   position: relative;
-  background: linear-gradient(
-    60deg,
-    #f79533,
-    #f37055,
-    #ef4e7b,
-    #a166ab,
-    #5073b8,
-    #1098ad,
-    #07b39b,
-    #6fba82
-  );
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
   animation: animatedgradient 3s ease alternate infinite;
   background-size: 300% 300%;
 }

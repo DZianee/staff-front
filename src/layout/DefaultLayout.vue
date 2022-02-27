@@ -1,5 +1,6 @@
 <template>
   <div class="header">
+    <img class="header-logo-image" src="../assets/images/logo.jpg" />
     <div class="header-user">
       <img class="header-user-image" src="../assets/pic/users.png" />
       <ul class="header-user-info">
