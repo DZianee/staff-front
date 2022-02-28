@@ -530,6 +530,16 @@ iframe {
   background-color: white;
 }
 
+.header-logo-image {
+  position: absolute;
+  position: absolute;
+  width: 130px;
+  height: 66px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .header .header-user{
   display: block;
   position: absolute;
@@ -565,6 +575,7 @@ iframe {
   color: black;
   line-height: 44px;
   border-radius: 5px;
+  padding: 0;
 }
 
 .header-user-logout {
@@ -602,6 +613,7 @@ iframe {
   height: 406px;
   width: 60px;
   text-align: center;
+  padding: 0;
 }
 
 .nav .nav-items .nav-item img {
@@ -617,19 +629,17 @@ iframe {
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
+  text-decoration: none;
 
   position: absolute;
   right: 80%;
   z-index: 1;
 }
 
-.nav .nav-item:hover .tooltiptext {
-  display: inline-block;
-}
-
 .nav-items a.router-link-exact-active {
   border-right: 5px solid pink;
   border-radius: 5px;
+  text-decoration: none;
 }
 
 .Topic-Modal {
@@ -780,6 +790,10 @@ iframe {
     background-color: pink;
     border-right: none;
   }
+
+  .nav .nav-item:hover .tooltiptext {
+    display: inline-block;
+  }
 }
 /* Tablet */
 
@@ -791,6 +805,9 @@ iframe {
     border-radius: 9px;
     background-color: pink;
     border-right: none;
+  }
+  .nav .nav-item:hover .tooltiptext {
+    display: inline-block;
   }
 
   .header .header-user .header-user-info{
@@ -856,10 +873,10 @@ iframe {
   }
 
   .header .header-user .header-user-info{
-    min-width: 140px;
+    min-width: 120px;
     height: 86px;
     top: 8%;
-    left: -572%;
+    left: -452%;
     text-align: left;
   }
 

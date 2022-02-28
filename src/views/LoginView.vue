@@ -19,10 +19,10 @@
       <div class="w-full text-right p-t-15 p-r-10">
         <span class="font-weight-bold"> Forgot Password </span>
       </div>
-
       <div class="container-login100-form-btn m-t-17">
         <button tag="button" class="login100-form-btn" to="/change-password">Sign In</button>
       </div>
+      <p v-if="LoginError == true">Wrong username or password</p>
     </form>
   </div>
 </template>
@@ -39,6 +39,7 @@ export default {
     return {
       username: "",
       password: "",
+      LoginError: false,
     };
   },
   computed: {},
@@ -48,15 +49,15 @@ export default {
         const auth = { username: this.username, password: this.password };
         const res = await this.$axios.post(`api/v1/User/Login`, auth);
         if (res.status === 200) {
-          this.$store.dispatch("login", res.data);
-          if (this.password === "admin") {
+          if (this.password === "123123") {
             this.$router.push({ name: "changePass" });
           } else {
+            this.$store.dispatch("login", res.data);
             this.$router.push({ name: "about" });
           }
         }
       } catch (e) {
-        //
+        this.LoginError = true;
       }
     },
   },

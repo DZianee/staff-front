@@ -30,7 +30,7 @@
             </div>
           </div>
 
-          <button class="submit-add">Submit</button>
+          <button class="submit-add" @click="submit">Submit</button>
         </div>
       </div>
     </div>
@@ -44,6 +44,8 @@ export default {
     return {
       colors: ["red", "purple", "blue"],
       Colorcheck: "",
+      TopicName: "",
+      TopicType: "",
     };
   },
 
@@ -58,6 +60,24 @@ export default {
   methods: {
     checkColor(color) {
       this.Colorcheck = color;
+    },
+    async submit() {
+      try {
+        console.log(sessionStorage.getItem("Token"));
+        this.$store.dispatch("fetchAccessToken");
+        const topic = { name: this.TopicName, type: this.TopicType, colorCode: "0", departmentId: "string" };
+        const res = await this.$axios.post(`api/v1/Topic`, topic, this.$axios.defaults.headers["Authorization"]);
+        if (res.status === 200) {
+          // if (this.password === "123123") {
+          //   this.$router.push({ name: "changePass" });
+          // } else {
+          //   this.$store.dispatch("login", res.data);
+          //   this.$router.push({ name: "about" });
+          // }
+        }
+      } catch (e) {
+        //
+      }
     },
   },
 };

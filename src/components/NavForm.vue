@@ -7,13 +7,13 @@
           <span class="tooltiptext">Home</span>
         </li>
       </router-link>
-      <router-link to="/about">
+      <router-link to="/topic-view">
         <li class="nav-item">
           <img src="../assets/pic/officebag.png" />
           <span class="tooltiptext">Bag</span>
         </li>
       </router-link>
-      <li v-if="this.$route.name == 'about'" class="nav-item js-add" @click="modalAct()">
+      <li v-if="this.$route.name == 'topicView'" class="nav-item js-add" @click="modalAct()">
         <img src="../assets/pic/Plus.png" />
       </li>
       <!-- <router-link to="/"> -->
