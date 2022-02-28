@@ -5,18 +5,10 @@
         <div class="card">
           <div class="card-content">
             <div class="topic-card_adjust">
-              <button
-                class="icon icon_info"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
+              <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="bx bx-info-circle bx-sm" />
               </button>
-              <button
-                class="icon icon_delete"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal2"
-              >
+              <button class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                 <i class="bx bx-x bx-sm" />
               </button>
             </div>
@@ -52,17 +44,7 @@ export default {
   padding: 8px;
   border-radius: 23px;
   position: relative;
-  background: linear-gradient(
-    60deg,
-    #f79533,
-    #f37055,
-    #ef4e7b,
-    #a166ab,
-    #5073b8,
-    #1098ad,
-    #07b39b,
-    #6fba82
-  );
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
   animation: animatedgradient 3s ease alternate infinite;
   background-size: 300% 300%;
 }

@@ -5,32 +5,17 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Topic's Infomation</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="body">
               <div class="topic-name">
                 <label for="topicName">Topic's name</label>
-                <input
-                  type="text"
-                  class="topicName_input"
-                  value="value"
-                  disabled
-                />
+                <input type="text" class="topicName_input" value="value" disabled />
               </div>
               <div class="topic-type">
                 <label for="topicType">Topic's type</label>
-                <input
-                  type="text"
-                  class="topicType_input"
-                  value="value"
-                  disabled
-                />
+                <input type="text" class="topicType_input" value="value" disabled />
               </div>
               <div class="closure-date">
                 <label for="closureDate">Closure date</label>

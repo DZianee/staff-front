@@ -7,15 +7,10 @@
             <h5 class="modal-title">Warning</h5>
           </div>
           <div class="modal-body">
-            <p>
-              You cannot remove this item since it has already been using
-              recently
-            </p>
+            <p>You cannot remove this item since it has already been using recently</p>
           </div>
           <div class="btn">
-            <button type="button" data-bs-dismiss="modal" class="btn_cancel">
-              OK
-            </button>
+            <button type="button" data-bs-dismiss="modal" class="btn_cancel">OK</button>
           </div>
         </div>
       </div>
