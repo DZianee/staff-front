@@ -651,7 +651,7 @@ iframe {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 99;
 }
 
 .Topic-Modal-backdrop {
@@ -691,7 +691,7 @@ iframe {
 }
 
 .Topic-Modal-header p {
-  font-size: 26px;
+  font-size: 20px;
 }
 
 .Topic-Modal-close {
