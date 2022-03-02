@@ -41,11 +41,7 @@ export default {
     TopicModalForm,
   },
   data() {
-    return {
-      isHome: false,
-      isTopic: false,
-      isGraph: false,
-    };
+    return {};
   },
 
   methods: {},
@@ -59,22 +55,6 @@ export default {
 
     return { modalActive, modalAct };
   },
-  // watch: {
-  //   $route() {
-  //     switch (this.$route.name) {
-  //       case "home":
-  //         this.isHome = true;
-  //         this.isTopic = false;
-  //         this.isGraph = false;
-  //         break;
-  //       case "about":
-  //         this.isHome = false;
-  //         this.isTopic = true;
-  //         this.isGraph = false;
-  //         break;
-  //     }
-  //   },
-  // },
 };
 </script>
 

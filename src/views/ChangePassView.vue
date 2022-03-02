@@ -14,10 +14,10 @@
         <span class="font-weight-bold"> Confirm new password </span>
       </div>
       <PasswordInput v-model:value="reNewPassword" />
-      <span v-if="NewPassError" style="color: red">New and Confirm PassWord dont match</span>
       <div class="container-login100-form-btn m-t-45 m-b-15">
         <button class="login100-form-btn" :disabled="NewPassError">Reset password</button>
       </div>
+      <span class="Error-Message" v-if="NewPassError">New and Confirm PassWord dont match</span>
     </form>
   </div>
 </template>

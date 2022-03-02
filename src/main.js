@@ -28,6 +28,12 @@ axios.interceptors.response.use(
       case 401:
         console.log("khong co quyen, chua dang nhap");
         break;
+      case 403:
+        console.log("Forbidden");
+        break;
+      case 500:
+        console.log("Server Error");
+        break;
       default:
         break;
     }

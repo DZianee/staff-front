@@ -705,13 +705,13 @@ iframe {
 
 .Topic-Modal-body {
   padding: 16px;
-  margin-top: 80px;
+  margin-top: 55px;
 }
 
 .Topic-Modal-label {
   display: block;
   font-size: 15px;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   text-align: left;
 }
 
@@ -722,7 +722,7 @@ iframe {
   width: 100%;
   padding: 10px;
   font-size: 15px;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .submit-add {
@@ -771,6 +771,10 @@ iframe {
   position: relative; 
   top: 70px;
   text-align: center;
+}
+
+.Error-Message {
+  color: red;
 }
 
 @keyframes modalfadein {
@@ -895,7 +899,7 @@ iframe {
     position: relative;
     width: 414px;
     max-width: calc(100% - 32px);
-    height: 400px;
+    height: 480px;
     background-color: white;
     border-radius: 5px;
     animation: modalfadein ease 0.3s;

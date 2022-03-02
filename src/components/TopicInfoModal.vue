@@ -11,15 +11,15 @@
             <div class="body">
               <div class="topic-name">
                 <label for="topicName">Topic's name</label>
-                <input type="text" class="topicName_input" value="value" disabled />
+                <input type="text" class="topicName_input" :value="topicInfo.name" disabled />
               </div>
               <div class="topic-type">
                 <label for="topicType">Topic's type</label>
-                <input type="text" class="topicType_input" value="value" disabled />
+                <input type="text" class="topicType_input" :value="topicInfo.type" disabled />
               </div>
               <div class="closure-date">
                 <label for="closureDate">Closure date</label>
-                <input type="text" value="value" disabled />
+                <input type="text" :value="CloseDate" disabled />
               </div>
             </div>
           </div>
@@ -37,6 +37,25 @@ export default {
   name: "TopicInfoModal",
   props: {
     topicInfo: Object,
+    // topicActive: String,
+  },
+  data() {
+    return {
+      CloseDate: "",
+    };
+  },
+  watch: {
+    topicInfo(newVal) {
+      var timeStamp = newVal.closureDate.toString();
+      if (timeStamp.length < 13) {
+        for (var i = timeStamp.length; i < 13; i++) {
+          timeStamp += "0";
+        }
+      }
+      const date = new Date(parseInt(timeStamp));
+      console.log(date);
+      this.CloseDate = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+    },
   },
 };
 </script>

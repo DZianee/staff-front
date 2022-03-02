@@ -29,13 +29,25 @@ export default {
   computed: {
     User() {
       return JSON.parse(sessionStorage.getItem("Auth"));
+      // return null;
     },
   },
 
   methods: {
-    logout() {
-      this.$store.dispatch("logout");
-      this.$router.push({ name: "login" });
+    // logout() {
+
+    //   this.$store.dispatch("logout");
+    //   this.$router.push({ name: "login" });
+    // },
+    async logout() {
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        await this.$axios.delete(`api/v1/User/RevokeSelfToken`);
+        this.$store.dispatch("logout");
+        this.$router.push({ name: "login" });
+      } catch (e) {
+        //
+      }
     },
   },
 };

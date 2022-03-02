@@ -22,7 +22,7 @@
       <div class="container-login100-form-btn m-t-17">
         <button tag="button" class="login100-form-btn" to="/change-password">Sign In</button>
       </div>
-      <p v-if="LoginError == true">Wrong username or password</p>
+      <p class="Error-Message" v-if="LoginError == true">Wrong username or password</p>
     </form>
   </div>
 </template>
@@ -53,11 +53,25 @@ export default {
             this.$router.push({ name: "changePass" });
           } else {
             this.$store.dispatch("login", res.data);
-            this.$router.push({ name: "about" });
+            this.$router.push({ name: "home" });
           }
+          setInterval(
+            function () {
+              this.refresh();
+            }.bind(this),
+            30 * 60 * 1000
+          );
         }
       } catch (e) {
         this.LoginError = true;
+      }
+    },
+    async refresh() {
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        await this.$axios.post(`api/v1/User/RefreshToken`, this.$axios.defaults.headers["Authorization"]);
+      } catch (e) {
+        //
       }
     },
   },

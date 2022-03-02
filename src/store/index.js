@@ -16,7 +16,7 @@ export default createStore({
     login({ commit }, res) {
       axios.defaults.headers["Authorization"] = `Bearer ${res.content.token.token}`;
       commit("setAuth", true);
-      commit("setUser", res.content.user);
+      commit("setUser", JSON.stringify(res.content.user));
       // commit("setToken", res.content.token.token);
       sessionStorage.setItem("Token", res.content.token.token);
       sessionStorage.setItem("Auth", JSON.stringify(res.content.user));
@@ -30,6 +30,9 @@ export default createStore({
     fetchAccessToken({ commit }) {
       commit("setToken", sessionStorage.getItem("Token"));
       axios.defaults.headers["Authorization"] = `Bearer ${sessionStorage.getItem("Token")}`;
+    },
+    getUser({ commit }) {
+      commit("setUser", sessionStorage.getItem("Auth"));
     },
   },
 });
