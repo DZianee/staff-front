@@ -6,6 +6,7 @@ import Login from "../views/LoginView.vue";
 import ChangePassword from "../views/ChangePassView.vue";
 import TopicView from "../views/TopicView.vue";
 import ManageView from "../views/ManageView.vue";
+import IdeaView from "../views/IdeaView.vue";
 
 const router = [
   {
@@ -39,6 +40,11 @@ const router = [
     path: "/manageview",
     name: "manageview",
     component: ManageView,
+  },
+  {
+    path: "/idea-view",
+    name: "ideaView",
+    component: IdeaView,
   },
 ];
 
