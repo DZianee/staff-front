@@ -5,7 +5,7 @@ import HomeView from "../views/HomeView.vue";
 import Login from "../views/LoginView.vue";
 import ChangePassword from "../views/ChangePassView.vue";
 import TopicView from "../views/TopicView.vue";
-import UserManage from "../views/UserManage.vue";
+import ManageView from "../views/ManageView.vue";
 
 const router = [
   {
@@ -36,9 +36,9 @@ const router = [
     component: TopicView,
   },
   {
-    path: "/usermanage",
-    name: "usermanage",
-    component: UserManage,
+    path: "/manageview",
+    name: "manageview",
+    component: ManageView,
   },
 ];
 

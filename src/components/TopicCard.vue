@@ -41,7 +41,7 @@ import RemoveModal from "@/components/RemoveModal.vue";
 import RemoveErrorModal from "@/components/RemoveErrorModal.vue";
 import { ref } from "vue";
 
-var a;
+// var a;
 
 export default {
   name: "TopicCard",
@@ -72,11 +72,11 @@ export default {
   },
   mounted() {
     this.GetTopics();
-    a = setInterval(() => this.GetTopics(), 60 * 1000);
+    // a = setInterval(() => this.GetTopics(), 60 * 1000);
   },
-  beforeUnmount() {
-    clearInterval(a);
-  },
+  // beforeUnmount() {
+  //   clearInterval(a);
+  // },
 };
 </script>
 

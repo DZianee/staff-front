@@ -53,8 +53,19 @@ export default {
         }
       }
       const date = new Date(parseInt(timeStamp));
-      console.log(date);
-      this.CloseDate = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+      var month;
+      var dateVal;
+      if (date.getMonth() < 10) {
+        month = "0" + date.getMonth();
+      } else {
+        month = date.getMonth();
+      }
+      if (date.getDate() < 10) {
+        dateVal = "0" + date.getDate();
+      } else {
+        dateVal = date.getDate();
+      }
+      this.CloseDate = month + 1 + "/" + dateVal + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
     },
   },
 };

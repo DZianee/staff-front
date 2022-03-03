@@ -825,6 +825,9 @@ iframe {
 /* phone */
 
 @media (max-width: 740px){
+  #app {
+    height: calc(100% + 60px);
+  }
   .header .header-user{
       right: 14px;
   }
