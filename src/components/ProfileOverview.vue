@@ -25,9 +25,11 @@ export default {
 .profile-overview {
   display: flex;
   justify-content: center;
+  /* border: solid palegreen; */
 }
 .card {
-  width: 70%;
+  width: 80%;
+  border-radius: 12px;
 }
 img {
   padding: 10px;
@@ -42,5 +44,39 @@ img {
 }
 h5 {
   font-weight: 600;
+}
+@media screen and (max-width: 1430px) {
+  .card {
+    width: 85%;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .card {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 1025px) {
+  .card {
+    width: 50%;
+  }
+  .profile-overview {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 769px) {
+  .card {
+    width: 70%;
+  }
+  .profile-overview {
+    width: 80%;
+    position: relative;
+    left: 30px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 483px) {
+  .profile-overview {
+    width: 65%;
+    left: -50px;
+  }
 }
 </style>

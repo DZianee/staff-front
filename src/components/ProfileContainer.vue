@@ -25,9 +25,32 @@ export default {
 <style scoped>
 .profile-container {
   display: grid;
-  grid-template-columns: 40% 55%;
-  column-gap: 40px;
+  grid-template-columns: 32% 62%;
+  column-gap: 30px;
   position: absolute;
   top: 58px;
+  left: 30px;
+}
+@media screen and (max-width: 1430px) {
+  .profile-container {
+    top: 30px;
+    grid-template-columns: 30% 60%;
+    left: 40px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .profile-container {
+    top: 30px;
+    grid-template-columns: 30% 58%;
+    left: 40px;
+  }
+}
+@media screen and (max-width: 1025px) {
+  .profile-container {
+    grid-template-columns: 100%;
+    position: absolute;
+    top: 30px;
+    row-gap: 50px;
+  }
 }
 </style>

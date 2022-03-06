@@ -56,11 +56,11 @@ export default {
   width: 300px;
   position: absolute;
   z-index: 1;
-  left: 200px;
+  left: 220px;
   top: -30px;
 }
 .card-body {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 h4 {
   display: flex;
@@ -100,7 +100,7 @@ h4 {
 }
 label {
   font-size: 15px;
-  color: rgb(124, 117, 117);
+  color: rgb(141, 129, 129);
   font-weight: 800;
   letter-spacing: 0.5px;
 }
@@ -109,7 +109,152 @@ input {
   border-radius: 5px;
   outline-color: rgb(255, 255, 255);
   background-color: white;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 16px;
+}
+@media screen and (max-width: 1430px) {
+  .card {
+    height: 300px;
+  }
+  .card-header {
+    left: 170px;
+  }
+  .info-details {
+    display: grid;
+    grid-template-rows: repeat(3, 32%);
+    column-gap: 5px;
+    row-gap: 10px;
+    height: 220px;
+  }
+  .firstname label,
+  .lastname label,
+  .birthDate label,
+  .gender label,
+  .department label,
+  .phone label {
+    margin-right: 40px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .card-header {
+    left: 140px;
+  }
+  .card {
+    height: 450px;
+  }
+  .info-details {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(6, 25%);
+    row-gap: 10px;
+    height: 220px;
+  }
+  .firstname label,
+  .lastname label,
+  .birthDate label,
+  .gender label,
+  .department label,
+  .phone label {
+    position: relative;
+    left: -40px;
+    margin-right: 0;
+  }
+  input {
+    left: 20px;
+    position: relative;
+    width: 320px;
+  }
+}
+@media screen and (max-width: 1025px) {
+  .card-header {
+    left: 210px;
+    width: 250px;
+  }
+  .card {
+    height: 250px;
+  }
+  .firstname label,
+  .lastname label,
+  .birthDate label,
+  .gender label,
+  .department label,
+  .phone label {
+    position: relative;
+    left: 0;
+    margin-right: 30px;
+  }
+  input {
+    left: 0;
+    position: relative;
+    width: 200px;
+  }
+  .info-details {
+    grid-template-columns: repeat(2, 50%);
+    /* grid-template-rows: repeat(6, 25%); */
+    row-gap: 10px;
+    /* height: 220px; */
+  }
+}
+@media screen and (max-width: 769px) {
+  .card-header {
+    left: 150px;
+  }
+  .info-details {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(6, 25%);
+    row-gap: 10px;
+    height: 220px;
+  }
+  .card {
+    height: 450px;
+  }
+  .firstname label,
+  .lastname label,
+  .birthDate label,
+  .gender label,
+  .department label,
+  .phone label {
+    position: relative;
+    left: -40px;
+    margin-right: 0;
+  }
+  input {
+    left: 20px;
+    position: relative;
+    width: 320px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 483px) {
+  .card-header {
+    left: 70px;
+  }
+  .firstname label,
+  .lastname label,
+  .birthDate label,
+  .gender label,
+  .department label,
+  .phone label {
+    left: -30px;
+  }
+  .firstname,
+  .lastname,
+  .birthDate,
+  .gender,
+  .department,
+  .phone {
+    border-bottom: solid #e0e0e0;
+  }
+  input {
+    left: 30px;
+    position: relative;
+    width: 170px;
+  }
+  .info-details {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(6, 25%);
+    row-gap: 10px;
+    height: 220px;
+  }
+  .card {
+    height: 450px;
+  }
 }
 </style>

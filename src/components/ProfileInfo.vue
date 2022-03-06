@@ -27,4 +27,17 @@ export default {
 div:not(:first-child) {
   margin-top: 90px;
 }
+@media screen and (max-width: 1025px) {
+  .profile-info {
+    width: 90%;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 483px) {
+  .profile-info {
+    width: 63%;
+    position: relative;
+    left: -50px;
+    padding: 20px;
+  }
+}
 </style>
