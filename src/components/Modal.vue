@@ -1,6 +1,6 @@
 <template>
   <transition>
-    <div class="Topic-Modal" v-if="modalActive">
+    <div class="base-modal Topic-Modal" v-if="modalActive">
       <span class="Topic-Modal-backdrop" @click="close"></span>
       <div class="Topic-Modal-container">
         <div class="Topic-Modal-close" @click="close">
@@ -11,7 +11,10 @@
         </header>
         <div class="Topic-Modal-body">
           <slot></slot>
-          <button class="submit-add" @click="submit">{{ confirmText }}</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" v-if="!hideConfirm">{{ confirmText }}</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="close">Close</button>
         </div>
       </div>
     </div>
@@ -21,7 +24,7 @@
 <script>
 export default {
   name: "TopicModalForm",
-  props: ["modalActive", "title", "confirmText"],
+  props: ["modalActive", "title", "confirmText", "hideConfirm"],
   methods: {
     close() {
       this.$emit("close");
@@ -32,3 +35,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.base-modal {
+  font-family: inherit !important;
+}
+</style>
