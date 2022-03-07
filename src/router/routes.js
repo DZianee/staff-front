@@ -6,6 +6,7 @@ import Login from "../views/LoginView.vue";
 import ChangePassword from "../views/ChangePassView.vue";
 import TopicView from "../views/TopicView.vue";
 import ProfileView from "../views/ProfileView.vue";
+import IdeaView from "../views/IdeaView.vue";
 
 const router = [
   {
@@ -39,6 +40,11 @@ const router = [
     path: "/profile-view/:id",
     name: "profileView",
     component: ProfileView,
+  },
+  {
+    path: "/idea-view",
+    name: "ideaView",
+    component: IdeaView,
   },
 ];
 

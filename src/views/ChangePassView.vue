@@ -18,16 +18,22 @@
       <div class="container-login100-form-btn m-t-45 m-b-15">
         <button class="login100-form-btn" :disabled="NewPassError">Reset password</button>
       </div>
+      <Modal title="Confirm change password" :modalActive="isOpenModal" confirmText="Agree" @submit="confirm" @close="closeModal">
+        <p>Your password will change. Click 'Agree' to confirm and update new password</p>
+        <br />
+      </Modal>
     </form>
   </div>
 </template>
 
 <script>
 import PasswordInput from "@/components/PasswordInput";
+import Modal from "@/components/Modal.vue";
 export default {
   name: "ChangePasswordPage",
   components: {
     PasswordInput,
+    Modal,
   },
   data() {
     return {
@@ -35,6 +41,7 @@ export default {
       newPassword: "",
       reNewPassword: "",
       NewPassError: false,
+      isOpenModal: false,
     };
   },
   computed: {
@@ -43,7 +50,13 @@ export default {
     },
   },
   methods: {
-    async submit() {
+    closeModal() {
+      this.isOpenModal = false;
+    },
+    submit() {
+      this.isOpenModal = true;
+    },
+    async confirm() {
       try {
         const res = await this.$axios.put(`api/v1/User/${this.user.id}/changePassword`, {
           oldPassword: this.oldPassword,
@@ -52,6 +65,7 @@ export default {
         if (res.status === 200) {
           this.$router.push({ name: "login" });
         }
+        this.closeModal();
       } catch (e) {
         //
       }
