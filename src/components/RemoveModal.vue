@@ -7,11 +7,11 @@
             <h5 class="modal-title">Remove Confirmation</h5>
           </div>
           <div class="modal-body">
-            <p>Are you sure you want to remove this item ?</p>
+            <p>Are you sure you want to remove {{ topicInfo.name }} topic ?</p>
           </div>
           <div class="remove-btns">
             <button type="button" data-bs-dismiss="modal" class="btn_cancel">Cancel</button>
-            <button type="button" data-bs-dismiss="modal" class="btn_remove btn-danger">Remove</button>
+            <button type="button" data-bs-dismiss="modal" class="btn_remove btn-danger" @click.prevent="deleteTopic">Remove</button>
           </div>
         </div>
       </div>
@@ -22,6 +22,22 @@
 <script>
 export default {
   name: "RemoveModal",
+  props: {
+    topicInfo: Object,
+  },
+  methods: {
+    async deleteTopic() {
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        const res = await this.$axios.delete(`api/v1/Topic/${this.topicInfo.id}`, this.$axios.defaults.headers["Authorization"]);
+        if (res.status == 200) {
+          this.$router.go();
+        }
+      } catch (e) {
+        //
+      }
+    },
+  },
 };
 </script>
 

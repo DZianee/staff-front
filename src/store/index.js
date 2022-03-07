@@ -14,11 +14,15 @@ export default createStore({
   },
   actions: {
     login({ commit }, res) {
-      axios.defaults.headers["Authorization"] = `Bearer ${res.content.token.token}`;
-      commit("setAuth", true);
       commit("setUser", JSON.stringify(res.content.user));
-      sessionStorage.setItem("Token", res.content.token.token);
       sessionStorage.setItem("User", JSON.stringify(res.content.user));
+      sessionStorage.setItem("Token", res.content.token.token);
+      // commit("setToken", res.content.token.token);
+    },
+    attachUser({ commit }, res) {
+      axios.defaults.headers["Authorization"] = `Bearer ${res.content.token.token}`;
+      sessionStorage.setItem("Auth", true);
+      commit("setAuth", true);
     },
     logout({ commit }) {
       commit("setAuth", false);

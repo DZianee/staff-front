@@ -7,6 +7,9 @@ import axios from "./plugins/axios";
 import store from "./store/index";
 import DefaultLayout from "./layout/DefaultLayout.vue";
 import EmptyLayout from "./layout/EmptyLayout.vue";
+import Modal from "./components/Modal.vue";
+import PaginationList from "./components/PaginationList.vue";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "@/assets/css/util.css";
 import "@/assets/css/main.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -27,6 +30,12 @@ axios.interceptors.response.use(
       case 401:
         console.log("khong co quyen, chua dang nhap");
         break;
+      case 403:
+        console.log("Forbidden");
+        break;
+      case 500:
+        console.log(error.response);
+        break;
       default:
         break;
     }
@@ -36,4 +45,6 @@ axios.interceptors.response.use(
 app.use(router);
 app.component("default-layout", DefaultLayout);
 app.component("empty-layout", EmptyLayout);
+app.component("confirm-modal", Modal);
+app.component("pagination-list", PaginationList);
 app.mount("#app");
