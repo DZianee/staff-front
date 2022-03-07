@@ -18,31 +18,69 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">aaaaaa</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+          <tr v-for="idea in ideas" :key="idea.id">
+            <th scope="row">{{ idea.userName }}</th>
+            <td>{{ idea.department }}</td>
+            <td><button type="button" class="btn btn-primary" @click="onViewIdea(idea)">View Idea</button></td>
+            <td><button type="button" class="btn btn-danger" @click="onDelete(idea.id)">Delete</button></td>
           </tr>
         </tbody>
       </table>
     </div>
+    <!-- view detail modal -->
+    <Modal :title="'Idea Detail'" :modalActive="isActiveModal" :hideConfirm="true" @close="closeViewDetailModal">
+      <form class="form-idea-container">
+        <div class="row mb-1">
+          <label class="col-sm-2 col-form-label fw-bold">Id: </label>
+          <div class="col-sm-10 align-self-center">{{ currentIdea.id }}</div>
+        </div>
+        <div class="row mb-1">
+          <label class="col-sm-2 col-form-label fw-bold">Idea: </label>
+          <div class="col-sm-10 align-self-center">Create horizontal forms with the grid by adding the</div>
+        </div>
+      </form>
+    </Modal>
   </div>
 </template>
 <script>
-export default {};
+import Modal from "@/components/Modal.vue";
+export default {
+  components: {
+    Modal,
+  },
+  data() {
+    return {
+      isActiveModal: false,
+      ideas: [
+        {
+          userName: "Khung Long Xanh",
+          department: "HR",
+          id: "id01",
+        },
+        {
+          userName: "Khung Long Vang",
+          department: "PD",
+          id: "id02",
+        },
+        {
+          userName: "Khung Long Do",
+          department: "IT",
+          id: "id03",
+        },
+      ],
+      currentIdea: null,
+    };
+  },
+  methods: {
+    closeViewDetailModal() {
+      this.isActiveModal = false;
+    },
+    onViewIdea(idea) {
+      this.currentIdea = idea;
+      this.isActiveModal = true;
+    },
+  },
+};
 </script>
 <style scoped>
 .table-toolbar {
@@ -86,5 +124,14 @@ export default {};
 
 .left-pan i {
   padding-left: 10px;
+}
+
+.form-idea-container {
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: left;
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>

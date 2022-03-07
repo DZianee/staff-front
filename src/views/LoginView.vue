@@ -22,13 +22,14 @@
       <div class="container-login100-form-btn m-t-17">
         <button tag="button" class="login100-form-btn" to="/change-password">Sign In</button>
       </div>
-      <p v-if="LoginError == true">Wrong username or password</p>
+      <p class="Error-Message" v-if="LoginError == true">Wrong username or password</p>
     </form>
   </div>
 </template>
 
 <script>
 import PasswordInput from "@/components/PasswordInput";
+// import sha256 from "js-sha256";
 
 export default {
   name: "LoginPage",
@@ -49,19 +50,20 @@ export default {
         const auth = { username: this.username, password: this.password };
         const res = await this.$axios.post(`api/v1/User/Login`, auth);
         if (res.status === 200) {
-          if (this.password === "123123") {
+          this.$store.dispatch("login", res.data);
+          if (this.password == "123123") {
             this.$router.push({ name: "changePass" });
           } else {
-            this.$store.dispatch("login", res.data);
+            this.$store.dispatch("attachUser", res.data);
             this.$router.push({ name: "home" });
           }
         }
+        console.log(auth);
       } catch (e) {
         this.LoginError = true;
       }
     },
   },
-  created() {},
   mounted() {},
 };
 </script>

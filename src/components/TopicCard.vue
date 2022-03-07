@@ -1,76 +1,85 @@
 <template>
   <div class="topic-card">
-    <div class="card">
-      <div class="card-content">
-        <div class="topic-card_adjust">
-          <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <i class="bx bx-info-circle bx-sm" />
-          </button>
-          <button class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-            <i class="bx bx-x bx-sm" />
-          </button>
-        </div>
-        <br />
-        <div class="content">
-          <h1>Blackpink in your area</h1>
-        </div>
-      </div>
-      <footer class="card-footer">
-        <p class="card-footer-item total-ideas">12 ideas</p>
-      </footer>
-    </div>
-    <router-link :to="{path:'/idea-view'}">
-      <a href="#">
-        <div class="card">
-          <div class="card-content">
-            <div class="topic-card_adjust">
-              <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="bx bx-info-circle bx-sm" />
-              </button>
-              <button class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                <i class="bx bx-x bx-sm" />
-              </button>
-            </div>
-            <br />
-            <div class="content">
-              <h1>Blackpink in your area</h1>
-            </div>
-          </div>
-          <footer class="card-footer">
-            <p class="card-footer-item total-ideas">12 ideas</p>
-          </footer>
-        </div></a
-      >
-    </router-link>
-    <a href="#">
+    <div v-for="topic in Topics" :key="topic.id">
       <div class="card">
         <div class="card-content">
           <div class="topic-card_adjust">
-            <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="topicInfoAct(topic)">
               <i class="bx bx-info-circle bx-sm" />
             </button>
-            <button class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            <button
+              v-if="topic.totalIdea <= 0"
+              class="icon icon_delete"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal1"
+              @click="topicInfoAct(topic)">
+              <i class="bx bx-x bx-sm" />
+            </button>
+            <button v-if="topic.totalIdea > 0" class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
               <i class="bx bx-x bx-sm" />
             </button>
           </div>
           <br />
           <div class="content">
-            <h1>Blackpink in your area</h1>
+            <h1>{{ topic.name }}</h1>
           </div>
         </div>
         <footer class="card-footer">
-          <p class="card-footer-item total-ideas">12 ideas</p>
+          <p class="card-footer-item total-ideas">{{ topic.totalIdea }} ideas</p>
         </footer>
-      </div></a
-    >
+      </div>
+    </div>
+    <TopicInfoModal :topicInfo="topicInfoActive" />
+    <RemoveModal :topicInfo="topicInfoActive" />
+    <RemoveErrorModal />
   </div>
 </template>
+
 <script>
+import TopicInfoModal from "@/components/TopicInfoModal.vue";
+import RemoveModal from "@/components/RemoveModal.vue";
+import RemoveErrorModal from "@/components/RemoveErrorModal.vue";
+import { ref } from "vue";
+
+// var a;
+
 export default {
   name: "TopicCard",
-  props: {},
+  components: { TopicInfoModal, RemoveModal, RemoveErrorModal },
+  data() {
+    return {
+      Topics: [],
+    };
+  },
+  methods: {
+    async GetTopics() {
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        const res = await this.$axios.post(`api/v1/Topic/GetList`, { name: "" }, this.$axios.defaults.headers["Authorization"]);
+        this.Topics = res.data.content;
+      } catch (e) {
+        //
+      }
+    },
+  },
+  setup() {
+    const topicInfoActive = ref({});
+    const topicInfoAct = (value) => {
+      topicInfoActive.value = value;
+      console.log(topicInfoActive);
+    };
+    return { topicInfoActive, topicInfoAct };
+  },
+  mounted() {
+    this.GetTopics();
+    // a = setInterval(() => this.GetTopics(), 60 * 1000);
+  },
+  // beforeUnmount() {
+  //   clearInterval(a);
+  // },
 };
 </script>
+
 <style scoped>
 .topic-card {
   display: grid;

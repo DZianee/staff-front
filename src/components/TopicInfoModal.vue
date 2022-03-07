@@ -11,15 +11,15 @@
             <div class="body">
               <div class="topic-name">
                 <label for="topicName">Topic's name</label>
-                <input type="text" class="topicName_input" value="value" disabled />
+                <input type="text" class="topicName_input" :value="topicInfo.name" disabled />
               </div>
               <div class="topic-type">
                 <label for="topicType">Topic's type</label>
-                <input type="text" class="topicType_input" value="value" disabled />
+                <input type="text" class="topicType_input" :value="topicInfo.type" disabled />
               </div>
               <div class="closure-date">
                 <label for="closureDate">Closure date</label>
-                <input type="text" value="value" disabled />
+                <input type="text" :value="CloseDate" disabled />
               </div>
             </div>
           </div>
@@ -37,6 +37,48 @@ export default {
   name: "TopicInfoModal",
   props: {
     topicInfo: Object,
+    // topicActive: String,
+  },
+  data() {
+    return {
+      CloseDate: "",
+    };
+  },
+  watch: {
+    topicInfo(newVal) {
+      var timeStamp = newVal.closureDate.toString();
+      if (timeStamp.length < 13) {
+        for (var i = timeStamp.length; i < 13; i++) {
+          timeStamp += "0";
+        }
+      }
+      const date = new Date(parseInt(timeStamp));
+      let month;
+      let dateVal;
+      let hour;
+      let minute;
+      if (date.getMonth() < 10) {
+        month = "0" + (parseInt(date.getMonth()) + 1).toString();
+      } else {
+        month = (parseInt(date.getMonth()) + 1).toString();
+      }
+      if (date.getDate() < 10) {
+        dateVal = "0" + date.getDate();
+      } else {
+        dateVal = date.getDate();
+      }
+      if (date.getHours() < 10) {
+        hour = "0" + parseInt(date.getHours()).toString();
+      } else {
+        hour = parseInt(date.getHours()).toString();
+      }
+      if (date.getMinutes() < 10) {
+        minute = "0" + (parseInt(date.getMinutes()) + 1).toString();
+      } else {
+        minute = (parseInt(date.getMinutes()) + 1).toString();
+      }
+      this.CloseDate = month + "/" + dateVal + "/" + date.getFullYear() + " " + hour + ":" + minute;
+    },
   },
 };
 </script>

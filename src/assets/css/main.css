@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+#app {
+  height: 100%;
+}
+
 body,
 html {
   height: 100%;
@@ -585,6 +589,8 @@ iframe {
 .header-user-logout:hover {
   background-color:darksalmon;
   cursor: pointer;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .header .header-user:hover .header-user-info {
@@ -614,6 +620,21 @@ iframe {
   width: 60px;
   text-align: center;
   padding: 0;
+}
+
+.nav .nav-item:hover .nav-item-manage {
+  display: block;
+}
+
+.nav .nav-item .nav-item-manage-item {
+  text-align: center;
+}
+
+.nav .nav-item .nav-item-manage-item:hover {
+  background-color:darksalmon;
+  cursor: pointer;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .nav .nav-items .nav-item img {
@@ -705,13 +726,13 @@ iframe {
 
 .Topic-Modal-body {
   padding: 16px;
-  margin-top: 80px;
+  margin-top: 55px;
 }
 
 .Topic-Modal-label {
   display: block;
   font-size: 15px;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   text-align: left;
 }
 
@@ -722,7 +743,7 @@ iframe {
   width: 100%;
   padding: 10px;
   font-size: 15px;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .submit-add {
@@ -771,6 +792,11 @@ iframe {
   position: relative; 
   top: 70px;
   text-align: center;
+  height: 85%;
+}
+
+.Error-Message {
+  color: red;
 }
 
 @keyframes modalfadein {
@@ -793,6 +819,23 @@ iframe {
 
   .nav .nav-item:hover .tooltiptext {
     display: inline-block;
+  }
+
+  .nav .nav-item .nav-item-manage {
+    list-style-type: none;
+    display: none;
+    min-width: 140px;
+    height: 86px;
+    top: 24%;
+    right: 74%;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    text-align: right;
+    color: black;
+    line-height: 44px;
+    border-radius: 5px;
+    padding: 0;
   }
 }
 /* Tablet */
@@ -817,10 +860,30 @@ iframe {
     left: -242%;
     text-align: left;
   }
+
+  .nav .nav-item .nav-item-manage {
+    list-style-type: none;
+    display: none;
+    min-width: 140px;
+    height: 86px;
+    top: 24%;
+    right: 74%;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    text-align: right;
+    color: black;
+    line-height: 44px;
+    border-radius: 5px;
+    padding: 0;
+  }
 }
 /* phone */
 
 @media (max-width: 740px){
+  #app {
+    height: calc(100% + 180px);
+  }
   .header .header-user{
       right: 14px;
   }
@@ -831,6 +894,14 @@ iframe {
     height: 20px;
     transform: translateY(10%);
     z-index: 1;
+  }
+
+  .header .header-user .header-user-info{
+    min-width: 120px;
+    height: 86px;
+    top: 8%;
+    left: -452%;
+    text-align: left;
   }
   
 
@@ -872,14 +943,6 @@ iframe {
     z-index: 1;
   }
 
-  .header .header-user .header-user-info{
-    min-width: 120px;
-    height: 86px;
-    top: 8%;
-    left: -452%;
-    text-align: left;
-  }
-
   .nav-items a.router-link-exact-active {
     border-right: none;
     border-radius: 9px;
@@ -895,7 +958,7 @@ iframe {
     position: relative;
     width: 414px;
     max-width: calc(100% - 32px);
-    height: 400px;
+    height: 480px;
     background-color: white;
     border-radius: 5px;
     animation: modalfadein ease 0.3s;
