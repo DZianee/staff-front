@@ -6,11 +6,15 @@
         <div class="UserInfo-Modal-close" @click="close">
           <i class="bi form-control-feedback bi-x-lg" style="font-size: 22px"></i>
         </div>
-        <header class="UserInfo-Modal-header">
-          <button class="btn btn-primary btn-mar-right" @click="infoDetail">Detail</button>
+        <div class="User-ActButtons-icon">
+          <i class="bi bi-filter-left" style="font-size: 22px" @click="displayButtons"></i>
+        </div>
+        <div class="User-ActButtons" :class="{ displayButtons: IsdisplayButtons }">
           <button class="btn btn-primary btn-mar-right" @click="editDetail">Edit</button>
           <button class="btn btn-primary btn-mar-right" @click="ResetsubmitModal">Reset Password</button>
           <button class="btn btn-primary" @click="DeletesubmitModal">Delete</button>
+        </div>
+        <header class="UserInfo-Modal-header">
           <p>User Details</p>
         </header>
         <div class="UserInfo-Modal-body">
@@ -68,10 +72,10 @@
                   v-model="User.phone" />
               </div>
             </div>
-            <div class="form-group col-md-6 checkboxFlex">
+            <!-- <div class="form-group col-md-6 checkboxFlex">
               <input type="checkbox" style="margin-right: 10px" :disabled="Disable" :checked="User.active" v-model="User.active" />
               <label>IsActive</label>
-            </div>
+            </div> -->
             <button
               type="submit"
               class="btn btn-primary"
@@ -117,6 +121,7 @@ export default {
       TitleConfirmText: "",
       ModifyID: 0,
       isOpenModal: false,
+      IsdisplayButtons: false,
     };
   },
 
@@ -147,6 +152,9 @@ export default {
       } else {
         return true;
       }
+    },
+    displayButtons() {
+      this.IsdisplayButtons = !this.IsdisplayButtons;
     },
     changeDepartment() {
       for (let i = 0; i < this.Departments.length; i++) {
@@ -323,11 +331,38 @@ export default {
 .UserInfo-Modal-header {
   position: absolute;
   width: 80%;
-  height: 30px;
   left: 50%;
   transform: translateX(-50%);
-  top: 20px;
+  top: 64px;
   text-align: center;
+}
+
+.User-ActButtons {
+  background-color: bisque;
+  position: absolute;
+  left: 38px;
+  top: 2px;
+  padding: 0 10px;
+  border-radius: 15px;
+  display: none;
+  animation: fade ease-in-out 0.15s;
+}
+.User-ActButtons-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.displayButtons {
+  display: block;
+}
+
+.btn {
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
 }
 
 .btn-mar-right {
@@ -414,15 +449,6 @@ export default {
     display: none;
   }
 
-  .UserInfo-Modal-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 20px;
-  }
-
   .UserInfo-Modal-body {
     padding: 16px;
     margin-top: 40px;
@@ -454,6 +480,17 @@ export default {
   }
   .btn-mar-right {
     margin-right: 2px;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 </style>

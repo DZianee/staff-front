@@ -43,11 +43,4 @@ export default {
 };
 </script>
 
-<style>
-.pagination-container {
-  position: absolute;
-  left: 48%;
-  transform: translateX(-50%);
-  bottom: 0px;
-}
-</style>
+<style></style>
