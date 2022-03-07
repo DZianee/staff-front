@@ -17,7 +17,7 @@
       <PasswordInput v-model:value="password" />
 
       <div class="w-full text-right p-t-15 p-r-10">
-        <span class="font-weight-bold"> Forgot Password </span>
+        <span class="font-weight-bold forgot-password"> Forgot Password </span>
       </div>
       <div class="container-login100-form-btn m-t-17">
         <button tag="button" class="login100-form-btn" to="/change-password">Sign In</button>
@@ -68,4 +68,36 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+* {
+  font-family: "Roboto";
+  font-size: 15px;
+}
+.font-weight-bold {
+  font-weight: 500;
+}
+.forgot-password {
+  font-size: 14px;
+  color: rgb(110, 105, 105);
+}
+.input100 {
+  font-size: 15px;
+}
+.forgot-password:hover {
+  color: rgb(34, 17, 17);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.login100-form-btn {
+  font-size: 17px;
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .wrap-login100 {
+    width: 95%;
+    position: relative;
+    top: -70px;
+    border-radius: 12px;
+  }
+}
+</style>
