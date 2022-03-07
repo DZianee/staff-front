@@ -4,8 +4,7 @@
     <div class="header-user">
       <img class="header-user-image" src="../assets/pic/users.png" />
       <ul class="header-user-info">
-        <li v-if="User != null" style="border-bottom: 2px solid black; padding: 0 4px" @click="userss">{{ User.roleName }}</li>
-        <li v-else style="border-bottom: 2px solid black; padding: 0 4px" @click="userss">Undefine</li>
+        <li style="border-bottom: 2px solid black; padding: 0 4px, cursor: pointer" @click="showProfile">Profile</li>
         <li class="header-user-logout" @click="logout">Logout</li>
       </ul>
     </div>
@@ -25,7 +24,14 @@ export default {
     NavForm,
   },
   data() {
-    return {};
+    return {
+      id: "",
+    };
+  },
+  created() {
+    this.$store.dispatch("getUser");
+    const data = JSON.parse(this.$store.state.user);
+    this.id = data.id;
   },
   computed: {
     User() {
@@ -49,6 +55,9 @@ export default {
       } catch (e) {
         //
       }
+    },
+    showProfile() {
+      this.$router.push({ name: "profileView", params: { id: this.id } });
     },
   },
 };
