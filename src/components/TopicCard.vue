@@ -19,27 +19,29 @@
         <p class="card-footer-item total-ideas">12 ideas</p>
       </footer>
     </div>
-    <a href="#">
-      <div class="card">
-        <div class="card-content">
-          <div class="topic-card_adjust">
-            <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              <i class="bx bx-info-circle bx-sm" />
-            </button>
-            <button class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-              <i class="bx bx-x bx-sm" />
-            </button>
+    <router-link :to="{path:'/idea-view'}">
+      <a href="#">
+        <div class="card">
+          <div class="card-content">
+            <div class="topic-card_adjust">
+              <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="bx bx-info-circle bx-sm" />
+              </button>
+              <button class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                <i class="bx bx-x bx-sm" />
+              </button>
+            </div>
+            <br />
+            <div class="content">
+              <h1>Blackpink in your area</h1>
+            </div>
           </div>
-          <br />
-          <div class="content">
-            <h1>Blackpink in your area</h1>
-          </div>
-        </div>
-        <footer class="card-footer">
-          <p class="card-footer-item total-ideas">12 ideas</p>
-        </footer>
-      </div></a
-    >
+          <footer class="card-footer">
+            <p class="card-footer-item total-ideas">12 ideas</p>
+          </footer>
+        </div></a
+      >
+    </router-link>
     <a href="#">
       <div class="card">
         <div class="card-content">
