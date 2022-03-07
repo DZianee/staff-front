@@ -35,6 +35,7 @@
 
 <script>
 import PasswordInput from "./PasswordInput.vue";
+
 export default {
   name: "ChangePassModal",
   components: {

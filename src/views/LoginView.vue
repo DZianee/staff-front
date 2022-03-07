@@ -29,7 +29,7 @@
 
 <script>
 import PasswordInput from "@/components/PasswordInput";
-// import sha256 from "js-sha256";
+import sha256 from "js-sha256";
 
 export default {
   name: "LoginPage",
@@ -47,7 +47,7 @@ export default {
   methods: {
     async login() {
       try {
-        const auth = { username: this.username, password: this.password };
+        const auth = { username: this.username, password: sha256(this.password) };
         const res = await this.$axios.post(`api/v1/User/Login`, auth);
         if (res.status === 200) {
           this.$store.dispatch("login", res.data);
@@ -58,7 +58,6 @@ export default {
             this.$router.push({ name: "home" });
           }
         }
-        console.log(auth);
       } catch (e) {
         this.LoginError = true;
       }
