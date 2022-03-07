@@ -33,7 +33,8 @@
 
 <script>
 import PasswordInput from "@/components/PasswordInput";
-// import Modal from "@/components/Modal.vue";
+import sha256 from "js-sha256";
+
 export default {
   name: "ChangePasswordPage",
   components: {
@@ -67,8 +68,8 @@ export default {
         const res = await this.$axios.put(
           `api/v1/User/${this.user.id}/changePassword`,
           {
-            oldPassword: this.oldPassword,
-            newPassword: this.newPassword,
+            oldPassword: sha256(this.oldPassword),
+            newPassword: sha256(this.newPassword),
           },
           this.$axios.defaults.headers["Authorization"]
         );

@@ -1,11 +1,11 @@
 <template>
   <ul class="pagination-content">
     <li>
-      <button type="button" @click="onClickFirstPage" :disabled="isInFirstPage">First</button>
+      <button type="button" @click="onClickFirstPage" :disabled="isInFirstPage"><i class="bi bi-caret-left-square"></i></button>
     </li>
 
     <li>
-      <button type="button" @click="onClickPreviousPage" :disabled="isInFirstPage">Previous</button>
+      <button type="button" @click="onClickPreviousPage" :disabled="isInFirstPage"><i class="bi bi-caret-left"></i></button>
     </li>
 
     <!-- Visible Buttons Start -->
@@ -32,11 +32,11 @@
     <!-- Visible Buttons End -->
 
     <li>
-      <button type="button" @click="onClickNextPage" :disabled="isInLastPage">Next</button>
+      <button type="button" @click="onClickNextPage" :disabled="isInLastPage"><i class="bi bi-caret-right"></i></button>
     </li>
 
     <li>
-      <button type="button" @click="onClickLastPage" :disabled="isInLastPage">Last</button>
+      <button type="button" @click="onClickLastPage" :disabled="isInLastPage"><i class="bi bi-caret-right-square"></i></button>
     </li>
   </ul>
 </template>
@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       previousPageGap: false,
-      latterPageGap: true,
+      latterPageGap: false,
     };
   },
   props: {
@@ -137,6 +137,11 @@ export default {
       }
     },
   },
+  mounted() {
+    if (this.totalPages > 3) {
+      this.latterPageGap = true;
+    }
+  },
 };
 </script>
 
@@ -150,6 +155,13 @@ export default {
   align-items: center;
 }
 
+.pagination-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 40px;
+}
+
 .pagination-content-item {
   padding: 6px 10px;
   border-radius: 4px;
@@ -158,5 +170,17 @@ export default {
 .paginationactive {
   background-color: #4aae9b;
   color: #ffffff;
+}
+
+@media screen and (max-width: 780px) {
+  .pagination-container {
+    bottom: 82px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .pagination-content {
+    width: 273px;
+  }
 }
 </style>

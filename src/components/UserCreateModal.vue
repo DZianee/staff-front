@@ -57,10 +57,6 @@
                 <input type="text" maxlength="10" @keypress="isNumber($event)" class="form-control" placeholder="Phone" v-model="User.phone" />
               </div>
             </div>
-            <div class="form-group col-md-6 checkboxFlex">
-              <input type="checkbox" style="margin-right: 10px" v-model="User.isSuperAdmin" />
-              <label>isSuperAdmin</label>
-            </div>
             <button type="submit" class="btn btn-primary" style="margin-top: 10px" @click="openModal">Create</button>
           </form>
         </div>
@@ -94,7 +90,6 @@ export default {
         dob: null,
         gender: 0,
         departmentId: "",
-        isSuperAdmin: false,
       },
       isOpenModal: false,
     };
@@ -139,9 +134,8 @@ export default {
           dob: date,
           gender: parseInt(this.User.gender),
           departmentId: this.User.departmentId,
-          isSuperAdmin: this.User.isSuperAdmin,
         };
-        console.log(this.$axios.defaults.headers["Authorization"]);
+        console.log(createUser);
         const res = await this.$axios.post(`api/v1/User`, createUser, this.$axios.defaults.headers["Authorization"]);
         if (res.status == 200) {
           this.$router.go();
