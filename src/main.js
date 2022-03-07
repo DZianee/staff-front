@@ -7,7 +7,6 @@ import axios from "./plugins/axios";
 import store from "./store/index";
 import DefaultLayout from "./layout/DefaultLayout.vue";
 import EmptyLayout from "./layout/EmptyLayout.vue";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "@/assets/css/util.css";
 import "@/assets/css/main.css";
 import "bootstrap-icons/font/bootstrap-icons.css";

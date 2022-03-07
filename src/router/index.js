@@ -8,7 +8,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (sessionStorage.getItem("Auth") != null) {
+  if (sessionStorage.getItem("User") != null) {
     switch (to.name) {
       case "login":
         next("/");

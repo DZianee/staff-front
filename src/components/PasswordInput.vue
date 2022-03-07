@@ -65,4 +65,7 @@ export default {
   text-align: center;
   cursor: pointer;
 }
+.input100 {
+  font-size: 15px;
+}
 </style>

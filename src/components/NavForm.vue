@@ -10,7 +10,7 @@
       <router-link to="/topic-view">
         <li class="nav-item">
           <img src="../assets/pic/officebag.png" />
-          <span class="tooltiptext">Bag</span>
+          <span class="tooltiptext">Management</span>
         </li>
       </router-link>
       <li v-if="this.$route.name == 'topicView'" class="nav-item js-add" @click="modalAct()">

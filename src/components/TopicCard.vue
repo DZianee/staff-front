@@ -220,14 +220,6 @@ h1 {
     width: 295px;
     height: 268px;
   }
-  /* .card-content {
-    width: 207px;
-    height: 150px;
-  }
-  .content {
-    overflow: hidden;
-    height: 50px;
-  } */
   h1 {
     font-size: 16px;
   }
