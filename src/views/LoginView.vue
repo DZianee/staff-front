@@ -91,11 +91,14 @@ export default {
 .login100-form-btn {
   font-size: 17px;
 }
+.login100-form-btn:hover {
+background: #0277bd;
+}
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .wrap-login100 {
     width: 95%;
     position: relative;
-    top: -70px;
+    top: -100px;
     border-radius: 12px;
   }
 }
