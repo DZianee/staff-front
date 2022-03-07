@@ -53,7 +53,7 @@ export default {
             this.$router.push({ name: "changePass" });
           } else {
             this.$store.dispatch("login", res.data);
-            this.$router.push({ name: "about" });
+            this.$router.push({ name: "home" });
           }
         }
       } catch (e) {
