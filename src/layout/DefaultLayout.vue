@@ -4,7 +4,8 @@
     <div class="header-user">
       <img class="header-user-image" src="../assets/pic/users.png" />
       <ul class="header-user-info">
-        <li style="border-bottom: 2px solid black; padding: 0 4px" @click="userss">Admin</li>
+        <li v-if="User != null" style="border-bottom: 2px solid black; padding: 0 4px" @click="userss">{{ User.roleName }}</li>
+        <li v-else style="border-bottom: 2px solid black; padding: 0 4px" @click="userss">Undefine</li>
         <li class="header-user-logout" @click="logout">Logout</li>
       </ul>
     </div>
@@ -28,7 +29,7 @@ export default {
   },
   computed: {
     User() {
-      return JSON.parse(sessionStorage.getItem("Auth"));
+      return JSON.parse(this.$store.state.user);
       // return null;
     },
   },

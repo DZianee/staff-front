@@ -53,19 +53,31 @@ export default {
         }
       }
       const date = new Date(parseInt(timeStamp));
-      var month;
-      var dateVal;
+      let month;
+      let dateVal;
+      let hour;
+      let minute;
       if (date.getMonth() < 10) {
-        month = "0" + date.getMonth();
+        month = "0" + (parseInt(date.getMonth()) + 1).toString();
       } else {
-        month = date.getMonth();
+        month = (parseInt(date.getMonth()) + 1).toString();
       }
       if (date.getDate() < 10) {
         dateVal = "0" + date.getDate();
       } else {
         dateVal = date.getDate();
       }
-      this.CloseDate = month + 1 + "/" + dateVal + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+      if (date.getHours() < 10) {
+        hour = "0" + parseInt(date.getHours()).toString();
+      } else {
+        hour = parseInt(date.getHours()).toString();
+      }
+      if (date.getMinutes() < 10) {
+        minute = "0" + (parseInt(date.getMinutes()) + 1).toString();
+      } else {
+        minute = (parseInt(date.getMinutes()) + 1).toString();
+      }
+      this.CloseDate = month + "/" + dateVal + "/" + date.getFullYear() + " " + hour + ":" + minute;
     },
   },
 };

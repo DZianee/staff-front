@@ -17,35 +17,41 @@
       <div class="container-login100-form-btn m-t-45 m-b-15">
         <button class="login100-form-btn" :disabled="NewPassError">Reset password</button>
       </div>
-      <Modal title="Confirm change password" :modalActive="isOpenModal" confirmText="Agree" @submit="confirm" @close="closeModal">
+      <component
+        :is="'confirm-modal'"
+        title="Confirm change password"
+        :ConfirmModalActive="isOpenModal"
+        confirmText="Agree"
+        @submitModal="confirm"
+        @closeModal="closeModal">
         <p>Your password will change. Click 'Agree' to confirm and update new password</p>
         <br />
-      </Modal>
+      </component>
     </form>
   </div>
 </template>
 
 <script>
 import PasswordInput from "@/components/PasswordInput";
-import Modal from "@/components/Modal.vue";
+// import Modal from "@/components/Modal.vue";
 export default {
   name: "ChangePasswordPage",
   components: {
     PasswordInput,
-    Modal,
+    // Modal,
   },
   data() {
     return {
       oldPassword: "",
       newPassword: "",
       reNewPassword: "",
-      NewPassError: false,
+      NewPassError: true,
       isOpenModal: false,
     };
   },
   computed: {
     user() {
-      return this.$store.state.user;
+      return JSON.parse(this.$store.state.user);
     },
   },
   methods: {
@@ -57,16 +63,20 @@ export default {
     },
     async confirm() {
       try {
-        const res = await this.$axios.put(`api/v1/User/${this.user.id}/changePassword`, {
-          oldPassword: this.oldPassword,
-          newPassword: this.newPassword,
-        });
+        this.$store.dispatch("fetchAccessToken");
+        const res = await this.$axios.put(
+          `api/v1/User/${this.user.id}/changePassword`,
+          {
+            oldPassword: this.oldPassword,
+            newPassword: this.newPassword,
+          },
+          this.$axios.defaults.headers["Authorization"]
+        );
         if (res.status === 200) {
           this.$router.push({ name: "login" });
         }
-        this.closeModal();
       } catch (e) {
-        //
+        console.log("Error");
       }
     },
   },

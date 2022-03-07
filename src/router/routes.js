@@ -37,8 +37,8 @@ const router = [
     component: TopicView,
   },
   {
-    path: "/manageview",
-    name: "manageview",
+    path: "/manage-view",
+    name: "manageView",
     component: ManageView,
   },
   {

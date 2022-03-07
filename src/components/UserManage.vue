@@ -2,21 +2,30 @@
   <div class="user-man">
     <div class="user-man-header">
       <div class="user-man-header-search">
-        <input type="text" placeholder="Search For User's Name" v-model="searchForm.name" />
-        <select v-model="searchForm.departmentName">
-          <option value="">All</option>
-          <option v-for="department in Departments" :key="department.id" :value="department.name">{{ department.name }}</option>
-        </select>
+        <div class="table-search-box">
+          <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchForm.name" />
+        </div>
       </div>
+      <select v-model="searchForm.departmentName" class="form-select selectDepartment">
+        <option value="">All</option>
+        <option v-for="department in Departments" :key="department.id" :value="department.name">{{ department.name }}</option>
+      </select>
       <div class="user-man-header-sort">
         <p>Sort By:</p>
-        <select v-model="searchForm.sortType">
+        <select v-model="searchForm.sortType" class="form-select selectDepartment">
           <option value="0">Created Date</option>
           <option value="1">Name</option>
           <option value="2">Department</option>
         </select>
       </div>
-      <button class="btn btn-primary" @click="searchUsers">Search</button>
+      <button
+        class="btn btn-primary"
+        @click="
+          CreateUserAct();
+          DepartmentAct(Departments);
+        ">
+        Create
+      </button>
     </div>
     <div class="user-man-content">
       <table class="table table-bordered">
@@ -41,6 +50,7 @@
               @click="
                 modalAct();
                 UserIDAct(user.id);
+                DepartmentAct(Departments);
               ">
               View Details
             </td>
@@ -49,17 +59,23 @@
       </table>
     </div>
   </div>
-  <UserInfo @close="modalAct()" :modalActive="modalActive" :UserId="UserID" :got="got" />
+  <UserInfo @close="modalAct()" :modalActive="modalActive" :UserId="UserID" :Departments="DepartmentsList" />
+  <CreateUser @closeCreate="CreateUserAct()" :CreateModalActive="CreateModalActive" :Departments="DepartmentsList" />
+  <div class="pagination-container">
+    <component :is="'pagination-list'" :totalPages="10" :perPage="10" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
+  </div>
 </template>
 
 <script>
 import UserInfo from "./UserInfoModal.vue";
+import CreateUser from "./UserCreateModal.vue";
 import { ref } from "vue";
 
 export default {
   name: "UserManage",
   components: {
     UserInfo,
+    CreateUser,
   },
   data() {
     return {
@@ -70,9 +86,24 @@ export default {
         departmentName: "",
         sortType: 0,
       },
+
+      currentPage: 1,
     };
   },
+  watch: {
+    searchForm: {
+      handler(newValue) {
+        console.log(newValue.name);
+        this.searchUsers();
+      },
+      deep: true,
+    },
+  },
   methods: {
+    onPageChange(page) {
+      console.log(page);
+      this.currentPage = page;
+    },
     async GetUsers() {
       try {
         this.$store.dispatch("fetchAccessToken");
@@ -96,8 +127,6 @@ export default {
       try {
         this.$store.dispatch("fetchAccessToken");
         const data = { name: this.searchForm.name, departmentName: this.searchForm.departmentName, sortType: parseInt(this.searchForm.sortType) };
-        console.log(this.searchForm);
-        console.log(data);
         const res = await this.$axios.post(`api/v1/User/getlist`, data, this.$axios.defaults.headers["Authorization"]);
         this.Users = res.data.content;
       } catch (e) {
@@ -112,7 +141,8 @@ export default {
   setup() {
     const modalActive = ref(false);
     const UserID = ref("");
-    const got = ref(true);
+    const DepartmentsList = ref([]);
+    const CreateModalActive = ref(false);
 
     const modalAct = () => {
       modalActive.value = !modalActive.value;
@@ -122,7 +152,19 @@ export default {
       UserID.value = value;
     };
 
-    return { modalActive, UserID, got, modalAct, UserIDAct };
+    const DepartmentAct = (value) => {
+      if (DepartmentsList.value == "") {
+        for (let i = 0; i < value.length; i++) {
+          DepartmentsList.value.push(value[i]);
+        }
+      }
+    };
+
+    const CreateUserAct = () => {
+      CreateModalActive.value = !CreateModalActive.value;
+    };
+
+    return { modalActive, UserID, DepartmentsList, CreateModalActive, modalAct, UserIDAct, DepartmentAct, CreateUserAct };
   },
 };
 </script>
@@ -131,7 +173,8 @@ export default {
 .user-man {
   position: relative;
   top: 60px;
-  left: 20px;
+  left: 46%;
+  transform: translateX(-50%);
   width: 80%;
 }
 
@@ -147,26 +190,17 @@ export default {
   /* margin-right: 20px; */
 }
 
-.user-man-header-search select {
-  border-top: 0;
-  border-bottom: 0;
-  border-right: 0;
-  outline: 0;
-  height: 40px;
-}
-
-.user-man-header-search input {
-  width: 350px;
-  height: 40px;
-  padding: 5px;
-  border: 2px solid black;
-}
-.user-man-header-search input:focus {
-  border: 3px solid black !important;
+.selectDepartment {
+  width: 160px !important;
 }
 
 .user-man-header-sort {
   display: flex;
+  align-items: center;
+}
+
+.user-man-header-sort p {
+  margin-right: 6px;
 }
 
 .user-man-content {
@@ -182,44 +216,42 @@ export default {
 }
 /* Tablet */
 
-@media (min-width: 740px) and (max-width: 1023px) {
-  .user-man-content {
-    overflow-x: scroll;
+@media (max-width: 940px) {
+  .user-man-header {
+    flex-direction: column;
+  }
+  .selectDepartment {
+    margin-bottom: 8px;
+  }
+  .user-man-header-search {
+    margin-bottom: 10px;
   }
   .user-man-header-search input {
-    width: 80%;
     height: 30px;
   }
-  .user-man-header-search select {
-    /* width: 20%; */
-    height: 30px;
+  .selectDepartment {
+    margin-bottom: 8px;
+  }
+  .btn {
+    margin-top: 8px;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 939px) {
+  .user-man-content {
+    overflow-x: scroll;
   }
 }
 /* phone */
 
 @media (max-width: 740px) {
   .user-man {
+    left: 50%;
     width: 90%;
-  }
-  .user-man-header {
-    flex-direction: column;
-  }
-  .user-man-header-search {
-    margin-bottom: 10px;
-  }
-  .user-man-header-search input {
-    width: 60%;
-    height: 30px;
-  }
-  .user-man-header-search select {
-    width: 40%;
-    height: 30px;
   }
   .user-man-content {
     overflow-x: scroll;
-  }
-  .btn {
-    margin-top: 8px;
+    overflow-y: scroll;
   }
 }
 </style>

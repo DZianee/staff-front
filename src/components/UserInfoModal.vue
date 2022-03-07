@@ -7,9 +7,10 @@
           <i class="bi form-control-feedback bi-x-lg" style="font-size: 22px"></i>
         </div>
         <header class="UserInfo-Modal-header">
-          <button class="btn btn-primary" style="margin-right: 10px" :disabled="Disable" @click="infoDetail">Detail</button>
-          <button class="btn btn-primary" style="margin-right: 10px" @click="editDetail">Edit</button>
-          <button class="btn btn-primary">Delete</button>
+          <button class="btn btn-primary btn-mar-right" @click="infoDetail">Detail</button>
+          <button class="btn btn-primary btn-mar-right" @click="editDetail">Edit</button>
+          <button class="btn btn-primary btn-mar-right" @click="ResetsubmitModal">Reset Password</button>
+          <button class="btn btn-primary" @click="DeletesubmitModal">Delete</button>
           <p>User Details</p>
         </header>
         <div class="UserInfo-Modal-body">
@@ -27,10 +28,10 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Gender</label>
-                <select class="form-control" :disabled="Disable" v-model="User.Gender">
-                  <option value="0" :selected="User.Gender == 0">Male</option>
-                  <option value="1" :selected="User.Gender == 1">Female</option>
-                  <option value="2" :selected="User.Gender == 2">Other</option>
+                <select class="form-control" :disabled="Disable" v-model="User.gender">
+                  <option value="0" :selected="User.gender == 0">Male</option>
+                  <option value="1" :selected="User.gender == 1">Female</option>
+                  <option value="2" :selected="User.gender == 2">Other</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -45,50 +46,97 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Department</label>
-                <input type="text" class="form-control" placeholder="Department" :disabled="Disable" v-model="User.department" />
+                <select :disabled="Disable" v-model="User.department" class="form-control" @change="changeDepartment()">
+                  <option
+                    v-for="department in Departments"
+                    :key="department.id"
+                    :value="department.name"
+                    :selected="User.department == department.name">
+                    {{ department.name }}
+                  </option>
+                </select>
               </div>
               <div class="form-group col-md-6">
                 <label>Phone</label>
-                <input type="text" @keypress="isNumber($event)" class="form-control" placeholder="Phone" :disabled="Disable" v-model="User.phone" />
+                <input
+                  type="text"
+                  maxlength="10"
+                  @keypress="isNumber($event)"
+                  class="form-control"
+                  placeholder="Phone"
+                  :disabled="Disable"
+                  v-model="User.phone" />
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6 checkboxFlex">
-                <input type="checkbox" style="margin-right: 10px" :disabled="Disable" :checked="User.active" />
-                <label>IsActive</label>
-              </div>
+            <div class="form-group col-md-6 checkboxFlex">
+              <input type="checkbox" style="margin-right: 10px" :disabled="Disable" :checked="User.active" v-model="User.active" />
+              <label>IsActive</label>
             </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px" :disabled="Disable" @click="edit">Change</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="margin-top: 10px"
+              v-if="Disable == false"
+              :disabled="Disable"
+              @click="EditsubmitModal">
+              Change
+            </button>
           </form>
         </div>
       </div>
+      <component
+        :is="'confirm-modal'"
+        v-if="isOpenModal"
+        :title="TitleConfirmText"
+        :ConfirmModalActive="isOpenModal"
+        confirmText="Agree"
+        @submitModal="confirm"
+        @closeModal="closeModal">
+        <p>{{ ModalConfirmText }}</p>
+        <br />
+      </component>
     </div>
   </transition>
 </template>
 
 <script>
-var got = false;
+// var got = false;
+// import ConfirmModal from "@/components/Modal.vue";
 
 export default {
   name: "UserInfoForm",
+  // components: [ConfirmModal],
   data() {
     return {
       User: {},
       Disable: true,
-      ErrorDisable: false,
       DoB: "",
+      PasswordDis: true,
+      DepartmentID: null,
+      ModalConfirmText: "",
+      TitleConfirmText: "",
+      ModifyID: 0,
+      isOpenModal: false,
     };
   },
 
   props: {
     modalActive: Boolean,
     UserId: String,
+    Departments: Array,
   },
   setup(props, { emit }) {
     const close = () => {
       emit("close");
     };
     return { close };
+  },
+  watch: {
+    UserId() {
+      this.User = {};
+      this.Disable = true;
+      this.getUserDetail();
+    },
   },
   methods: {
     isNumber(evt) {
@@ -98,6 +146,14 @@ export default {
         evt.preventDefault();
       } else {
         return true;
+      }
+    },
+    changeDepartment() {
+      for (let i = 0; i < this.Departments.length; i++) {
+        if (this.User.department == this.Departments[i].name) {
+          this.DepartmentID = this.Departments[i].id;
+          break;
+        }
       }
     },
     async getUserDetail() {
@@ -136,32 +192,87 @@ export default {
     editDetail() {
       this.Disable = false;
     },
-
-    async edit() {
-      this.$store.dispatch("fetchAccessToken");
-      const date = Date.parse(this.DoB);
-      const editUser = {
-        password: null,
-        phone: this.User.phone,
-        address: this.User.address,
-        dob: date,
-        gender: 0,
-        departmentId: this.User.department,
-        isActive: true,
-      };
-      console.log(editUser);
-      // const res = await this.$axios.put(`api/v1/User?id=${this.UserId}`, editUser, this.$axios.defaults.headers["Authorization"]);
+    closeModal() {
+      this.isOpenModal = false;
+    },
+    EditsubmitModal() {
+      this.ModalConfirmText = "You want to Edit this user?";
+      this.TitleConfirmText = "Edit User";
+      this.ModifyID = 0;
+      this.isOpenModal = true;
+    },
+    ResetsubmitModal() {
+      this.ModalConfirmText = "You want to Reset this user's password?";
+      this.TitleConfirmText = "Reset User's Password";
+      this.ModifyID = 1;
+      this.isOpenModal = true;
+    },
+    DeletesubmitModal() {
+      this.ModalConfirmText = "You want to Delete this user?";
+      this.TitleConfirmText = "Delete User";
+      this.ModifyID = 2;
+      this.isOpenModal = true;
+    },
+    async confirm() {
+      switch (this.ModifyID) {
+        case 0:
+          try {
+            this.$store.dispatch("fetchAccessToken");
+            const date = Date.parse(this.DoB);
+            const editUser = {
+              phone: this.User.phone,
+              address: this.User.address,
+              dob: date,
+              gender: parseInt(this.User.gender),
+              departmentId: this.DepartmentID,
+              isActive: this.User.active,
+            };
+            console.log(editUser);
+            const res = await this.$axios.put(`api/v1/User/${this.UserId}`, editUser, this.$axios.defaults.headers["Authorization"]);
+            if (res.status == 200) {
+              this.$router.go();
+            }
+          } catch {
+            //
+          }
+          break;
+        case 1:
+          try {
+            this.$store.dispatch("fetchAccessToken");
+            const res = await this.$axios.post(`api/v1/User/${this.UserId}/resetPassword`, this.$axios.defaults.headers["Authorization"]);
+            if (res.status == 200) {
+              this.$router.go();
+            }
+          } catch {
+            //
+          }
+          break;
+        case 2:
+          try {
+            this.$store.dispatch("fetchAccessToken");
+            const res = await this.$axios.delete(`api/v1/User/${this.UserId}`, this.$axios.defaults.headers["Authorization"]);
+            if (res.status == 200) {
+              this.$router.go();
+            }
+          } catch {
+            //
+          }
+          break;
+        default:
+          break;
+      }
     },
   },
-  beforeUpdate() {
-    this.User = {};
-    got = !got;
-  },
-  updated() {
-    if (got) {
-      this.getUserDetail();
-    }
-  },
+  // beforeUpdate() {
+  //   this.User = {};
+  //   got = !got;
+  //   this.Disable = true;
+  // },
+  // updated() {
+  //   if (got == true) {
+  //     this.getUserDetail();
+  //   }
+  // },
 };
 </script>
 
@@ -194,7 +305,7 @@ export default {
 
 .UserInfo-Modal-container {
   position: relative;
-  width: 414px;
+  width: 466px;
   max-width: calc(100% - 32px);
   min-height: 200px;
   background-color: white;
@@ -211,11 +322,16 @@ export default {
 
 .UserInfo-Modal-header {
   position: absolute;
-  width: 250px;
+  width: 80%;
   height: 30px;
-  left: calc(50% - 250px / 2);
+  left: 50%;
+  transform: translateX(-50%);
   top: 20px;
   text-align: center;
+}
+
+.btn-mar-right {
+  margin-right: 10px;
 }
 
 .UserInfo-Modal-header p {
@@ -233,7 +349,7 @@ export default {
 
 .UserInfo-Modal-body {
   padding: 16px;
-  margin-top: 55px;
+  margin-top: 90px;
 }
 
 .UserInfo-Modal-label {
@@ -252,9 +368,7 @@ export default {
   font-size: 15px;
   margin-bottom: 10px;
 }
-.UserInfo-Modal-body {
-  margin-top: 90px !important;
-}
+
 .UserInfo-Modal-body label {
   font-size: 12px;
 }
@@ -268,8 +382,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  margin: 8px;
+  width: 100% !important;
 }
 
 @media (max-width: 740px) {
@@ -288,19 +401,17 @@ export default {
     font-size: 30px;
     line-height: 26px;
     z-index: 2;
+    overflow-y: scroll;
   }
 
   .UserInfo-Modal-header {
-    position: absolute;
-    width: 250px;
     height: 20px;
-    left: calc(50% - 250px / 2);
-    top: 20px;
+    top: 10px;
     text-align: center;
   }
 
   .UserInfo-Modal-header p {
-    font-size: 20px;
+    display: none;
   }
 
   .UserInfo-Modal-close {
@@ -333,6 +444,16 @@ export default {
     padding: 5px;
     font-size: 15px;
     margin-bottom: 4px;
+  }
+
+  .form-row {
+    display: block;
+  }
+  .form-group {
+    width: 100%;
+  }
+  .btn-mar-right {
+    margin-right: 2px;
   }
 }
 </style>

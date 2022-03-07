@@ -7,6 +7,8 @@ import axios from "./plugins/axios";
 import store from "./store/index";
 import DefaultLayout from "./layout/DefaultLayout.vue";
 import EmptyLayout from "./layout/EmptyLayout.vue";
+import Modal from "./components/Modal.vue";
+import PaginationList from "./components/PaginationList.vue";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/assets/css/util.css";
 import "@/assets/css/main.css";
@@ -32,7 +34,7 @@ axios.interceptors.response.use(
         console.log("Forbidden");
         break;
       case 500:
-        console.log("Server Error");
+        console.log(error.response);
         break;
       default:
         break;
@@ -43,4 +45,6 @@ axios.interceptors.response.use(
 app.use(router);
 app.component("default-layout", DefaultLayout);
 app.component("empty-layout", EmptyLayout);
+app.component("confirm-modal", Modal);
+app.component("pagination-list", PaginationList);
 app.mount("#app");

@@ -29,6 +29,7 @@
 
 <script>
 import PasswordInput from "@/components/PasswordInput";
+// import sha256 from "js-sha256";
 
 export default {
   name: "LoginPage",
@@ -49,33 +50,20 @@ export default {
         const auth = { username: this.username, password: this.password };
         const res = await this.$axios.post(`api/v1/User/Login`, auth);
         if (res.status === 200) {
-          if (this.password === "123123") {
+          this.$store.dispatch("login", res.data);
+          if (this.password == "123123") {
             this.$router.push({ name: "changePass" });
           } else {
-            this.$store.dispatch("login", res.data);
+            this.$store.dispatch("attachUser", res.data);
             this.$router.push({ name: "home" });
           }
-          setInterval(
-            function () {
-              this.refresh();
-            }.bind(this),
-            30 * 60 * 1000
-          );
         }
+        console.log(auth);
       } catch (e) {
         this.LoginError = true;
       }
     },
-    async refresh() {
-      try {
-        this.$store.dispatch("fetchAccessToken");
-        await this.$axios.post(`api/v1/User/RefreshToken`, this.$axios.defaults.headers["Authorization"]);
-      } catch (e) {
-        //
-      }
-    },
   },
-  created() {},
   mounted() {},
 };
 </script>

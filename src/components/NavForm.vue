@@ -7,13 +7,14 @@
           <span class="tooltiptext">Home</span>
         </li>
       </router-link>
-      <router-link to="/topic-view">
-        <li class="nav-item">
-          <img src="../assets/pic/officebag.png" />
-          <span class="tooltiptext">Bag</span>
-        </li>
-      </router-link>
-      <li v-if="this.$route.name == 'topicView'" class="nav-item js-add" @click="modalAct()">
+      <li class="nav-item">
+        <img src="../assets/pic/officebag.png" />
+        <ul class="nav-item-manage">
+          <li class="nav-item-manage-item" @click="TopicRoute">Topic</li>
+          <li class="nav-item-manage-item" @click="ManageRoute">Manage User</li>
+        </ul>
+      </li>
+      <li v-if="this.$route.name == 'topicView' || this.$route.name == 'manageview'" class="nav-item js-add" @click="modalAct(this.$route.name)">
         <img src="../assets/pic/Plus.png" />
       </li>
       <!-- <router-link to="/"> -->
@@ -29,10 +30,11 @@
     </ul>
   </div>
 
-  <Topic-Modal-Form @close="modalAct()" :modalActive="modalActive" />
+  <Topic-Modal-Form @close="modalActt()" :modalActive="modalActive" />
 </template>
 
 <script>
+// let self = this;
 import TopicModalForm from "@/components/TopicModalForm.vue";
 import { ref } from "vue";
 
@@ -43,17 +45,36 @@ export default {
   data() {
     return {};
   },
-
-  methods: {},
+  computed: {
+    routeName() {
+      return this.$route.name;
+    },
+  },
+  methods: {
+    TopicRoute() {
+      this.$router.push({ name: "topicView" });
+    },
+    ManageRoute() {
+      this.$router.push({ name: "manageView" });
+    },
+  },
 
   setup() {
     const modalActive = ref(false);
 
-    const modalAct = () => {
+    const modalAct = (value) => {
+      if (value == "topicView") {
+        modalActive.value = !modalActive.value;
+      } else {
+        console.log("aaa");
+      }
+    };
+
+    const modalActt = () => {
       modalActive.value = !modalActive.value;
     };
 
-    return { modalActive, modalAct };
+    return { modalActive, modalAct, modalActt };
   },
 };
 </script>
