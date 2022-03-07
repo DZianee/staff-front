@@ -13,6 +13,7 @@
           <li class="nav-item-manage-item" @click="TopicRoute">Topic</li>
           <li class="nav-item-manage-item" @click="ManageRoute">Manage User</li>
         </ul>
+        <span class="bagText">Bag</span>
       </li>
       <li v-if="this.$route.name == 'topicView' || this.$route.name == 'manageview'" class="nav-item js-add" @click="modalAct(this.$route.name)">
         <img src="../assets/pic/Plus.png" />
@@ -79,4 +80,31 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.bagText {
+  display: none;
+}
+@media (max-width: 740px) {
+  .bagText {
+    display: block;
+  }
+  .nav-item-manage {
+    top: -136%;
+    right: 50%;
+  }
+  .nav .nav-item .nav-item-manage {
+    list-style-type: none;
+    display: none;
+    min-width: 140px;
+    height: 86px;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: right;
+    color: black;
+    line-height: 44px;
+    border-radius: 5px;
+    padding: 0;
+  }
+}
+</style>

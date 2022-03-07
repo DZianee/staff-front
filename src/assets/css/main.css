@@ -622,23 +622,6 @@ iframe {
   padding: 0;
 }
 
-.nav .nav-item .nav-item-manage {
-  list-style-type: none;
-  display: none;
-  min-width: 140px;
-  height: 86px;
-  top: 24%;
-  right: 74%;
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  text-align: right;
-  color: black;
-  line-height: 44px;
-  border-radius: 5px;
-  padding: 0;
-}
-
 .nav .nav-item:hover .nav-item-manage {
   display: block;
 }
@@ -837,6 +820,23 @@ iframe {
   .nav .nav-item:hover .tooltiptext {
     display: inline-block;
   }
+
+  .nav .nav-item .nav-item-manage {
+    list-style-type: none;
+    display: none;
+    min-width: 140px;
+    height: 86px;
+    top: 24%;
+    right: 74%;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    text-align: right;
+    color: black;
+    line-height: 44px;
+    border-radius: 5px;
+    padding: 0;
+  }
 }
 /* Tablet */
 
@@ -859,6 +859,23 @@ iframe {
     top: 8%;
     left: -242%;
     text-align: left;
+  }
+
+  .nav .nav-item .nav-item-manage {
+    list-style-type: none;
+    display: none;
+    min-width: 140px;
+    height: 86px;
+    top: 24%;
+    right: 74%;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    text-align: right;
+    color: black;
+    line-height: 44px;
+    border-radius: 5px;
+    padding: 0;
   }
 }
 /* phone */

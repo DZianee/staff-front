@@ -12,7 +12,7 @@
       </select>
       <div class="user-man-header-sort">
         <p>Sort By:</p>
-        <select v-model="searchForm.sortType" class="form-select selectDepartment">
+        <select v-model="searchForm.sortType" class="form-select sortType">
           <option value="0">Created Date</option>
           <option value="1">Name</option>
           <option value="2">Department</option>
@@ -29,7 +29,7 @@
     </div>
     <div class="user-man-content">
       <table class="table table-bordered">
-        <thead>
+        <thead class="thead-light">
           <tr>
             <th scope="col">Username</th>
             <th scope="col">FullName</th>
@@ -61,9 +61,9 @@
   </div>
   <UserInfo @close="modalAct()" :modalActive="modalActive" :UserId="UserID" :Departments="DepartmentsList" />
   <CreateUser @closeCreate="CreateUserAct()" :CreateModalActive="CreateModalActive" :Departments="DepartmentsList" />
-  <div class="pagination-container">
+  <!-- <div class="pagination-container">
     <component :is="'pagination-list'" :totalPages="10" :perPage="10" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -190,6 +190,10 @@ export default {
   /* margin-right: 20px; */
 }
 
+.sortType {
+  width: 160px !important;
+}
+
 .selectDepartment {
   width: 160px !important;
 }
@@ -219,15 +223,21 @@ export default {
 @media (max-width: 940px) {
   .user-man-header {
     flex-direction: column;
+    width: 220px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .selectDepartment {
     margin-bottom: 8px;
+    width: 100% !important;
   }
   .user-man-header-search {
     margin-bottom: 10px;
   }
   .user-man-header-search input {
     height: 30px;
+    width: 220px;
   }
   .selectDepartment {
     margin-bottom: 8px;
@@ -251,7 +261,6 @@ export default {
   }
   .user-man-content {
     overflow-x: scroll;
-    overflow-y: scroll;
   }
 }
 </style>
