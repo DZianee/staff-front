@@ -19,13 +19,24 @@
       </div>
       <component
         :is="'confirm-modal'"
-        title="Confirm change password"
+        title="Term and condition"
         :ConfirmModalActive="isOpenModal"
+        :activeConfirmButton="isActiveConfirm"
         confirmText="Agree"
         @submitModal="confirm"
         @closeModal="closeModal">
-        <p>Your password will change. Click 'Agree' to confirm and update new password</p>
+        <div class="content-condition">
+          <p>
+            The Client Calibration Database is licensed, not sold. The Client Calibration Database (including, without limitation, its layout,
+            interfaces, functionality and incorporated images, text and other media) is the sole and exclusive property of Greenwich University, and
+            its licensors and is protected by domestic and international copyright and other intellectual property laws.
+          </p>
+        </div>
         <br />
+        <div class="form-check confirm-change">
+          <input class="form-check-input" type="checkbox" @change="onCheckbox" />
+          <label class="form-check-label" for="flexCheckDefault"> I have read this Agreement and agree to the terms and conditions </label>
+        </div>
       </component>
     </form>
   </div>
@@ -39,7 +50,6 @@ export default {
   name: "ChangePasswordPage",
   components: {
     PasswordInput,
-    // Modal,
   },
   data() {
     return {
@@ -48,6 +58,8 @@ export default {
       reNewPassword: "",
       NewPassError: true,
       isOpenModal: false,
+      isActiveConfirm: false,
+      isActive: false,
     };
   },
   computed: {
@@ -56,6 +68,9 @@ export default {
     },
   },
   methods: {
+    onCheckbox(e) {
+      this.isActiveConfirm = e.target.checked;
+    },
     closeModal() {
       this.isOpenModal = false;
     },
@@ -95,4 +110,19 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.confirm-change {
+  font-size: 14px;
+  line-height: 1;
+  color: #666666;
+}
+
+.login100-form /deep/ .Confirm-Modal-body {
+  height: 300px;
+}
+
+.content-condition {
+  max-height: 150px;
+  overflow-y: auto;
+}
+</style>
