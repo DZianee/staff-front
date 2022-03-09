@@ -4,13 +4,13 @@
       <img class="navbar-logo-image" src="../assets/images/logo.jpg" />
     </div>
     <ul class="nav-items">
-      <router-link to="/" style="text-decoration: none">
-        <li class="nav-item">
-          <i class="bx bx-home bx-sm bx-fw" />
-          <span>Home</span>
-          <span class="tooltiptext">Home</span>
-        </li>
-      </router-link>
+      <!-- <router-link to="/" style="text-decoration: none"> -->
+      <li class="nav-item">
+        <i class="bx bx-home bx-sm bx-fw" />
+        <span>Home</span>
+        <span class="tooltiptext">Home</span>
+      </li>
+      <!-- </router-link> -->
       <li class="nav-item">
         <i class="bx bx-news bx-sm bx-fw" />
         <span>News</span>
@@ -18,8 +18,8 @@
       </li>
       <li class="nav-item">
         <i class="bx bx-briefcase bx-sm bx-fw" />
-        <span>Management</span>
-        <span class="tooltiptext">Management</span>
+        <span>Manage</span>
+        <span class="tooltiptext">Manage</span>
 
         <!-- <ul class="nav-item-manage">
           <li class="nav-item-manage-item" @click="TopicRoute">Topic</li>
@@ -104,7 +104,6 @@ export default {
 </script>
 
 <style scoped>
-
 /* .bagText {
   display: none;
 }

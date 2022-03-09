@@ -112,14 +112,6 @@ export default {
   font-size: 14px;
   color: rgb(110, 105, 105);
 }
-.input100 {
-  font-size: 15px;
-}
-.forgot-password:hover {
-  color: rgb(34, 17, 17);
-  text-decoration: underline;
-  cursor: pointer;
-}
 .login100-form-btn {
   font-size: 17px;
   letter-spacing: 1px;

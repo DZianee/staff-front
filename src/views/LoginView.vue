@@ -73,6 +73,11 @@ export default {
   font-family: "Roboto";
   font-size: 15px;
 }
+.wrap-login100 {
+  width: 30%;
+  position: relative;
+  border-radius: 12px;
+}
 .font-weight-bold {
   font-weight: 500;
 }
@@ -82,6 +87,7 @@ export default {
 }
 .input100 {
   font-size: 15px;
+  background: #e0e0e0;
 }
 .forgot-password:hover {
   color: rgb(34, 17, 17);
@@ -92,14 +98,25 @@ export default {
   font-size: 17px;
 }
 .login100-form-btn:hover {
-background: #0277bd;
+  background: #0277bd;
+}
+@media screen and (max-width: 1366px) {
+  .wrap-login100 {
+    width: 35%;
+  }
+}
+@media screen and (max-width: 780px) {
+  .wrap-login100 {
+    width: 60%;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .wrap-login100 {
     width: 95%;
-    position: relative;
     top: -100px;
-    border-radius: 12px;
+    padding-right: 25px;
+    padding-left: 25px;
   }
+  
 }
 </style>

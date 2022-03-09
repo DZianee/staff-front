@@ -707,7 +707,6 @@ iframe {
   .nav-item:hover .tooltiptext {
     visibility: visible;
   }
-
   .user-shortcut {
     bottom: -54px;
   }
@@ -730,69 +729,51 @@ iframe {
   .uni-logo {
     display: none;
   }
-  .header{
+  .header {
     display: block;
   }
-  .user-shortcut{
+  .user-shortcut {
     display: none;
   }
-  .tooltiptext{
+  .tooltiptext {
     display: none;
   }
+  .nav {
+    /* top: unset; */
+    bottom: 0;
+    left: auto;
+    right: auto;
+    padding-left: 0;
+    width: 100%;
+    height: 65px;
+  }
+  .nav-items {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    justify-content: space-around;
+    top: 1px;
+    height: auto;
+  }
+  .nav-item {
+    width: 100px;
+    margin: 0;
+    height: 40px;
+    border-radius: 0%;
+    display: inline-block;
+  }
+  .nav-item:hover {
+    border-top: solid #42a5f5 5px;
+    background: none;
+  }
+  .nav-item span:not(.tooltiptext) {
+    top: -30px;
+    height: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
 }
-/* .nav .nav-items {
-  list-style: none;
-  align-items: center;
-  justify-content: space-evenly;
-  display: flex;
-  flex-direction: column;
-  height: 406px;
-  width: 60px;
-  text-align: center;
-  padding: 0;
-}
-
-.nav .nav-item:hover .nav-item-manage {
-  display: block;
-}
-
-.nav .nav-item .nav-item-manage-item {
-  text-align: center;
-}
-
-.nav .nav-item .nav-item-manage-item:hover {
-  background-color:darksalmon;
-  cursor: pointer;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.nav .nav-items .nav-item img {
-  width: 40px;
-  height: 40px;
-}
-
-.nav .nav-item .tooltiptext {
-  display: none;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  text-decoration: none;
-
-  position: absolute;
-  right: 80%;
-  z-index: 1;
-}
-
-.nav-items a.router-link-exact-active {
-  border-right: 5px solid pink;
-  border-radius: 5px;
-  text-decoration: none;
-} */
-
 .Topic-Modal {
   display: flex;
   align-items: center;
@@ -1048,7 +1029,6 @@ iframe {
     height: 60px;
     width: 100%;
   } */
-
 
   /* .nav .nav-item {
       padding: 0 20px;
