@@ -120,4 +120,7 @@ export default {
 .btn_cancel:hover {
   background-color: rgb(218, 218, 218);
 }
+.btn-mar-right {
+  margin-right: 10px;
+}
 </style>
