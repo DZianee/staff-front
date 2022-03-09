@@ -2,6 +2,6 @@ const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
-    proxy: "http://webenterprisebackend-dev.herokuapp.com/",
+    proxy: "https://traitn-workplace.hopto.org:5005/",
   },
 });

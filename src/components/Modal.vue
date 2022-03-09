@@ -11,10 +11,9 @@
         </header>
         <div class="Confirm-Modal-body">
           <slot></slot>
-          <!-- <button class="submit-add" @click="submitModal">{{ confirmText }}</button> -->
           <div class="remove-btns">
             <button type="button" class="btn btn_cancel" @click="closeModal">Cancel</button>
-            <button type="button" class="btn btn_remove btn-success" @click="submitModal">{{ confirmText }}</button>
+            <button type="button" class="btn btn_remove btn-success" :disabled="!activeConfirmButton" @click="submitModal">{{ confirmText }}</button>
           </div>
         </div>
       </div>
@@ -25,7 +24,7 @@
 <script>
 export default {
   name: "ConfirmModal",
-  props: ["ConfirmModalActive", "title", "confirmText"],
+  props: ["ConfirmModalActive", "title", "confirmText","activeConfirmButton"],
   // methods: {
   //   close() {
   //     this.$emit("close");
@@ -120,5 +119,8 @@ export default {
 }
 .btn_cancel:hover {
   background-color: rgb(218, 218, 218);
+}
+.btn-mar-right {
+  margin-right: 10px;
 }
 </style>

@@ -6,23 +6,27 @@
         <div class="UserInfo-Modal-close" @click="close">
           <i class="bi form-control-feedback bi-x-lg" style="font-size: 22px"></i>
         </div>
-        <header class="UserInfo-Modal-header">
-          <button class="btn btn-primary btn-mar-right" @click="infoDetail">Detail</button>
+        <div class="User-ActButtons-icon">
+          <i class="bi bi-filter-left" style="font-size: 22px" @click="displayButtons"></i>
+        </div>
+        <div class="User-ActButtons" :class="{ displayButtons: IsdisplayButtons }">
           <button class="btn btn-primary btn-mar-right" @click="editDetail">Edit</button>
           <button class="btn btn-primary btn-mar-right" @click="ResetsubmitModal">Reset Password</button>
           <button class="btn btn-primary" @click="DeletesubmitModal">Delete</button>
+        </div>
+        <header class="UserInfo-Modal-header">
           <p>User Details</p>
         </header>
         <div class="UserInfo-Modal-body">
           <form>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label>FirstName</label>
-                <input type="text" class="form-control" placeholder="FirstName" :disabled="Disable" v-model="User.firstname" />
+                <label>Firstname</label>
+                <input type="text" class="form-control" placeholder="Firstname" :disabled="Disable" v-model="User.firstname" />
               </div>
               <div class="form-group col-md-6">
-                <label>LastName</label>
-                <input type="text" class="form-control" placeholder="LastName" :disabled="Disable" v-model="User.lastname" />
+                <label>Lastname</label>
+                <input type="text" class="form-control" placeholder="Lastname" :disabled="Disable" v-model="User.lastname" />
               </div>
             </div>
             <div class="form-row">
@@ -39,10 +43,7 @@
                 <input type="date" class="form-control" placeholder="Date of Birth" :disabled="Disable" v-model="DoB" />
               </div>
             </div>
-            <div>
-              <label>Address</label>
-              <input type="text" class="form-control" placeholder="Address" :disabled="Disable" v-model="User.address" />
-            </div>
+
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Department</label>
@@ -68,17 +69,15 @@
                   v-model="User.phone" />
               </div>
             </div>
-            <div class="form-group col-md-6 checkboxFlex">
+            <div class="AddressInput">
+              <label>Address</label>
+              <input type="text" class="form-control" placeholder="Address" :disabled="Disable" v-model="User.address" />
+            </div>
+            <!-- <div class="form-group col-md-6 checkboxFlex">
               <input type="checkbox" style="margin-right: 10px" :disabled="Disable" :checked="User.active" v-model="User.active" />
               <label>IsActive</label>
-            </div>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              style="margin-top: 10px"
-              v-if="Disable == false"
-              :disabled="Disable"
-              @click="EditsubmitModal">
+            </div> -->
+            <button type="submit" class="btn btn-primary btnSubmit" v-if="Disable == false" :disabled="Disable" @click="EditsubmitModal">
               Change
             </button>
           </form>
@@ -117,6 +116,7 @@ export default {
       TitleConfirmText: "",
       ModifyID: 0,
       isOpenModal: false,
+      IsdisplayButtons: false,
     };
   },
 
@@ -147,6 +147,9 @@ export default {
       } else {
         return true;
       }
+    },
+    displayButtons() {
+      this.IsdisplayButtons = !this.IsdisplayButtons;
     },
     changeDepartment() {
       for (let i = 0; i < this.Departments.length; i++) {
@@ -323,11 +326,47 @@ export default {
 .UserInfo-Modal-header {
   position: absolute;
   width: 80%;
-  height: 30px;
   left: 50%;
   transform: translateX(-50%);
-  top: 20px;
+  top: 52px;
   text-align: center;
+}
+
+.User-ActButtons {
+  background-color: bisque;
+  position: absolute;
+  left: 38px;
+  top: 2px;
+  padding: 0 10px;
+  border-radius: 15px;
+  display: none;
+  z-index: 1;
+  animation: fade ease-in-out 0.15s;
+}
+.User-ActButtons-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.displayButtons {
+  display: block;
+}
+
+.btn {
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+  font-size: 14px;
+}
+
+.btnSubmit {
+  margin-top: 10px;
+  width: 100%;
+  font-size: 16px !important;
+  font-weight: bold !important;
 }
 
 .btn-mar-right {
@@ -352,13 +391,6 @@ export default {
   margin-top: 90px;
 }
 
-.UserInfo-Modal-label {
-  display: block;
-  font-size: 15px;
-  margin-bottom: 6px;
-  text-align: left;
-}
-
 .UserInfo-Modal-input {
   border: 1px solid #ccc;
   background-color: #c4c4c4;
@@ -370,13 +402,25 @@ export default {
 }
 
 .UserInfo-Modal-body label {
+  text-align: left;
+  padding-left: 10px;
   font-size: 12px;
+  margin-bottom: 4px;
 }
 .form-row {
   display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }
 .form-group {
-  width: 50%;
+  width: 46% !important;
+}
+.form-control {
+  font-size: 12px;
+}
+.AddressInput {
+  width: 96%;
+  margin: 0px auto 20px;
 }
 .checkboxFlex {
   display: flex;
@@ -410,29 +454,9 @@ export default {
     text-align: center;
   }
 
-  .UserInfo-Modal-header p {
-    display: none;
-  }
-
-  .UserInfo-Modal-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 20px;
-  }
-
   .UserInfo-Modal-body {
     padding: 16px;
     margin-top: 40px;
-  }
-
-  .UserInfo-Modal-label {
-    display: block;
-    font-size: 15px;
-    margin-bottom: 2px;
-    text-align: left;
   }
 
   .UserInfo-Modal-input {
@@ -445,15 +469,31 @@ export default {
     font-size: 15px;
     margin-bottom: 4px;
   }
-
+  .AddressInput {
+    width: 100%;
+    margin: 10px 0;
+  }
   .form-row {
     display: block;
+    margin-bottom: 0px;
   }
   .form-group {
-    width: 100%;
+    width: 100% !important;
+    margin: 10px 0;
   }
   .btn-mar-right {
     margin-right: 2px;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 </style>

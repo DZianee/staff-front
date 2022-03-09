@@ -27,7 +27,7 @@
         Create
       </button>
     </div>
-    <div class="user-man-content">
+    <!-- <div class="user-man-content">
       <table class="table table-bordered">
         <thead class="thead-light">
           <tr>
@@ -45,25 +45,66 @@
             <td>{{ user.role }}</td>
             <td>{{ user.department }}</td>
             <td>{{ user.active }}</td>
-            <td
-              class="UserDetail"
+            <button
+              class="btn btn-info"
               @click="
                 modalAct();
                 UserIDAct(user.id);
                 DepartmentAct(Departments);
               ">
               View Details
-            </td>
+            </button>
           </tr>
         </tbody>
       </table>
+    </div> -->
+    <div class="user-card">
+      <div v-for="user in Users" :key="user.id">
+        <div class="card">
+          <div class="card-image">
+            <img src="https://bachkhoawiki.com/wp-content/uploads/2021/08/dark-meme-la-gi-tot-hay-xau-su-dung-sao-cho-dung-3.jpg" alt="User image" />
+          </div>
+          <div class="card-content" style="padding: 0">
+            <div class="content">
+              <h1>{{ user.fullname }}</h1>
+              <h2>{{ user.department }}</h2>
+              <div class="content-details">
+                <span class="content-details-item">
+                  <i class="bi bi-envelope"></i>
+                  <p>{{ user.username }}</p>
+                </span>
+                <span class="content-details-item">
+                  <i class="bi bi-telephone"></i>
+                  <p>{{ user.phone }}</p>
+                </span>
+                <span class="content-details-item">
+                  <i class="bi bi-person"></i>
+                  <p>{{ user.role }}</p>
+                </span>
+              </div>
+            </div>
+          </div>
+          <footer class="card-footer card-footerchange">
+            <!-- <p class="card-footer-item total-ideas">{{ topic.totalIdea }} ideas</p> -->
+            <button
+              class="btn btn-success"
+              @click="
+                modalAct();
+                UserIDAct(user.id);
+                DepartmentAct(Departments);
+              ">
+              View Details
+            </button>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <div class="pagination-container">
+      <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
     </div>
   </div>
   <UserInfo @close="modalAct()" :modalActive="modalActive" :UserId="UserID" :Departments="DepartmentsList" />
   <CreateUser @closeCreate="CreateUserAct()" :CreateModalActive="CreateModalActive" :Departments="DepartmentsList" />
-  <!-- <div class="pagination-container">
-    <component :is="'pagination-list'" :totalPages="10" :perPage="10" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
-  </div> -->
 </template>
 
 <script>
@@ -88,28 +129,39 @@ export default {
       },
 
       currentPage: 1,
+      totalPage: 1,
     };
   },
   watch: {
     searchForm: {
       handler(newValue) {
         console.log(newValue.name);
-        this.searchUsers();
+        this.GetUsers();
       },
       deep: true,
     },
   },
   methods: {
     onPageChange(page) {
-      console.log(page);
       this.currentPage = page;
+      this.GetUsers();
     },
     async GetUsers() {
       try {
         this.$store.dispatch("fetchAccessToken");
-        // const data = { name: "", departmentName: "", sortType: 0 };
-        const res = await this.$axios.post(`api/v1/User/getlist`, this.searchForm, this.$axios.defaults.headers["Authorization"]);
-        this.Users = res.data.content;
+        const data = {
+          searchName: this.searchForm.name,
+          filterDepartmentName: this.searchForm.departmentName,
+          sortType: parseInt(this.searchForm.sortType),
+        };
+        const res = await this.$axios.post(`api/v1/User/getlist`, data, {
+          params: {
+            PageSize: 6,
+            CurrentPage: this.currentPage,
+          },
+        });
+        this.Users = res.data.content.content;
+        this.totalPage = res.data.content.totalPage;
       } catch (e) {
         //
       }
@@ -119,16 +171,6 @@ export default {
         this.$store.dispatch("fetchAccessToken");
         const res = await this.$axios.get(`api/v1/Department`, this.$axios.defaults.headers["Authorization"]);
         this.Departments = res.data.content;
-      } catch (e) {
-        //
-      }
-    },
-    async searchUsers() {
-      try {
-        this.$store.dispatch("fetchAccessToken");
-        const data = { name: this.searchForm.name, departmentName: this.searchForm.departmentName, sortType: parseInt(this.searchForm.sortType) };
-        const res = await this.$axios.post(`api/v1/User/getlist`, data, this.$axios.defaults.headers["Authorization"]);
-        this.Users = res.data.content;
       } catch (e) {
         //
       }
@@ -207,15 +249,96 @@ export default {
   margin-right: 6px;
 }
 
-.user-man-content {
-  margin-top: 18px;
+/* .user-man-content {
+  margin-top: 26px;
+} */
+.user-card {
+  display: grid;
+  grid-template-columns: repeat(4, 21%);
+  column-gap: 40px;
+  row-gap: 80px;
+  padding: 50px 0 90px 60px;
 }
-
-.UserDetail:hover {
-  background-color: aqua;
-  cursor: pointer;
+.card {
+  width: 370px;
+  height: 268px;
+  border-radius: 23px;
+  overflow: hidden;
 }
-
+.card-content h1 {
+  font-size: 20px;
+  height: 22.5px;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+.card-content h2 {
+  font-size: 14px;
+  margin: 0;
+  margin-top: 0 !important;
+}
+.content-details {
+  text-align: left;
+  padding: 0 16px;
+  margin-top: 12px;
+  font-weight: 600;
+}
+.content-details-item {
+  display: flex;
+  align-items: center;
+}
+.content-details-item i {
+  margin-right: 14px;
+}
+.card-image {
+  margin-top: 6px;
+}
+.card-image img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50% !important;
+}
+.card-footerchange {
+  background-color: white !important;
+  border-top: none !important;
+  display: block;
+}
+@media screen and (max-width: 1440px) {
+  .user-card {
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    column-gap: 50px;
+    row-gap: 100px;
+  }
+  .card {
+    width: 340px;
+    height: 268px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .user-card {
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    column-gap: 50px;
+    row-gap: 100px;
+  }
+  .card {
+    width: 355px;
+    height: 268px;
+  }
+}
+@media screen and (max-width: 1025px) {
+  .user-card {
+    display: grid;
+    grid-template-columns: repeat(2, 47%);
+    column-gap: 30px;
+    row-gap: 100px;
+    padding-left: 24px;
+  }
+  .card {
+    width: 355px;
+    height: 268px;
+  }
+}
 @media (min-width: 1024px) {
 }
 /* Tablet */
@@ -248,19 +371,45 @@ export default {
 }
 
 @media (min-width: 740px) and (max-width: 939px) {
-  .user-man-content {
+  /* .user-man-content {
     overflow-x: scroll;
-  }
+  } */
 }
 /* phone */
+
+@media screen and (max-width: 780px) {
+  .user-card {
+    display: grid;
+    grid-template-columns: repeat(2, 47%);
+    column-gap: 34px;
+    row-gap: 70px;
+    padding: 50px 50px 160px 50px;
+  }
+  .card {
+    width: 295px;
+    height: 268px;
+  }
+}
 
 @media (max-width: 740px) {
   .user-man {
     left: 50%;
     width: 90%;
   }
-  .user-man-content {
+  /* .user-man-content {
     overflow-x: scroll;
+  } */
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .user-card {
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 60px;
+    padding-left: 53px;
+  }
+  .card {
+    width: 300px;
+    height: 268px;
   }
 }
 </style>

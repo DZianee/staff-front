@@ -2,20 +2,31 @@
   <div class="topic-card">
     <div v-for="topic in Topics" :key="topic.id">
       <div class="card">
-        <div class="card-content">
+        <div class="card-content" :style="{ backgroundColor: topic.colorCode }">
           <div class="topic-card_adjust">
-            <button class="icon icon_info" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="topicInfoAct(topic)">
+            <button
+              class="icon icon_info"
+              :style="{ backgroundColor: topic.colorCode }"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              @click="topicInfoAct(topic)">
               <i class="bx bx-info-circle bx-sm" />
             </button>
             <button
               v-if="topic.totalIdea <= 0"
               class="icon icon_delete"
+              :style="{ backgroundColor: topic.colorCode }"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal1"
               @click="topicInfoAct(topic)">
               <i class="bx bx-x bx-sm" />
             </button>
-            <button v-if="topic.totalIdea > 0" class="icon icon_delete" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            <button
+              v-if="topic.totalIdea > 0"
+              :style="{ backgroundColor: topic.colorCode }"
+              class="icon icon_delete"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal2">
               <i class="bx bx-x bx-sm" />
             </button>
           </div>
@@ -25,7 +36,7 @@
           </div>
         </div>
         <footer class="card-footer">
-          <p class="card-footer-item total-ideas">{{ topic.totalIdea }} ideas</p>
+          <p class="card-footer-item total-ideas" @click="manageIdea(topic.id)">{{ topic.totalIdea }} ideas</p>
         </footer>
       </div>
     </div>
@@ -52,11 +63,15 @@ export default {
     };
   },
   methods: {
+    manageIdea(value) {
+      console.log(value);
+      this.$router.push({ name: "ideaView", params: { id: value } });
+    },
     async GetTopics() {
       try {
         this.$store.dispatch("fetchAccessToken");
         const res = await this.$axios.post(`api/v1/Topic/GetList`, { name: "" }, this.$axios.defaults.headers["Authorization"]);
-        this.Topics = res.data.content;
+        this.Topics = res.data.content.content;
       } catch (e) {
         //
       }
@@ -170,10 +185,11 @@ h1 {
   border-top-color: rgb(177, 177, 177);
   background-color: white;
   height: 40px;
+  cursor: pointer;
 }
 .card-footer p {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 750;
   padding-top: 18px;
 }
 @media screen and (max-width: 1440px) {
@@ -246,8 +262,9 @@ h1 {
   .topic-card {
     display: grid;
     grid-template-columns: 100%;
+    width: 400px;
     row-gap: 60px;
-    padding-left: 53px;
+    margin-left: 38px;
   }
   .card {
     width: 300px;
