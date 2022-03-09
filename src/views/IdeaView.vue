@@ -53,7 +53,7 @@
     </component>
   </div>
   <div class="container">
-    <h1 class="container-title">Ideas</h1>
+    <h1 class="container-title">Ideas Management</h1>
     <div class="content">
       <div class="table-toolbar d-flex justify-content-end">
         <div class="table-search-box">
@@ -186,7 +186,7 @@ export default {
 
         const resIdea = await this.$axios.get(`api/v1/Idea/topic/${this.$route.params.id}`, this.$axios.defaults.headers["Authorization"]);
         if (resIdea.status == 200) {
-          this.ideas = resIdea.data.content;
+          this.ideas = resIdea.data.content.content;
           this.ideas.forEach(startDateConvert);
         }
       } catch {

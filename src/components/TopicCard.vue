@@ -71,7 +71,7 @@ export default {
       try {
         this.$store.dispatch("fetchAccessToken");
         const res = await this.$axios.post(`api/v1/Topic/GetList`, { name: "" }, this.$axios.defaults.headers["Authorization"]);
-        this.Topics = res.data.content;
+        this.Topics = res.data.content.content;
       } catch (e) {
         //
       }

@@ -136,22 +136,30 @@ export default {
     searchForm: {
       handler(newValue) {
         console.log(newValue.name);
-        this.searchUsers();
+        this.GetUsers();
       },
       deep: true,
     },
   },
   methods: {
     onPageChange(page) {
-      console.log(page);
       this.currentPage = page;
+      this.GetUsers();
     },
     async GetUsers() {
       try {
         this.$store.dispatch("fetchAccessToken");
-        // console.log(this.$axios.defaults.headers["Authorization"]);
-        // const data = { name: "", departmentName: "", sortType: 0 };
-        const res = await this.$axios.post(`api/v1/User/getlist`, this.searchForm);
+        const data = {
+          searchName: this.searchForm.name,
+          filterDepartmentName: this.searchForm.departmentName,
+          sortType: parseInt(this.searchForm.sortType),
+        };
+        const res = await this.$axios.post(`api/v1/User/getlist`, data, {
+          params: {
+            PageSize: 6,
+            CurrentPage: this.currentPage,
+          },
+        });
         this.Users = res.data.content.content;
         this.totalPage = res.data.content.totalPage;
       } catch (e) {
@@ -163,17 +171,6 @@ export default {
         this.$store.dispatch("fetchAccessToken");
         const res = await this.$axios.get(`api/v1/Department`, this.$axios.defaults.headers["Authorization"]);
         this.Departments = res.data.content;
-      } catch (e) {
-        //
-      }
-    },
-    async searchUsers() {
-      try {
-        this.$store.dispatch("fetchAccessToken");
-        const data = { name: this.searchForm.name, departmentName: this.searchForm.departmentName, sortType: parseInt(this.searchForm.sortType) };
-        const res = await this.$axios.post(`api/v1/User/getlist`, data, this.$axios.defaults.headers["Authorization"]);
-        this.Users = res.data.content.content;
-        this.totalPage = res.data.content.totalPage;
       } catch (e) {
         //
       }
