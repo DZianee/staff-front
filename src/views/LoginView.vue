@@ -51,7 +51,8 @@ export default {
         const res = await this.$axios.post(`api/v1/User/Login`, auth);
         if (res.status === 200) {
           this.$store.dispatch("login", res.data);
-          if (this.password == "123123") {
+          const { content } = res.data;
+          if (!content.user.isActive) {
             this.$router.push({ name: "changePass" });
           } else {
             this.$store.dispatch("attachUser", res.data);
