@@ -16,6 +16,10 @@ const router = [
     component: HomeView,
   },
   {
+    path: "/:catchAll(.*)", // Unrecognized path automatically matches 404
+    redirect: "/",
+  },
+  {
     path: "/about",
     name: "about",
     component: () => import("../views/AboutView.vue"),
@@ -48,7 +52,7 @@ const router = [
     component: ProfileView,
   },
   {
-    path: "/idea-view",
+    path: "/idea-view/:id",
     name: "ideaView",
     component: IdeaView,
   },

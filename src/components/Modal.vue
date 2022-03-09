@@ -13,7 +13,7 @@
           <slot></slot>
           <!-- <button class="submit-add" @click="submitModal">{{ confirmText }}</button> -->
           <div class="remove-btns">
-            <button type="button" class="btn btn_cancel" @click="closeModal">Cancel</button>
+            <button type="button" class="btn btn_cancel btn-mar-right" @click="closeModal">Cancel</button>
             <button type="button" class="btn btn_remove btn-success" @click="submitModal">{{ confirmText }}</button>
           </div>
         </div>
@@ -120,5 +120,8 @@ export default {
 }
 .btn_cancel:hover {
   background-color: rgb(218, 218, 218);
+}
+.btn-mar-right {
+  margin-right: 10px;
 }
 </style>
