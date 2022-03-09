@@ -21,12 +21,12 @@
           <form>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label>FirstName</label>
-                <input type="text" class="form-control" placeholder="FirstName" :disabled="Disable" v-model="User.firstname" />
+                <label>Firstname</label>
+                <input type="text" class="form-control" placeholder="Firstname" :disabled="Disable" v-model="User.firstname" />
               </div>
               <div class="form-group col-md-6">
-                <label>LastName</label>
-                <input type="text" class="form-control" placeholder="LastName" :disabled="Disable" v-model="User.lastname" />
+                <label>Lastname</label>
+                <input type="text" class="form-control" placeholder="Lastname" :disabled="Disable" v-model="User.lastname" />
               </div>
             </div>
             <div class="form-row">
@@ -43,10 +43,7 @@
                 <input type="date" class="form-control" placeholder="Date of Birth" :disabled="Disable" v-model="DoB" />
               </div>
             </div>
-            <div>
-              <label>Address</label>
-              <input type="text" class="form-control" placeholder="Address" :disabled="Disable" v-model="User.address" />
-            </div>
+
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Department</label>
@@ -72,17 +69,15 @@
                   v-model="User.phone" />
               </div>
             </div>
+            <div class="AddressInput">
+              <label>Address</label>
+              <input type="text" class="form-control" placeholder="Address" :disabled="Disable" v-model="User.address" />
+            </div>
             <!-- <div class="form-group col-md-6 checkboxFlex">
               <input type="checkbox" style="margin-right: 10px" :disabled="Disable" :checked="User.active" v-model="User.active" />
               <label>IsActive</label>
             </div> -->
-            <button
-              type="submit"
-              class="btn btn-primary"
-              style="margin-top: 10px"
-              v-if="Disable == false"
-              :disabled="Disable"
-              @click="EditsubmitModal">
+            <button type="submit" class="btn btn-primary btnSubmit" v-if="Disable == false" :disabled="Disable" @click="EditsubmitModal">
               Change
             </button>
           </form>
@@ -333,7 +328,7 @@ export default {
   width: 80%;
   left: 50%;
   transform: translateX(-50%);
-  top: 64px;
+  top: 52px;
   text-align: center;
 }
 
@@ -345,6 +340,7 @@ export default {
   padding: 0 10px;
   border-radius: 15px;
   display: none;
+  z-index: 1;
   animation: fade ease-in-out 0.15s;
 }
 .User-ActButtons-icon {
@@ -363,6 +359,14 @@ export default {
 .btn {
   margin-top: 4px !important;
   margin-bottom: 4px !important;
+  font-size: 14px;
+}
+
+.btnSubmit {
+  margin-top: 10px;
+  width: 100%;
+  font-size: 16px !important;
+  font-weight: bold !important;
 }
 
 .btn-mar-right {
@@ -387,13 +391,6 @@ export default {
   margin-top: 90px;
 }
 
-.UserInfo-Modal-label {
-  display: block;
-  font-size: 15px;
-  margin-bottom: 6px;
-  text-align: left;
-}
-
 .UserInfo-Modal-input {
   border: 1px solid #ccc;
   background-color: #c4c4c4;
@@ -405,13 +402,25 @@ export default {
 }
 
 .UserInfo-Modal-body label {
+  text-align: left;
+  padding-left: 10px;
   font-size: 12px;
+  margin-bottom: 4px;
 }
 .form-row {
   display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }
 .form-group {
-  width: 50%;
+  width: 46% !important;
+}
+.form-control {
+  font-size: 12px;
+}
+.AddressInput {
+  width: 96%;
+  margin: 0px auto 20px;
 }
 .checkboxFlex {
   display: flex;
@@ -445,20 +454,9 @@ export default {
     text-align: center;
   }
 
-  .UserInfo-Modal-header p {
-    display: none;
-  }
-
   .UserInfo-Modal-body {
     padding: 16px;
     margin-top: 40px;
-  }
-
-  .UserInfo-Modal-label {
-    display: block;
-    font-size: 15px;
-    margin-bottom: 2px;
-    text-align: left;
   }
 
   .UserInfo-Modal-input {
@@ -471,12 +469,17 @@ export default {
     font-size: 15px;
     margin-bottom: 4px;
   }
-
+  .AddressInput {
+    width: 100%;
+    margin: 10px 0;
+  }
   .form-row {
     display: block;
+    margin-bottom: 0px;
   }
   .form-group {
-    width: 100%;
+    width: 100% !important;
+    margin: 10px 0;
   }
   .btn-mar-right {
     margin-right: 2px;

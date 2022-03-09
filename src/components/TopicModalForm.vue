@@ -122,7 +122,7 @@ export default {
           closeIdeaDate: CloseIdeatimeStamp,
           closureDate: ClosetimeStamp,
           userId: user.id,
-          departmentId: user.departmentId,
+          // departmentId: user.departmentId,
         };
         const res = await this.$axios.post(`api/v1/Topic`, topic, this.$axios.defaults.headers["Authorization"]);
         if (res.status == 200) {
