@@ -100,7 +100,7 @@
       </div>
     </div>
     <div class="pagination-container">
-      <component :is="'pagination-list'" :totalPages="1" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
+      <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
     </div>
   </div>
   <UserInfo @close="modalAct()" :modalActive="modalActive" :UserId="UserID" :Departments="DepartmentsList" />
@@ -129,28 +129,39 @@ export default {
       },
 
       currentPage: 1,
+      totalPage: 1,
     };
   },
   watch: {
     searchForm: {
       handler(newValue) {
         console.log(newValue.name);
-        this.searchUsers();
+        this.GetUsers();
       },
       deep: true,
     },
   },
   methods: {
     onPageChange(page) {
-      console.log(page);
       this.currentPage = page;
+      this.GetUsers();
     },
     async GetUsers() {
       try {
         this.$store.dispatch("fetchAccessToken");
-        // const data = { name: "", departmentName: "", sortType: 0 };
-        const res = await this.$axios.post(`api/v1/User/getlist`, this.searchForm, this.$axios.defaults.headers["Authorization"]);
-        this.Users = res.data.content;
+        const data = {
+          searchName: this.searchForm.name,
+          filterDepartmentName: this.searchForm.departmentName,
+          sortType: parseInt(this.searchForm.sortType),
+        };
+        const res = await this.$axios.post(`api/v1/User/getlist`, data, {
+          params: {
+            PageSize: 6,
+            CurrentPage: this.currentPage,
+          },
+        });
+        this.Users = res.data.content.content;
+        this.totalPage = res.data.content.totalPage;
       } catch (e) {
         //
       }
@@ -160,16 +171,6 @@ export default {
         this.$store.dispatch("fetchAccessToken");
         const res = await this.$axios.get(`api/v1/Department`, this.$axios.defaults.headers["Authorization"]);
         this.Departments = res.data.content;
-      } catch (e) {
-        //
-      }
-    },
-    async searchUsers() {
-      try {
-        this.$store.dispatch("fetchAccessToken");
-        const data = { name: this.searchForm.name, departmentName: this.searchForm.departmentName, sortType: parseInt(this.searchForm.sortType) };
-        const res = await this.$axios.post(`api/v1/User/getlist`, data, this.$axios.defaults.headers["Authorization"]);
-        this.Users = res.data.content;
       } catch (e) {
         //
       }
