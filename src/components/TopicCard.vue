@@ -262,8 +262,9 @@ h1 {
   .topic-card {
     display: grid;
     grid-template-columns: 100%;
+    width: 400px;
     row-gap: 60px;
-    padding-left: 53px;
+    margin-left: 38px;
   }
   .card {
     width: 300px;

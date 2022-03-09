@@ -1,8 +1,8 @@
 <template>
-  <div class="wrap-login100 p-l-50 p-r-50 p-t-15 p-b-33">
+  <div class="wrap-login100 p-l-40 p-r-40 p-t-15 p-b-33">
     <form class="login100-form validate-form flex-sb flex-w" @submit.prevent="submit">
       <span class="login100-form-title p-b-13 p-t-15 fs-16 font-weight-bold"> Create new password </span>
-      <div class="p-t-35 p-b-9">
+      <div class="p-t-27 p-b-9">
         <span class="font-weight-bold"> Old password </span>
       </div>
       <PasswordInput v-model:value="oldPassword" />
@@ -14,7 +14,7 @@
         <span class="font-weight-bold"> Confirm new password </span>
       </div>
       <PasswordInput v-model:value="reNewPassword" />
-      <div class="container-login100-form-btn m-t-45 m-b-15">
+      <div class="container-login100-form-btn m-t-38 m-b-15">
         <button class="login100-form-btn" :disabled="NewPassError">Reset password</button>
       </div>
       <component
@@ -111,18 +111,44 @@ export default {
 </script>
 
 <style scoped>
-.confirm-change {
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+* {
+  font-family: "Roboto";
+  font-size: 15px;
+}
+.wrap-login100 {
+    width: 28%;
+    border-radius: 12px;
+  }
+.font-weight-bold {
+  font-weight: 500;
+}
+.forgot-password {
   font-size: 14px;
-  line-height: 1;
-  color: #666666;
+  color: rgb(110, 105, 105);
+}
+.login100-form-btn {
+  font-size: 17px;
+  letter-spacing: 1px;
+  height: 50px;
+}
+.login100-form-title {
+  font-size: 22px;
+}
+.login100-form-btn:hover {
+  background: #0277bd;
 }
 
-.login100-form /deep/ .Confirm-Modal-body {
-  height: 300px;
-}
-
-.content-condition {
-  max-height: 150px;
-  overflow-y: auto;
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .wrap-login100 {
+    width: 95%;
+    position: relative;
+    top: -100px;
+    padding-left: 38px;
+    padding-right: 38px;
+  }
+  .wrap-login100{
+    height: 43%;
+  }
 }
 </style>

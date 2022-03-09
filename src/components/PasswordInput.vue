@@ -67,5 +67,6 @@ export default {
 }
 .input100 {
   font-size: 15px;
+  background: #e0e0e0;
 }
 </style>
