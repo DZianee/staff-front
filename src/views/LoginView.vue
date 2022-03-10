@@ -48,6 +48,7 @@ export default {
     async login() {
       try {
         const auth = { username: this.username, password: sha256(this.password) };
+        // const header = { "Access-Control-Allow-Origin": "*", "Content-type": "application/json" };
         const res = await this.$axios.post(`api/v1/User/Login`, auth);
         if (res.status === 200) {
           this.$store.dispatch("login", res.data);

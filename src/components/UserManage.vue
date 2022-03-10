@@ -66,7 +66,7 @@
           </div>
           <div class="card-content" style="padding: 0">
             <div class="content">
-              <h1>{{ user.fullname }}</h1>
+              <h1>{{ user.firstname }} {{ user.lastname }}</h1>
               <h2>{{ user.department }}</h2>
               <div class="content-details">
                 <span class="content-details-item">
@@ -160,8 +160,8 @@ export default {
             CurrentPage: this.currentPage,
           },
         });
-        this.Users = res.data.content.content;
-        this.totalPage = res.data.content.totalPage;
+        this.Users = res.data.content;
+        this.totalPage = res.data.totalPage;
       } catch (e) {
         //
       }

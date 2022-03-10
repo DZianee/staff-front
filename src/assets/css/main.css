@@ -5,9 +5,9 @@
   box-sizing: border-box;
 }
 
-#app {
+/* #app { */
   /* height: 100%; */
-}
+/* } */
 
 body,
 html {
@@ -635,7 +635,7 @@ iframe {
 }
 .nav-items {
   width: inherit;
-  height: 86%;
+  height: calc(100% - 110px);
   padding-left: 20px;
   position: relative;
   top: 10px;
@@ -658,7 +658,7 @@ iframe {
 
 .user-shortcut {
   position: absolute;
-  bottom: -10px;
+  bottom: 0px;
   left: 0;
   width: 100%;
   height: 75px;
@@ -921,7 +921,7 @@ iframe {
 
 .router-view {
   position: relative;
-  top: 70px;
+  top: 24px;
   text-align: center;
   /* height: calc(100% + 150px); */
 }
@@ -1011,9 +1011,9 @@ iframe {
 /* phone */
 
 @media (max-width: 740px) {
-  #app {
+  /* #app { */
     /* height: calc(100% + 250px); */
-  }
+  /* } */
   /* .header .header-user {
     right: 14px;
   }
