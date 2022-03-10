@@ -114,10 +114,9 @@ export default {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .wrap-login100 {
     width: 95%;
-    top: -100px;
+    /* top: -100px; */
     padding-right: 25px;
     padding-left: 25px;
   }
-  
 }
 </style>
