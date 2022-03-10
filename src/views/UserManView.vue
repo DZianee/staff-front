@@ -1,19 +1,17 @@
 <template>
   <div class="topic">
-    <h1>testing</h1>
-    <TopicCard />
+    <UserManage />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import TopicCard from "@/components/TopicCard.vue";
-
+import UserManage from "../components/UserManage.vue";
 export default {
-  name: "TopicView",
-  components: { TopicCard },
+  name: "ManageView",
+  components: {
+    UserManage,
+  },
 };
-//
 </script>
 
 <style>

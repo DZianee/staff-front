@@ -40,6 +40,11 @@
         </footer>
       </div>
     </div>
+
+    <div class="pagination-container">
+      <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
+    </div>
+
     <TopicInfoModal :topicInfo="topicInfoActive" />
     <RemoveModal :topicInfo="topicInfoActive" />
     <RemoveErrorModal />
@@ -59,7 +64,10 @@ export default {
   components: { TopicInfoModal, RemoveModal, RemoveErrorModal },
   data() {
     return {
+      topicName: "",
       Topics: [],
+      currentPage: 1,
+      totalPage: 1,
     };
   },
   methods: {
@@ -67,11 +75,25 @@ export default {
       console.log(value);
       this.$router.push({ name: "ideaView", params: { id: value } });
     },
+    onPageChange(page) {
+      this.currentPage = page;
+      this.GetTopics();
+    },
     async GetTopics() {
       try {
         this.$store.dispatch("fetchAccessToken");
-        const res = await this.$axios.post(`api/v1/Topic/GetList`, { name: "" }, this.$axios.defaults.headers["Authorization"]);
-        this.Topics = res.data.content.content;
+        const res = await this.$axios.post(
+          `api/v1/Topic/GetList`,
+          { name: this.topicName }
+          // {
+          //   params: {
+          //     PageSize: 6,
+          //     CurrentPage: this.currentPage,
+          //   },
+          // }
+        );
+        this.Topics = res.data.content;
+        this.totalPage = res.data.totalPage;
       } catch (e) {
         //
       }
