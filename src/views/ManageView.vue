@@ -15,8 +15,8 @@
         </div>
       </div>
     </div>
+    <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" />
   </div>
-  <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" />
   <!-- <UserManage /> -->
 </template>
 
@@ -39,15 +39,23 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  /* background: #94A2F2; */
+  height: 834px;
+  left: 108px;
+}
 h1 {
   position: relative;
-  left: 80px;
+  left: 30px;
+  background: linear-gradient(to left, #87c7df, #649866);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .card-option {
   display: flex;
   position: relative;
   top: 80px;
-  left: 80px;
+  left: 50px;
   justify-content: space-around;
   flex-direction: row;
 }
@@ -75,50 +83,74 @@ h1 {
 img {
   position: relative;
   bottom: 0;
-  left: 90px;
+  left: 50px;
   top: 200px;
   width: 50%;
 }
 @media screen and (max-width: 1366px) {
+  .container {
+    left: 140px;
+    width: 1090px;
+  }
   h1 {
-    left: 120px;
+    left: 30px;
   }
   .card-option {
-    left: 120px;
+    left: 10px;
   }
   .card {
-    width: 32%;
+    width: 33%;
+  }
+  img {
+    bottom: 0;
+    left: 20px;
+    width: 70%;
   }
 }
 @media screen and (max-width: 1025px) {
+  .container {
+    left: 40px;
+    width: 930px;
+  }
   h1 {
-    left: 50px;
+    left: 30px;
   }
   .card-option {
-    left: 50px;
-  }
-  .card {
-    width: 34%;
-  }
-  img {
-    left: 50px;
-    width: 60%;
-  }
-}
-@media screen and (max-width: 769px) {
-  .card-option {
-    left: -38px;
-    width: 700px;
+    left: 10px;
   }
   .card {
     width: 38%;
   }
   img {
-    left: 50px;
-    width: 70%;
+    left: 10px;
+  }
+}
+@media screen and (max-width: 769px) {
+  .card-option {
+    width: 500px;
+    height: 50%;
+    top: 10px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  h1 {
+    left: 5px;
+  }
+  .card {
+    width: 90%;
+  }
+  img {
+    /* left: 0px; */
+    top: 100px;
+    width: 90%;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
+  .container {
+    left: 0;
+    width: 478px;
+  }
   h1 {
     left: 10px;
     top: 50px;
@@ -127,19 +159,21 @@ img {
     left: 25px;
     height: 400px;
     width: 400px;
+    top: 70px;
     align-content: space-around;
     flex-direction: column;
   }
   .card {
     width: 100%;
+    border: solid firebrick;
   }
   img {
     left: 0;
-    width: 70%;
+    width: 90%;
     top: 120px;
   }
   .card:hover {
-  transform: scale(1.1, 1.1);
-}
+    transform: scale(1.1, 1.1);
+  }
 }
 </style>

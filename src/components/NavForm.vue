@@ -42,6 +42,11 @@
         <span>Setting</span>
         <span class="tooltiptext">Setting</span>
       </li>
+      <li class="nav-item log-out" @click="logout">
+        <i class="bx bx-log-out bx-sm bx-fw" />
+        <span>Log-out</span>
+        <span class="tooltiptext">Log-out</span>
+      </li>
       <li class="user-shortcut" @click="ProfileRoute">
         <div class="user">
           <img class="avatar" src=" https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg" alt="user avatar" />
@@ -66,7 +71,7 @@ export default {
   components: {
     TopicModalForm,
   },
-  props:{
+  props: {
     id: String,
   },
   data() {
@@ -96,24 +101,34 @@ export default {
     // StatisticRoute(){
     //   this.$router.push({name:''});
     // },
-  },
-
-  setup() {
-    const modalActive = ref(false);
-
-    const modalAct = (value) => {
-      if (value == "topicView") {
-        modalActive.value = !modalActive.value;
-      } else {
-        console.log("aaa");
+    async logout() {
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        await this.$axios.delete(`api/v1/User/RevokeSelfToken`);
+        this.$store.dispatch("logout");
+        this.$router.push({ name: "login" });
+      } catch (e) {
+        //
       }
-    };
+    },
 
-    const modalActt = () => {
-      modalActive.value = !modalActive.value;
-    };
+    setup() {
+      const modalActive = ref(false);
 
-    return { modalActive, modalAct, modalActt };
+      const modalAct = (value) => {
+        if (value == "topicView") {
+          modalActive.value = !modalActive.value;
+        } else {
+          console.log("aaa");
+        }
+      };
+
+      const modalActt = () => {
+        modalActive.value = !modalActive.value;
+      };
+
+      return { modalActive, modalAct, modalActt };
+    },
   },
 };
 </script>
