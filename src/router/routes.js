@@ -14,6 +14,7 @@ const router = [
     path: "/",
     name: "home",
     component: HomeView,
+    meta: { layout: "co" },
   },
   {
     path: "/:catchAll(.*)", // Unrecognized path automatically matches 404

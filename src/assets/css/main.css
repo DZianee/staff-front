@@ -5,9 +5,9 @@
   box-sizing: border-box;
 }
 
-#app {
-  /* height: 100%; */
-}
+/* #app {
+  height: 100%;
+} */
 
 body,
 html {
@@ -631,14 +631,16 @@ iframe {
   width: 80%;
   position: relative;
   top: 20px;
+  height: 80px;
   left: 20px;
 }
 .nav-items {
   width: inherit;
-  height: 86%;
+  height: calc(100% - 120px);
   padding-left: 20px;
   position: relative;
   top: 10px;
+  border: solid;
 }
 .nav-item {
   height: 50px;
@@ -658,7 +660,7 @@ iframe {
 
 .user-shortcut {
   position: absolute;
-  bottom: -10px;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 75px;
@@ -692,8 +694,10 @@ iframe {
   font-size: 14px;
   color: #4a585f;
 }
-.log-out{
-  transform: translate(0,440px);
+.log-out {
+  position: absolute;
+  bottom: 100px;
+  margin: 0 6px;
 }
 .tooltiptext {
   visibility: hidden;
@@ -713,9 +717,9 @@ iframe {
   .nav {
     width: 80px;
   }
-  .nav-items {
+  /* .nav-items {
     top: -20px;
-  }
+  } */
   .nav-items span:not(.tooltiptext) {
     display: none;
   }
@@ -727,9 +731,9 @@ iframe {
   .nav-item:hover .tooltiptext {
     visibility: visible;
   }
-  .user-shortcut {
+  /* .user-shortcut {
     bottom: -54px;
-  }
+  } */
   .user-shortcut:hover {
     cursor: pointer;
   }
@@ -792,6 +796,9 @@ iframe {
     position: relative;
     display: flex;
     justify-content: center;
+  }
+  .log-out {
+    display: none;
   }
 }
 .Topic-Modal {
@@ -1011,9 +1018,9 @@ iframe {
 /* phone */
 
 @media (max-width: 740px) {
-  #app {
-    /* height: calc(100% + 250px); */
-  }
+  /* #app {
+    height: calc(100% + 250px);
+  } */
   /* .header .header-user {
     right: 14px;
   }

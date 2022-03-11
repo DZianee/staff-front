@@ -1,8 +1,8 @@
 <template>
   <div class="profile-view">
-    <div><ProfileMenuBar @getMenuItem="getMenuAccount($event)" /></div>
     <div v-if="menuItem"><UserIdeas /></div>
     <div v-else><ProfileContainer :userInfo="userProfile" /></div>
+    <div><ProfileMenuBar @getMenuItem="getMenuAccount($event)" /></div>
   </div>
 </template>
 
@@ -27,7 +27,6 @@ export default {
     this.$store.dispatch("fetchAccessToken");
     this.$axios.get(`api/v1/User/${this.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.userProfile = res.data.content;
-      console.log(res.data.content.username);
     });
   },
   methods: {
@@ -41,21 +40,21 @@ export default {
 <style scoped>
 .profile-view {
   display: grid;
-  grid-template-columns: 13% 87%;
+  grid-template-columns: 87% 13%;
   height: 1080px;
-  /* border: solid skyblue; */
+  width: 1400px;
+  transform: translate(280px, -70px);
+  /* border: solid red; */
 }
 div:nth-child(2) {
   position: relative;
 }
-
-button {
-  /* color: black; */
-  background-color: red;
-  margin-left: 240px;
-  color: blue;
-  border: solid;
-  width: 100px;
+@media screen and (max-width: 1366px) {
+  .profile-view {
+    grid-template-columns: 87% 13%;
+    width: 79%;
+    border: solid;
+  }
 }
 @media screen and (max-width: 1025px) {
   .profile-view {

@@ -26,6 +26,7 @@ export default {
   display: flex;
   justify-content: center;
   /* border: solid palegreen; */
+  transform: translate(20px,0);
 }
 .card {
   width: 80%;
@@ -35,7 +36,7 @@ img {
   padding: 10px;
   border-radius: 50%;
   object-fit: cover;
-  width: 280px;
+  width: 240px;
   height: 240px;
 }
 .card-body h5,
@@ -49,6 +50,17 @@ h5 {
   .card {
     width: 85%;
   }
+}
+@media screen and (max-width: 1366px) {
+  .card {
+    width: 87%;
+    transform: translate(-30px,0);
+    height: 300px;
+  }
+  img {
+  width: 200px;
+  height: 200px;
+}
 }
 @media screen and (max-width: 1280px) {
   .card {

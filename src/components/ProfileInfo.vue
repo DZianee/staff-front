@@ -22,10 +22,15 @@ export default {
   /* border: solid lawngreen; */
   background-color: #e3f2fd;
   border-radius: 12px;
-  padding: 35px;
+  padding: 45px;
 }
 div:not(:first-child) {
   margin-top: 90px;
+}
+@media screen and (max-width: 1366px) {
+  .profile-info {
+    width: 90%;
+  }
 }
 @media screen and (max-width: 1025px) {
   .profile-info {

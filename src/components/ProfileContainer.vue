@@ -25,17 +25,25 @@ export default {
 <style scoped>
 .profile-container {
   display: grid;
-  grid-template-columns: 32% 62%;
-  column-gap: 30px;
+  grid-template-columns: 30% 62%;
+  column-gap: 10px;
+  left: -40px;
   position: absolute;
-  top: 58px;
-  left: 30px;
+  top: 78px;
+  /* left: 30px; */
 }
 @media screen and (max-width: 1430px) {
   .profile-container {
     top: 30px;
     grid-template-columns: 30% 60%;
     left: 40px;
+  }
+}
+@media screen and (max-width: 1366px) {
+  .profile-container {
+    top: 30px;
+    grid-template-columns: 30% 60%;
+    left: 0;
   }
 }
 @media screen and (max-width: 1280px) {
