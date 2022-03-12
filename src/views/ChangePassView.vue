@@ -120,6 +120,12 @@ export default {
   min-height: 400px;
   height: 400px;
 }
+@media screen and (max-width: 480px) {
+  .login100-form /deep/ .Confirm-Modal-container {
+    min-height: 450px;
+    height: 450px;
+  }
+}
 .wrap-login100 {
   width: 28%;
   border-radius: 12px;
