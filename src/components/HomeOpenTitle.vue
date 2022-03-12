@@ -45,12 +45,12 @@ img {
 }
 @media screen and (max-width: 1440px) {
   .carousel {
-  height: 850px;
+    height: 850px;
   }
 }
 @media screen and (max-width: 1024px) {
   .carousel {
-  height: 530px;
+    height: 530px;
   }
   img {
     object-position: 0 -100px;
