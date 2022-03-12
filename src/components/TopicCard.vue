@@ -79,10 +79,20 @@
           <div class="form-group">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" @change="onCheckbox" />
-              <label class="form-check-label" for="flexCheckDefault"> I agree with the terms & conditions </label>
+              <label class="form-check-label" for="flexCheckDefault">
+                I agree with the terms & conditions
+                <a @click="toggleTermCondition">{{ `${isShowTermCondition ? "Hide" : "Show"}  terms & conditions` }}</a></label
+              >
             </div>
           </div>
         </form>
+        <div class="terms-conditions" v-if="isShowTermCondition">
+          <p>
+            Welcome to our digital information network. These are our terms and conditions for use of use of the network, which you may access in
+            several ways, including but not limited to the World Wide Web via the Greenwich University. In these terms and conditions, when we say the
+            “Guardian Site” we mean the digital information network operated by Greenwich University.
+          </p>
+        </div>
       </div>
     </component>
   </div>
@@ -106,6 +116,7 @@ export default {
       totalPage: 1,
       isOpenModal: false,
       isActiveConfirm: false,
+      isShowTermCondition: false,
       config: {
         theme: "modern",
         fontsize_formats: "8px 10px 12px 14px 16px 18px 20px 22px 24px 26px 39px 34px 38px 42px 48px",
@@ -143,12 +154,22 @@ export default {
     },
     openModal() {
       this.isOpenModal = true;
+      if (this.isShowTermCondition) this.isShowTermCondition = false;
     },
     closeModal() {
       this.isOpenModal = false;
     },
     onCheckbox(e) {
       this.isActiveConfirm = e.target.checked;
+    },
+    toggleTermCondition() {
+      this.isShowTermCondition = !this.isShowTermCondition;
+      const modal = document.getElementsByClassName("Confirm-Modal-container")[0];
+      if (this.isShowTermCondition) {
+        modal.classList.add("more-height");
+      } else {
+        modal.classList.remove("more-height");
+      }
     },
   },
   setup() {
@@ -515,9 +536,35 @@ h1 {
   font-size: 1rem;
   text-align: left;
 }
+.form-check .form-check-label a {
+  margin-left: 10px;
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #0d6efd;
+  text-decoration: underline;
+}
+.form-check .form-check-label a:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
 .create-modal /deep/ .Confirm-Modal-container {
+  width: 500px;
   min-height: 400px;
   height: 400px;
+}
+.create-modal /deep/ .more-height {
+  min-height: 500px;
+  height: 500px;
+}
+@media screen and (max-width: 480px) {
+  .create-modal /deep/ .Confirm-Modal-container {
+    min-height: 430px;
+    height: 430px;
+  }
+  .create-modal /deep/ .more-height {
+    min-height: 580px;
+    height: 580px;
+  }
 }
 .create-modal /deep/ .remove-btns {
   padding-left: 10px;
@@ -547,5 +594,9 @@ h1 {
 .text-area-container {
   max-height: 160px;
   overflow-x: auto;
+}
+.terms-conditions p {
+  font-size: 0.75rem;
+  font-weight: normal;
 }
 </style>
