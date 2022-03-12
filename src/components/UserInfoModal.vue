@@ -47,15 +47,16 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Department</label>
-                <select :disabled="Disable" v-model="User.department" class="form-control" @change="changeDepartment()">
+                <select :disabled="Disable" v-model="User.departmentName" class="form-control" @change="changeDepartment()">
                   <option
                     v-for="department in Departments"
                     :key="department.id"
                     :value="department.name"
-                    :selected="User.department == department.name">
+                    :selected="User.departmentName == department.name">
                     {{ department.name }}
                   </option>
                 </select>
+                <!-- <input type="text" class="form-control" placeholder="Phone" :disabled="Disable" v-model="User.departmentName" /> -->
               </div>
               <div class="form-group col-md-6">
                 <label>Phone</label>
@@ -88,6 +89,7 @@
         v-if="isOpenModal"
         :title="TitleConfirmText"
         :ConfirmModalActive="isOpenModal"
+        :activeConfirmButton="true"
         confirmText="Agree"
         @submitModal="confirm"
         @closeModal="closeModal">
@@ -153,7 +155,7 @@ export default {
     },
     changeDepartment() {
       for (let i = 0; i < this.Departments.length; i++) {
-        if (this.User.department == this.Departments[i].name) {
+        if (this.User.departmentName == this.Departments[i].name) {
           this.DepartmentID = this.Departments[i].id;
           break;
         }
@@ -174,7 +176,7 @@ export default {
         const date = new Date(parseInt(timeStamp));
         var month;
         var dateVal;
-        if (date.getMonth() < 10) {
+        if (date.getMonth() < 9) {
           month = "0" + (parseInt(date.getMonth()) + 1).toString();
         } else {
           month = (parseInt(date.getMonth()) + 1).toString();
@@ -228,10 +230,13 @@ export default {
               dob: date,
               gender: parseInt(this.User.gender),
               departmentId: this.DepartmentID,
-              isActive: this.User.active,
             };
             console.log(editUser);
-            const res = await this.$axios.put(`api/v1/User/${this.UserId}`, editUser, this.$axios.defaults.headers["Authorization"]);
+            const res = await this.$axios.put(`api/v1/User`, editUser, {
+              params: {
+                id: this.UserId,
+              },
+            });
             if (res.status == 200) {
               this.$router.go();
             }
@@ -242,7 +247,7 @@ export default {
         case 1:
           try {
             this.$store.dispatch("fetchAccessToken");
-            const res = await this.$axios.post(`api/v1/User/${this.UserId}/resetPassword`, this.$axios.defaults.headers["Authorization"]);
+            const res = await this.$axios.put(`api/v1/User/${this.UserId}/resetPassword`, this.$axios.defaults.headers["Authorization"]);
             if (res.status == 200) {
               this.$router.go();
             }

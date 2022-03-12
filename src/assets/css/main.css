@@ -692,9 +692,9 @@ iframe {
   font-size: 14px;
   color: #4a585f;
 }
-.log-out{
+/* .log-out{
   transform: translate(0,440px);
-}
+} */
 .tooltiptext {
   visibility: hidden;
   position: relative;

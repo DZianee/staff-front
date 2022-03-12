@@ -1,4 +1,10 @@
 <template>
+  <div>
+    <div class="table-search-box">
+      <input type="text" class="form-control form-input" placeholder="Search anything..." />
+      <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
+    </div>
+  </div>
   <div class="topic-card">
     <div v-for="topic in Topics" :key="topic.id">
       <div class="card">
@@ -41,7 +47,7 @@
       </div>
     </div>
 
-    <div class="pagination-container">
+    <div v-if="Topics.length > 0" class="pagination-container">
       <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
     </div>
 
@@ -148,6 +154,26 @@ export default {
 }
 a {
   text-decoration: none;
+}
+.table-search-box {
+  position: relative;
+}
+
+.table-search-box .fa-search {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.table-search-box input {
+  padding-right: 35px;
+}
+
+.table-search-box span {
+  position: absolute;
+  right: 17px;
+  top: 6px;
+  padding: 2px;
 }
 .card {
   width: 370px;
