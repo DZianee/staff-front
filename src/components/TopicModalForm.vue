@@ -99,7 +99,7 @@ export default {
         var b = Date.parse(newvalue.TopicClosureDate);
         var c = b - a;
         var days = Math.ceil(c / (1000 * 3600 * 24));
-        if (days > 3 && newvalue.Colorcheck && newvalue.TopicName && newvalue.TopicType) {
+        if (days > 3 && newvalue.Colorcheck && newvalue.TopicName && newvalue.TopicDescription) {
           this.Disable = false;
           this.ErrorDisable = false;
         } else {
@@ -116,7 +116,7 @@ export default {
     checkColor(color) {
       this.ModalForm.Colorcheck = color;
     },
-    create() {
+    Create() {
       this.isOpenModal = true;
     },
     closeModal() {
@@ -124,7 +124,6 @@ export default {
     },
     async submit() {
       try {
-        console.log(sessionStorage.getItem("Token"));
         this.$store.dispatch("fetchAccessToken");
         this.$store.dispatch("getUser");
         const user = JSON.parse(this.$store.state.user);
@@ -144,7 +143,6 @@ export default {
         if (res.status == 200) {
           this.$router.go();
         }
-        console.log(topic);
       } catch (e) {
         //
       }

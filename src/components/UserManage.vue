@@ -422,7 +422,7 @@ export default {
     padding: 50px 50px 160px 50px;
   }
   .card {
-    width: 295px;
+    width: 100%;
     height: 268px;
   }
 }
@@ -430,11 +430,20 @@ export default {
 @media (max-width: 740px) {
   .user-man {
     left: 50%;
+    transform: translateX(-50%);
     width: 90%;
   }
   /* .user-man-content {
     overflow-x: scroll;
   } */
+}
+@media (max-width: 620px) {
+  .user-card {
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 60px;
+    padding-left: 53px;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .user-card {
@@ -444,7 +453,7 @@ export default {
     padding-left: 53px;
   }
   .card {
-    width: 300px;
+    width: 100%;
     height: 268px;
   }
 }
