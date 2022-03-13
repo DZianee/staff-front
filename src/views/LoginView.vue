@@ -51,7 +51,6 @@ export default {
   methods: {
     async login() {
       try {
-        console.log("OK")
         const auth = { username: this.username, password: sha256(this.password) };
         // const header = { "Access-Control-Allow-Origin": "*", "Content-type": "application/json" };
         this.loading = true;
