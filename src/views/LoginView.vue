@@ -20,7 +20,10 @@
         <span class="font-weight-bold forgot-password"> Forgot Password </span>
       </div>
       <div class="container-login100-form-btn m-t-17">
-        <button tag="button" class="login100-form-btn" to="/change-password">Sign In</button>
+        <button class="login100-form-btn" tag="button" type="submit" to="/change-password" :disabled="loading">
+          <span class="spinner-border spinner-border-sm m-r-10" role="status" aria-hidden="true" v-if="loading"></span>
+          {{ loading ? "Logging In... " : "Log In" }}
+        </button>
       </div>
       <p class="Error-Message" v-if="LoginError == true">Wrong username or password</p>
     </form>
@@ -41,6 +44,7 @@ export default {
       username: "",
       password: "",
       LoginError: false,
+      loading: false,
     };
   },
   computed: {},
@@ -49,6 +53,7 @@ export default {
       try {
         const auth = { username: this.username, password: sha256(this.password) };
         // const header = { "Access-Control-Allow-Origin": "*", "Content-type": "application/json" };
+        this.loading = true;
         const res = await this.$axios.post(`api/v1/User/Login`, auth);
         if (res.status === 200) {
           this.$store.dispatch("login", res.data);
@@ -60,8 +65,10 @@ export default {
             this.$router.push({ name: "home" });
           }
         }
+        this.loading = false;
       } catch (e) {
         this.LoginError = true;
+        this.loading = false;
       }
     },
   },
