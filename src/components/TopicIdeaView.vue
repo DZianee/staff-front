@@ -20,7 +20,10 @@
         </div>
         <div class="AddressInput">
           <label>Description</label>
-          <input type="text" class="form-control" placeholder="Description" v-model="topic.description" />
+          <!-- <input type="text" class="form-control" placeholder="Description" v-model="topic.description" /> -->
+          <span v-if="topic.description != null">
+            <VueQuillEditor :heightEdit="'200'" :disableEdit="false" v-model:contentEdit="topic.description" @handleInput="handleInput"
+          /></span>
         </div>
         <h2 class="container-title">Timeline</h2>
         <div class="form-row form-topic-detail-row-Date">
@@ -124,6 +127,7 @@
 </template>
 <script>
 // import IdeaInfoModal from "../components/IdeaInfoModal.vue";
+import VueQuillEditor from "./QuillEditor.vue";
 
 var ModifyID;
 var timeOut;
@@ -131,6 +135,7 @@ var timeOut;
 export default {
   components: {
     // IdeaInfoModal,
+    VueQuillEditor,
   },
   data() {
     return {
@@ -159,6 +164,9 @@ export default {
     },
   },
   methods: {
+    handleInput(data) {
+      this.topic.description = data;
+    },
     onPageChange(page) {
       this.currentPage = page;
       this.getIdeas();
@@ -283,7 +291,7 @@ export default {
         }
         const resIdea = await this.$axios.post(`api/v1/Idea/topic/${this.$route.params.id}`, data, {
           params: {
-            PageSize: 2,
+            PageSize: 5,
             CurrentPage: this.currentPage,
           },
         });

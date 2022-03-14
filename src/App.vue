@@ -27,15 +27,15 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchAccessToken");
-    this.refresh();
-    if (this.$store.state.token != null) {
-      setInterval(
-        function () {
-          this.refresh();
-        }.bind(this),
-        25 * 60 * 1000
-      );
-    }
+    // this.refresh();
+    // if (this.$store.state.token != null) {
+    //   setInterval(
+    //     function () {
+    //       this.refresh();
+    //     }.bind(this),
+    //     25 * 60 * 1000
+    //   );
+    // }
   },
   beforeMount() {
     this.$store.dispatch("getUser");

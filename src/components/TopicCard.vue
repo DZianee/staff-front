@@ -14,14 +14,6 @@
         <div class="card-content" :style="{ backgroundColor: topic.colorCode }">
           <div class="topic-card_adjust">
             <button
-              class="icon icon_info"
-              :style="{ backgroundColor: topic.colorCode }"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              @click="topicInfoAct(topic)">
-              <i class="bx bx-info-circle bx-sm" />
-            </button>
-            <button
               v-if="topic.totalIdea <= 0"
               class="icon icon_delete"
               :style="{ backgroundColor: topic.colorCode }"
@@ -41,7 +33,7 @@
           </div>
           <br />
           <div class="content">
-            <h1>{{ topic.name }}</h1>
+            <h1 style="height: auto">{{ topic.name }}</h1>
           </div>
         </div>
         <footer class="card-footer">
@@ -55,7 +47,6 @@
     </div>
 
     <CreateTopicModal @close="modalAct()" :modalActive="modalActive" />
-    <TopicInfoModal :topicInfo="topicInfoActive" />
     <RemoveModal :topicInfo="topicInfoActive" />
     <RemoveErrorModal />
   </div>
@@ -63,7 +54,6 @@
 
 <script>
 import CreateTopicModal from "@/components/TopicModalForm.vue";
-import TopicInfoModal from "@/components/TopicInfoModal.vue";
 import RemoveModal from "@/components/RemoveModal.vue";
 import RemoveErrorModal from "@/components/RemoveErrorModal.vue";
 import { ref } from "vue";
@@ -72,7 +62,7 @@ var timeOut;
 
 export default {
   name: "TopicCard",
-  components: { TopicInfoModal, RemoveModal, RemoveErrorModal, CreateTopicModal },
+  components: { RemoveModal, RemoveErrorModal, CreateTopicModal },
   data() {
     return {
       topicName: "",
@@ -138,7 +128,7 @@ export default {
 <style scoped>
 .topic-card {
   display: grid;
-  grid-template-columns: repeat(4, 21%);
+  grid-template-columns: repeat(3, 29%);
   column-gap: 40px;
   row-gap: 80px;
   padding: 50px 0 0 90px;
