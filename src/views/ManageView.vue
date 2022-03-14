@@ -43,6 +43,7 @@ export default {
   /* background: #94A2F2; */
   height: 834px;
   left: 108px;
+  border: solid;
 }
 h1 {
   position: relative;

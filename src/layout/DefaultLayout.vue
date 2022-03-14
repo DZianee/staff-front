@@ -6,13 +6,16 @@
       <img class="header-user-image" src=" https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg" alt="user avatar" />
 
       <ul class="header-user-info">
-        <li class="user-emails">{{username}}</li>
+        <li class="user-emails">{{user.username}}</li>
         <li @click="showProfile">My Profile</li>
-        <li class="header-user-logout" @click="logout">Logout</li>
+        <li class="header-user-logout" @click="logout">
+          <i class="bx bx-log-out bx-xs bx-fw" />
+          Logout
+        </li>
       </ul>
     </div>
   </div>
-  <Nav-Form :id="id"/>
+  <Nav-Form :id="user.id"/>
 
   <div class="router-view">
     <slot />
@@ -28,15 +31,13 @@ export default {
   },
   data() {
     return {
-      id: "",
-      username: "",
+      user: {},
     };
   },
   created() {
     this.$store.dispatch("getUser");
     const data = JSON.parse(this.$store.state.user);
-    this.id = data.id;
-    this.username = data.username;
+    this.user = data;
   },
   computed: {
     User() {
@@ -62,7 +63,7 @@ export default {
       }
     },
     showProfile() {
-      this.$router.push({ name: "profileView", params: { id: this.id } });
+      this.$router.push({ name: "profileView", params: { id: this.user.id } });
     },
   },
 };

@@ -15,7 +15,7 @@
           </div>
           <div class="birthDate">
             <label for="birthDate">Birth date</label>
-            <input type="text" :value="userDetails.dob" disabled />
+            <input type="text" :value="getBirth" disabled />
           </div>
           <div class="gender">
             <label for="gender">Gender</label>
@@ -27,7 +27,7 @@
           </div>
           <div class="department">
             <label for="department">Department</label>
-            <input type="text" :value="userDetails.department" disabled />
+            <input type="text" :value="userDetails.departmentName" disabled />
           </div>
         </div>
       </div>
@@ -38,8 +38,23 @@
 <script>
 export default {
   name: "ProfileDetails",
+  data() {
+    return {
+      birth: "",
+    };
+  },
   props: {
     userDetails: Object,
+  },
+  computed: {
+    getBirth() {
+      const birth = new Date(this.userDetails.dob);
+      var year = birth.getFullYear();
+      var month = ("0" + (birth.getMonth() + 1)).slice(-2);
+      var day = ("0" + birth.getDate()).slice(-2);
+      const dmy = day + "/" + month + "/" + year;
+      return dmy;
+    },
   },
 };
 </script>
@@ -99,7 +114,7 @@ h4 {
   margin-left: -15px;
 }
 label {
-  font-size: 15px;
+  font-size: 14px;
   color: rgb(141, 129, 129);
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -110,6 +125,7 @@ input {
   outline-color: rgb(255, 255, 255);
   background-color: white;
   font-size: 16px;
+  font-weight: 500;
 }
 @media screen and (max-width: 1430px) {
   .card {
@@ -132,6 +148,52 @@ input {
   .department label,
   .phone label {
     margin-right: 40px;
+  }
+}
+@media screen and (max-width: 1366px) {
+  .card {
+    height: 330px;
+  }
+  .card-header {
+    left: 90px;
+  }
+  .info-details {
+    display: block;
+    /* grid-template-rows: repeat(3, 32%);
+    column-gap: 5px;
+    row-gap: 10px; */
+    height: 260px;
+  }
+  .firstname,
+  .lastname,
+  .birthDate,
+  .gender,
+  .department,
+  .phone {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 5px 0;
+  }
+  .firstname label,
+  .lastname label,
+  .birthDate label,
+  .gender label,
+  .department label,
+  .phone label {
+    /* border: seagreen solid; */
+    line-height: 40px;
+  }
+  .firstname input,
+  .lastname input,
+  .birthDate input,
+  .gender input,
+  .department input,
+  .phone input {
+    margin-left: 50px;
+    /* border: solid saddlebrown; */
+    /* display: flex;
+    justify-content: flex-start; */
+    transform: translate(-20px, 0);
   }
 }
 @media screen and (max-width: 1280px) {
