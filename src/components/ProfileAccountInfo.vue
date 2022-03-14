@@ -10,7 +10,7 @@
             <input type="text" :value="accountInfo.username" disabled />
           </div>
           <div class="password">
-            <div class="btn" data-bs-toggle="modal" data-bs-target="#changePassModal">
+            <div class="btn" data-bs-toggle="modal" @click="openModal">
               <ul>
                 <li><i class="bx-fw bx bx-lock bx-sm bx-tada-hover" /></li>
                 <li>Change password</li>
@@ -20,18 +20,94 @@
         </div>
       </div>
     </div>
-    <ChangePassModal />
+    <component
+      :is="'confirm-modal'"
+      title="Change Password"
+      :ConfirmModalActive="isOpenModal"
+      confirmText="Agree"
+      @submitModal="submit"
+      @closeModal="closeModal">
+      <div class="content-form p-l-15 p-r-15">
+        <form class="login100-form validate-form flex-sb flex-w" @submit.prevent="submit">
+          <div class="p-t-15 p-b-9">
+            <span class="font-weight-bold"> Old password </span>
+          </div>
+          <PasswordInput v-model:value="oldPassword" />
+          <div class="p-t-15 p-b-9">
+            <span class="font-weight-bold"> New password </span>
+          </div>
+          <PasswordInput v-model:value="newPassword" />
+          <div class="p-t-15 p-b-9">
+            <span class="font-weight-bold"> Confirm new password </span>
+          </div>
+          <PasswordInput v-model:value="reNewPassword" />
+          <span class="error-label" v-if="NewPassError" style="color: red">New and Confirm Password do not match</span>
+          <div class="container-login100-form-btn m-t-30 m-b-15">
+            <button class="login100-form-btn" :disabled="NewPassError">Activate change</button>
+          </div>
+        </form>
+      </div>
+      <br />
+    </component>
   </div>
 </template>
 
 <script>
-import ChangePassModal from "./ChangePassModal.vue";
+import sha256 from "js-sha256";
+import PasswordInput from "./PasswordInput.vue";
 
 export default {
   name: "ProfileAccountInfo",
-  components: { ChangePassModal },
+  components: { PasswordInput },
   props: {
     accountInfo: Object,
+  },
+  data() {
+    return {
+      oldPassword: "",
+      newPassword: "",
+      reNewPassword: "",
+      NewPassError: false,
+      isOpenModal: false,
+      isActiveConfirm: false,
+    };
+  },
+  methods: {
+    closeModal() {
+      this.isOpenModal = false;
+    },
+    openModal() {
+      this.isOpenModal = true;
+    },
+    async submit() {
+      try {
+        const user= JSON.parse(this.$store.state.user)
+        this.$store.dispatch("fetchAccessToken");
+        const res = await this.$axios.put(
+          `api/v1/User/${user.id}/changePassword`,
+          {
+            oldPassword: sha256(this.oldPassword),
+            newPassword: sha256(this.newPassword),
+          },
+          this.$axios.defaults.headers["Authorization"]
+        );
+        if (res.status === 200) {
+          this.$router.push({ name: "login" });
+          this.isOpenModal = true;
+        }
+      } catch (e) {
+        console.log("Error");
+      }
+    },
+  },
+  watch: {
+    reNewPassword(newValue) {
+      if (newValue !== this.newPassword) {
+        this.NewPassError = true;
+      } else {
+        this.NewPassError = false;
+      }
+    },
   },
 };
 </script>
@@ -167,5 +243,24 @@ input {
   .btn ul li {
     padding-right: 15px;
   }
+}
+/* 
+modal
+*/
+
+.font-weight-bold {
+  font-weight: 500 !important;
+  font-size: 17px !important;
+}
+
+.profile-account-details /deep/ .Confirm-Modal-container {
+  min-height: 520px;
+  height: 520px;
+}
+.profile-account-details /deep/ .remove-btns {
+  display: none;
+}
+.error-label {
+  font-size: 15px;
 }
 </style>
