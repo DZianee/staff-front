@@ -9,12 +9,15 @@ import UserView from "../views/UserManView.vue";
 import ManageView from "../views/ManageView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import IdeaView from "../views/IdeaView.vue";
+import NewsView from "../views/NewsView.vue";
+import TopicListDetailsView from "../views/TopicListDetails.vue";
 
 const router = [
   {
     path: "/",
     name: "home",
     component: HomeView,
+    meta: { layout: "co" },
   },
   {
     path: "/:catchAll(.*)", // Unrecognized path automatically matches 404
@@ -61,6 +64,16 @@ const router = [
     path: "/idea-view/:id",
     name: "ideaView",
     component: IdeaView,
+  },
+  {
+    path: "/news-view",
+    name: "newsView",
+    component: NewsView,
+  },
+  {
+    path: "/topic-list-view",
+    name: "topicListView",
+    component: TopicListDetailsView,
   },
 ];
 

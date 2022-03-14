@@ -13,11 +13,8 @@
           <label for="topic-name" class="Topic-Modal-label"> Topic's Name </label>
           <input type="text" class="Topic-Modal-input" maxlength="35" placeholder="Topic's Name" v-model="ModalForm.TopicName" />
 
-          <label for="topic-type" class="Topic-Modal-label"> Topic's Type </label>
-          <select class="Topic-Modal-input" v-model="ModalForm.TopicType">
-            <option value="0" selected>Type</option>
-            <option value="1" selected>Type2</option>
-          </select>
+          <label for="topic-name" class="Topic-Modal-label"> Topic's Description </label>
+          <input type="text" class="Topic-Modal-input" placeholder="Topic's Name" v-model="ModalForm.TopicDescription" />
 
           <label for="closuredate" class="Topic-Modal-label"> Close Idea date </label>
           <input type="datetime-local" id="datePicker" class="Topic-Modal-input" v-model="ModalForm.TopicCloseIdeaDate" />
@@ -34,10 +31,22 @@
             </div>
           </div>
 
-          <button class="submit-add" :class="Disable ? 'disable' : ''" :disabled="Disable" @click="submit">Submit</button>
+          <button class="submit-add" :class="Disable ? 'disable' : ''" :disabled="Disable" @click="Create">Submit</button>
           <p class="Error-Message" v-if="ErrorDisable">Closure date must be > 3 days since current date and close idea date must be between 2 days</p>
         </div>
       </div>
+      <component
+        :is="'confirm-modal'"
+        v-if="isOpenModal"
+        title="Create new topic"
+        :ConfirmModalActive="isOpenModal"
+        :activeConfirmButton="true"
+        confirmText="Agree"
+        @submitModal="submit"
+        @closeModal="closeModal">
+        <p>You want to create a new topic ?</p>
+        <br />
+      </component>
     </div>
   </transition>
 </template>
@@ -51,12 +60,13 @@ export default {
       ModalForm: {
         Colorcheck: "red",
         TopicName: "",
-        TopicType: 0,
+        TopicDescription: "",
         TopicCloseIdeaDate: "",
         TopicClosureDate: "",
       },
       Disable: true,
       ErrorDisable: false,
+      isOpenModal: false,
     };
   },
 
@@ -89,7 +99,7 @@ export default {
         var b = Date.parse(newvalue.TopicClosureDate);
         var c = b - a;
         var days = Math.ceil(c / (1000 * 3600 * 24));
-        if (days > 3 && newvalue.Colorcheck && newvalue.TopicName && newvalue.TopicType) {
+        if (days > 3 && newvalue.Colorcheck && newvalue.TopicName && newvalue.TopicDescription) {
           this.Disable = false;
           this.ErrorDisable = false;
         } else {
@@ -106,9 +116,14 @@ export default {
     checkColor(color) {
       this.ModalForm.Colorcheck = color;
     },
+    Create() {
+      this.isOpenModal = true;
+    },
+    closeModal() {
+      this.isOpenModal = false;
+    },
     async submit() {
       try {
-        console.log(sessionStorage.getItem("Token"));
         this.$store.dispatch("fetchAccessToken");
         this.$store.dispatch("getUser");
         const user = JSON.parse(this.$store.state.user);
@@ -117,7 +132,7 @@ export default {
         // const StarttimeStamp = Date.now();
         const topic = {
           name: this.ModalForm.TopicName,
-          type: this.ModalForm.TopicType,
+          description: this.ModalForm.TopicDescription,
           colorCode: this.ModalForm.Colorcheck,
           closeIdeaDate: CloseIdeatimeStamp,
           closureDate: ClosetimeStamp,
@@ -128,7 +143,6 @@ export default {
         if (res.status == 200) {
           this.$router.go();
         }
-        console.log(topic);
       } catch (e) {
         //
       }

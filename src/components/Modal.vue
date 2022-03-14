@@ -24,7 +24,7 @@
 <script>
 export default {
   name: "ConfirmModal",
-  props: ["ConfirmModalActive", "title", "confirmText","activeConfirmButton"],
+  props: ["ConfirmModalActive", "title", "confirmText", "activeConfirmButton"],
   // methods: {
   //   close() {
   //     this.$emit("close");

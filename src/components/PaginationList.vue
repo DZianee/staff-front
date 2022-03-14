@@ -88,7 +88,7 @@ export default {
       const range = [];
 
       for (let i = this.startPage; i <= Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages); i++) {
-        if (i != 0) {
+        if (i > 0) {
           range.push({
             name: i,
             isDisabled: i === this.currentPage,
@@ -127,7 +127,7 @@ export default {
   },
   watch: {
     startPage(newValue) {
-      if (newValue - 1 != 0) {
+      if (newValue - 1 > 0) {
         this.previousPageGap = true;
       } else {
         this.previousPageGap = false;

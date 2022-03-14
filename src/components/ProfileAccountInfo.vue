@@ -26,6 +26,7 @@
 
 <script>
 import ChangePassModal from "./ChangePassModal.vue";
+
 export default {
   name: "ProfileAccountInfo",
   components: { ChangePassModal },

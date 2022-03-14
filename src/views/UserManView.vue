@@ -31,6 +31,7 @@ export default {
   .topic {
     position: relative;
     left: 0px;
+    top: 70px;
     width: 100%;
   }
 }

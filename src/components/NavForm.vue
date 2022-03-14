@@ -11,7 +11,7 @@
         <span class="tooltiptext">Home</span>
       </li>
       <!-- </router-link> -->
-      <li class="nav-item">
+      <li class="nav-item" @click="NewsRoute">
         <i class="bx bx-news bx-sm bx-fw" />
         <span>News</span>
         <span class="tooltiptext">News</span>
@@ -51,8 +51,8 @@
         <div class="user">
           <img class="avatar" src=" https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg" alt="user avatar" />
           <div class="user-avatar-info">
-            <span class="user-fullname">Chaone nha</span>
-            <span class="user-email">Chao123@gmail.com</span>
+            <span class="user-fullname"> {{ user.firstname }} {{user.lastname}}</span>
+            <span class="user-email">{{ user.username }}</span>
           </div>
         </div>
       </li>
@@ -75,22 +75,27 @@ export default {
     id: String,
   },
   data() {
-    return {};
+    return {
+      user:{},
+    };
   },
   computed: {
     routeName() {
       return this.$route.name;
     },
   },
+  created() {
+    this.$store.dispatch("fetchAccessToken");
+    this.$axios.get(`api/v1/User/${this.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
+      this.user = res.data.content;
+    });
+  },
   methods: {
     HomeRoute() {
       this.$router.push({ name: "home" });
     },
-    // NewsRoute(){
-    //   this.$router.push({name:''});
-    // },
-    TopicRoute() {
-      this.$router.push({ name: "topicView" });
+    NewsRoute(){
+      this.$router.push({name:'newsView'});
     },
     ManageRoute() {
       this.$router.push({ name: "manageView" });
