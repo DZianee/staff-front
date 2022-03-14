@@ -889,7 +889,7 @@ iframe {
 .Topic-Modal-color {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(25, 1fr);
   gap: 10px;
   height: 30px;
   width: 30px;

@@ -131,7 +131,7 @@ export default {
   grid-template-columns: repeat(3, 29%);
   column-gap: 40px;
   row-gap: 80px;
-  padding: 50px 0 0 90px;
+  padding: 50px 0 90px 90px;
 }
 .card_border--effect {
   width: 370px;

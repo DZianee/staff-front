@@ -13,9 +13,9 @@
           <li @click="logout">Log out</li>
         </ul>
       </div>
-      <div class="logo">
-        <img src="../assets/images/FGW_logo_d.jpeg" alt="logo" />
-      </div>
+      <!-- <div class="logo"> -->
+      <img src="../assets/images/FGW_logo_d.jpeg" alt="logo" class="logo-img" />
+      <!-- </div> -->
     </nav>
 
     <HomeOpenTitle />
@@ -89,6 +89,11 @@ export default {
   text-align: center;
   position: relative;
   left: -100px;
+}
+.logo-img {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 img {
   width: 17%;
