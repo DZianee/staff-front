@@ -816,23 +816,6 @@ iframe {
   z-index: 1;
 }
 
-.Topic-Modal-container {
-  position: relative;
-  width: 414px;
-  max-width: calc(100% - 32px);
-  min-height: 200px;
-  background-color: white;
-  border-radius: 5px;
-  animation: modalfadein ease 0.3s;
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 26px;
-  z-index: 2;
-}
-
 .Topic-Modal-header {
   position: absolute;
   width: 250px;
@@ -1081,11 +1064,11 @@ iframe {
     height: 25px;
   } */
 
-  .Topic-Modal-container {
+  /* .Topic-Modal-container {
     position: relative;
-    width: 414px;
+    width: 400px;
     max-width: calc(100% - 32px);
-    height: 480px;
+    max-height: calc(100% - 32px);
     background-color: white;
     border-radius: 5px;
     animation: modalfadein ease 0.3s;
@@ -1095,8 +1078,9 @@ iframe {
     font-weight: bold;
     font-size: 30px;
     line-height: 26px;
+    overflow-y: scroll;
     z-index: 2;
-  }
+  } */
 
   .Topic-Modal-header {
     position: absolute;
