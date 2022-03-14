@@ -21,7 +21,7 @@
         <button class="ql-indent" value="-1"></button>
         <button class="ql-indent" value="+1"></button>
         <button class="ql-link"></button>
-        <button class="ql-image"></button>
+        <!-- <button class="ql-image"></button> -->
 
         <select class="ql-size"></select>
         <select class="ql-header"></select>
