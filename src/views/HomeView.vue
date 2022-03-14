@@ -77,7 +77,7 @@ export default {
     showNews() {
       this.$router.push({ name: "newsView" });
     },
-    showManage() {
+    showManagement() {
       this.$router.push({ name: "manageView" });
     },
   },
