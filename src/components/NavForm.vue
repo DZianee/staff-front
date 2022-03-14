@@ -97,9 +97,6 @@ export default {
     // NewsRoute(){
     //   this.$router.push({name:''});
     // },
-    TopicRoute() {
-      this.$router.push({ name: "topicView" });
-    },
     ManageRoute() {
       this.$router.push({ name: "manageView" });
     },

@@ -2,6 +2,7 @@
   <div class="home-open">
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-inner">
+        <h1><span>Together,</span> let's build a better futue</h1>
         <div class="carousel-item active">
           <img src="../assets/images/tezos-WN5_7UBc7cw-unsplash.jpg" class="d-block w-100" alt="img 02." />
         </div>
@@ -36,6 +37,20 @@ export default {
   width: 100%;
   height: 913px;
 }
+h1 {
+  position: absolute;
+  color: white;
+  top: 60px;
+  left: 300px;
+  z-index: 20;
+  font-size: 100px;
+}
+h1 span {
+  font-size: 130px;
+  display: block;
+  padding: 10px;
+  text-align: center;
+}
 .carousel-inner {
   height: 100%;
 }
@@ -47,6 +62,9 @@ img {
   .carousel {
     height: 850px;
   }
+  h1 {
+    left: 200px;
+  }
 }
 @media screen and (max-width: 1024px) {
   .carousel {
@@ -54,6 +72,13 @@ img {
   }
   img {
     object-position: 0 -100px;
+  }
+  h1 {
+    left: 100px;
+    font-size: 80px;
+  }
+  h1 span {
+    font-size: 100px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -63,6 +88,13 @@ img {
   img {
     object-position: 0 -80px;
   }
+  h1 {
+    left: 90px;
+    font-size: 60px;
+  }
+  h1 span {
+    font-size: 90px;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .carousel {
@@ -70,6 +102,14 @@ img {
   }
   img {
     object-position: 0 -30px;
+  }
+  h1 {
+    left: 60px;
+    top: 0;
+    font-size: 30px;
+  }
+  h1 span {
+    font-size: 50px;
   }
 }
 </style>

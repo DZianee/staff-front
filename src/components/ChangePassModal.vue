@@ -35,6 +35,7 @@
 
 <script>
 import PasswordInput from "./PasswordInput.vue";
+import sha256 from "js-sha256";
 
 export default {
   name: "ChangePassModal",
@@ -57,15 +58,20 @@ export default {
   methods: {
     async submit() {
       try {
-        const res = await this.$axios.put(`api/v1/User/${this.user.id}/changePassword`, {
-          oldPassword: this.oldPassword,
-          newPassword: this.newPassword,
-        });
+        this.$store.dispatch("fetchAccessToken");
+        const res = await this.$axios.put(
+          `api/v1/User/${this.user.id}/changePassword`,
+          {
+            oldPassword: sha256(this.oldPassword),
+            newPassword: sha256(this.newPassword),
+          },
+          this.$axios.defaults.headers["Authorization"]
+        );
         if (res.status === 200) {
           this.$router.push({ name: "login" });
         }
       } catch (e) {
-        //
+        console.log("Error");
       }
     },
   },

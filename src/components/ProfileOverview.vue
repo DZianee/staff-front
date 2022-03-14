@@ -6,7 +6,7 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ user.username }}</h5>
-        <h6 class="card-text">{{ user.department }}</h6>
+        <h6 class="card-text">{{ user.departmentName }}</h6>
       </div>
     </div>
   </div>

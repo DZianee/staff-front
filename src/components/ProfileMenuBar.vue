@@ -22,15 +22,6 @@
 </template>
 
 <script>
-// const t = document.getElementsByClassName("nav-item");
-// const x = document.getElementsByClassName("nav-link");
-// for (var i = 0; i < x.length; i++) {
-//   x[i].addEventListener("click", () => {
-//     var curr = document.getElementsByClassName("active");
-//     curr[0].className = curr[0].className.replace("active");
-//     this.className += "active";
-//   });
-// }
 export default {
   name: "ProfileMenuBar",
   props: {},

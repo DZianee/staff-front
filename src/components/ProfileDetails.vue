@@ -27,7 +27,7 @@
           </div>
           <div class="department">
             <label for="department">Department</label>
-            <input type="text" :value="userDetails.department" disabled />
+            <input type="text" :value="userDetails.departmentName" disabled />
           </div>
         </div>
       </div>
