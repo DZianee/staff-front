@@ -72,11 +72,6 @@ export default {
       isActiveConfirm: false,
     };
   },
-  computed: {
-    user() {
-      return this.$store.state.user;
-    },
-  },
   methods: {
     closeModal() {
       this.isOpenModal = false;
@@ -86,9 +81,10 @@ export default {
     },
     async submit() {
       try {
+        const user= JSON.parse(this.$store.state.user)
         this.$store.dispatch("fetchAccessToken");
         const res = await this.$axios.put(
-          `api/v1/User/${this.user.id}/changePassword`,
+          `api/v1/User/${user.id}/changePassword`,
           {
             oldPassword: sha256(this.oldPassword),
             newPassword: sha256(this.newPassword),
@@ -264,7 +260,7 @@ modal
 .profile-account-details /deep/ .remove-btns {
   display: none;
 }
-.error-label{
+.error-label {
   font-size: 15px;
 }
 </style>
