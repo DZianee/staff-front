@@ -7,15 +7,22 @@
         </div>
       </div>
       <select v-model="searchForm.departmentName" class="form-select selectDepartment">
-        <option value="">All</option>
+        <option value="">All Department</option>
         <option v-for="department in Departments" :key="department.id" :value="department.name">{{ department.name }}</option>
       </select>
       <div class="user-man-header-sort">
-        <p>Sort By:</p>
-        <select v-model="searchForm.sortType" class="form-select sortType">
+        <p>By:</p>
+        <select v-model="searchForm.sortBy" class="form-select sortType">
           <option value="0">Created Date</option>
           <option value="1">Name</option>
           <option value="2">Department</option>
+        </select>
+      </div>
+      <div class="user-man-header-sort">
+        <p>Type:</p>
+        <select v-model="searchForm.sortType" class="form-select sortType">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
         </select>
       </div>
       <button
@@ -66,7 +73,7 @@
           </div>
           <div class="card-content" style="padding: 0">
             <div class="content">
-              <h1>{{ user.fullname }}</h1>
+              <h1>{{ user.firstname }} {{ user.lastname }}</h1>
               <h2>{{ user.department }}</h2>
               <div class="content-details">
                 <span class="content-details-item">
@@ -99,7 +106,7 @@
         </div>
       </div>
     </div>
-    <div class="pagination-container">
+    <div v-if="Users.length > 0" class="pagination-container">
       <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
     </div>
   </div>
@@ -111,6 +118,7 @@
 import UserInfo from "./UserInfoModal.vue";
 import CreateUser from "./UserCreateModal.vue";
 import { ref } from "vue";
+var timeOut;
 
 export default {
   name: "UserManage",
@@ -125,7 +133,8 @@ export default {
       searchForm: {
         name: "",
         departmentName: "",
-        sortType: 0,
+        sortBy: 0,
+        sortType: "asc",
       },
 
       currentPage: 1,
@@ -134,9 +143,11 @@ export default {
   },
   watch: {
     searchForm: {
-      handler(newValue) {
-        console.log(newValue.name);
-        this.GetUsers();
+      handler() {
+        clearTimeout(timeOut);
+        timeOut = setTimeout(() => {
+          this.GetUsers();
+        }, 2000);
       },
       deep: true,
     },
@@ -149,21 +160,43 @@ export default {
     async GetUsers() {
       try {
         this.$store.dispatch("fetchAccessToken");
-        const data = {
-          searchName: this.searchForm.name,
-          filterDepartmentName: this.searchForm.departmentName,
-          sortType: parseInt(this.searchForm.sortType),
-        };
+        var data;
+        switch (parseInt(this.searchForm.sortBy)) {
+          case 0:
+            data = {
+              searchName: this.searchForm.name,
+              filterDepartmentName: this.searchForm.departmentName,
+              sortCreatedDate: this.searchForm.sortType,
+            };
+            break;
+          case 1:
+            data = {
+              searchName: this.searchForm.name,
+              filterDepartmentName: this.searchForm.departmentName,
+              sortName: this.searchForm.sortType,
+            };
+            break;
+          case 2:
+            data = {
+              searchName: this.searchForm.name,
+              filterDepartmentName: this.searchForm.departmentName,
+              sortDepartment: this.searchForm.sortType,
+            };
+            break;
+          default:
+            break;
+        }
+        console.log(data);
         const res = await this.$axios.post(`api/v1/User/getlist`, data, {
           params: {
             PageSize: 6,
             CurrentPage: this.currentPage,
           },
         });
-        this.Users = res.data.content.content;
-        this.totalPage = res.data.content.totalPage;
+        this.Users = res.data.content;
+        this.totalPage = res.data.totalPage;
       } catch (e) {
-        //
+        console.log("Error");
       }
     },
     async GetDepartments() {
@@ -214,10 +247,10 @@ export default {
 <style>
 .user-man {
   position: relative;
-  top: 60px;
-  left: 46%;
+  /* top: 60px; */
+  /* left: 46%;
   transform: translateX(-50%);
-  width: 80%;
+  width: 80%; */
 }
 
 .user-man-header {
@@ -257,7 +290,7 @@ export default {
   grid-template-columns: repeat(4, 21%);
   column-gap: 40px;
   row-gap: 80px;
-  padding: 50px 0 90px 60px;
+  padding: 50px 20px 90px 20px;
 }
 .card {
   width: 370px;
@@ -351,6 +384,9 @@ export default {
     left: 50%;
     transform: translateX(-50%);
   }
+  .user-man-header-sort {
+    margin-bottom: 8px;
+  }
   .selectDepartment {
     margin-bottom: 8px;
     width: 100% !important;
@@ -386,7 +422,7 @@ export default {
     padding: 50px 50px 160px 50px;
   }
   .card {
-    width: 295px;
+    width: 100%;
     height: 268px;
   }
 }
@@ -394,11 +430,20 @@ export default {
 @media (max-width: 740px) {
   .user-man {
     left: 50%;
+    transform: translateX(-50%);
     width: 90%;
   }
   /* .user-man-content {
     overflow-x: scroll;
   } */
+}
+@media (max-width: 620px) {
+  .user-card {
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 60px;
+    padding-left: 53px;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .user-card {
@@ -408,7 +453,7 @@ export default {
     padding-left: 53px;
   }
   .card {
-    width: 300px;
+    width: 100%;
     height: 268px;
   }
 }

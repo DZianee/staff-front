@@ -116,10 +116,20 @@ export default {
   font-family: "Roboto";
   font-size: 15px;
 }
-.wrap-login100 {
-    width: 28%;
-    border-radius: 12px;
+.login100-form /deep/ .Confirm-Modal-container {
+  min-height: 400px;
+  height: 400px;
+}
+@media screen and (max-width: 480px) {
+  .login100-form /deep/ .Confirm-Modal-container {
+    min-height: 450px;
+    height: 450px;
   }
+}
+.wrap-login100 {
+  width: 28%;
+  border-radius: 12px;
+}
 .font-weight-bold {
   font-weight: 500;
 }
@@ -147,7 +157,7 @@ export default {
     padding-left: 38px;
     padding-right: 38px;
   }
-  .wrap-login100{
+  .wrap-login100 {
     height: 43%;
   }
 }

@@ -21,9 +21,11 @@
                 <input type="text" class="form-control" placeholder="LastName" v-model="User.lastname" />
               </div>
             </div>
-            <div>
-              <label>Username</label>
-              <input type="email" class="form-control" placeholder="Username" v-model="User.username" />
+            <div class="form-row">
+              <div class="form-oneInput">
+                <label>Username</label>
+                <input type="email" class="form-control" placeholder="Username" v-model="User.username" />
+              </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -39,9 +41,11 @@
                 <input type="date" class="form-control" placeholder="Date of Birth" v-model="User.dob" />
               </div>
             </div>
-            <div>
-              <label>Address</label>
-              <input type="text" class="form-control" placeholder="Address" v-model="User.address" />
+            <div class="form-row">
+              <div class="form-oneInput">
+                <label>Address</label>
+                <input type="text" class="form-control" placeholder="Address" v-model="User.address" />
+              </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -66,6 +70,7 @@
         v-if="isOpenModal"
         title="Create user"
         :ConfirmModalActive="isOpenModal"
+        :activeConfirmButton="true"
         confirmText="Agree"
         @submitModal="CreateUser"
         @closeModal="closeModal">
@@ -163,11 +168,18 @@ export default {
   font-size: 26px;
 }
 
+.form-oneInput {
+  width: 96%;
+}
+
 @media (max-width: 740px) {
   .UserCreate-Modal-header {
     height: 20px;
     top: 10px;
     text-align: center;
+  }
+  .form-oneInput {
+    width: 100%;
   }
 }
 </style>

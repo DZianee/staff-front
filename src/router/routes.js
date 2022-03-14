@@ -5,6 +5,7 @@ import HomeView from "../views/HomeView.vue";
 import Login from "../views/LoginView.vue";
 import ChangePassword from "../views/ChangePassView.vue";
 import TopicView from "../views/TopicView.vue";
+import UserView from "../views/UserManView.vue";
 import ManageView from "../views/ManageView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import IdeaView from "../views/IdeaView.vue";
@@ -43,6 +44,11 @@ const router = [
     path: "/topic-view",
     name: "topicView",
     component: TopicView,
+  },
+  {
+    path: "/user-view",
+    name: "userView",
+    component: UserView,
   },
   {
     path: "/manage-view",

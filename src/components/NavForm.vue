@@ -59,17 +59,17 @@
     </ul>
   </div>
 
-  <Topic-Modal-Form @close="modalActt()" :modalActive="modalActive" />
+  <!-- <Topic-Modal-Form @close="modalActt()" :modalActive="modalActive" /> -->
 </template>
 
 <script>
 // let self = this;
-import TopicModalForm from "@/components/TopicModalForm.vue";
+// import TopicModalForm from "@/components/TopicModalForm.vue";
 import { ref } from "vue";
 
 export default {
   components: {
-    TopicModalForm,
+    // TopicModalForm,
   },
   props: {
     id: String,

@@ -14,8 +14,8 @@
                 <input type="text" class="topicName_input" :value="topicInfo.name" disabled />
               </div>
               <div class="topic-type">
-                <label for="topicType">Topic's type</label>
-                <input type="text" class="topicType_input" :value="topicInfo.type" disabled />
+                <label for="topicType">Topic's Description</label>
+                <input type="text" class="topicType_input" :value="topicInfo.description" disabled />
               </div>
               <div class="closure-date">
                 <label for="closureDate">Closure date</label>
@@ -57,7 +57,7 @@ export default {
       let dateVal;
       let hour;
       let minute;
-      if (date.getMonth() < 10) {
+      if (date.getMonth() < 9) {
         month = "0" + (parseInt(date.getMonth()) + 1).toString();
       } else {
         month = (parseInt(date.getMonth()) + 1).toString();
