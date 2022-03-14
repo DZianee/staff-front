@@ -4,9 +4,9 @@
       <div class="menu-bar">
         <i class="bx bx-menu bx-lg" />
         <ul>
-          <li>Home</li>
-          <li>News</li>
-          <li>Management</li>
+          <li @click="showHome">Home</li>
+          <li @click="showNews">News</li>
+          <li @click="showManagement">Management</li>
           <li>Statistic</li>
           <li>Setting</li>
           <li @click="showProfile">My Profile</li>
@@ -20,7 +20,7 @@
 
     <HomeOpenTitle />
     <HomeAnnounceTopic />
-    <!-- <HomeMostIdea :topicList="topicList" /> -->
+    <HomeMostIdea :topicList="topicList" />
     <HomeTopicCounter />
   </div>
 </template>
@@ -29,7 +29,7 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 import HomeOpenTitle from "@/components/HomeOpenTitle.vue";
 import HomeAnnounceTopic from "@/components/HomeAnnounceTopic.vue";
-// import HomeMostIdea from "@/components/HomeMostIdea.vue";
+import HomeMostIdea from "@/components/HomeMostIdea.vue";
 import HomeTopicCounter from "@/components/HomeTopicCounter.vue";
 
 export default {
@@ -37,7 +37,7 @@ export default {
   components: {
     HomeOpenTitle,
     HomeAnnounceTopic,
-    // HomeMostIdea,
+    HomeMostIdea,
     HomeTopicCounter,
   },
   data() {
@@ -50,7 +50,7 @@ export default {
     this.$store.dispatch("getUser");
     const data = JSON.parse(this.$store.state.user);
     this.user = data;
-    console.log(this.user)
+    console.log(this.user);
 
     this.$store.dispatch("fetchAccessToken");
     this.$axios
@@ -58,9 +58,6 @@ export default {
       .then((res) => (this.topicList = res.data.content));
   },
   methods: {
-    ManageRoute() {
-      this.$router.push({ name: "manageView" });
-    },
     async logout() {
       try {
         this.$store.dispatch("fetchAccessToken");
@@ -71,8 +68,17 @@ export default {
         //
       }
     },
+    showHome() {
+      this.$router.push({ name: "home" });
+    },
     showProfile() {
       this.$router.push({ name: "profileView", params: { id: this.user.id } });
+    },
+    showNews() {
+      this.$router.push({ name: "newsView" });
+    },
+    showManage() {
+      this.$router.push({ name: "manageView" });
     },
   },
 };

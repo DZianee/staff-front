@@ -11,7 +11,7 @@
         <span class="tooltiptext">Home</span>
       </li>
       <!-- </router-link> -->
-      <li class="nav-item">
+      <li class="nav-item" @click="NewsRoute">
         <i class="bx bx-news bx-sm bx-fw" />
         <span>News</span>
         <span class="tooltiptext">News</span>
@@ -94,9 +94,9 @@ export default {
     HomeRoute() {
       this.$router.push({ name: "home" });
     },
-    // NewsRoute(){
-    //   this.$router.push({name:''});
-    // },
+    NewsRoute(){
+      this.$router.push({name:'newsView'});
+    },
     ManageRoute() {
       this.$router.push({ name: "manageView" });
     },
