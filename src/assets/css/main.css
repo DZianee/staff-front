@@ -637,11 +637,10 @@ iframe {
 }
 .nav-items {
   width: inherit;
-  height: calc(100% - 120px);
+  height: calc(100% - 110px);
   padding-left: 20px;
   position: relative;
   top: 10px;
-  border: solid;
 }
 .nav-item {
   height: 50px;
@@ -695,11 +694,9 @@ iframe {
   font-size: 14px;
   color: #4a585f;
 }
-.log-out {
-  position: absolute;
-  bottom: 100px;
-  margin: 0 6px;
-}
+/* .log-out{
+  transform: translate(0,440px);
+} */
 .tooltiptext {
   visibility: hidden;
   position: relative;
@@ -824,23 +821,6 @@ iframe {
   z-index: 1;
 }
 
-.Topic-Modal-container {
-  position: relative;
-  width: 414px;
-  max-width: calc(100% - 32px);
-  min-height: 200px;
-  background-color: white;
-  border-radius: 5px;
-  animation: modalfadein ease 0.3s;
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 26px;
-  z-index: 2;
-}
-
 .Topic-Modal-header {
   position: absolute;
   width: 250px;
@@ -908,7 +888,7 @@ iframe {
 .Topic-Modal-color {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(25, 1fr);
   gap: 10px;
   height: 30px;
   width: 30px;
@@ -929,7 +909,7 @@ iframe {
 
 .router-view {
   position: relative;
-  top: 70px;
+  top: 24px;
   text-align: center;
   /* height: calc(100% + 150px); */
 }
@@ -1089,11 +1069,11 @@ iframe {
     height: 25px;
   } */
 
-  .Topic-Modal-container {
+  /* .Topic-Modal-container {
     position: relative;
-    width: 414px;
+    width: 400px;
     max-width: calc(100% - 32px);
-    height: 480px;
+    max-height: calc(100% - 32px);
     background-color: white;
     border-radius: 5px;
     animation: modalfadein ease 0.3s;
@@ -1103,8 +1083,9 @@ iframe {
     font-weight: bold;
     font-size: 30px;
     line-height: 26px;
+    overflow-y: scroll;
     z-index: 2;
-  }
+  } */
 
   .Topic-Modal-header {
     position: absolute;

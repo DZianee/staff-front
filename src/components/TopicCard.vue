@@ -1,17 +1,18 @@
 <template>
+  <div class="table-toolbar d-flex justify-content-end form-search-padding">
+    <div class="table-search-box">
+      <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="topicName" />
+      <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
+    </div>
+    <div class="create-icon" @click="modalAct()">
+      <i class="bi bi-plus-circle"></i>
+    </div>
+  </div>
   <div class="topic-card">
     <div v-for="topic in Topics" :key="topic.id">
       <div class="card">
         <div class="card-content" :style="{ backgroundColor: topic.colorCode }">
           <div class="topic-card_adjust">
-            <button
-              class="icon icon_info"
-              :style="{ backgroundColor: topic.colorCode }"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              @click="topicInfoAct(topic)">
-              <i class="bx bx-info-circle bx-sm" />
-            </button>
             <button
               v-if="topic.totalIdea <= 0"
               class="icon icon_delete"
@@ -32,7 +33,7 @@
           </div>
           <br />
           <div class="content">
-            <h1>{{ topic.name }}</h1>
+            <h1 style="height: auto">{{ topic.name }}</h1>
           </div>
         </div>
         <footer class="card-footer">
@@ -40,38 +41,59 @@
         </footer>
       </div>
     </div>
-    <TopicInfoModal :topicInfo="topicInfoActive" />
+
+    <div v-if="Topics.length > 0" class="pagination-container">
+      <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
+    </div>
+
+    <CreateTopicModal @close="modalAct()" :modalActive="modalActive" />
     <RemoveModal :topicInfo="topicInfoActive" />
     <RemoveErrorModal />
   </div>
 </template>
 
 <script>
-import TopicInfoModal from "@/components/TopicInfoModal.vue";
+import CreateTopicModal from "@/components/TopicModalForm.vue";
 import RemoveModal from "@/components/RemoveModal.vue";
 import RemoveErrorModal from "@/components/RemoveErrorModal.vue";
 import { ref } from "vue";
 
-// var a;
+var timeOut;
 
 export default {
   name: "TopicCard",
-  components: { TopicInfoModal, RemoveModal, RemoveErrorModal },
+  components: { RemoveModal, RemoveErrorModal, CreateTopicModal },
   data() {
     return {
+      topicName: "",
       Topics: [],
+      currentPage: 1,
+      totalPage: 1,
     };
   },
   methods: {
     manageIdea(value) {
-      console.log(value);
       this.$router.push({ name: "ideaView", params: { id: value } });
+    },
+    onPageChange(page) {
+      this.currentPage = page;
+      this.GetTopics();
     },
     async GetTopics() {
       try {
         this.$store.dispatch("fetchAccessToken");
-        const res = await this.$axios.post(`api/v1/Topic/GetList`, { name: "" }, this.$axios.defaults.headers["Authorization"]);
-        this.Topics = res.data.content.content;
+        const res = await this.$axios.post(
+          `api/v1/Topic/GetList`,
+          { searchName: this.topicName },
+          {
+            params: {
+              PageSize: 6,
+              CurrentPage: this.currentPage,
+            },
+          }
+        );
+        this.Topics = res.data.content;
+        this.totalPage = res.data.totalPage;
       } catch (e) {
         //
       }
@@ -81,27 +103,35 @@ export default {
     const topicInfoActive = ref({});
     const topicInfoAct = (value) => {
       topicInfoActive.value = value;
-      console.log(topicInfoActive);
     };
-    return { topicInfoActive, topicInfoAct };
+    const modalActive = ref(false);
+
+    const modalAct = () => {
+      modalActive.value = !modalActive.value;
+    };
+    return { topicInfoActive, modalActive, modalAct, topicInfoAct };
   },
   mounted() {
     this.GetTopics();
-    // a = setInterval(() => this.GetTopics(), 60 * 1000);
   },
-  // beforeUnmount() {
-  //   clearInterval(a);
-  // },
+  watch: {
+    topicName() {
+      clearTimeout(timeOut);
+      timeOut = setTimeout(() => {
+        this.GetTopics();
+      }, 2000);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .topic-card {
   display: grid;
-  grid-template-columns: repeat(4, 21%);
+  grid-template-columns: repeat(3, 29%);
   column-gap: 40px;
   row-gap: 80px;
-  padding: 50px 0 0 90px;
+  padding: 50px 0 90px 90px;
 }
 .card_border--effect {
   width: 370px;
@@ -126,6 +156,42 @@ export default {
 }
 a {
   text-decoration: none;
+}
+.justify-content-end {
+  justify-content: flex-end !important;
+  align-items: center;
+}
+.form-search-padding {
+  padding-right: 36px;
+  gap: 24px;
+}
+.bi-plus-circle::before {
+  background-color: lavenderblush;
+  border-radius: 50%;
+}
+.table-search-box {
+  position: relative;
+}
+.create-icon {
+  font-size: 34px;
+  cursor: pointer;
+}
+
+.table-search-box .fa-search {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.table-search-box input {
+  padding-right: 35px;
+}
+
+.table-search-box span {
+  position: absolute;
+  right: 17px;
+  top: 6px;
+  padding: 2px;
 }
 .card {
   width: 370px;
@@ -256,6 +322,14 @@ h1 {
   }
   .card_border--effect {
     width: 295px;
+  }
+}
+@media screen and (max-width: 570px) {
+  .topic-card {
+    grid-template-columns: 100%;
+  }
+  .card {
+    width: 100%;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
