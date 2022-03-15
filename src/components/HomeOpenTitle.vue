@@ -2,7 +2,7 @@
   <div class="home-open">
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <h1><span>Together,</span> let's build a better futue</h1>
+        <h1><span>Together,</span> let's build a better future</h1>
         <div class="carousel-item active">
           <img src="../assets/images/tezos-WN5_7UBc7cw-unsplash.jpg" class="d-block w-100" alt="img 02." />
         </div>

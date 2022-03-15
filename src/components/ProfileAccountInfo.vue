@@ -15,39 +15,40 @@
                 <li><i class="bx-fw bx bx-lock bx-sm bx-tada-hover" /></li>
                 <li>Change password</li>
               </ul>
+            </div>
           </div>
         </div>
       </div>
+      <component
+        :is="'confirm-modal'"
+        title="Change Password"
+        :ConfirmModalActive="isOpenModal"
+        confirmText="Agree"
+        @submitModal="submit"
+        @closeModal="closeModal">
+        <div class="content-form p-l-15 p-r-15">
+          <form class="login100-form validate-form flex-sb flex-w" @submit.prevent="submit">
+            <div class="p-t-15 p-b-9">
+              <span class="font-weight-bold"> Old password </span>
+            </div>
+            <PasswordInput v-model:value="oldPassword" />
+            <div class="p-t-15 p-b-9">
+              <span class="font-weight-bold"> New password </span>
+            </div>
+            <PasswordInput v-model:value="newPassword" />
+            <div class="p-t-15 p-b-9">
+              <span class="font-weight-bold"> Confirm new password </span>
+            </div>
+            <PasswordInput v-model:value="reNewPassword" />
+            <span class="error-label" v-if="NewPassError" style="color: red">New and Confirm Password do not match</span>
+            <div class="container-login100-form-btn m-t-30 m-b-15">
+              <button class="login100-form-btn" :disabled="NewPassError">Activate change</button>
+            </div>
+          </form>
+        </div>
+        <br />
+      </component>
     </div>
-    <component
-      :is="'confirm-modal'"
-      title="Change Password"
-      :ConfirmModalActive="isOpenModal"
-      confirmText="Agree"
-      @submitModal="submit"
-      @closeModal="closeModal">
-      <div class="content-form p-l-15 p-r-15">
-        <form class="login100-form validate-form flex-sb flex-w" @submit.prevent="submit">
-          <div class="p-t-15 p-b-9">
-            <span class="font-weight-bold"> Old password </span>
-          </div>
-          <PasswordInput v-model:value="oldPassword" />
-          <div class="p-t-15 p-b-9">
-            <span class="font-weight-bold"> New password </span>
-          </div>
-          <PasswordInput v-model:value="newPassword" />
-          <div class="p-t-15 p-b-9">
-            <span class="font-weight-bold"> Confirm new password </span>
-          </div>
-          <PasswordInput v-model:value="reNewPassword" />
-          <span class="error-label" v-if="NewPassError" style="color: red">New and Confirm Password do not match</span>
-          <div class="container-login100-form-btn m-t-30 m-b-15">
-            <button class="login100-form-btn" :disabled="NewPassError">Activate change</button>
-          </div>
-        </form>
-      </div>
-      <br />
-    </component>
   </div>
 </template>
 
@@ -80,7 +81,7 @@ export default {
     },
     async submit() {
       try {
-        const user= JSON.parse(this.$store.state.user)
+        const user = JSON.parse(this.$store.state.user);
         this.$store.dispatch("fetchAccessToken");
         const res = await this.$axios.put(
           `api/v1/User/${user.id}/changePassword`,
