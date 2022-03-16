@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <!-- <nav class="header header-nav"> -->
     <nav class="nav-bar">
       <div class="logo">
         <img src="../assets/images/FGW_logo_d.jpeg" alt="logo" class="logo-img" />
@@ -51,47 +52,58 @@
         </div>
       </div>
     </nav>
+    <!-- </nav> -->
 
-    <!-- <HomeOpenTitle />
+    <HomeOpenTitle />
     <HomeAnnounceTopic />
     <HomeMostIdea :topicList="topicList" />
-    <HomeTopicCounter /> -->
+    <HomeTopicCounter :totalIdea="totalIdea" :totalTopic="totalTopic"/>
   </div>
 </template>
 
 <script>
 // import HelloWorld from "@/components/HelloWorld.vue";
-// import HomeOpenTitle from "@/components/HomeOpenTitle.vue";
-// import HomeAnnounceTopic from "@/components/HomeAnnounceTopic.vue";
-// import HomeMostIdea from "@/components/HomeMostIdea.vue";
-// import HomeTopicCounter from "@/components/HomeTopicCounter.vue";
+import HomeOpenTitle from "@/components/HomeOpenTitle.vue";
+import HomeAnnounceTopic from "@/components/HomeAnnounceTopic.vue";
+import HomeMostIdea from "@/components/HomeMostIdea.vue";
+import HomeTopicCounter from "@/components/HomeTopicCounter.vue";
 
 export default {
   name: "HomeView",
   components: {
-    //   HomeOpenTitle,
-    //   HomeAnnounceTopic,
-    //   HomeMostIdea,
-    //   HomeTopicCounter,
+    HomeOpenTitle,
+    HomeAnnounceTopic,
+    HomeMostIdea,
+    HomeTopicCounter,
   },
   data() {
     return {
       user: {},
       topicList: [],
+      totalIdea: 0,
+      totalTopic: 0,
       isHiddenNav: true,
       isHiddenUser: true,
     };
   },
-  created() {
+  async created() {
     this.$store.dispatch("getUser");
     const data = JSON.parse(this.$store.state.user);
     this.user = data;
-    console.log(this.user);
-
-    this.$store.dispatch("fetchAccessToken");
-    this.$axios
-      .post(`api/v1/Topic/GetList`, { searchName: "" }, this.$axios.defaults.headers["Authorization"])
-      .then((res) => (this.topicList = res.data.content));
+    try {
+      this.$store.dispatch("fetchAccessToken");
+      const getTopicList = await this.$axios.post(`api/v1/Topic/GetList`, { searchName: "" }, this.$axios.defaults.headers["Authorization"]);
+      const getIdeaList = await this.$axios.post(
+        `api/v1/Idea/getList`,
+        { searchTitle: "", sortTitle: "", sortCreatedDate: "", sortUserName: "" },
+        this.$axios.defaults.headers["Authorization"]
+      );
+      this.topicList = getTopicList.data.content;
+      this.totalTopic = this.topicList.length;
+      this.totalIdea = getIdeaList.data.content.length;
+    } catch (e) {
+      console.log("error");
+    }
   },
   methods: {
     async logout() {
@@ -121,11 +133,19 @@ export default {
 </script>
 
 <style scoped>
+.header-nav {
+  display: block;
+}
 .nav-bar {
   border-bottom: solid rgb(111, 109, 109);
   padding: 7px;
-  position: sticky;
+  position: fixed;
   height: 80px;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 15;
+  background: white;
 }
 .logo {
   display: flex;
@@ -140,19 +160,21 @@ export default {
   width: fit-content;
   top: -60px;
 }
+.menu-bar:hover {
+  cursor: pointer;
+}
 .menu-bar:hover ul {
   display: block;
   cursor: pointer;
 }
 .menu-bar ul {
-  position: absolute;
-  top: 60px;
-  left: -10px;
+  position: fixed;
+  top: 80px;
+  left: 0;
   background: white;
   width: 220px;
   height: 340px;
   border: solid grey;
-  z-index: 1;
 }
 .menu-bar ul li {
   padding: 20px;
@@ -170,6 +192,9 @@ export default {
   top: -120px;
   width: 200px;
 }
+.user-avatar:hover {
+  cursor: pointer;
+}
 .user-avatar img {
   width: 24%;
   float: right;
@@ -179,8 +204,8 @@ export default {
   border: solid gray;
 }
 .user-avatar-info {
-  position: absolute;
-  top: 65px;
+  position: fixed;
+  top: 80px;
   padding: 12px;
   background: #f6def6;
   border-radius: 10px;
@@ -190,7 +215,7 @@ export default {
   --background: #f6def6;
   content: "";
   position: absolute;
-  right: 60px;
+  right: 70px;
   top: -20px;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
@@ -220,6 +245,9 @@ export default {
   .nav-bar {
     height: 70px;
   }
+  .menu-bar ul {
+  top: 68px;
+}
 }
 @media screen and (max-width: 1025px) {
   .logo-img {
@@ -236,6 +264,9 @@ export default {
   .user-avatar-info::after {
     right: 14px;
   }
+  .menu-bar ul {
+  top: 75px;
+}
 }
 @media screen and (max-width: 769px) {
   .logo-img {
@@ -280,6 +311,8 @@ export default {
   .nav-bar {
     height: 65px;
     line-height: 30px;
+    overflow: hidden;
+    /* width: 447px; */
   }
   .menu-bar .bx-menu {
     padding-top: 10px;

@@ -2,16 +2,17 @@
   <div class="home-open">
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <h1><span>Together,</span> let's build a better future</h1>
+        <!-- <h1><span>Together,</span> let's build a better future</h1> -->
+        <div class="carousel-item">
+          <img src="https://vistapointe.net/images/university-of-greenwich-6.jpg" class="d-block w-100" alt="img 03" />
+        </div>
         <div class="carousel-item active">
-          <img src="../assets/images/tezos-WN5_7UBc7cw-unsplash.jpg" class="d-block w-100" alt="img 02." />
+          <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80" class="d-block w-100" alt="img 02." />
         </div>
         <div class="carousel-item">
-          <img src="../assets/images/krisjanis-kazaks-2OAU1isIErs-unsplash.jpg" class="d-block w-100" alt="img 01" />
+          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80" class="d-block w-100" alt="img 01" />
         </div>
-        <div class="carousel-item">
-          <img src="../assets/images/christian-wiebel-Ow6a_JaZRqM-unsplash.jpg" class="d-block w-100" alt="img 03" />
-        </div>
+        
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -33,12 +34,25 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Serif:ital@1&family=Sansita+Swashed:wght@500&display=swap");
+.home-open {
+  /* border: solid yellow; */
+  margin-top: 80px;
+}
 .carousel {
   width: 100%;
   height: 913px;
+  /* border: solid red; */
+}
+.carousel-inner {
+  height: 100%;
+  /* border: solid blue; */
+}
+.carousel-item {
+  /* z-index: 0; */
+  /* border: solid lawngreen; */
 }
 h1 {
-  position: absolute;
+  position: relative;
   color: white;
   top: 60px;
   left: 300px;
@@ -51,9 +65,7 @@ h1 span {
   padding: 10px;
   text-align: center;
 }
-.carousel-inner {
-  height: 100%;
-}
+
 img {
   object-fit: cover;
   object-position: 0 -90px;
@@ -65,8 +77,14 @@ img {
   h1 {
     left: 200px;
   }
+  .home-open {
+    margin-top: 70px;
+  }
 }
 @media screen and (max-width: 1024px) {
+  .home-open {
+    margin-top: 80px;
+  }
   .carousel {
     height: 530px;
   }
@@ -82,6 +100,9 @@ img {
   }
 }
 @media screen and (max-width: 768px) {
+  .home-open {
+    margin-top: 68px;
+  }
   .carousel {
     height: 430px;
   }
@@ -97,7 +118,10 @@ img {
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .carousel {
+ .home-open {
+    margin-top: 65px;
+  }
+ .carousel {
     height: 250px;
   }
   img {

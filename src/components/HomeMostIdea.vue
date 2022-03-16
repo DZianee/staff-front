@@ -5,8 +5,8 @@
     <h1>Top of the Most Highest Idea's Achievement</h1>
     <div class="topic-title container">
       <ul>
-        <li v-for="topic in topicList" :key="topic.id" :style="{ backgroundColor: topic.colorCode }">
-          <a :href="'#' + topic.name"> {{ topic.name }}</a>
+        <li v-for="topic in ideaList" :key="topic.id" :style="{ backgroundColor: topic.colorCode }">
+          <a :href="'#' + topic.topicName"> {{ topic.topicName }}</a>
         </li>
       </ul>
     </div>
@@ -15,10 +15,11 @@
         <div class="idea-content">
           <h4 class="idea-title">{{ idea.idea.title }}</h4>
           <p class="idea-des">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+            <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
             since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.There are many variations of
             passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
-            don't look even slightly believable.
+            don't look even slightly believable. -->
+            {{ idea.idea.description }}
           </p>
         </div>
         <div class="idea-summary-react-comment">
@@ -96,6 +97,13 @@ h1 {
   overflow-x: auto;
   overflow-y: hidden;
 }
+.topic-title ul {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.topic-title ul::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
 .topic-title ul li {
   text-align: center;
   border: solid pink;
@@ -112,13 +120,19 @@ h1 {
 
 .idea {
   display: grid;
-  /* border: solid red; */
   overflow-x: auto;
-  height: 85%;
+  height: 82%;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 100px;
   overflow-y: hidden;
   scroll-behavior: smooth;
+}
+.idea {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.idea::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 .idea .user-idea {
   display: grid;
@@ -208,7 +222,6 @@ h1 {
     width: 750px;
   }
   .idea-content {
-    border: #316b83 solid 2px;
     border-radius: 20px;
   }
   .idea-title {
@@ -232,7 +245,6 @@ h1 {
     margin-left: 25px;
     height: 370px;
     column-gap: 30px;
-    border: solid gray;
   }
   h1 {
     font-size: 40px;
@@ -245,18 +257,28 @@ h1 {
     padding: 12px;
     font-size: 20px;
   }
+  .most-idea_react {
+    height: 610px;
+    padding: 20px;
+  }
+  .topic-title {
+    margin-top: 10px;
+  }
+  .topic-title ul li a {
+    font-size: 16px;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .most-idea_react {
-    margin-top: 60px;
-    height: 200px;
+    margin-top: 40px;
+    height: 420px;
   }
   img {
     width: 40px;
     height: 40px;
   }
   h1 {
-    font-size: 20px;
+    font-size: 25px;
   }
   .topic-title {
     width: 80%;
@@ -266,9 +288,7 @@ h1 {
     margin: 0 7px;
     padding: 0;
     width: max-content;
-    height: 35px;
-    text-align: center;
-    line-height: 30px;
+    height: 33px;
   }
   .topic-title ul li a {
     font-size: 13px;
@@ -278,34 +298,29 @@ h1 {
     font-size: 15px;
   }
   .idea .user-idea {
-    width: 350px;
+    width: 420px;
     top: 12px;
     margin-left: 5px;
     height: 240px;
-    column-gap: 30px;
+    column-gap: 12px;
   }
   .idea-des {
-    display: none;
+    font-size: 13px;
+    padding-top: 2px;
   }
   .summary-react {
     height: 80px;
   }
   .idea-summary-react-comment {
-    row-gap: 20px;
-  }
-  .idea {
-    /* border: solid red; */
-    height: 260px;
-  }
-  .most-idea_react {
-    height: 400px;
+    row-gap: 10px;
+    width: 180px;
   }
   .idea-content {
     height: 190px;
   }
   .idea-summary-react-comment p {
     top: 24px;
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 </style>
