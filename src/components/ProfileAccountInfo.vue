@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-account-details">
+  <div class="profile-account-details container">
     <div class="card">
       <h4 class="card-header">Account Information</h4>
       <div class="card-body">
@@ -116,12 +116,15 @@ export default {
 .card {
   border-radius: 12px;
   position: relative;
+  width: 100%;
+  height: fit-content;
+  overflow: visible;
 }
 .card-header {
   width: 360px;
   position: absolute;
   z-index: 1;
-  left: 180px;
+  left: 110px;
   top: -30px;
 }
 .card-body {
@@ -143,14 +146,14 @@ h4 {
   margin-left: 20px;
 }
 label {
-  font-size: 15px;
+  font-size: 14px;
   color: rgb(124, 117, 117);
   font-weight: 800;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.2px;
   margin-bottom: 9px;
 }
 input {
-  width: 80%;
+  width: 50%;
   height: 40px;
   border-radius: 5px;
   outline-color: rgb(255, 255, 255);
@@ -167,10 +170,11 @@ input {
   width: 80%;
   height: 44px;
   color: #263238;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
   border-radius: 10px;
   position: relative;
+  left: 50px;
   transition: ease-in 0.35s;
 }
 .btn:after {
@@ -192,36 +196,58 @@ input {
   justify-content: center;
 }
 .btn ul li {
-  padding-right: 10px;
-  position: relative;
-  z-index: 1;
+  padding: 3px 10px 0 0;
 }
 .btn:hover {
   color: white;
 }
-@media screen and (max-width: 1430px) {
+@media screen and (max-width: 1440px) {
   .card-header {
-    left: 150px;
-  }
-}
-@media screen and (max-width: 1280px) {
-  .card-header {
-    left: 100px;
+    left: 80px;
   }
   .username label,
   .username input {
-    margin-top: 20px;
-    margin-left: 12px;
+    margin-left: 0;
+  }
+  .username label {
+    padding-top: 10px;
+    margin-left: 40px;
+  }
+  .username {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  input {
+    width: 100%;
+  }
+  .btn ul li {
+    padding-right: 14px;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .card-header {
+    left: 60px;
   }
 }
 @media screen and (max-width: 1025px) {
   .card-header {
-    left: 150px;
+    left: 130px;
+  }
+  .username label {
+    margin-left: 60px;
+  }
+  .btn ul li {
+    padding-right: 16px;
   }
 }
 @media screen and (max-width: 769px) {
   .card-header {
-    left: 90px;
+    left: 75px;
+    width: 300px;
+  }
+  .btn {
+    left: 40px;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 483px) {
@@ -229,19 +255,8 @@ input {
     left: 60px;
     width: 270px;
   }
-  input {
-    width: 60%;
-  }
-  .username {
-    border-bottom: solid #e0e0e0;
-  }
-  .btn {
-    font-size: 17px;
-    height: 40px;
-    width: 100%;
-  }
-  .btn ul li {
-    padding-right: 15px;
+   .username label {
+    margin-left: 50px;
   }
 }
 /* 

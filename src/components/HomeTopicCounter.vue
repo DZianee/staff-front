@@ -6,7 +6,7 @@
           <vue3-autocounter
             ref="counter"
             :startAmount="0"
-            :endAmount="999"
+            :endAmount="totalTopic"
             :duration="2"
             prefix=""
             suffix=""
