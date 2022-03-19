@@ -32,11 +32,10 @@ export default {
       newTopic: {},
     };
   },
-  created() {
-    this.$store.dispatch("fetchAccessToken");
+  mounted() {
     this.$axios.get(`api/v1/Topic/newest`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.newTopic = res.data.content;
-      console.log(this.newTopic);
+      // console.log(this.newTopic);
     });
   },
   computed: {

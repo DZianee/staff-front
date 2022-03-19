@@ -45,7 +45,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .Confirm-Modal {
   display: flex;
   align-items: center;

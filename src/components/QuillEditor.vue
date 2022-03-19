@@ -1,8 +1,8 @@
 <template>
   <QuillEditor
     style="background-color: white"
-    theme="snow"
-    toolbar="#my-toolbar"
+    :theme="theme"
+    :toolbar="toolbar"
     contentType="html"
     :readOnly="disableEdit"
     :style="{ height: heightEdit + 'px' }"
@@ -21,7 +21,6 @@
         <button class="ql-indent" value="-1"></button>
         <button class="ql-indent" value="+1"></button>
         <button class="ql-link"></button>
-        <!-- <button class="ql-image"></button> -->
 
         <select class="ql-size"></select>
         <select class="ql-header"></select>
@@ -41,6 +40,8 @@ export default {
     contentEdit: String,
     disableEdit: Boolean,
     heightEdit: String,
+    theme: String,
+    toolbar: String,
   },
   data() {
     return {
@@ -59,4 +60,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.ql-hidden {
+  display: none;
+}
+</style>

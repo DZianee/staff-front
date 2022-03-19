@@ -6,7 +6,7 @@
         <ul>
           <li @click="showHome">Home</li>
           <li @click="showNews">News</li>
-          <li @click="showManagement">Management</li>
+          <li @click="showManagement" v-if="userStored.roleName == 'Admin'">Management</li>
           <li>Statistic</li>
           <li>Setting</li>
           <li @click="showProfile">My Profile</li>
@@ -46,16 +46,17 @@ export default {
       topicList: [],
     };
   },
-  created() {
-    this.$store.dispatch("getUser");
+  computed: {
+    userStored() {
+      return JSON.parse(this.$store.state.user);
+    },
+  },
+  mounted() {
+    // this.$store.dispatch("getUser");
     const data = JSON.parse(this.$store.state.user);
     this.user = data;
-    console.log(this.user);
 
-    this.$store.dispatch("fetchAccessToken");
-    this.$axios
-      .post(`api/v1/Topic/GetList`, { searchName: "" }, this.$axios.defaults.headers["Authorization"])
-      .then((res) => (this.topicList = res.data.content));
+    this.$axios.post(`api/v1/Topic/GetList`, { searchName: "" }).then((res) => (this.topicList = res.data.content));
   },
   methods: {
     async logout() {
@@ -113,7 +114,7 @@ ul {
   left: 0;
   background: white;
   width: 220px;
-  height: 460px;
+  /* height: 460px; */
   border: solid grey;
   display: none;
 }
@@ -168,7 +169,7 @@ ul li:hover {
   ul {
     top: 45px;
     width: 186px;
-    height: 300px;
+    /* height: 300px; */
     z-index: 10;
   }
 

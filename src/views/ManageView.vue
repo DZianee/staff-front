@@ -1,21 +1,23 @@
 <template>
-  <div class="management-view container">
-    <h1>Welcome to Management Stage</h1>
-    <div class="card-option">
-      <div class="card not-hover" @click="TopicRoute">
-        <div class="card-body">
-          <h4 class="card-title">Topic Management</h4>
-          <p class="card-text">Available to create, modify and delete topic along with manage ideas inside each topic</p>
+  <div class="container-left">
+    <div class="management-view container">
+      <h1>Welcome to Management Stage</h1>
+      <div class="card-option">
+        <div class="card not-hover" @click="TopicRoute">
+          <div class="card-body">
+            <h4 class="card-title">Topic Management</h4>
+            <p class="card-text">Available to create, modify and delete topic along with manage ideas inside each topic</p>
+          </div>
+        </div>
+        <div class="card" @click="UserRoute">
+          <div class="card-body">
+            <h4 class="card-title">User Management</h4>
+            <p class="card-text">All the users interact inside the system are monitored and created</p>
+          </div>
         </div>
       </div>
-      <div class="card" @click="UserRoute">
-        <div class="card-body">
-          <h4 class="card-title">User Management</h4>
-          <p class="card-text">All the users interact inside the system are monitored and created</p>
-        </div>
-      </div>
+      <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" />
     </div>
-    <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" />
   </div>
   <!-- <UserManage /> -->
 </template>
@@ -39,11 +41,19 @@ export default {
 </script>
 
 <style scoped>
+.container-left {
+  position: relative;
+  left: 270px;
+  width: calc(100% - 270px);
+}
 .container {
   /* background: #94A2F2; */
   height: 834px;
-  left: 108px;
+  /* left: 108px; */
   border: solid;
+  max-width: unset;
+  left: 50%;
+  transform: translateX(-50%);
 }
 h1 {
   position: relative;
@@ -90,8 +100,10 @@ img {
 }
 @media screen and (max-width: 1366px) {
   .container {
-    left: 140px;
-    width: 1090px;
+    /* left: 140px;
+    width: 1090px; */
+    width: 90%;
+    margin: 0;
   }
   h1 {
     left: 30px;
@@ -109,15 +121,21 @@ img {
   }
 }
 @media screen and (max-width: 1025px) {
+  .container-left {
+    left: 80px;
+    width: calc(100% - 80px);
+  }
   .container {
-    left: 40px;
-    width: 930px;
+    /* left: 80px; */
+    /* width: 930px; */
+    width: 90%;
   }
   h1 {
     left: 30px;
   }
   .card-option {
-    left: 10px;
+    /* left: 10px; */
+    left: 0;
   }
   .card {
     width: 38%;
@@ -128,7 +146,8 @@ img {
 }
 @media screen and (max-width: 769px) {
   .card-option {
-    width: 500px;
+    /* width: 500px; */
+    width: 100%;
     height: 50%;
     top: 10px;
     flex-direction: column;
@@ -139,7 +158,8 @@ img {
     left: 5px;
   }
   .card {
-    width: 90%;
+    /* width: 90%; */
+    width: 98%;
   }
   img {
     /* left: 0px; */
@@ -148,18 +168,24 @@ img {
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .container {
+  .container-left {
     left: 0;
-    width: 478px;
+    width: 100%;
+  }
+  .container {
+    /* left: 0; */
+    /* width: 478px; */
+    width: 98%;
   }
   h1 {
     left: 10px;
     top: 50px;
   }
   .card-option {
-    left: 25px;
+    /* left: 25px; */
+    left: 0;
     height: 400px;
-    width: 400px;
+    width: 100%;
     top: 70px;
     align-content: space-around;
     flex-direction: column;
