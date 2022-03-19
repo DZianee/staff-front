@@ -31,8 +31,10 @@ axios.interceptors.response.use(
         // store.dispatch("fetchAccessToken");
         try {
           await axios.post(`api/v1/User/RefreshToken`).then((res) => {
-            console.log(res);
-            // router.go();
+            console.log(res.response);
+            if (res.status == 200) {
+              router.go();
+            }
           });
         } catch {
           store.dispatch("logout");
