@@ -12,6 +12,7 @@ import TopicIdeaView from "../views/TopicIdeaView.vue";
 import NewsView from "../views/NewsView.vue";
 import TopicListDetailsView from "../views/TopicListDetails.vue";
 import ideaDetailView from "../views/IdeaDetailView.vue";
+import ReportView from "../views/ReportView.vue";
 
 const router = [
   {
@@ -80,6 +81,11 @@ const router = [
     path: "/ideaDetail-view/:id",
     name: "ideaDetailView",
     component: ideaDetailView,
+  },
+  {
+    path: "/report",
+    name: "reportView",
+    component: ReportView,
   },
 ];
 
