@@ -252,7 +252,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="css" scoped>
 .user-man {
   position: relative;
   /* top: 60px; */

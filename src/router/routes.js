@@ -14,6 +14,7 @@ import TopicListDetailsView from "../views/TopicListDetails.vue";
 import ideaDetailView from "../views/IdeaDetailView.vue";
 import RoleView from "../views/RoleView.vue";
 import DepartmentView from "../views/DepartmentView.vue";
+import ReportView from "../views/ReportView.vue";
 
 const router = [
   {
@@ -92,6 +93,11 @@ const router = [
     path: "/role-view",
     name: "RoleView",
     component: RoleView,
+  },
+  {
+    path: "/report",
+    name: "reportView",
+    component: ReportView,
   },
 ];
 
