@@ -1,17 +1,28 @@
 <template>
   <transition>
     <div class="UserInfo-Modal" v-if="modalActive">
-      <span class="UserInfo-Modal-backdrop" @click="close"></span>
+      <span
+        class="UserInfo-Modal-backdrop"
+        @click="
+          close();
+          displayButtons(false);
+        "></span>
       <div class="UserInfo-Modal-container">
-        <div class="UserInfo-Modal-close" @click="close">
+        <div
+          class="UserInfo-Modal-close"
+          @click="
+            close();
+            displayButtons(false);
+          ">
           <i class="bi form-control-feedback bi-x-lg" style="font-size: 22px"></i>
         </div>
         <div class="User-ActButtons-icon">
-          <i class="bi bi-filter-left" style="font-size: 22px" @click="displayButtons"></i>
+          <i class="bi bi-filter-left" style="font-size: 22px" @click="displayButtons(!IsdisplayButtons)"></i>
         </div>
         <div class="User-ActButtons" :class="{ displayButtons: IsdisplayButtons }">
           <button class="btn btn-primary btn-mar-right" @click="editDetail">Edit</button>
           <button class="btn btn-primary btn-mar-right" @click="ResetsubmitModal">Reset Password</button>
+          <button class="btn btn-primary btn-mar-right" @click="BansubmitModal">Ban</button>
           <button class="btn btn-primary" @click="DeletesubmitModal">Delete</button>
         </div>
         <header class="UserInfo-Modal-header">
@@ -22,11 +33,11 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Firstname</label>
-                <input type="text" class="form-control" placeholder="Firstname" :disabled="Disable" v-model="User.firstname" />
+                <input type="text" class="form-control" placeholder="Firstname" :disabled="true" v-model="User.firstname" />
               </div>
               <div class="form-group col-md-6">
                 <label>Lastname</label>
-                <input type="text" class="form-control" placeholder="Lastname" :disabled="Disable" v-model="User.lastname" />
+                <input type="text" class="form-control" placeholder="Lastname" :disabled="true" v-model="User.lastname" />
               </div>
             </div>
             <div class="form-row">
@@ -150,8 +161,8 @@ export default {
         return true;
       }
     },
-    displayButtons() {
-      this.IsdisplayButtons = !this.IsdisplayButtons;
+    displayButtons(value) {
+      this.IsdisplayButtons = value;
     },
     changeDepartment() {
       for (let i = 0; i < this.Departments.length; i++) {
@@ -212,6 +223,12 @@ export default {
       this.ModifyID = 1;
       this.isOpenModal = true;
     },
+    BansubmitModal() {
+      this.ModalConfirmText = "You want to Ban this user?";
+      this.TitleConfirmText = "Ban User";
+      this.ModifyID = 3;
+      this.isOpenModal = true;
+    },
     DeletesubmitModal() {
       this.ModalConfirmText = "You want to Delete this user?";
       this.TitleConfirmText = "Delete User";
@@ -246,7 +263,6 @@ export default {
           break;
         case 1:
           try {
-            this.$store.dispatch("fetchAccessToken");
             const res = await this.$axios.put(`api/v1/User/${this.UserId}/resetPassword`, this.$axios.defaults.headers["Authorization"]);
             if (res.status == 200) {
               this.$router.go();
@@ -257,8 +273,17 @@ export default {
           break;
         case 2:
           try {
-            this.$store.dispatch("fetchAccessToken");
             const res = await this.$axios.delete(`api/v1/User/${this.UserId}`, this.$axios.defaults.headers["Authorization"]);
+            if (res.status == 200) {
+              this.$router.go();
+            }
+          } catch {
+            //
+          }
+          break;
+        case 3:
+          try {
+            const res = await this.$axios.put(`api/v1/User/${this.UserId}/ban`, this.$axios.defaults.headers["Authorization"]);
             if (res.status == 200) {
               this.$router.go();
             }

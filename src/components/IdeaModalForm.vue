@@ -1,20 +1,21 @@
 <template>
   <transition>
-    <div class="Topic-Modal" v-if="modalActive">
-      <span class="Topic-Modal-backdrop" @click="close"></span>
-      <div class="Topic-Modal-container">
-        <div class="Topic-Modal-close" @click="close">
+    <div class="Idea-Modal" v-if="modalActive">
+      <span class="Idea-Modal-backdrop" @click="close"></span>
+      <div class="Idea-Modal-container">
+        <div class="Idea-Modal-close" @click="close">
           <i class="bi form-control-feedback bi-x-lg" style="font-size: 22px"></i>
         </div>
-        <header class="Topic-Modal-header">
-          <p>Create New Topic</p>
+        <header class="Idea-Modal-header">
+          <p>Create New Idea</p>
+          <p>Topic:</p>
         </header>
-        <div class="Topic-Modal-body">
-          <label for="topic-name" class="Topic-Modal-label"> Topic's Name </label>
-          <input type="text" class="Topic-Modal-input" maxlength="35" placeholder="Topic's Name" v-model="ModalForm.TopicName" />
+        <div class="Idea-Modal-body">
+          <label for="Idea-name" class="Idea-Modal-label"> Idea's Name </label>
+          <input type="text" class="Idea-Modal-input" maxlength="35" placeholder="Idea's Name" v-model="ModalForm.IdeaName" />
 
-          <label for="topic-description" class="Topic-Modal-label"> Topic's Description </label>
-          <!-- <input type="text" class="Topic-Modal-input" placeholder="Topic's Name" v-model="ModalForm.TopicDescription" /> -->
+          <label for="Idea-description" class="Idea-Modal-label"> Idea's Description </label>
+          <!-- <input type="text" class="Idea-Modal-input" placeholder="Idea's Name" v-model="ModalForm.IdeaDescription" /> -->
           <VueQuillEditor
             :theme="'snow'"
             :toolbar="'#my-toolbar'"
@@ -23,28 +24,9 @@
             :contentEdit="ModalForm.TopicDescription"
             @handleInput="handleInput" />
 
-          <div class="Topic-Modal-Image">
-            <input type="file" accept="image/*" @change="imageSelected" />
-            <img style="width: 200px" :src="previewImage" />
-          </div>
-
-          <label for="closuredate" class="Topic-Modal-label"> Close Idea date </label>
-          <input type="datetime-local" id="datePicker" class="Topic-Modal-input" v-model="ModalForm.TopicCloseIdeaDate" />
-
-          <label for="closuredate" class="Topic-Modal-label"> Closure date </label>
-          <input type="datetime-local" id="datePicker" class="Topic-Modal-input" v-model="ModalForm.TopicClosureDate" />
-
-          <label for="color" class="Topic-Modal-label"> Color </label>
-          <div class="Topic-Modal-color">
-            <div v-for="color in colors" :key="color">
-              <span class="inner-circle" v-bind:style="{ backgroundColor: color }" @click="checkColor(color)">
-                <span v-if="ModalForm.Colorcheck === color" style="color: black; font-weight: 700">&#10003;</span>
-              </span>
-            </div>
-          </div>
+          <input type="file" accept="image/*" style="font-size: 14px; margin: 16px 0" @change="imageSelected" />
 
           <p class="Error-Message" v-if="ErrorDisable">All the field are required and Closure date must be > 3 days since current date</p>
-          <p class="Error-Message" v-if="IdeaErrorDisable">Close idea date must be between 2 days (1 hour gap)</p>
           <button class="submit-add" :class="Disable ? 'disable' : ''" :disabled="Disable" @click="Create">Submit</button>
         </div>
       </div>
@@ -74,20 +56,13 @@ export default {
   },
   data() {
     return {
-      colors: ["#F3D1DC", "#FCF0CF", "#888DF2", "#E8C4F2", "#59D9CC", "#ECAD8F", "#9EBF99", "#F2C84B", "#BCBF5E", "#F2B3BF"],
       ModalForm: {
-        Colorcheck: "#F3D1DC",
-        TopicName: "",
-        TopicDescription: "",
-        TopicCloseIdeaDate: "",
-        TopicClosureDate: "",
-        file: "",
+        IdeaName: "",
+        IdeaDescription: "",
+        file: [],
       },
-      previewImage: undefined,
-
       Disable: true,
       ErrorDisable: false,
-      IdeaErrorDisable: false,
       isOpenModal: false,
     };
   },
@@ -149,11 +124,6 @@ export default {
   methods: {
     imageSelected(event) {
       this.ModalForm.file = event.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(this.ModalForm.file);
-      reader.onload = (event) => {
-        this.previewImage = event.target.result;
-      };
     },
     checkColor(color) {
       this.ModalForm.Colorcheck = color;
@@ -207,7 +177,7 @@ export default {
   opacity: 0.5;
   pointer-events: none;
 }
-.Topic-Modal-container {
+.Idea-Modal-container {
   position: relative;
   width: 80%;
   max-width: calc(100% - 32px);
@@ -225,16 +195,70 @@ export default {
   text-align: left;
   z-index: 2;
 }
-.Topic-Modal-Image {
-  font-size: 14px;
-  margin: 16px 0;
+
+.Idea-Modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
 }
-.Topic-Modal-Image img {
-  width: 200px;
+
+.Idea-Modal-backdrop {
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
-@media (min-width: 320px) and (max-width: 790px) {
-  .Topic-Modal-Image img {
-    margin-top: 10px;
-  }
+
+.Idea-Modal-header {
+  position: absolute;
+  width: 250px;
+  height: 30px;
+  left: calc(50% - 250px / 2);
+  top: 20px;
+  text-align: center;
+}
+
+.Idea-Modal-header p {
+  font-size: 20px;
+}
+
+.Idea-Modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.Idea-Modal-body {
+  padding: 16px;
+  margin-top: 55px;
+}
+
+.Idea-Modal-label {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.Idea-Modal-input {
+  border: 1px solid #ccc;
+  background-color: #c4c4c4;
+  border-radius: 9px;
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 </style>

@@ -186,7 +186,6 @@ export default {
           default:
             break;
         }
-        console.log(data);
         const res = await this.$axios.post(`api/v1/User/getlist`, data, {
           params: {
             PageSize: 6,

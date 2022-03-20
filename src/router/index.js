@@ -10,18 +10,21 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (store.state.user != null) {
+  var user = JSON.parse(store.state.user);
+  if (user != null) {
     if (sessionStorage.getItem("User") != null && sessionStorage.getItem("Token") != null && sessionStorage.getItem("Auth") != null) {
       switch (to.name) {
         case "login":
           next("/");
           break;
-        case "about":
-          // if (sessionStorage.getItem("Auth") !== "Admin") {
-          next();
-          // } else {
-          //   next("/");
-          // }
+        case "manageView":
+        case "topicView":
+        case "topicideaView":
+          if (user.roleName == "Admin") {
+            next();
+          } else {
+            next("/");
+          }
           break;
         default:
           next();
