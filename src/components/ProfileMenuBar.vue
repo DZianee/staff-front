@@ -2,17 +2,17 @@
   <div class="profile_sidebar">
     <ul class="sidebar-items">
       <li class="nav-item profile">
-        <div class="nav-link active my-profile">
+        <div class="nav-link active my-profile" id="profile" @click="openOption()">
           <span>
-            <i class="bx bx-user-pin bx-sm"></i>
+            <i class="bx bx-user-pin bx-sm bx-fw"></i>
           </span>
           My profile
         </div>
       </li>
       <li class="nav-item ideas">
-        <div class="nav-link" @click="getMenuAccount">
+        <div class="nav-link" id="idea" @click="openOptions()">
           <span>
-            <i class="bx bx-news bx-sm"></i>
+            <i class="bx bx-news bx-sm bx-fw"></i>
           </span>
           Ideas posted
         </div>
@@ -26,8 +26,11 @@ export default {
   name: "ProfileMenuBar",
   props: {},
   methods: {
-    getMenuAccount() {
-      this.$emit("getMenuItem", "Account info");
+    openOption() {
+      this.$emit("open-option", "profile");
+    },
+    openOptions() {
+      this.$emit("open-options", "idea");
     },
   },
 };
@@ -35,33 +38,34 @@ export default {
 
 <style scoped>
 .profile_sidebar {
-  position: fixed;
-  border-right: solid #f5f5f5;
-  height: 100%;
+  position: sticky;
+  border-right: solid #f2ebeb;
+  height: fit-content;
   width: 220px;
-  background-color: #e3f2fd;
+  margin-top: 60px;
 }
 .sidebar-items {
   margin-top: 37px;
 }
 .nav-item {
   padding: 3px;
-  margin-left: -22px;
+  margin-left: -28px;
   border-radius: 10px;
   width: 200px;
   transition: ease-in 0.3s;
+  display: flex;
+  justify-content: flex-start;
 }
 .nav-item:hover {
-  background: #fafafa;
-  transition: ease 0.4s;
+  background: white;
+  /* transition: ease 0.4s; */
+  font-weight: 500;
   cursor: pointer;
 }
 .nav-link {
-  color: #6f848f;
-  font-weight: 500;
-  font-size: 14px;
-  display: flex;
-  justify-content: flex-start;
+  /* color: #6f848f; */
+  /* font-weight: 500; */
+  font-size: 15px;
 }
 .nav-link:hover {
   color: black;
@@ -69,40 +73,45 @@ export default {
 .nav-link span {
   padding-right: 10px;
 }
-.active {
+/* .active {
   font-weight: 600;
   font-size: 16px;
   color: black;
-}
-@media screen and (max-width: 1430px) {
+} */
+@media screen and (max-width: 1440px) {
   .profile_sidebar {
-    width: 200px;
+    width: 180px;
+  }
+  .nav-item {
+    padding: 0;
+    width: 170px;
+    transition: ease-in 0.3s;
   }
 }
 @media screen and (max-width: 1025px) {
   .profile_sidebar {
     position: relative;
-    height: 50px;
+    height: 54px;
     width: 50%;
     border: solid 2px;
     border-radius: 23px;
-    left: 200px;
-    top: 30px;
+    left: 230px;
+    top: 0;
   }
   .sidebar-items {
-    margin-top: 0;
+    margin-top: -2px;
     display: flex;
-    width: 423px;
     border-radius: 23px;
-    justify-content: space-around;
     height: 50px;
     padding: 0;
+    position: relative;
   }
   .nav-item {
     padding: 0;
     width: 50%;
-    height: 48px;
-    margin-left: 0;
+    height: 45px;
+    border-radius: 0;
+    margin: 5px 0;
   }
   .profile {
     margin-right: 0;
@@ -120,6 +129,8 @@ export default {
     font-size: 16px;
     position: relative;
     left: 30px;
+    padding: 0;
+    color: black;
   }
   .my-profile {
     left: 48px;
@@ -131,10 +142,39 @@ export default {
     left: 140px;
   }
 }
-@media screen and (min-width: 320px) and (max-width: 483px) {
+@media screen and (min-width: 320px) and (max-width: 480px) {
   .profile_sidebar {
-    width: 55%;
-    left: 25px;
+    width: 70%;
+    left: 70px;
+    height: 44px;
+    top: -30px;
+    background: #e3f2fd;
+  }
+  .nav-item {
+    margin: 0 0;
+    line-height: 0;
+    width: 200px;
+  }
+  .nav-item:hover {
+    background: none;
+    border-top: none;
+  }
+  .profile {
+    padding: 0;
+    margin-right: 0;
+  }
+  .nav-link span i {
+    display: none;
+  }
+  .nav-link {
+    font-size: 14px;
+    left: 40px;
+  }
+  #idea {
+    left: 35px;
+  }
+  #profile {
+    left: 50px;
   }
 }
 </style>

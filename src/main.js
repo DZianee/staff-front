@@ -1,5 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import VSwitch from 'v-switch-case'
+
 import router from "./router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
@@ -16,6 +18,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const app = createApp(App);
 app.use(store);
 app.config.globalProperties.$axios = axios;
+app.use(VSwitch); 
 
 axios.interceptors.response.use(
   function (response) {

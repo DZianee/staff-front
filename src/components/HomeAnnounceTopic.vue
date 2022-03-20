@@ -6,7 +6,11 @@
       <span>Greenwich</span>
     </h1>
     <div class="announcement-topic">
-      <div><img src="../assets/images/environment.jpg" alt="anvironment man" /></div>
+      <div>
+        <img
+          src="https://images.unsplash.com/photo-1618759618709-2333be0254cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+          alt="announcement" />
+      </div>
       <div class="new-topic-content">
         <h2 class="new-topic_title">{{ newTopic.name }}</h2>
         <!-- <p class="new-topic_des">
@@ -18,7 +22,7 @@
           <span> Timeline posted: </span>
           {{ getStartDate }} - {{ getEndDate }}
         </p>
-        <a href="#">Click to view more<i class="bx bx-right-arrow-alt bx-fw bx-sm" /></a>
+        <p class="route" @click="toTopicListDetails">Click to view more<i class="bx bx-right-arrow-alt bx-fw bx-sm" /></p>
       </div>
     </div>
   </div>
@@ -54,6 +58,11 @@ export default {
       return dm;
     },
   },
+  methods: {
+    toTopicListDetails() {
+      this.$router.push({ name: "topicListView" });
+    },
+  },
 };
 </script>
 
@@ -62,10 +71,11 @@ export default {
   margin-top: 140px;
   /* transform: translate(0, 140px); */
   height: 500px;
-  border-radius: 20px;
   position: static;
   /* background: linear-gradient(to left, #C9CBFF, #F6F6F6); */
   /* -webkit-text-fill-color: transparent; */
+  /* border: solid yellow; */
+
 }
 
 .announcement-topic {
@@ -73,7 +83,6 @@ export default {
   margin-top: 50px;
   display: grid;
   grid-template-columns: 50% 50%;
-  /* border: seagreen solid; */
 }
 h1 {
   font-size: 45px;
@@ -113,25 +122,27 @@ h1 span {
   }
 }
 img {
-  height: 78%;
+  height: 75%;
   width: 100%;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 .new-topic-content {
   position: relative;
   padding-top: 50px;
   height: 78%;
+  z-index: 1;
 }
-.new-topic-content::before {
+.new-topic-content::after {
   content: "";
-  height: 90%;
-  /* border: solid darkorange 2px; */
+  height: 85%;
   position: absolute;
-  width: calc(100% + 110px);
+  width: calc(100% + 165px);
   top: 0;
-  left: 70px;
+  background: #d3f6f3;
+  z-index: -1;
+  left: 20px;
+  margin-top: 20px;
   display: none;
-  background: #e7fbbe;
 }
 .new-topic_title {
   color: #34626c;
@@ -139,7 +150,6 @@ img {
   text-align: center;
   position: relative;
 }
-/* .new-topic_des, */
 .new-topic_timeline {
   --font-weight-500: 500;
   text-align: center;
@@ -152,7 +162,7 @@ img {
 .new-topic_timeline span {
   font-weight: 600;
 }
-a {
+.route {
   font-size: 17px;
   color: #b983ff;
   text-align: center;
@@ -162,12 +172,13 @@ a {
   display: block;
   font-weight: var(--font-weight-500);
 }
-a:hover {
+.route:hover {
   color: darkorchid;
 }
 @media screen and (max-width: 1440px) {
-  .new-topic-content::before {
-    width: 98%;
+  .new-topic-content::after {
+    height: 72%;
+    top: 30px;
   }
 }
 @media screen and (max-width: 1025px) {
@@ -196,19 +207,14 @@ a:hover {
   img {
     height: 90%;
   }
-  .new-topic-content::before {
-    width: 100%;
-    left: 45px;
+  .new-topic-content::after {
+    height: 72%;
+    top: 30px;
   }
 }
 @media screen and (max-width: 768px) {
   img {
     width: 100%;
-  }
-  .new-topic-content::before {
-    width: 362px;
-    left: 20px;
-    height: 75%;
   }
   .container {
     margin-top: 90px;
@@ -217,7 +223,7 @@ a:hover {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .announcement-topic {
     height: 165px;
-    margin-top: 20px;
+    margin-top: 30px;
   }
   .container {
     margin-top: 50px;
@@ -241,7 +247,7 @@ a:hover {
   .new-topic_timeline {
     font-size: 13px;
   }
-  a {
+  .route {
     font-size: 13px;
     margin: -40px -30px 0 0;
   }
@@ -250,9 +256,6 @@ a:hover {
   }
 }
 .new-topic-content::before {
-  height: inherit;
-  width: 198px;
-  left: 10px;
   top: 20px;
 }
 </style>

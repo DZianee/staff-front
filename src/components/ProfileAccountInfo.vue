@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-account-details">
+  <div class="profile-account-details container">
     <div class="card">
       <h4 class="card-header">Account Information</h4>
       <div class="card-body">
@@ -19,36 +19,36 @@
           </div>
         </div>
       </div>
+      <component
+        :is="'confirm-modal'"
+        title="Change Password"
+        :ConfirmModalActive="isOpenModal"
+        confirmText="Agree"
+        @submitModal="submit"
+        @closeModal="closeModal">
+        <div class="content-form p-l-15 p-r-15">
+          <form class="login100-form validate-form flex-sb flex-w" @submit.prevent="submit">
+            <div class="p-t-15 p-b-9">
+              <span class="font-weight-bold"> Old password </span>
+            </div>
+            <PasswordInput v-model:value="oldPassword" />
+            <div class="p-t-15 p-b-9">
+              <span class="font-weight-bold"> New password </span>
+            </div>
+            <PasswordInput v-model:value="newPassword" />
+            <div class="p-t-15 p-b-9">
+              <span class="font-weight-bold"> Confirm new password </span>
+            </div>
+            <PasswordInput v-model:value="reNewPassword" />
+            <span class="error-label" v-if="NewPassError" style="color: red">New and Confirm Password do not match</span>
+            <div class="container-login100-form-btn m-t-30 m-b-15">
+              <button class="login100-form-btn" :disabled="NewPassError">Activate change</button>
+            </div>
+          </form>
+        </div>
+        <br />
+      </component>
     </div>
-    <component
-      :is="'confirm-modal'"
-      title="Change Password"
-      :ConfirmModalActive="isOpenModal"
-      confirmText="Agree"
-      @submitModal="submit"
-      @closeModal="closeModal">
-      <div class="content-form p-l-15 p-r-15">
-        <form class="login100-form validate-form flex-sb flex-w" @submit.prevent="submit">
-          <div class="p-t-15 p-b-9">
-            <span class="font-weight-bold"> Old password </span>
-          </div>
-          <PasswordInput v-model:value="oldPassword" />
-          <div class="p-t-15 p-b-9">
-            <span class="font-weight-bold"> New password </span>
-          </div>
-          <PasswordInput v-model:value="newPassword" />
-          <div class="p-t-15 p-b-9">
-            <span class="font-weight-bold"> Confirm new password </span>
-          </div>
-          <PasswordInput v-model:value="reNewPassword" />
-          <span class="error-label" v-if="NewPassError" style="color: red">New and Confirm Password do not match</span>
-          <div class="container-login100-form-btn m-t-30 m-b-15">
-            <button class="login100-form-btn" :disabled="NewPassError">Activate change</button>
-          </div>
-        </form>
-      </div>
-      <br />
-    </component>
   </div>
 </template>
 
@@ -81,7 +81,7 @@ export default {
     },
     async submit() {
       try {
-        const user= JSON.parse(this.$store.state.user)
+        const user = JSON.parse(this.$store.state.user);
         this.$store.dispatch("fetchAccessToken");
         const res = await this.$axios.put(
           `api/v1/User/${user.id}/changePassword`,
@@ -116,12 +116,15 @@ export default {
 .card {
   border-radius: 12px;
   position: relative;
+  width: 100%;
+  height: fit-content;
+  overflow: visible;
 }
 .card-header {
   width: 360px;
   position: absolute;
   z-index: 1;
-  left: 180px;
+  left: 110px;
   top: -30px;
 }
 .card-body {
@@ -143,14 +146,14 @@ h4 {
   margin-left: 20px;
 }
 label {
-  font-size: 15px;
+  font-size: 14px;
   color: rgb(124, 117, 117);
   font-weight: 800;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.2px;
   margin-bottom: 9px;
 }
 input {
-  width: 80%;
+  width: 50%;
   height: 40px;
   border-radius: 5px;
   outline-color: rgb(255, 255, 255);
@@ -167,11 +170,13 @@ input {
   width: 80%;
   height: 44px;
   color: #263238;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
   border-radius: 10px;
   position: relative;
+  left: 50px;
   transition: ease-in 0.35s;
+  z-index: 0;
 }
 .btn:after {
   content: "";
@@ -183,6 +188,7 @@ input {
   width: 0;
   border-radius: 10px;
   transition: ease-in 0.5s;
+  z-index: -2;
 }
 .btn:hover:after {
   width: 100%;
@@ -192,36 +198,58 @@ input {
   justify-content: center;
 }
 .btn ul li {
-  padding-right: 10px;
-  position: relative;
-  z-index: 1;
+  padding: 3px 10px 0 0;
 }
 .btn:hover {
   color: white;
 }
-@media screen and (max-width: 1430px) {
+@media screen and (max-width: 1440px) {
   .card-header {
-    left: 150px;
-  }
-}
-@media screen and (max-width: 1280px) {
-  .card-header {
-    left: 100px;
+    left: 80px;
   }
   .username label,
   .username input {
-    margin-top: 20px;
-    margin-left: 12px;
+    margin-left: 0;
+  }
+  .username label {
+    padding-top: 10px;
+    margin-left: 40px;
+  }
+  .username {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  input {
+    width: 100%;
+  }
+  .btn ul li {
+    padding-right: 14px;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .card-header {
+    left: 60px;
   }
 }
 @media screen and (max-width: 1025px) {
   .card-header {
-    left: 150px;
+    left: 130px;
+  }
+  .username label {
+    margin-left: 60px;
+  }
+  .btn ul li {
+    padding-right: 16px;
   }
 }
 @media screen and (max-width: 769px) {
   .card-header {
     left: 90px;
+    width: 300px;
+  }
+  .btn {
+    left: 40px;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 483px) {
@@ -229,19 +257,8 @@ input {
     left: 60px;
     width: 270px;
   }
-  input {
-    width: 60%;
-  }
-  .username {
-    border-bottom: solid #e0e0e0;
-  }
-  .btn {
-    font-size: 17px;
-    height: 40px;
-    width: 100%;
-  }
-  .btn ul li {
-    padding-right: 15px;
+  .username label {
+    margin-left: 50px;
   }
 }
 /* 
