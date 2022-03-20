@@ -130,11 +130,24 @@
             placeholder="Write your comment"
             v-model="commentInput.text"
             @input="resize($event)"
-            @keypress.enter="submitComment($event)"></textarea>
+            @keypress.enter="submitCommentModal($event)"></textarea>
         </div>
       </div>
     </div>
   </div>
+  <!-- <component
+    :is="'confirm-modal'"
+    v-if="isOpenModal"
+    :title="'Post comment'"
+    :ConfirmModalActive="isOpenModal"
+    :activeConfirmButton="true"
+    CommentRejectButton="Post overtly"
+    CommentConfirmButton="Post Anonymously"
+    @CommentSubmit="submitComment"
+    @closeModal="opencloseModal">
+    <p>You want to post comment <strong>overtly</strong> or <strong>anonymously</strong></p>
+    <br />
+  </component> -->
   <Image-light-box v-if="modalActive" :modalActive="modalActive" :imagesIndex="imageRef" :images="images" @close="modalAct(-1)" />
 </template>
 
@@ -171,13 +184,18 @@ export default {
   setup() {
     const modalActive = ref(false);
     const imageRef = ref(0);
+    const isOpenModal = ref(false);
 
     const modalAct = (imageindex) => {
       modalActive.value = !modalActive.value;
       imageRef.value = imageindex;
     };
 
-    return { modalActive, imageRef, modalAct };
+    const opencloseModal = () => {
+      isOpenModal.value = !isOpenModal.value;
+    };
+
+    return { modalActive, imageRef, isOpenModal, modalAct, opencloseModal };
   },
   computed: {
     ReplyCommentContent() {
@@ -246,45 +264,50 @@ export default {
     Reply(value) {
       this.commentInput.ReplyComment = value;
     },
-    async submitComment(evt) {
+    submitCommentModal(evt) {
       if (evt.keyCode == 13 && !evt.shiftKey && this.commentInput.text.trim() != "") {
-        try {
-          const user = JSON.parse(this.$store.state.user);
-          var context = this.commentInput.text.trim();
-          do {
-            context = context.replaceAll("\n\n", "\n");
-          } while (context.includes("\n\n"));
-          var string = context.replaceAll("\n", "<br />");
-          let data;
-          if (this.commentInput.ReplyComment) {
-            data = {
-              userId: user.id,
-              comment: string,
-              parentId: this.commentInput.ReplyComment.id,
-              isAnonymous: this.commentInput.isAnonymous,
-            };
-          } else {
-            data = {
-              userId: user.id,
-              comment: string,
-              parentId: null,
-              isAnonymous: this.commentInput.isAnonymous,
-            };
-          }
-          const res = await this.$axios.post(`api/v1/Idea/${this.$route.params.id}/comment`, data);
-          if (res.status == 200) {
-            this.getIdeaDetails();
-            const textareaTag = document.getElementsByTagName("textarea");
-            textareaTag[0].style.height = "auto";
-            this.commentInput = {
-              text: "",
-              ReplyComment: null,
-              isAnonymous: false,
-            };
-          }
-        } catch {
-          console.log("error");
+        // this.opencloseModal();
+        this.submitComment();
+      }
+    },
+    async submitComment() {
+      try {
+        const user = JSON.parse(this.$store.state.user);
+        var context = this.commentInput.text.trim();
+        do {
+          context = context.replaceAll("\n\n", "\n");
+        } while (context.includes("\n\n"));
+        var string = context.replaceAll("\n", "<br />");
+        let data;
+        if (this.commentInput.ReplyComment) {
+          data = {
+            userId: user.id,
+            comment: string,
+            parentId: this.commentInput.ReplyComment.id,
+            isAnonymous: this.commentInput.isAnonymous,
+          };
+        } else {
+          data = {
+            userId: user.id,
+            comment: string,
+            parentId: null,
+            isAnonymous: this.commentInput.isAnonymous,
+          };
         }
+        console.log(data);
+        // const res = await this.$axios.post(`api/v1/Idea/${this.$route.params.id}/comment`, data);
+        // if (res.status == 200) {
+        //   this.getIdeaDetails();
+        //   const textareaTag = document.getElementsByTagName("textarea");
+        //   textareaTag[0].style.height = "auto";
+        //   this.commentInput = {
+        //     text: "",
+        //     ReplyComment: null,
+        //     isAnonymous: false,
+        //   };
+        // }
+      } catch {
+        console.log("error");
       }
     },
     async React(value) {
