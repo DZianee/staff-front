@@ -76,6 +76,7 @@ export default {
   /* background: linear-gradient(to left, #C9CBFF, #F6F6F6); */
   /* -webkit-text-fill-color: transparent; */
   /* border: solid yellow; */
+
 }
 
 .announcement-topic {

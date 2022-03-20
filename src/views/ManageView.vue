@@ -96,6 +96,9 @@ img {
   .card {
     width: 33%;
   }
+   .card-option {
+    left: -7px;
+  }
   img {
     bottom: 0;
     left: 20px;
@@ -106,9 +109,6 @@ img {
   .container {
     left: 40px;
     width: 930px;
-  }
-  .card-option {
-    left: -7px;
   }
   .card {
     width: 38%;

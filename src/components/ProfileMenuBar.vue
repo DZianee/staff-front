@@ -39,7 +39,7 @@ export default {
 <style scoped>
 .profile_sidebar {
   position: sticky;
-  border-right: solid #f5f5f5;
+  border-right: solid #f2ebeb;
   height: fit-content;
   width: 220px;
   margin-top: 60px;
@@ -145,7 +145,7 @@ export default {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .profile_sidebar {
     width: 70%;
-    left: 60px;
+    left: 70px;
     height: 44px;
     top: -30px;
     background: #e3f2fd;

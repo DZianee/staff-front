@@ -57,7 +57,7 @@
     <HomeOpenTitle />
     <HomeAnnounceTopic />
     <HomeMostIdea :topicList="topicList" />
-    <HomeTopicCounter :totalIdea="totalIdea" :totalTopic="totalTopic"/>
+    <HomeTopicCounter :totalIdea="totalIdea" :totalTopic="totalTopic" />
   </div>
 </template>
 
@@ -246,8 +246,8 @@ export default {
     height: 70px;
   }
   .menu-bar ul {
-  top: 68px;
-}
+    top: 68px;
+  }
 }
 @media screen and (max-width: 1025px) {
   .logo-img {
@@ -265,8 +265,8 @@ export default {
     right: 14px;
   }
   .menu-bar ul {
-  top: 75px;
-}
+    top: 75px;
+  }
 }
 @media screen and (max-width: 769px) {
   .logo-img {
@@ -282,6 +282,10 @@ export default {
   .user-avatar-info {
     height: 150px;
     width: 170px;
+    top: 60px;
+  }
+  .user-avatar-info::after {
+    right: 22px;
   }
   .user-avatar-info ul {
     margin: 0 auto;

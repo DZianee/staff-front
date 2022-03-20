@@ -1,47 +1,32 @@
 <template>
   <div class="user-ideas">
-    <h2>this is user ideas</h2>
-    <div v-if="userIdea == null" style="text-align: center; margin-top: 20px">You haven't got any idea yet</div>
+    <div v-if="userIdea == ''" style="text-align: center; margin-top: 20px; color: gray">You haven't got any idea yet</div>
     <div v-else>
-      <div class="card">
+      <div class="card" v-for="idea in userIdea" :key="idea.id">
         <img
           src="https://cdn.dribbble.com/users/3537662/screenshots/16342773/media/a6e69afafc3af1c62ef1d581c59fa4f1.png?compress=1&resize=1200x900&vertical=top"
           alt="running man" />
         <div class="card-content">
-          <h1 class="content-title">Chao mung cac ban den voi vuong quoc dieu ki cua soc nhi</h1>
+          <h1 class="content-title">{{ idea.title }}</h1>
           <div class="topic-type-create-time">
-            <h6 class="topic-type">Vui la chinh</h6>
+            <h6 class="topic-type">{{ idea.topicName }}</h6>
             <span> . </span>
-            <div class="idea-create-time">12:12:12</div>
+            <div class="idea-create-time">15:12:02</div>
           </div>
         </div>
         <div class="card-footer">
           <div class="reaction">
             <div class="react-like">
-              300
+              0
               <i class="bx bx-like bx-fw" />
             </div>
             <div class="react-dislike">
-              30
+              0
               <i class="bx bx-dislike bx-fw" />
             </div>
           </div>
-          <div class="comment">500 comments</div>
+          <div class="comment">0 comments</div>
         </div>
-      </div>
-      <div class="card">
-        <img
-          src="https://cdn.dribbble.com/users/3537662/screenshots/16342773/media/a6e69afafc3af1c62ef1d581c59fa4f1.png?compress=1&resize=1200x900&vertical=top"
-          alt="running man" />
-        <div class="card-content">fdsadwefeddd</div>
-        <div class="card-footer">hgdfeg</div>
-      </div>
-      <div class="card">
-        <img
-          src="https://cdn.dribbble.com/users/3537662/screenshots/16342773/media/a6e69afafc3af1c62ef1d581c59fa4f1.png?compress=1&resize=1200x900&vertical=top"
-          alt="running man" />
-        <div class="card-content">fdsadwefeddd</div>
-        <div class="card-footer">hgdfeg</div>
       </div>
     </div>
   </div>
@@ -112,7 +97,6 @@ h1 {
   display: grid;
   grid-template-columns: 50% 50%;
   clear: both;
-
 }
 .react-like,
 .react-dislike {
@@ -132,18 +116,21 @@ h1 {
     padding: 5px 10px;
   }
   .user-ideas .card {
-  height: 260px;
-}
-.card-footer {
-  font-size: 18px;
-
-}
+    height: 260px;
+  }
+  .card-footer {
+    font-size: 18px;
+    /* position: relative;
+    top: -18px; */
+  }
+  .content-title {
+    font-size: 22px;
+  }
 }
 @media screen and (max-width: 1366px) {
   .user-ideas .card {
     height: 245px;
   }
-
 }
 @media screen and (max-width: 1025px) {
   .user-ideas {
@@ -178,7 +165,7 @@ h1 {
     padding: 0 10px;
   }
 }
-@media screen and (min-width: 320px) and (max-width: 483px) {
+@media screen and (min-width: 320px) and (max-width: 480px) {
   .user-ideas {
     height: 800px;
     margin-top: 20px;
@@ -193,10 +180,13 @@ h1 {
     font-size: 28px;
     font-weight: 600;
   }
-  h1 {
+   .topic-type-create-time .topic-type{
+    padding: 0 0;
+  }
+  .content-title {
     font-size: 18px;
   }
-  .card img{
+  .card img {
     height: 175px;
   }
   .react-like,
@@ -205,7 +195,8 @@ h1 {
     padding: 0 10px;
   }
   h6 {
-    font-size: 15px;
+    font-size: 14px;
+    width: 100%;
   }
   .idea-create-time {
     font-size: 15px;
@@ -214,7 +205,8 @@ h1 {
     padding: 20px;
   }
   .comment {
-    margin-right: 10px;
+    margin-right: 5px;
+    font-size: 15px;
   }
 }
 </style>

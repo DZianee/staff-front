@@ -96,7 +96,7 @@ h4 {
 .gender label,
 .address label,
 .phone label {
-  margin-right: 35px;
+  margin-right: 34px;
 }
 .birthDate label,
 .birthDate input,
@@ -179,7 +179,7 @@ input {
 }
 @media screen and (max-width: 1025px) {
   .card-header {
-    left: 160px;
+    left: 170px;
     width: 300px;
   }
   .card {
@@ -207,7 +207,7 @@ input {
 }
 @media screen and (max-width: 769px) {
   .card-header {
-    left: 100px;
+    left: 120px;
     width: 270px;
   }
   .card {

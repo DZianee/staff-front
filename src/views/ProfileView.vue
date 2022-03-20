@@ -7,7 +7,7 @@
       <ProfileInfo :userDetails="userProfile" />
     </div>
     <div v-else-if="choice === 'idea'">
-      <UserIdeas />
+      <UserIdeas :userIdea="ideaUser"/>
     </div>
     <div v-else>
       <ProfileInfo :userDetails="userProfile" />
@@ -35,6 +35,7 @@ export default {
       userProfile: "",
       menuItem: "",
       choice: "",
+      ideaUser: "",
     };
   },
   created() {
@@ -46,6 +47,16 @@ export default {
       this.userProfile = res.data.content;
       console.log(this.userProfile);
     });
+    this.$axios
+      .post(
+        `api/v1/Idea/user/${this.id}`,
+        { searchTitle: "", sortTitle: "", sortCreatedDate: "", sortUserName: "" },
+        this.$axios.defaults.headers["Authorization"]
+      )
+      .then((res) => {
+        this.ideaUser = res.data.content;
+        console.log(this.ideaUser);
+      });
   },
   methods: {
     openProfile(e) {
@@ -91,7 +102,7 @@ export default {
 @media screen and (max-width: 769px) {
   .profile-view {
     width: 100%;
-    grid-template-rows: 0.2fr 0.9fr 3fr;
+    grid-template-rows: 0.2fr 1.3fr 3fr;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 483px) {

@@ -176,6 +176,7 @@ input {
   position: relative;
   left: 50px;
   transition: ease-in 0.35s;
+  z-index: 0;
 }
 .btn:after {
   content: "";
@@ -187,6 +188,7 @@ input {
   width: 0;
   border-radius: 10px;
   transition: ease-in 0.5s;
+  z-index: -2;
 }
 .btn:hover:after {
   width: 100%;
@@ -243,7 +245,7 @@ input {
 }
 @media screen and (max-width: 769px) {
   .card-header {
-    left: 75px;
+    left: 90px;
     width: 300px;
   }
   .btn {
@@ -255,7 +257,7 @@ input {
     left: 60px;
     width: 270px;
   }
-   .username label {
+  .username label {
     margin-left: 50px;
   }
 }

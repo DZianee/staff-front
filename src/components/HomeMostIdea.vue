@@ -3,31 +3,30 @@
     <img class="img-trophy-1" src="../assets/images/trophy.png" alt="trophy" />
     <img class="img-trophy-2" src="../assets/images/trophy.png" alt="trophy" />
     <h1>Top of the Most Highest Idea's Achievement</h1>
-    <div class="topic-title container">
-      <ul>
-        <li v-for="topic in ideaList" :key="topic.id" :style="{ backgroundColor: topic.colorCode }">
-          <a :href="'#' + topic.topicName"> {{ topic.topicName }}</a>
-        </li>
-      </ul>
-    </div>
     <div class="idea container">
-      <div class="card user-idea" v-for="idea in ideaList" :key="idea.index" :id="idea.topicName">
-        <div class="idea-content">
-          <h4 class="idea-title">{{ idea.idea.title }}</h4>
-          <p class="idea-des">
-            <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-            since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.There are many variations of
-            passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
-            don't look even slightly believable. -->
-            {{ idea.idea.description }}
-          </p>
-        </div>
-        <div class="idea-summary-react-comment">
-          <div class="card summary-react">
-            <p>{{ idea.idea.totalLike }} likes</p>
+      <div class="idea-info" v-for="idea in ideaList" :key="idea.index" :id="idea.topicName">
+        <div class="topic-name" :style="{ backgroundColor: idea.colorCode }">{{ idea.topicName }}</div>
+        <div class="card user-idea">
+          <div class="idea-content">
+            <h4 class="idea-title">{{ idea.idea.title }}</h4>
+            <p class="idea-des">
+              <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+              since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.There are many variations
+              of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words
+              which don't look even slightly believable. of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words
+              which don't look even slightly believable. of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words
+              which don't look even slightly believable. of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words
+              which don't look even slightly believable. -->
+              {{ idea.idea.description }}
+            </p>
           </div>
-          <div class="card summary-comment">
-            <p>{{ idea.idea.totalComments }} comments</p>
+          <div class="idea-summary-react-comment">
+            <div class="card summary-react">
+              <p>{{ idea.idea.totalLike }} likes</p>
+            </div>
+            <div class="card summary-comment">
+              <p>{{ idea.idea.totalComments }} comments</p>
+            </div>
           </div>
         </div>
       </div>
@@ -61,7 +60,7 @@ export default {
   margin-top: 140px;
   height: 570px;
   padding: 20px;
-  background: #f7f6e7;
+  background: #fbf8f1;
   /* background: linear-gradient(to top, #fde2e2, #f4eeff, #f4eeff); */
 }
 img {
@@ -85,45 +84,14 @@ h1 {
   font-size: 50px;
   text-align: center;
 }
-.topic-title {
-  width: 50%;
-  margin-top: 20px;
-  border-left: none;
-  border-right: none;
-}
-.topic-title ul {
-  display: flex;
-  justify-content: center;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-.topic-title ul {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
-}
-.topic-title ul::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
-}
-.topic-title ul li {
-  text-align: center;
-  border: solid pink;
-  width: auto;
-  border-radius: 10px;
-  margin: 0 20px;
-  padding: 5px;
-  font-weight: 500;
-}
-.topic-title ul li a {
-  font-size: 18px;
-  text-decoration: none;
-}
 
 .idea {
   display: grid;
   overflow-x: auto;
-  height: 82%;
+  height: 78%;
+  width: 74%;
   grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 100px;
+  column-gap: 20px;
   overflow-y: hidden;
   scroll-behavior: smooth;
 }
@@ -144,13 +112,16 @@ h1 {
   top: 30px;
   width: 1200px;
   padding: 25px;
-  margin-left: 100px;
   background: #fefbf3;
-
-  /* border: solid pink; */
+}
+.topic-name {
+  text-align: center;
+  height: fit-content;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 500;
 }
 .idea-content {
-  /* border: #316b83 solid 2px; */
   border-radius: 20px;
 }
 .idea-title {
@@ -166,7 +137,8 @@ h1 {
   font-size: 16px;
   padding: 20px 30px 0 30px;
   text-align: left;
-  /* border: olivedrab solid; */
+  height: 240px;
+  overflow: hidden;
 }
 .idea-summary-react-comment {
   display: grid;
@@ -174,7 +146,6 @@ h1 {
   row-gap: 10px;
 }
 .card {
-  /* border: palevioletred solid; */
   width: 90%;
   height: 86%;
   text-align: center;
@@ -203,6 +174,10 @@ h1 {
   .img-trophy-2 {
     right: 70px;
   }
+  .idea {
+    width: 88%;
+    margin-left: 90px;
+  }
 }
 @media screen and (max-width: 1025px) {
   .img-trophy-1 {
@@ -217,6 +192,10 @@ h1 {
   }
   h1 {
     font-size: 40px;
+  }
+  .idea {
+    width: 80%;
+    margin-left: 110px;
   }
   .idea .user-idea {
     width: 750px;
@@ -240,6 +219,10 @@ h1 {
   }
 }
 @media screen and (max-width: 769px) {
+  .idea {
+    width: 100%;
+    margin-left: 0;
+  }
   .idea .user-idea {
     width: 650px;
     margin-left: 25px;
@@ -272,6 +255,9 @@ h1 {
   .most-idea_react {
     margin-top: 40px;
     height: 420px;
+  }
+  .topic-name {
+    font-size: 20px;
   }
   img {
     width: 40px;
@@ -307,6 +293,7 @@ h1 {
   .idea-des {
     font-size: 13px;
     padding-top: 2px;
+    height: 110px;
   }
   .summary-react {
     height: 80px;

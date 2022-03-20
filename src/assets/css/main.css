@@ -21,7 +21,9 @@ html {
 .body-content {
   position: relative;
   left: 110px;
+  width: 100%;
   border: solid white;
+
 }
 
 @media screen and (max-width: 1440px) {
