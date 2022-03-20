@@ -25,16 +25,27 @@ axios.interceptors.response.use(
     console.log(response);
     return response;
   },
-  function (error) {
+  async function (error) {
     switch (error.response.status) {
       case 400:
         console.log(error.response);
         break;
-      case 401:
-        console.log("khong co quyen, chua dang nhap");
+      case 401: {
         // store.dispatch("fetchAccessToken");
-        // axios.post(`api/v1/User/RefreshToken`);
+        try {
+          await axios.post(`api/v1/User/RefreshToken`).then((res) => {
+            console.log(res.response);
+            if (res.status == 200) {
+              router.go();
+            }
+          });
+        } catch {
+          store.dispatch("logout");
+          router.push({ name: "login" });
+          console.log("catch");
+        }
         break;
+      }
       case 403:
         console.log("Forbidden");
         break;

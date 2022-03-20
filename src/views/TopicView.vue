@@ -16,7 +16,7 @@ export default {
 //
 </script>
 
-<style>
+<style scoped>
 .topic {
   position: relative;
   left: 270px;

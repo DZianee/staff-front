@@ -14,6 +14,7 @@
         <span class="font-weight-bold"> Confirm new password </span>
       </div>
       <PasswordInput v-model:value="reNewPassword" />
+      <span v-if="newPassError" style="color: red">New and Confirm Password do not match</span>
       <div class="container-login100-form-btn m-t-38 m-b-15">
         <button class="login100-form-btn" :disabled="NewPassError">Reset password</button>
       </div>
@@ -56,7 +57,7 @@ export default {
       oldPassword: "",
       newPassword: "",
       reNewPassword: "",
-      NewPassError: true,
+      newPassError: true,
       isOpenModal: false,
       isActiveConfirm: false,
       isActive: false,
@@ -96,14 +97,13 @@ export default {
       }
     },
   },
-  created() {},
-  mounted() {},
   watch: {
     reNewPassword(newValue) {
+      console.log(newValue);
       if (newValue !== this.newPassword) {
-        this.NewPassError = true;
+        this.newPassError = true;
       } else {
-        this.NewPassError = false;
+        this.newPassError = false;
       }
     },
   },

@@ -26,6 +26,7 @@ export default createStore({
     },
     logout({ commit }) {
       commit("setAuth", false);
+      commit("setToken", null);
       commit("setUser", null);
       sessionStorage.clear();
     },

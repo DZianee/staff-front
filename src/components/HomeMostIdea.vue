@@ -45,11 +45,9 @@ export default {
   props: {
     topicList: Array,
   },
-  created() {
-    this.$store.dispatch("fetchAccessToken");
+  mounted() {
     this.$axios.get(`api/v1/Idea/mostReact`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.ideaList = res.data.content;
-      console.log(res);
     });
   },
 };
