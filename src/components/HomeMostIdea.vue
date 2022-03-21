@@ -35,12 +35,6 @@
 </template>
 
 <script>
-const scrollContainer = document.querySelector(".idea");
-
-scrollContainer.addEventListener("wheel", (evt) => {
-  evt.preventDefault();
-  scrollContainer.scrollLeft += evt.deltaY;
-});
 export default {
   name: "HomeMostIdea",
   data() {
@@ -51,9 +45,11 @@ export default {
   props: {
     topicList: Array,
   },
-  mounted() {
+  created() {
+    this.$store.dispatch("fetchAccessToken");
     this.$axios.get(`api/v1/Idea/mostReact`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.ideaList = res.data.content;
+      console.log(res);
     });
   },
 };
