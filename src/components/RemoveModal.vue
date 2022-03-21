@@ -80,12 +80,23 @@ button {
   .modal-dialog {
     padding: 0 70px 0 30px;
     border-radius: 7px;
+    left: 50%;
+    transform: translateX(-50%) !important;
   }
   .modal-title {
     margin-left: 120px;
   }
   input {
     width: 100%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .modal-dialog {
+    padding: 0;
+  }
+  .modal-content {
+    margin: 0;
+    height: 220px;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="profile-info">
-    <div><ProfileDetails :userDetails="userDetails" /></div>
-    <div><ProfileAccountInfo :accountInfo="userDetails" /></div>
+    <ProfileDetails :userDetails="userDetails" />
+    <ProfileAccountInfo  :accountInfo="userDetails"/>
   </div>
 </template>
 
@@ -19,30 +19,49 @@ export default {
 
 <style scoped>
 .profile-info {
-  /* border: solid lawngreen; */
+  /* border: solid blue; */
   background-color: #e3f2fd;
   border-radius: 12px;
-  padding: 45px;
+  padding: 25px;
+  margin-top: 80px;
 }
 div:not(:first-child) {
-  margin-top: 90px;
+  margin-top: 95px;
+}
+@media screen and (max-width: 1440px) {
+  .profile-info {
+  margin-top: 80px;
+}
 }
 @media screen and (max-width: 1366px) {
   .profile-info {
-    width: 90%;
+    width: 100%;
   }
 }
 @media screen and (max-width: 1025px) {
   .profile-info {
-    width: 90%;
+    width: 80%;
+    position: relative;
+    left: 100px;
+    padding: 35px;
+    margin-top: 30px;
   }
 }
-@media screen and (min-width: 320px) and (max-width: 483px) {
+@media screen and (max-width: 769px) {
   .profile-info {
-    width: 63%;
-    position: relative;
-    left: -50px;
-    padding: 20px;
+    width: 84%;
+    left: 65px;
+    margin-top: 50px;
+    padding: 35px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .profile-info {
+    width: 100%;
+    height: calc(100% + 40px);
+    left: 0px;
+    margin-top: 30px;
+    padding: 15px;
   }
 }
 </style>

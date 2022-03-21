@@ -1,46 +1,34 @@
 <template>
   <div class="change-pass_modal">
-    <div class="modal fade" id="changePassModal" tabindex="-1" aria-hidden="true">
+
+    <!-- Modal -->
+    <!-- <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Change Password</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <form class="login100-form validate-form flex-sb flex-w" @submit.prevent="submit">
-              <div class="p-t-35 p-b-9">
-                <span class="font-weight-bold"> Old password </span>
-              </div>
-              <PasswordInput v-model:value="oldPassword" />
-              <div class="p-t-35 p-b-9">
-                <span class="font-weight-bold"> New password </span>
-              </div>
-              <PasswordInput v-model:value="newPassword" />
-              <div class="p-t-35 p-b-9">
-                <span class="font-weight-bold"> Confirm new password </span>
-              </div>
-              <PasswordInput v-model:value="reNewPassword" />
-              <span v-if="NewPassError" style="color: red">New and Confirm Password do not match</span>
-              <div class="container-login100-form-btn m-t-45 m-b-15">
-                <button class="login100-form-btn" :disabled="NewPassError">Activate change</button>
-              </div>
-            </form>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+    
   </div>
 </template>
 
 <script>
-import PasswordInput from "./PasswordInput.vue";
+// import PasswordInput from "./PasswordInput.vue";
 import sha256 from "js-sha256";
 
 export default {
   name: "ChangePassModal",
   components: {
-    PasswordInput,
+    // PasswordInput,
   },
   data() {
     return {

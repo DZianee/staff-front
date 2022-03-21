@@ -186,7 +186,6 @@ export default {
           default:
             break;
         }
-        console.log(data);
         const res = await this.$axios.post(`api/v1/User/getlist`, data, {
           params: {
             PageSize: 6,
@@ -287,7 +286,7 @@ export default {
 } */
 .user-card {
   display: grid;
-  grid-template-columns: repeat(4, 21%);
+  grid-template-columns: repeat(3, 29%);
   column-gap: 40px;
   row-gap: 80px;
   padding: 50px 20px 90px 20px;

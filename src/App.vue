@@ -18,7 +18,6 @@ export default {
   methods: {
     async refresh() {
       try {
-        this.$store.dispatch("fetchAccessToken");
         await this.$axios.post(`api/v1/User/RefreshToken`, this.$axios.defaults.headers["Authorization"]);
       } catch (e) {
         //
@@ -27,15 +26,15 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchAccessToken");
-    this.refresh();
-    if (this.$store.state.token != null) {
-      setInterval(
-        function () {
-          this.refresh();
-        }.bind(this),
-        25 * 60 * 1000
-      );
-    }
+    // this.refresh();
+    // if (this.$store.state.token != null) {
+    //   setInterval(
+    //     function () {
+    //       this.refresh();
+    //     }.bind(this),
+    //     25 * 60 * 1000
+    //   );
+    // }
   },
   beforeMount() {
     this.$store.dispatch("getUser");

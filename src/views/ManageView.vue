@@ -1,21 +1,24 @@
 <template>
-  <div class="management-view container">
-    <h1>Welcome to Management Stage</h1>
-    <div class="card-option">
-      <div class="card not-hover" @click="TopicRoute">
-        <div class="card-body">
-          <h4 class="card-title">Topic Management</h4>
-          <p class="card-text">Available to create, modify and delete topic along with manage ideas inside each topic</p>
+  <div class="container-left">
+    <div class="management-view container body-content">
+      <h1>Welcome to Management Stage</h1>
+      <div class="card-option">
+        <div class="card not-hover" @click="TopicRoute">
+          <div class="card-body">
+            <h4 class="card-title">Topic Management</h4>
+            <p class="card-text">Available to create, modify and delete topic along with manage ideas inside each topic</p>
+          </div>
         </div>
-      </div>
-      <div class="card" @click="UserRoute">
-        <div class="card-body">
-          <h4 class="card-title">User Management</h4>
-          <p class="card-text">All the users interact inside the system are monitored and created</p>
+        <div class="card" @click="UserRoute">
+          <div class="card-body">
+            <h4 class="card-title">User Management</h4>
+            <p class="card-text">All the users interact inside the system are monitored and created</p>
+          </div>
         </div>
+        <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
       </div>
+      <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
     </div>
-    <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" />
   </div>
   <!-- <UserManage /> -->
 </template>
@@ -39,15 +42,20 @@ export default {
 </script>
 
 <style scoped>
+.body-content {
+  left: 50% !important;
+  transform: translateX(-50%);
+  margin: 0 !important;
+}
 .container {
-  /* background: #94A2F2; */
-  height: 834px;
-  left: 108px;
-  border: solid;
+  width: 100% !important;
+}
+.management-view {
+  height: 700px;
 }
 h1 {
-  position: relative;
-  left: 30px;
+  text-align: center;
+  margin-top: 70px;
   background: linear-gradient(to left, #87c7df, #649866);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -56,8 +64,8 @@ h1 {
   display: flex;
   position: relative;
   top: 80px;
-  left: 50px;
-  justify-content: space-around;
+  /* left: 50px; */
+  justify-content: space-evenly;
   flex-direction: row;
 }
 .card-option .card:first-child {
@@ -67,16 +75,19 @@ h1 {
   background: #b2ff59;
 }
 .card {
-  border: solid;
   width: 30%;
   transition: ease 0.5s;
   box-shadow: none;
   padding: 10px;
+  height: 150px;
 }
 .card:hover {
   cursor: pointer;
   transform: scale(1.2, 1.2);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.card-title {
+  text-align: center;
 }
 .card-text {
   font-size: 15px;
@@ -90,17 +101,16 @@ img {
 }
 @media screen and (max-width: 1366px) {
   .container {
-    left: 140px;
-    width: 1090px;
-  }
-  h1 {
-    left: 30px;
-  }
-  .card-option {
-    left: 10px;
+    /* left: 140px;
+    width: 1090px; */
+    width: 90%;
+    margin: 0;
   }
   .card {
     width: 33%;
+  }
+  .card-option {
+    /* left: -7px; */
   }
   img {
     bottom: 0;
@@ -110,14 +120,9 @@ img {
 }
 @media screen and (max-width: 1025px) {
   .container {
-    left: 40px;
-    width: 930px;
-  }
-  h1 {
-    left: 30px;
-  }
-  .card-option {
-    left: 10px;
+    /* left: 80px; */
+    /* width: 930px; */
+    width: 90%;
   }
   .card {
     width: 38%;
@@ -128,18 +133,18 @@ img {
 }
 @media screen and (max-width: 769px) {
   .card-option {
-    width: 500px;
+    /* width: 500px; */
+    width: 100%;
     height: 50%;
-    top: 10px;
+    top: 30px;
+    /* left: 100px; */
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
   }
-  h1 {
-    left: 5px;
-  }
   .card {
-    width: 90%;
+    /* width: 90%; */
+    width: 98%;
   }
   img {
     /* left: 0px; */
@@ -148,25 +153,23 @@ img {
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .container {
+  .management-view {
     left: 0;
-    width: 478px;
-  }
-  h1 {
-    left: 10px;
-    top: 50px;
+    width: 100%;
+    /* width: 478px; */
   }
   .card-option {
-    left: 25px;
+    /* left: 25px; */
+    left: 50%;
+    transform: translateX(-50%);
     height: 400px;
-    width: 400px;
-    top: 70px;
+    width: 92%;
+    top: 40px;
     align-content: space-around;
     flex-direction: column;
   }
   .card {
     width: 100%;
-    border: solid firebrick;
   }
   img {
     left: 0;

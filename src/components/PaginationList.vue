@@ -176,10 +176,20 @@ export default {
 
 @media screen and (max-width: 780px) {
   .pagination-container {
-    bottom: 82px;
+    bottom: 50px;
   }
 }
 
+@media screen and (max-width: 560px) {
+  .pagination-container {
+    bottom: 80px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .pagination-container {
+    bottom: 120px;
+  }
+}
 @media screen and (max-width: 400px) {
   .pagination-content {
     width: 273px;

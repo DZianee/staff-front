@@ -11,41 +11,35 @@
   <div class="topic-card">
     <div v-for="topic in Topics" :key="topic.id">
       <div class="card">
-        <div class="card-content" :style="{ backgroundColor: topic.colorCode }">
-          <div class="topic-card_adjust">
-            <button
-              class="icon icon_info"
-              :style="{ backgroundColor: topic.colorCode }"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              @click="topicInfoAct(topic)">
-              <i class="bx bx-info-circle bx-sm" />
-            </button>
-            <button
-              v-if="topic.totalIdea <= 0"
-              class="icon icon_delete"
-              :style="{ backgroundColor: topic.colorCode }"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal1"
-              @click="topicInfoAct(topic)">
-              <i class="bx bx-x bx-sm" />
-            </button>
-            <button
-              v-if="topic.totalIdea > 0"
-              :style="{ backgroundColor: topic.colorCode }"
-              class="icon icon_delete"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal2">
-              <i class="bx bx-x bx-sm" />
-            </button>
-          </div>
+        <!-- <div class="topic-card_adjust"> -->
+        <button
+          v-if="topic.totalIdea <= 0"
+          class="icon icon_delete"
+          style="padding 8px"
+          :style="{ backgroundColor: topic.colorCode }"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal1"
+          @click="topicInfoAct(topic)">
+          <i class="bx bx-x bx-sm" />
+        </button>
+        <button
+          v-if="topic.totalIdea > 0"
+          :style="{ backgroundColor: topic.colorCode }"
+          class="icon icon_delete"
+          style="padding 8px"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal2">
+          <i class="bx bx-x bx-sm" />
+        </button>
+        <!-- </div> -->
+        <div class="card-content" @click="manageIdea(topic.id)" :style="{ backgroundColor: topic.colorCode }">
           <br />
           <div class="content">
-            <h1>{{ topic.name }}</h1>
+            <h1 style="height: auto">{{ topic.name }}</h1>
           </div>
         </div>
-        <footer class="card-footer">
-          <p class="card-footer-item total-ideas" @click="manageIdea(topic.id)">{{ topic.totalIdea }} ideas</p>
+        <footer class="card-footer" @click="manageIdea(topic.id)">
+          <p class="card-footer-item total-ideas">{{ topic.totalIdea }} ideas</p>
         </footer>
       </div>
     </div>
@@ -55,7 +49,6 @@
     </div>
 
     <CreateTopicModal @close="modalAct()" :modalActive="modalActive" />
-    <TopicInfoModal :topicInfo="topicInfoActive" />
     <RemoveModal :topicInfo="topicInfoActive" />
     <RemoveErrorModal />
   </div>
@@ -63,7 +56,6 @@
 
 <script>
 import CreateTopicModal from "@/components/TopicModalForm.vue";
-import TopicInfoModal from "@/components/TopicInfoModal.vue";
 import RemoveModal from "@/components/RemoveModal.vue";
 import RemoveErrorModal from "@/components/RemoveErrorModal.vue";
 import { ref } from "vue";
@@ -72,7 +64,7 @@ var timeOut;
 
 export default {
   name: "TopicCard",
-  components: { TopicInfoModal, RemoveModal, RemoveErrorModal, CreateTopicModal },
+  components: { RemoveModal, RemoveErrorModal, CreateTopicModal },
   data() {
     return {
       topicName: "",
@@ -83,7 +75,7 @@ export default {
   },
   methods: {
     manageIdea(value) {
-      this.$router.push({ name: "ideaView", params: { id: value } });
+      this.$router.push({ name: "topicideaView", params: { id: value } });
     },
     onPageChange(page) {
       this.currentPage = page;
@@ -138,10 +130,10 @@ export default {
 <style scoped>
 .topic-card {
   display: grid;
-  grid-template-columns: repeat(4, 21%);
+  grid-template-columns: repeat(3, 29%);
   column-gap: 40px;
   row-gap: 80px;
-  padding: 50px 0 0 90px;
+  padding: 50px 0 90px 90px;
 }
 .card_border--effect {
   width: 370px;
@@ -217,6 +209,8 @@ a {
   border-top-right-radius: 23px;
   border-top-left-radius: 23px;
   background-color: rgb(231, 245, 231);
+  height: 80%;
+  cursor: pointer;
 }
 .topic-card_adjust {
   line-height: 10px;
@@ -239,7 +233,8 @@ span:hover {
 }
 .icon_delete {
   position: absolute;
-  right: 0;
+  right: 8%;
+  top: 8%;
 }
 .icon_delete:hover {
   color: red;
@@ -247,9 +242,11 @@ span:hover {
 .content {
   overflow: hidden;
   height: 115px;
-  border-radius: 23px;
+  /* border-radius: 23px; */
+  margin-top: 27px;
 }
 h1 {
+  text-align: center;
   font-size: 22px;
   display: flex;
   align-items: center;
@@ -260,7 +257,7 @@ h1 {
 .card-footer {
   border-top-color: rgb(177, 177, 177);
   background-color: white;
-  height: 40px;
+  height: 20%;
   cursor: pointer;
 }
 .card-footer p {
@@ -346,12 +343,11 @@ h1 {
   .topic-card {
     display: grid;
     grid-template-columns: 100%;
-    width: 400px;
+    width: 100%;
     row-gap: 60px;
-    margin-left: 38px;
   }
   .card {
-    width: 300px;
+    width: 100%;
     height: 268px;
   }
   .card_border--effect {

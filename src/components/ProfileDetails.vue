@@ -3,7 +3,6 @@
     <div class="card">
       <h4 class="card-header">My profile</h4>
       <div class="card-body">
-        <h4 class="card-title"></h4>
         <div class="info-details">
           <div class="firstname">
             <label for="firstname">Firstname</label>
@@ -23,11 +22,11 @@
           </div>
           <div class="phone">
             <label for="phone">Phone no</label>
-            <input type="number" :value="userDetails.phone" disabled />
+            <input type="text" :value="userDetails.phone" disabled />
           </div>
-          <div class="department">
-            <label for="department">Department</label>
-            <input type="text" :value="userDetails.departmentName" disabled />
+          <div class="address">
+            <label for="address">Address</label>
+            <input type="text" :value="userDetails.address" disabled />
           </div>
         </div>
       </div>
@@ -66,12 +65,15 @@ export default {
 .card {
   border-radius: 12px;
   position: relative;
+  width: 100%;
+  height: fit-content;
+  overflow: visible;
 }
 .card-header {
   width: 300px;
   position: absolute;
   z-index: 1;
-  left: 220px;
+  left: 150px;
   top: -30px;
 }
 .card-body {
@@ -92,16 +94,16 @@ h4 {
 .lastname label,
 .birthDate label,
 .gender label,
-.department label,
+.address label,
 .phone label {
-  margin-right: 30px;
+  margin-right: 34px;
 }
 .birthDate label,
 .birthDate input,
 .gender label,
 .gender input,
-.department label,
-.department input,
+.address label,
+.address input,
 .phone label,
 .phone input,
 .firstname label,
@@ -110,14 +112,14 @@ h4 {
 .lastname input {
   display: inline-block;
 }
-.department input {
+.address input {
   margin-left: -15px;
 }
 label {
   font-size: 14px;
   color: rgb(141, 129, 129);
   font-weight: 800;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.2px;
 }
 input {
   height: 40px;
@@ -127,196 +129,127 @@ input {
   font-size: 16px;
   font-weight: 500;
 }
-@media screen and (max-width: 1430px) {
+@media screen and (max-width: 1440px) {
   .card {
-    height: 300px;
+    height: 320px;
   }
   .card-header {
     left: 170px;
   }
   .info-details {
-    display: grid;
-    grid-template-rows: repeat(3, 32%);
-    column-gap: 5px;
-    row-gap: 10px;
+    display: block;
     height: 220px;
   }
-  .firstname label,
-  .lastname label,
-  .birthDate label,
-  .gender label,
-  .department label,
-  .phone label {
-    margin-right: 40px;
-  }
-}
-@media screen and (max-width: 1366px) {
-  .card {
-    height: 330px;
-  }
   .card-header {
-    left: 90px;
-  }
-  .info-details {
-    display: block;
-    /* grid-template-rows: repeat(3, 32%);
-    column-gap: 5px;
-    row-gap: 10px; */
-    height: 260px;
+    left: 130px;
   }
   .firstname,
   .lastname,
   .birthDate,
   .gender,
-  .department,
+  .address,
   .phone {
     display: grid;
     grid-template-columns: 50% 50%;
-    margin: 5px 0;
+    padding: 3px 0;
   }
-  .firstname label,
-  .lastname label,
-  .birthDate label,
-  .gender label,
-  .department label,
-  .phone label {
-    /* border: seagreen solid; */
-    line-height: 40px;
-  }
-  .firstname input,
-  .lastname input,
-  .birthDate input,
-  .gender input,
-  .department input,
-  .phone input {
+  label {
     margin-left: 50px;
-    /* border: solid saddlebrown; */
-    /* display: flex;
-    justify-content: flex-start; */
-    transform: translate(-20px, 0);
+    padding-top: 10px;
+  }
+  .address input {
+    margin-left: 0px;
   }
 }
-@media screen and (max-width: 1280px) {
-  .card-header {
-    left: 140px;
-  }
+@media screen and (max-width: 1366px) {
   .card {
-    height: 450px;
+    height: 350px;
   }
-  .info-details {
-    grid-template-columns: 100%;
-    grid-template-rows: repeat(6, 25%);
-    row-gap: 10px;
-    height: 220px;
+  .card-header {
+    left: 100px;
   }
-  .firstname label,
-  .lastname label,
-  .birthDate label,
-  .gender label,
-  .department label,
-  .phone label {
-    position: relative;
-    left: -40px;
-    margin-right: 0;
-  }
-  input {
-    left: 20px;
-    position: relative;
-    width: 320px;
+  .firstname,
+  .lastname,
+  .birthDate,
+  .gender,
+  .address,
+  .phone {
+    padding: 5px 0;
   }
 }
 @media screen and (max-width: 1025px) {
   .card-header {
-    left: 210px;
-    width: 250px;
+    left: 170px;
+    width: 300px;
   }
   .card {
-    height: 250px;
+    height: 360px;
   }
-  .firstname label,
-  .lastname label,
-  .birthDate label,
-  .gender label,
-  .department label,
-  .phone label {
-    position: relative;
-    left: 0;
-    margin-right: 30px;
+  .firstname,
+  .lastname,
+  .birthDate,
+  .gender,
+  .address,
+  .phone {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 6px 0;
   }
   input {
-    left: 0;
-    position: relative;
-    width: 200px;
+    margin-left: 20px;
   }
-  .info-details {
-    grid-template-columns: repeat(2, 50%);
-    /* grid-template-rows: repeat(6, 25%); */
-    row-gap: 10px;
-    /* height: 220px; */
+  .address input {
+    margin-left: 20px;
+  }
+  label {
+    margin-left: 70px;
   }
 }
 @media screen and (max-width: 769px) {
   .card-header {
-    left: 150px;
-  }
-  .info-details {
-    grid-template-columns: 100%;
-    grid-template-rows: repeat(6, 25%);
-    row-gap: 10px;
-    height: 220px;
+    left: 120px;
+    width: 270px;
   }
   .card {
-    height: 450px;
+    height: 360px;
   }
-  .firstname label,
-  .lastname label,
-  .birthDate label,
-  .gender label,
-  .department label,
-  .phone label {
-    position: relative;
-    left: -40px;
-    margin-right: 0;
+  .firstname,
+  .lastname,
+  .birthDate,
+  .gender,
+  .address,
+  .phone {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 6px 0;
   }
   input {
-    left: 20px;
-    position: relative;
-    width: 320px;
+    margin-left: 20px;
+  }
+  .address input {
+    margin-left: 20px;
+  }
+  label {
+    margin-left: 70px;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 483px) {
   .card-header {
     left: 70px;
   }
-  .firstname label,
-  .lastname label,
-  .birthDate label,
-  .gender label,
-  .department label,
-  .phone label {
-    left: -30px;
+  label {
+    margin-left: 40px;
+  }
+  .card {
+    height: 330px;
   }
   .firstname,
   .lastname,
   .birthDate,
   .gender,
-  .department,
+  .address,
   .phone {
-    border-bottom: solid #e0e0e0;
-  }
-  input {
-    left: 30px;
-    position: relative;
-    width: 170px;
-  }
-  .info-details {
-    grid-template-columns: 100%;
-    grid-template-rows: repeat(6, 25%);
-    row-gap: 10px;
-    height: 220px;
-  }
-  .card {
-    height: 450px;
+    padding: 4px 0;
   }
 }
 </style>

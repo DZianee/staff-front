@@ -13,7 +13,15 @@
           <slot></slot>
           <div class="remove-btns">
             <button type="button" class="btn btn_cancel" @click="closeModal">Cancel</button>
-            <button type="button" class="btn btn_remove btn-success" :disabled="!activeConfirmButton" @click="submitModal">{{ confirmText }}</button>
+            <button type="button" class="btn btn_remove btn-success" v-if="confirmText" :disabled="!activeConfirmButton" @click="submitModal">
+              {{ confirmText }}
+            </button>
+            <button type="button" class="btn btn_remove btn-success" v-if="CommentRejectButton" @click="CommentSubmit(false)">
+              {{ CommentRejectButton }}
+            </button>
+            <button type="button" class="btn btn_remove btn-success" v-if="CommentConfirmButton" @click="CommentSubmit(true)">
+              {{ CommentConfirmButton }}
+            </button>
           </div>
         </div>
       </div>
@@ -24,7 +32,7 @@
 <script>
 export default {
   name: "ConfirmModal",
-  props: ["ConfirmModalActive", "title", "confirmText", "activeConfirmButton"],
+  props: ["ConfirmModalActive", "title", "confirmText", "CommentRejectButton", "CommentConfirmButton", "activeConfirmButton"],
   // methods: {
   //   close() {
   //     this.$emit("close");
@@ -40,12 +48,15 @@ export default {
     const submitModal = () => {
       emit("submitModal");
     };
-    return { closeModal, submitModal };
+    const CommentSubmit = (value) => {
+      emit("CommentSubmit", value);
+    };
+    return { closeModal, submitModal, CommentSubmit };
   },
 };
 </script>
 
-<style>
+<style scoped>
 .Confirm-Modal {
   display: flex;
   align-items: center;
@@ -110,9 +121,11 @@ export default {
 .Confirm-Modal-body {
   padding: 16px;
   margin-top: 55px;
+  text-align: center;
 }
 .remove-btns {
   position: absolute;
+  text-align: center;
   bottom: 10px;
   width: 100%;
   right: 0px;
@@ -122,5 +135,9 @@ export default {
 }
 .btn-mar-right {
   margin-right: 10px;
+}
+.btn {
+  margin-left: 8px;
+  margin-right: 8px;
 }
 </style>
