@@ -7,16 +7,14 @@
           <h4 class="card-title">Topic Management</h4>
           <p class="card-text">Available to create, modify and delete topic along with manage ideas inside each topic</p>
         </div>
-        <div class="card" @click="UserRoute">
-          <div class="card-body">
-            <h4 class="card-title">User Management</h4>
-            <p class="card-text">All the users interact inside the system are monitored and created</p>
-          </div>
+      </div>
+      <div class="card" @click="UserRoute">
+        <div class="card-body">
+          <h4 class="card-title">User Management</h4>
+          <p class="card-text">All the users interact inside the system are monitored and created</p>
         </div>
       </div>
-      <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" />
     </div>
-    <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
   </div>
   <!-- <UserManage /> -->
 </template>
@@ -76,7 +74,7 @@ h1 {
   transform: scale(1.2, 1.2);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
-.card-title{
+.card-title {
   text-align: center;
 }
 .card-text {
@@ -99,7 +97,7 @@ img {
   .card {
     width: 33%;
   }
-   .card-option {
+  .card-option {
     left: -7px;
   }
   img {
@@ -147,7 +145,7 @@ img {
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .management-view { 
+  .management-view {
     left: 0;
     width: 100%;
     /* width: 478px; */

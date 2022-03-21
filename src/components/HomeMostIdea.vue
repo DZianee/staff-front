@@ -35,6 +35,12 @@
 </template>
 
 <script>
+const scrollContainer = document.querySelector(".idea");
+
+scrollContainer.addEventListener("wheel", (evt) => {
+  evt.preventDefault();
+  scrollContainer.scrollLeft += evt.deltaY;
+});
 export default {
   name: "HomeMostIdea",
   data() {
