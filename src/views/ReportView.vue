@@ -44,7 +44,7 @@
                     <tr>
                       <th>Name</th>
                       <th>Department</th>
-                      <th>Contributors</th>
+                      <th>Ideas</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -62,6 +62,58 @@
                       <td>Michael Bublé</td>
                       <td>Official Music Video</td>
                       <td>80</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-secondary">Top 5 Contributor</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripe" width="99%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Department</th>
+                      <th>Ideas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Tiger Nixon</td>
+                      <td>System Architect</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td>Garrett Winters</td>
+                      <td>Accountant</td>
+                      <td>90</td>
+                    </tr>
+                    <tr>
+                      <td>Michael Bublé</td>
+                      <td>Official Music Video</td>
+                      <td>80</td>
+                    </tr>
+                    <tr>
+                      <td>Tiger Nixon</td>
+                      <td>System Architect</td>
+                      <td>70</td>
+                    </tr>
+                    <tr>
+                      <td>Pick</td>
+                      <td>ABC</td>
+                      <td>60</td>
+                    </tr>
+                    <tr>
+                      <td>Michael Bublé</td>
+                      <td>Official Music Video</td>
+                      <td>50</td>
                     </tr>
                   </tbody>
                 </table>
