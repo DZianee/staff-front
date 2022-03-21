@@ -21,7 +21,7 @@
             <i class="bx bx-briefcase bx-sm bx-fw" />
             Management
           </li>
-          <li>
+          <li @click="$router.push({ path: 'report' })">
             <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
             Statistic
           </li>
