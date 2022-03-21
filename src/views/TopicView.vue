@@ -19,8 +19,8 @@ export default {
 <style scoped>
 .topic {
   position: relative;
-  left: 270px;
-  width: calc(100% - 270px);
+  left: 240px;
+  width: calc(100% - 240px);
 }
 @media (min-width: 481px) and (max-width: 1025px) {
   .topic {

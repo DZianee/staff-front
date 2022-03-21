@@ -1,55 +1,55 @@
 <template>
-    <div class="container">
-      <div class="counter card">
-        <div>
-          <h1>
-            <vue3-autocounter
-              ref="counter"
-              :startAmount="0"
-              :endAmount="countEachYear"
-              prefix=""
-              suffix=""
-              separator=""
-              decimalSeparator="."
-              :autoinit="true" />
-          </h1>
-          <h3>Current year</h3>
-        </div>
-      </div>
-      <div class="counter card">
-        <div>
-          <h1>
-            <vue3-autocounter
-              ref="counter"
-              :startAmount="0"
-              :endAmount="totalTopic"
-              prefix=""
-              suffix=""
-              separator=","
-              decimalSeparator="."
-              :autoinit="true" />
-          </h1>
-          <h3>Topics</h3>
-        </div>
-      </div>
-      <div class="counter card">
-        <div>
-          <h1>
-            <vue3-autocounter
-              ref="counter"
-              :startAmount="0"
-              :endAmount="totalIdea"
-              :duration="2"
-              prefix=""
-              suffix=""
-              separator=","
-              decimalSeparator="."
-              :autoinit="true" />
-          </h1>
-          <h3>Ideas</h3>
-        </div>
+  <div class="container">
+    <div class="counter card">
+      <div>
+        <h1>
+          <vue3-autocounter
+            ref="counter"
+            :startAmount="0"
+            :endAmount="countEachYear"
+            prefix=""
+            suffix=""
+            separator=""
+            decimalSeparator="."
+            :autoinit="true" />
+        </h1>
+        <h3>Current year</h3>
       </div>
     </div>
+    <div class="counter card">
+      <div>
+        <h1>
+          <vue3-autocounter
+            ref="counter"
+            :startAmount="0"
+            :endAmount="totalTopic"
+            prefix=""
+            suffix=""
+            separator=","
+            decimalSeparator="."
+            :autoinit="true" />
+        </h1>
+        <h3>Topics</h3>
+      </div>
+    </div>
+    <div class="counter card">
+      <div>
+        <h1>
+          <vue3-autocounter
+            ref="counter"
+            :startAmount="0"
+            :endAmount="totalIdea"
+            :duration="2"
+            prefix=""
+            suffix=""
+            separator=","
+            decimalSeparator="."
+            :autoinit="true" />
+        </h1>
+        <h3>Ideas</h3>
+      </div>
+    </div>
+  </div>
   <div class="end">
     <h1>Let's rock it.... Together</h1>
   </div>
@@ -100,7 +100,7 @@ export default {
   background: #e0ffcd;
 }
 .container .card:nth-child(3) {
-  background: #C1FFD7;
+  background: #c1ffd7;
 }
 .card {
   width: 300px;
@@ -130,7 +130,9 @@ h3 {
 .end h1 {
   position: relative;
   top: 150px;
-  left: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* left: -140px; */
   font-size: 120px;
 }
 @media screen and (max-width: 1440px) {
@@ -138,17 +140,17 @@ h3 {
     font-size: 100px;
   }
   h1 {
-  font-size: 100px;
-}
-h3 {
-  font-size: 30px;
-}
-.card div {
-  transform: translate(0, 60px);
-}
-.card {
-  height: 300px;
-}
+    font-size: 100px;
+  }
+  h3 {
+    font-size: 30px;
+  }
+  .card div {
+    transform: translate(0, 60px);
+  }
+  .card {
+    height: 300px;
+  }
 }
 @media screen and (max-width: 1025px) {
   .container {
@@ -162,9 +164,8 @@ h3 {
   }
   .end h1 {
     font-size: 80px;
-    left: -40px;
+    /* left: -40px; */
   }
-  
 }
 @media screen and (max-width: 769px) {
   .container {
@@ -178,7 +179,7 @@ h3 {
   }
   .end h1 {
     font-size: 60px;
-    left: -30px;
+    /* left: -30px; */
   }
   .card {
     width: 100%;
@@ -212,7 +213,7 @@ h3 {
   }
   .end h1 {
     font-size: 55px;
-    left: -20px;
+    /* left: -20px; */
     top: 90px;
   }
   .card {

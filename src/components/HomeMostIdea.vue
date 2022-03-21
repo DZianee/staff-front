@@ -3,22 +3,13 @@
     <img class="img-trophy-1" src="../assets/images/trophy.png" alt="trophy" />
     <img class="img-trophy-2" src="../assets/images/trophy.png" alt="trophy" />
     <h1>Top of the Most Highest Idea's Achievement</h1>
-    <div class="idea container">
-      <div class="idea-info" v-for="idea in ideaList" :key="idea.index" :id="idea.topicName">
+    <div id="DragScroll" class="idea container">
+      <div class="idea-info DragScroll" v-for="idea in ideaList" :key="idea.index" :id="idea.topicName">
         <div class="topic-name" :style="{ backgroundColor: idea.colorCode }">{{ idea.topicName }}</div>
         <div class="card user-idea">
           <div class="idea-content">
             <h4 class="idea-title">{{ idea.idea.title }}</h4>
-            <p class="idea-des">
-              <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-              since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.There are many variations
-              of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words
-              which don't look even slightly believable. of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words
-              which don't look even slightly believable. of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words
-              which don't look even slightly believable. of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words
-              which don't look even slightly believable. -->
-              {{ idea.idea.description }}
-            </p>
+            <p class="idea-des" v-html="idea.idea.description"></p>
           </div>
           <div class="idea-summary-react-comment">
             <div class="card summary-react">
@@ -33,6 +24,14 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.DragScroll {
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  /* scroll-snap-type: x mandatory; */
+}
+</style>
 
 <script>
 export default {
@@ -49,11 +48,57 @@ export default {
     this.$axios.get(`api/v1/Idea/mostReact`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.ideaList = res.data.content;
     });
+
+    const ele = document.getElementById("DragScroll");
+    // ele.scrollTop = 100;
+    // ele.scrollLeft = 150;
+    let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+    const mouseDownHandler = function (e) {
+      ele.style.cursor = "grabbing";
+      ele.style.userSelect = "none";
+      pos = {
+        // The current scroll
+        left: ele.scrollLeft,
+        top: ele.scrollTop,
+        // Get the current mouse position
+        x: e.clientX,
+        y: e.clientY,
+      };
+
+      document.addEventListener("mousemove", mouseMoveHandler);
+      document.addEventListener("mouseup", mouseUpHandler);
+    };
+    const mouseMoveHandler = function (e) {
+      // How far the mouse has been moved
+      const dx = e.clientX - pos.x;
+      const dy = e.clientY - pos.y;
+
+      // Scroll the element
+      ele.scrollTop = pos.top - dy;
+      ele.scrollLeft = pos.left - dx;
+    };
+    const mouseUpHandler = function () {
+      document.removeEventListener("mousemove", mouseMoveHandler);
+      document.removeEventListener("mouseup", mouseUpHandler);
+
+      ele.style.cursor = "grab";
+      ele.style.removeProperty("user-select");
+    };
+    ele.addEventListener("mousedown", mouseDownHandler);
+  },
+  methods: {
+    touchEvent(Event) {
+      console.log(Event);
+    },
   },
 };
 </script>
 
 <style scoped>
+.container {
+  max-width: unset;
+}
 .most-idea_react {
   margin-top: 140px;
   height: 570px;
@@ -87,7 +132,7 @@ h1 {
   display: grid;
   overflow-x: auto;
   height: 78%;
-  width: 74%;
+  width: 80%;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 20px;
   overflow-y: hidden;
@@ -96,6 +141,7 @@ h1 {
 .idea {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
+  margin: 0 auto;
 }
 .idea::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
@@ -173,8 +219,18 @@ h1 {
     right: 70px;
   }
   .idea {
-    width: 88%;
-    margin-left: 90px;
+    width: 90%;
+    /* margin-left: 90px; */
+  }
+}
+@media screen and (max-width: 1366px) {
+  .idea .user-idea {
+    width: 1075px;
+  }
+}
+@media screen and (max-width: 1075px) {
+  .idea .user-idea {
+    width: 835px;
   }
 }
 @media screen and (max-width: 1025px) {
@@ -192,8 +248,8 @@ h1 {
     font-size: 40px;
   }
   .idea {
-    width: 80%;
-    margin-left: 110px;
+    width: 90%;
+    /* margin-left: 110px; */
   }
   .idea .user-idea {
     width: 750px;
