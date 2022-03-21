@@ -42,26 +42,14 @@
                 <table class="table table-bordered table-stripe" id="dataTable" width="99%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Name</th>
                       <th>Department</th>
                       <th>Ideas</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>90</td>
-                    </tr>
-                    <tr>
-                      <td>Michael Bublé</td>
-                      <td>Official Music Video</td>
-                      <td>80</td>
+                    <tr v-for="item in departmentReport" :key="item._id">
+                      <td>{{ item.departmentName }}</td>
+                      <td>{{ item.totalContributor }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -85,35 +73,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>90</td>
-                    </tr>
-                    <tr>
-                      <td>Michael Bublé</td>
-                      <td>Official Music Video</td>
-                      <td>80</td>
-                    </tr>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>70</td>
-                    </tr>
-                    <tr>
-                      <td>Pick</td>
-                      <td>ABC</td>
-                      <td>60</td>
-                    </tr>
-                    <tr>
-                      <td>Michael Bublé</td>
-                      <td>Official Music Video</td>
-                      <td>50</td>
+                    <tr v-for="item in topFiveReport" :key="item._id">
+                      <td>{{ item.userFullname }}</td>
+                      <td>{{ item.departmentName }}</td>
+                      <td>{{ item.totalContribution }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -126,7 +89,6 @@
   </div>
 </template>
 <script>
-import sha256 from "js-sha256";
 import { Chart, registerables } from "chart.js";
 import { randomColors } from "../utils/charColors.js";
 export default {
@@ -134,48 +96,11 @@ export default {
   components: {},
   data() {
     return {
-      oldPassword: "",
-      newPassword: "",
-      reNewPassword: "",
-      NewPassError: true,
-      isOpenModal: false,
-      isActiveConfirm: false,
-      isActive: false,
+      departmentReport: [],
+      topFiveReport: [],
     };
   },
-  computed: {
-    user() {
-      return JSON.parse(this.$store.state.user);
-    },
-  },
   methods: {
-    onCheckbox(e) {
-      this.isActiveConfirm = e.target.checked;
-    },
-    closeModal() {
-      this.isOpenModal = false;
-    },
-    submit() {
-      this.isOpenModal = true;
-    },
-    async confirm() {
-      try {
-        this.$store.dispatch("fetchAccessToken");
-        const res = await this.$axios.put(
-          `api/v1/User/${this.user.id}/changePassword`,
-          {
-            oldPassword: sha256(this.oldPassword),
-            newPassword: sha256(this.newPassword),
-          },
-          this.$axios.defaults.headers["Authorization"]
-        );
-        if (res.status === 200) {
-          this.$router.push({ name: "login" });
-        }
-      } catch (e) {
-        console.log("Error");
-      }
-    },
     initChart(labels, ideaCounts, percents) {
       new Chart(document.getElementById("myAreaChart"), {
         type: "bar",
@@ -270,7 +195,9 @@ export default {
   },
   async mounted() {
     try {
-      const { status, data } = await this.$axios.get(`api/v1/Department/getStatistic`);
+      const { status, data } = await this.$axios.get(`api/v1/Department/getIdeaCount`);
+      const dpReportRes = await this.$axios.get(`api/v1/Department/getContributorCount`);
+      const topFive = await this.$axios.get(`api/v1/User/getTopFiveContributors`);
       if (status == 200) {
         const rawReport = data.content;
         const labels = [];
@@ -282,6 +209,12 @@ export default {
           percents.push(item.percentage);
         });
         this.initChart(labels, ideaCounts, percents);
+      }
+      if (dpReportRes.status === 200) {
+        this.departmentReport = dpReportRes.data.content;
+      }
+      if (topFive.status === 200) {
+        this.topFiveReport = topFive.data.content;
       }
     } catch (e) {
       console.log(e);
