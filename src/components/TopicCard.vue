@@ -242,10 +242,11 @@ span:hover {
 .content {
   overflow: hidden;
   height: 115px;
-  border-radius: 23px;
+  /* border-radius: 23px; */
   margin-top: 27px;
 }
 h1 {
+  text-align: center;
   font-size: 22px;
   display: flex;
   align-items: center;

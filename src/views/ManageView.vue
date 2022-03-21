@@ -1,11 +1,13 @@
 <template>
-  <div class="management-view container body-content">
-    <h1>Welcome to Management Stage</h1>
-    <div class="card-option">
-      <div class="card not-hover" @click="TopicRoute">
-        <div class="card-body">
-          <h4 class="card-title">Topic Management</h4>
-          <p class="card-text">Available to create, modify and delete topic along with manage ideas inside each topic</p>
+  <div class="container-left">
+    <div class="management-view container body-content">
+      <h1>Welcome to Management Stage</h1>
+      <div class="card-option">
+        <div class="card not-hover" @click="TopicRoute">
+          <div class="card-body">
+            <h4 class="card-title">Topic Management</h4>
+            <p class="card-text">Available to create, modify and delete topic along with manage ideas inside each topic</p>
+          </div>
         </div>
         <div class="card" @click="UserRoute">
           <div class="card-body">
@@ -13,10 +15,10 @@
             <p class="card-text">All the users interact inside the system are monitored and created</p>
           </div>
         </div>
+        <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
       </div>
-      <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" />
+      <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
     </div>
-    <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
   </div>
   <!-- <UserManage /> -->
 </template>
@@ -40,6 +42,14 @@ export default {
 </script>
 
 <style scoped>
+.body-content {
+  left: 50% !important;
+  transform: translateX(-50%);
+  margin: 0 !important;
+}
+.container {
+  width: 100% !important;
+}
 .management-view {
   height: 700px;
 }
@@ -54,7 +64,7 @@ h1 {
   display: flex;
   position: relative;
   top: 80px;
-  left: 50px;
+  /* left: 50px; */
   justify-content: space-evenly;
   flex-direction: row;
 }
@@ -76,7 +86,7 @@ h1 {
   transform: scale(1.2, 1.2);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
-.card-title{
+.card-title {
   text-align: center;
 }
 .card-text {
@@ -99,8 +109,8 @@ img {
   .card {
     width: 33%;
   }
-   .card-option {
-    left: -7px;
+  .card-option {
+    /* left: -7px; */
   }
   img {
     bottom: 0;
@@ -109,10 +119,6 @@ img {
   }
 }
 @media screen and (max-width: 1025px) {
-  .container-left {
-    left: 80px;
-    width: calc(100% - 80px);
-  }
   .container {
     /* left: 80px; */
     /* width: 930px; */
@@ -131,7 +137,7 @@ img {
     width: 100%;
     height: 50%;
     top: 30px;
-    left: 100px;
+    /* left: 100px; */
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -147,16 +153,17 @@ img {
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .management-view { 
+  .management-view {
     left: 0;
     width: 100%;
     /* width: 478px; */
   }
   .card-option {
     /* left: 25px; */
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     height: 400px;
-    width: 400px;
+    width: 92%;
     top: 40px;
     align-content: space-around;
     flex-direction: column;

@@ -121,9 +121,11 @@ export default {
 .Confirm-Modal-body {
   padding: 16px;
   margin-top: 55px;
+  text-align: center;
 }
 .remove-btns {
   position: absolute;
+  text-align: center;
   bottom: 10px;
   width: 100%;
   right: 0px;
