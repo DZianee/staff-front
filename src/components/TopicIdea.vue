@@ -32,7 +32,7 @@
           /></span>
         </div>
         <div style="text-align: left; font-size: 14px; margin: 16px 12px">
-          <img :src="`http://${topic.image}`" alt="img-Topic" />
+          <img :src="`https://${topic.image}`" alt="img-Topic" />
           <!-- <br />
           <div>
             <input type="file" accept="image/*" class="custom-file-input" style="margin-top: 16px" ref="inputImage" @change="imageSelected" />
