@@ -47,7 +47,7 @@ export default {
   border-radius: 7px;
 }
 .modal-content {
-  height: 170px;
+  /* height: 170px; */
   position: relative;
 }
 .modal-title {
@@ -59,9 +59,10 @@ export default {
   font-weight: 500;
 }
 .remove-btns {
-  position: absolute;
+  /* position: absolute; */
   bottom: 10px;
   width: 100%;
+  text-align: center;
 }
 .remove-btns button {
   margin: 7px;
@@ -96,7 +97,7 @@ button {
   }
   .modal-content {
     margin: 0;
-    height: 220px;
+    /* height: 220px; */
   }
 }
 </style>
