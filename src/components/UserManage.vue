@@ -1,11 +1,6 @@
 <template>
   <div class="user-man">
     <div class="user-man-header">
-      <div class="user-man-header-search">
-        <div class="table-search-box">
-          <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchForm.name" />
-        </div>
-      </div>
       <select v-model="searchForm.departmentName" class="form-select selectDepartment">
         <option value="">All Department</option>
         <option v-for="department in Departments" :key="department.id" :value="department.name">{{ department.name }}</option>
@@ -25,14 +20,28 @@
           <option value="desc">Descending</option>
         </select>
       </div>
-      <button
+      <div class="user-man-header-search">
+        <div class="table-search-box">
+          <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchForm.name" />
+          <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
+        </div>
+        <div
+          class="create-icon"
+          @click="
+            CreateUserAct();
+            DepartmentAct(Departments);
+          ">
+          <i class="bi bi-plus-circle"></i>
+        </div>
+      </div>
+      <!-- <button
         class="btn btn-primary"
         @click="
           CreateUserAct();
           DepartmentAct(Departments);
         ">
         Create
-      </button>
+      </button> -->
     </div>
     <!-- <div class="user-man-content">
       <table class="table table-bordered">
@@ -258,9 +267,39 @@ export default {
   align-items: center;
 }
 
+.table-search-box {
+  position: relative;
+}
+.create-icon {
+  font-size: 34px;
+  cursor: pointer;
+}
+
+.table-search-box .fa-search {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.table-search-box input {
+  padding-right: 35px;
+}
+
+.table-search-box span {
+  position: absolute;
+  right: 17px;
+  top: 6px;
+  padding: 2px;
+}
+.bi-plus-circle::before {
+  background-color: lavenderblush;
+  border-radius: 50%;
+}
+
 .user-man-header-search {
   display: flex;
   align-items: center;
+  gap: 12px;
   /* margin-right: 20px; */
 }
 
@@ -296,6 +335,7 @@ export default {
   height: 268px;
   border-radius: 23px;
   overflow: hidden;
+  text-align: center;
 }
 .card-content h1 {
   font-size: 20px;
@@ -347,6 +387,10 @@ export default {
   }
 }
 @media screen and (max-width: 1280px) {
+  .user-man-header-search input {
+    /* height: 30px; */
+    width: 168px;
+  }
   .user-card {
     display: grid;
     grid-template-columns: repeat(3, 30%);
@@ -394,7 +438,7 @@ export default {
     margin-bottom: 10px;
   }
   .user-man-header-search input {
-    height: 30px;
+    /* height: 30px; */
     width: 220px;
   }
   .selectDepartment {

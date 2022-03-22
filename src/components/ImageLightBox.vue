@@ -8,7 +8,7 @@
       <i class="bi bi-caret-left-fill" style="font-size: 46px"></i>
     </div>
     <div class="Image-Modal-container">
-      <img :src="`http://${images[index]}`" />
+      <img :src="`https://${images[index]}`" />
     </div>
     <div class="Image-Modal-right" @click.stop="next" :class="{ invisible: !hasNext() }">
       <i class="bi bi-caret-right-fill" style="font-size: 46px"></i>

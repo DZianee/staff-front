@@ -1,16 +1,17 @@
 <template>
   <transition>
-    <div class="Idea-Modal" v-if="modalActive">
-      <span class="Idea-Modal-backdrop" @click="close"></span>
+    <div class="Idea-Modal" v-if="IdeaModalActive">
+      <span class="Idea-Modal-backdrop" @click="closeIdea"></span>
       <div class="Idea-Modal-container">
-        <div class="Idea-Modal-close" @click="close">
+        <div class="Idea-Modal-close" @click="closeIdea">
           <i class="bi form-control-feedback bi-x-lg" style="font-size: 22px"></i>
         </div>
         <header class="Idea-Modal-header">
           <p>Create New Idea</p>
-          <p>Topic:</p>
         </header>
         <div class="Idea-Modal-body">
+          <label for="Idea-name" class="Idea-Modal-label"> Topic: </label>
+
           <label for="Idea-name" class="Idea-Modal-label"> Idea's Name </label>
           <input type="text" class="Idea-Modal-input" maxlength="35" placeholder="Idea's Name" v-model="ModalForm.IdeaName" />
 
@@ -25,6 +26,23 @@
             @handleInput="handleInput" />
 
           <input type="file" accept="image/*" style="font-size: 14px; margin: 16px 0" @change="imageSelected" />
+
+          <div class="form-group" style="width: 100% !important">
+            <div class="form-check" style="display: flex; align-items: center; gap: 12px; padding: 0">
+              <input class="form-check-input" type="checkbox" @change="onCheckbox" style="margin-top: 0; float: unset; margin-left: 0" />
+              <label class="form-check-label" for="flexCheckDefault" style="font-size: 16px">
+                I agree with the <span class="conditions" @click="toggleTermCondition">terms & conditions</span></label
+              >
+            </div>
+          </div>
+
+          <div class="terms-conditions" v-if="isShowTermCondition">
+            <p>
+              Welcome to our digital information network. These are our terms and conditions for use of use of the network, which you may access in
+              several ways, including but not limited to the World Wide Web via the Greenwich University. In these terms and conditions, when we say
+              the “Guardian Site” we mean the digital information network operated by Greenwich University.
+            </p>
+          </div>
 
           <p class="Error-Message" v-if="ErrorDisable">All the field are required and Closure date must be > 3 days since current date</p>
           <button class="submit-add" :class="Disable ? 'disable' : ''" :disabled="Disable" @click="Create">Submit</button>
@@ -61,19 +79,22 @@ export default {
         IdeaDescription: "",
         file: [],
       },
+
+      isShowTermCondition: false,
+
       Disable: true,
       ErrorDisable: false,
       isOpenModal: false,
     };
   },
 
-  props: ["modalActive"],
+  props: ["IdeaModalActive"],
   setup(props, { emit }) {
-    const close = () => {
-      emit("close");
+    const closeIdea = () => {
+      emit("closeIdea");
     };
 
-    return { close };
+    return { closeIdea };
   },
   watch: {
     // TopicDate(value) {
@@ -122,6 +143,9 @@ export default {
     },
   },
   methods: {
+    toggleTermCondition() {
+      this.isShowTermCondition = !this.isShowTermCondition;
+    },
     imageSelected(event) {
       this.ModalForm.file = event.target.files[0];
     },
@@ -260,5 +284,11 @@ export default {
   padding: 10px;
   font-size: 15px;
   margin-bottom: 10px;
+}
+
+.conditions {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

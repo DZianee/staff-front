@@ -5,7 +5,7 @@
       <div class="container-content">
         <div class="container-content-top">
           <div class="container-content-info">
-            <img :src="`http://${idea.creatorAvatar}`" alt="user-Img" />
+            <img :src="`https://${idea.creatorAvatar}`" alt="user-Img" />
             <div class="container-content-subInfo">
               <span>{{ idea.creator }}</span> <i class="bi bi-caret-right-fill"></i>
               <span>{{ idea.topicName }}</span>
@@ -15,7 +15,8 @@
           <i class="bi bi-three-dots-vertical container-content-info_icon-modify" @click="openDropdown()">
             <ul class="idea-adjustment-items" v-if="DropDown">
               <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black" @click="ModifyIdea()">Modify</li> -->
-              <li class="idea-adjustment-item" @click="DeleteIdea()">Delete</li>
+              <!-- <li class="idea-adjustment-item" @click="DeleteIdea()">Delete</li> -->
+              <li class="idea-adjustment-item" @click="IdeaModalAct()">Delete</li>
             </ul>
           </i>
         </div>
@@ -28,27 +29,27 @@
             :style="images.length <= 3 ? { height: '420px' } : ''">
             <ul class="container-content-body_imgGrid1" v-if="images.length == 1">
               <li class="container-content-body_img1" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img :src="`http://${image}`" alt="user-Img" />
+                <img :src="`https://${image}`" alt="user-Img" />
               </li>
             </ul>
             <ul class="container-content-body_imgGrid2" v-if="images.length == 2">
               <li class="container-content-body_img2" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img :src="`http://${image}`" alt="user-Img" />
+                <img :src="`https://${image}`" alt="user-Img" />
               </li>
             </ul>
             <ul class="container-content-body_imgGrid3" v-if="images.length == 3">
               <li class="container-content-body_img3" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img :src="`http://${image}`" alt="user-Img" />
+                <img :src="`https://${image}`" alt="user-Img" />
               </li>
             </ul>
             <ul class="container-content-body_imgGrid4" v-if="images.length == 4">
               <li class="container-content-body_img4" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img :src="`http://${image}`" alt="user-Img" />
+                <img :src="`https://${image}`" alt="user-Img" />
               </li>
             </ul>
             <ul class="container-content-body_imgGrid5" v-if="images.length >= 5">
               <li class="container-content-body_img5" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img v-if="index < 5" :src="`http://${image}`" alt="user-Img" />
+                <img v-if="index < 5" :src="`https://${image}`" alt="user-Img" />
                 <span v-if="index == 4">+{{ images.length - 5 }}</span>
               </li>
             </ul>
@@ -85,7 +86,7 @@
         <div class="container-comment-body">
           <ul v-for="comment in idea.comments" :key="comment.id">
             <li style="margin-bottom: 16px">
-              <img :src="`http://${comment.userAvatar}`" alt="user-Img" />
+              <img :src="`https://${comment.userAvatar}`" alt="user-Img" />
               <div>
                 <div class="container-comment-detail" contenteditable="false">
                   <span>
@@ -149,16 +150,20 @@
     <br />
   </component> -->
   <Image-light-box v-if="modalActive" :modalActive="modalActive" :imagesIndex="imageRef" :images="images" @close="modalAct(-1)" />
+  <IdeaCreate @closeIdea="IdeaModalAct()" :IdeaModalActive="IdeaModalActive" />
 </template>
 
 <script>
 import ImageLightBox from "../components/ImageLightBox.vue";
 import { ref } from "vue";
 
+import IdeaCreate from "../components/IdeaModalForm.vue";
+
 export default {
   name: "TopicView",
   components: {
     ImageLightBox,
+    IdeaCreate,
   },
   data() {
     return {
@@ -184,18 +189,19 @@ export default {
   setup() {
     const modalActive = ref(false);
     const imageRef = ref(0);
-    const isOpenModal = ref(false);
 
     const modalAct = (imageindex) => {
       modalActive.value = !modalActive.value;
       imageRef.value = imageindex;
     };
 
-    const opencloseModal = () => {
-      isOpenModal.value = !isOpenModal.value;
+    const IdeaModalActive = ref(false);
+
+    const IdeaModalAct = () => {
+      IdeaModalActive.value = !IdeaModalActive.value;
     };
 
-    return { modalActive, imageRef, isOpenModal, modalAct, opencloseModal };
+    return { modalActive, imageRef, IdeaModalActive, modalAct, IdeaModalAct };
   },
   computed: {
     ReplyCommentContent() {
@@ -294,18 +300,17 @@ export default {
             isAnonymous: this.commentInput.isAnonymous,
           };
         }
-        console.log(data);
-        // const res = await this.$axios.post(`api/v1/Idea/${this.$route.params.id}/comment`, data);
-        // if (res.status == 200) {
-        //   this.getIdeaDetails();
-        //   const textareaTag = document.getElementsByTagName("textarea");
-        //   textareaTag[0].style.height = "auto";
-        //   this.commentInput = {
-        //     text: "",
-        //     ReplyComment: null,
-        //     isAnonymous: false,
-        //   };
-        // }
+        const res = await this.$axios.post(`api/v1/Idea/${this.$route.params.id}/comment`, data);
+        if (res.status == 200) {
+          this.getIdeaDetails();
+          const textareaTag = document.getElementsByTagName("textarea");
+          textareaTag[0].style.height = "auto";
+          this.commentInput = {
+            text: "",
+            ReplyComment: null,
+            isAnonymous: false,
+          };
+        }
       } catch {
         console.log("error");
       }
