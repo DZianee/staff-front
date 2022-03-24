@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      colors: ["#F3D1DC", "#FCF0CF", "#888DF2", "#E8C4F2", "#59D9CC", "#ECAD8F", "#9EBF99", "#F2C84B", "#BCBF5E", "#F2B3BF", "#D5C7D9", "#D7D7D9"],
+      colors: ["#F3D1DC", "#FCF0CF", "#888DF2", "#E8C4F2", "#59D9CC", "#ECAD8F", "#FFFCDC", "#CDF0EA", "#D9D7F1", "#F2B3BF", "#D5C7D9", "#D7D7D9"],
       ModalForm: {
         Colorcheck: "#F3D1DC",
         TopicName: "",
@@ -186,7 +186,7 @@ export default {
 }
 .Topic-Modal-container {
   position: relative;
-  width: 80%;
+  width: 40%;
   max-width: calc(100% - 32px);
   max-height: calc(100% - 32px);
   background-color: white;
@@ -201,5 +201,21 @@ export default {
   overflow-y: scroll;
   text-align: left;
   z-index: 2;
+}
+@media (max-width: 1024px) {
+  .Topic-Modal-container {
+    width: 60%;
+  }
+}
+@media (max-width: 768px) {
+  .Topic-Modal-container {
+    /* width: 60%; */
+    overflow-x: hidden;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .Topic-Modal-container {
+    width: 80%;
+  }
 }
 </style>

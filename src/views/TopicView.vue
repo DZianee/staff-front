@@ -1,6 +1,5 @@
 <template>
   <div class="topic">
-    <h1>testing</h1>
     <TopicCard />
   </div>
 </template>
@@ -20,6 +19,7 @@ export default {
 .topic {
   position: relative;
   left: 270px;
+  top: 40px;
   width: calc(100% - 270px);
 }
 @media (min-width: 481px) and (max-width: 1025px) {
@@ -33,7 +33,7 @@ export default {
   .topic {
     position: relative;
     left: 0px;
-    top: 70px;
+    top: 100px;
     width: 100%;
   }
 }

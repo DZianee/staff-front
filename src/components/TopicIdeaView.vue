@@ -1,5 +1,11 @@
 <template>
   <div class="container" style="overflow: unset; padding-bottom: 50px">
+    <nav aria-label="breadcrumb" style="padding-top: 20px">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" @click="TopicRoute">Topic management</li>
+        <li class="breadcrumb-item active" aria-current="page">Topic details</li>
+      </ol>
+    </nav>
     <h1 class="container-title">Topic Details</h1>
     <div class="content content-topic">
       <form>
@@ -164,6 +170,9 @@ export default {
     },
   },
   methods: {
+    TopicRoute() {
+      this.$router.push({ name: "topicView" });
+    },
     handleInput(data) {
       this.topic.description = data;
     },
@@ -383,8 +392,18 @@ export default {
 };
 </script>
 <style scoped>
+.breadcrumb-item:hover {
+  font-weight: 500;
+  cursor: pointer;
+}
+.breadcrumb-item.active {
+  color: rgb(67, 139, 255);
+  font-weight: 500;
+  text-decoration: underline;
+}
 .Sorttarget {
   background-color: coral;
+  color: white;
 }
 .table-toolbar {
   margin-top: 1rem;
@@ -398,11 +417,10 @@ export default {
 }
 .content-topic {
   border: 1px solid #ffffff;
-  background-color: #00000012;
+  background-color: #f9f9f9;
   border-radius: 10px;
   margin-top: 20px;
 
-  font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 30px;
@@ -411,18 +429,21 @@ export default {
 
 .container-title {
   text-align: left;
-  font-style: italic;
+  font-size: 30px;
+  padding-top: 20px;
 }
 
 .content-topic label {
   text-align: left;
   padding-left: 10px;
-  font-size: 12px;
+  font-size: 16px;
   margin-bottom: 4px;
+  color: rgb(110, 108, 108);
+  letter-spacing: 0.5px;
 }
 
 .content-topic h2 {
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 500;
   text-decoration: underline;
   padding-left: 16px;
@@ -449,8 +470,11 @@ export default {
 .content table td,
 .content table th {
   vertical-align: middle;
+  text-align: center;
 }
-
+a {
+  font-size: 16px;
+}
 .idea-adjustment {
   font-size: 22px;
   cursor: pointer;
