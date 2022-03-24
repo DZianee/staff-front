@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import VSwitch from 'v-switch-case'
+import VSwitch from "v-switch-case";
 
 import router from "./router";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,7 +18,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const app = createApp(App);
 app.use(store);
 app.config.globalProperties.$axios = axios;
-app.use(VSwitch); 
+app.use(VSwitch);
 
 axios.interceptors.response.use(
   function (response) {
@@ -31,15 +31,21 @@ axios.interceptors.response.use(
         console.log(error.response);
         break;
       case 401: {
-        // store.dispatch("fetchAccessToken");
-        try {
-          await axios.post(`api/v1/User/RefreshToken`).then((res) => {
-            console.log(res.response);
-            if (res.status == 200) {
-              router.go();
-            }
-          });
-        } catch {
+        console.log(error.response);
+        if (error.response.data.Message == "Require refresh token") {
+          try {
+            await axios.post(`api/v1/User/RefreshToken`).then((res) => {
+              console.log(res.response);
+              if (res.status == 200) {
+                router.go();
+              }
+            });
+          } catch {
+            store.dispatch("logout");
+            router.push({ name: "login" });
+            console.log("catch");
+          }
+        } else {
           store.dispatch("logout");
           router.push({ name: "login" });
           console.log("catch");
@@ -47,10 +53,12 @@ axios.interceptors.response.use(
         break;
       }
       case 403:
+        console.log(error.response);
         console.log("Forbidden");
         break;
       case 500:
         console.log(error.response);
+        console.log(error.response.data.Message);
         break;
       default:
         break;
