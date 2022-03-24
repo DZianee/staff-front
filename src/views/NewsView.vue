@@ -53,7 +53,6 @@ export default {
       this.newsTitle = name;
       console.log(this.topicId);
     },
-    
   },
 };
 </script>
@@ -63,7 +62,7 @@ export default {
   height: fit-content;
   position: relative;
   right: -8.1%;
-  border: solid;
+  /* border: solid; */
 }
 .news p {
   font-size: 20px;
@@ -85,7 +84,6 @@ h1 {
   border-radius: 20px;
   position: relative;
   width: 97%;
-  font-size: 80px;
   background: url("https://cdn.dribbble.com/users/1355613/screenshots/15349243/media/71e74eb3be96c50e3769c5fc5c8ba995.jpg?compress=1&resize=1200x900&vertical=top")
     20px -120px;
 }
@@ -116,6 +114,60 @@ h1 {
 @media screen and (max-width: 1440px) {
   .news {
     width: 81%;
+  }
+  h1 {
+  top: 28%;
+}
+}
+@media screen and (max-width: 1366px) {
+  .news {
+    width: 78%;
+    right: -9%;
+  }
+}
+@media screen and (max-width: 1025px) {
+  .news {
+    width: 90%;
+    right: -4%;
+  }
+  .news-topic-idea {
+    background-position: -50px -120px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .news {
+    width: 88%;
+    right: -5%;
+  }
+  .news-topic-idea {
+    background-position: -50px -120px;
+    height: 250px;
+  }
+  .news-topic-idea::after {
+    height: 250px;
+  }
+  h1{
+    font-size: 45px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .news {
+    width: 100%;
+    right: 0;
+    top: 80px;
+    height: 3640px;
+  }
+  h1 {
+  font-size: 35px;
+  top: 35%;
+}
+}
+@media screen and (max-width: 412px) {
+  .news {
+    width: 100%;
+    right: 0;
+    top: 80px;
+    height: 3480px;
   }
 }
 </style>
