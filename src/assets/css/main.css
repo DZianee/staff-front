@@ -801,7 +801,9 @@ iframe {
     display: none;
   }
   .container-left {
-    left: 0;
+    position: relative;
+    left: 0px;
+    top: 78px;
     width: 100%;
   }
   .header {

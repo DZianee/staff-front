@@ -16,7 +16,7 @@
         <span>News</span>
         <span class="tooltiptext">News</span>
       </li>
-      <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Admin'">
+      <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Manager'">
         <i class="bx bx-briefcase bx-sm bx-fw" />
         <span>Manage</span>
         <span class="tooltiptext">Manage</span>
