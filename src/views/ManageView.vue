@@ -3,16 +3,28 @@
     <div class="management-view container body-content">
       <h1>Welcome to Management Stage</h1>
       <div class="card-option">
-        <div class="card not-hover" @click="TopicRoute">
+        <div class="card not-hover" @click="Route('topicView')">
           <div class="card-body">
             <h4 class="card-title">Topic Management</h4>
             <p class="card-text">Available to create, modify and delete topic along with manage ideas inside each topic</p>
           </div>
         </div>
-        <div class="card" @click="UserRoute">
+        <div class="card" @click="Route('userView')">
           <div class="card-body">
             <h4 class="card-title">User Management</h4>
             <p class="card-text">All the users interact inside the system are monitored and created</p>
+          </div>
+        </div>
+        <div class="card" @click="Route('RoleView')">
+          <div class="card-body">
+            <h4 class="card-title">Role Management</h4>
+            <p class="card-text">All the roles inside the system are monitored and created</p>
+          </div>
+        </div>
+        <div class="card" @click="Route('DepartmentView')">
+          <div class="card-body">
+            <h4 class="card-title">Department Management</h4>
+            <p class="card-text">All the departments inside the system are monitored and created</p>
           </div>
         </div>
         <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
@@ -31,11 +43,8 @@ export default {
   //   UserManage,
   // },
   methods: {
-    TopicRoute() {
-      this.$router.push({ name: "topicView" });
-    },
-    UserRoute() {
-      this.$router.push({ name: "userView" });
+    Route(value) {
+      this.$router.push({ name: value });
     },
   },
 };
@@ -50,23 +59,25 @@ export default {
 .container {
   width: 100% !important;
 }
-.management-view {
+/* .management-view {
   height: 700px;
-}
+} */
 h1 {
   text-align: center;
-  margin-top: 70px;
+  margin-top: 20px;
   background: linear-gradient(to left, #87c7df, #649866);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .card-option {
   display: flex;
+  gap: 16px;
   position: relative;
   top: 80px;
   /* left: 50px; */
   justify-content: space-evenly;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 .card-option .card:first-child {
   background: #f4ff81;
@@ -138,9 +149,10 @@ img {
     height: 50%;
     top: 30px;
     /* left: 100px; */
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: space-around;
     align-items: center;
+    padding-bottom: 80px;
   }
   .card {
     /* width: 90%; */
@@ -158,15 +170,19 @@ img {
     width: 100%;
     /* width: 478px; */
   }
+  .body-content {
+    top: 10px !important;
+  }
   .card-option {
     /* left: 25px; */
     left: 50%;
     transform: translateX(-50%);
-    height: 400px;
+    /* height: 400px; */
     width: 92%;
     top: 40px;
     align-content: space-around;
-    flex-direction: column;
+    padding-bottom: 80px;
+    /* flex-direction: column; */
   }
   .card {
     width: 100%;

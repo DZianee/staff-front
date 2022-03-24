@@ -21,6 +21,7 @@
         </div>
         <div class="User-ActButtons" :class="{ displayButtons: IsdisplayButtons }">
           <button class="btn btn-primary btn-mar-right" @click="editDetail">Edit</button>
+          <button class="btn btn-primary btn-mar-right" @click="assignRole">Assign Role</button>
           <button class="btn btn-primary btn-mar-right" @click="ResetsubmitModal">Reset Password</button>
           <button class="btn btn-primary btn-mar-right" @click="BansubmitModal">Ban</button>
           <button class="btn btn-primary" @click="DeletesubmitModal">Delete</button>
@@ -104,7 +105,12 @@
         confirmText="Agree"
         @submitModal="confirm"
         @closeModal="closeModal">
-        <p>{{ ModalConfirmText }}</p>
+        <select v-if="ModifyID == 4" v-model="RoleSelected" class="form-control">
+          <option v-for="role in Roles" :key="role.id" :value="role">
+            {{ role.name }}
+          </option>
+        </select>
+        <p>{{ ModalConfirmText }} {{ RoleSelected.name }}</p>
         <br />
       </component>
     </div>
@@ -122,6 +128,8 @@ export default {
     return {
       User: {},
       Disable: true,
+      Roles: [],
+      RoleSelected: {},
       DoB: "",
       PasswordDis: true,
       DepartmentID: null,
@@ -217,6 +225,12 @@ export default {
       this.ModifyID = 0;
       this.isOpenModal = true;
     },
+    assignRole() {
+      this.ModalConfirmText = "You want to assign this user to";
+      this.TitleConfirmText = "Assign Role";
+      this.ModifyID = 4;
+      this.isOpenModal = true;
+    },
     ResetsubmitModal() {
       this.ModalConfirmText = "You want to Reset this user's password?";
       this.TitleConfirmText = "Reset User's Password";
@@ -234,6 +248,19 @@ export default {
       this.TitleConfirmText = "Delete User";
       this.ModifyID = 2;
       this.isOpenModal = true;
+    },
+    async GetRoles() {
+      try {
+        const res = await this.$axios.get(`api/v1/Role`, {
+          params: {
+            PageSize: 100,
+            CurrentPage: 1,
+          },
+        });
+        this.Roles = res.data.content;
+      } catch (e) {
+        //
+      }
     },
     async confirm() {
       switch (this.ModifyID) {
@@ -291,10 +318,26 @@ export default {
             //
           }
           break;
+        case 4:
+          try {
+            const res = await this.$axios.put(
+              `api/v1/User/${this.UserId}/AssignRole/${this.RoleSelected.id}`,
+              this.$axios.defaults.headers["Authorization"]
+            );
+            if (res.status == 200) {
+              this.$router.go();
+            }
+          } catch {
+            //
+          }
+          break;
         default:
           break;
       }
     },
+  },
+  mounted() {
+    this.GetRoles();
   },
   // beforeUpdate() {
   //   this.User = {};

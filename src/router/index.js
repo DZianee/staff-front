@@ -20,7 +20,7 @@ router.beforeEach((to, from, next) => {
         case "manageView":
         case "topicView":
         case "topicideaView":
-          if (user.roleName == "Admin") {
+          if (user.roleName == "Manager") {
             next();
           } else {
             next("/");

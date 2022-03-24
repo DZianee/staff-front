@@ -18,6 +18,10 @@
             </select>
           </div>
         </div>
+        <div class="form-group col-md-6 form-topic-detail-group" style="margin-left: 14px">
+          <label>Department</label>
+          <input type="text" class="form-control" :disabled="true" placeholder="Name" v-model="topic.departmentName" />
+        </div>
         <div class="AddressInput">
           <label>Description</label>
           <!-- <input type="text" class="form-control" placeholder="Description" v-model="topic.description" /> -->
@@ -32,7 +36,7 @@
           /></span>
         </div>
         <div style="text-align: left; font-size: 14px; margin: 16px 12px">
-          <img :src="`https://${topic.image}`" alt="img-Topic" />
+          <img :src="`https://${topic.image}`" class="img-topic" alt="img-Topic" />
           <!-- <br />
           <div>
             <input type="file" accept="image/*" class="custom-file-input" style="margin-top: 16px" ref="inputImage" @change="imageSelected" />
@@ -603,7 +607,11 @@ thead tr th:nth-child(4) {
   cursor: pointer;
   border-radius: 5px;
 }
-
+.img-topic {
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+}
 @media (max-width: 960px) {
   .table-toolbar .search-input {
     max-width: 100%;
