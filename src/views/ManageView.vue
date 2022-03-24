@@ -44,7 +44,7 @@ export default {
 }
 h1 {
   text-align: center;
-  margin-top: 70px;
+  margin-top: 10%;
   background: linear-gradient(to left, #87c7df, #649866);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

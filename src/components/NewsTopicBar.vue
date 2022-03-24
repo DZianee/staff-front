@@ -2,8 +2,8 @@
   <div class="news-topic-bar">
     <div class="create-idea"></div>
     <ul>
-      <li @click="getAllIdea()">All</li>
-      <li @click="getIdeaViaTopic(topic.id,topic.name)" v-for="topic in topicList" :key="topic.index">{{ topic.name }}</li>
+      <li @click="getAllIdea()" class="border-gradient">All</li>
+      <li @click="getIdeaViaTopic(topic.id, topic.name)" class="border-gradient" v-for="topic in topicList" :key="topic.index">{{ topic.name }}</li>
     </ul>
   </div>
 </template>
@@ -18,8 +18,8 @@ export default {
     getAllIdea() {
       this.$emit("get-all-idea", "all");
     },
-    getIdeaViaTopic(id,name) {
-      this.$emit("get-idea-via-topic", id, name,"via");
+    getIdeaViaTopic(id, name) {
+      this.$emit("get-idea-via-topic", id, name, "via");
     },
   },
   mounted() {},
@@ -27,9 +27,21 @@ export default {
 </script>
 
 <style scoped>
+.border-gradient {
+  border: 2px solid;
+  /* border-image-source: linear-gradient(50deg, #f44336, #ffff00, #448aff, #651fff); */
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+    to right,
+    #f64f59,
+    #c471ed,
+    #12c2e9,
+    #f6f621
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 .news-topic-bar {
-  border-top: solid rgb(191, 202, 214);
-  border-bottom: solid;
+  border-top: 1px solid rgb(191, 202, 214);
+  /* border-bottom: solid; */
   width: 100%;
   padding: 7px;
 }
@@ -47,12 +59,12 @@ export default {
 }
 .news-topic-bar ul li {
   text-align: center;
+  width: fit-content;
+  height: 34px;
   padding: 5px;
   margin: 0 20px;
   font-weight: 500;
   color: rgb(126, 126, 126);
-  border: solid rgb(185, 184, 184);
-  border-radius: 10px;
 }
 .news-topic-bar ul li:hover {
   cursor: pointer;

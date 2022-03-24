@@ -1,11 +1,11 @@
 <template>
   <div class="news container">
-    <p>News Idea</p>
+    <p>New Activity</p>
     <NewsTopicBar :topicList="topicList" @get-all-idea="getAllIdea" @get-idea-via-topic="getIdeaVia" />
 
     <div v-if="newsTitle == '' || newsTitle === 'all'">
       <div class="news-topic-idea container">
-        <h1>Tat ca la tai Uchiha</h1>
+        <h1>Mixed it up !!!</h1>
       </div>
     </div>
     <div v-else>
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <NewsIdeaList :ideaList="ideaList" :choice="choice" :ideaListViaTopic="ideaListViaTopic" />
+    <NewsIdeaList :choice="choice" :id="topicId" />
   </div>
 </template>
 
@@ -27,8 +27,6 @@ export default {
     return {
       choice: "",
       topicList: [],
-      ideaList: [],
-      ideaListViaTopic: [],
       topicId: "",
       newsTitle: "",
     };
@@ -39,16 +37,7 @@ export default {
     try {
       this.$store.dispatch("fetchAccessToken");
       const getTopicList = await this.$axios.post(`api/v1/Topic/GetList`, { searchName: "" }, this.$axios.defaults.headers["Authorization"]);
-
-      const getIdeaList = await this.$axios.post(
-        `api/v1/Idea/getList`,
-        { searchTitle: "", sortTitle: "", sortCreatedDate: "", sortUserName: "" },
-        this.$axios.defaults.headers["Authorization"]
-      );
       this.topicList = getTopicList.data.content;
-      this.ideaList = getIdeaList.data.content;
-      console.log(this.ideaList);
-      console.log(this.ideaList);
     } catch (e) {
       console.log("error");
     }
@@ -58,26 +47,13 @@ export default {
       this.choice = item;
       this.newsTitle = item;
     },
-    async getIdeaVia(item, name, txt) {
+    getIdeaVia(item, name, txt) {
       this.topicId = item;
       this.choice = txt;
       this.newsTitle = name;
-
-      this.$store.dispatch("getUser");
-      this.$store.dispatch("fetchAccessToken");
-
-      const getIdeaListviaTopic = await this.$axios.post(
-        `api/v1/Idea/topic/${this.topicId}`,
-        { searchTitle: "", sortTitle: "", sortCreatedDate: "", sortUserName: "" },
-        {
-          params: {
-            PageSize: 6,
-            CurrentPage: this.currentPage,
-          },
-        }
-      );
-      this.ideaListViaTopic = getIdeaListviaTopic.data.content;
+      console.log(this.topicId);
     },
+    
   },
 };
 </script>
@@ -86,7 +62,7 @@ export default {
 .news {
   height: fit-content;
   position: relative;
-  left: 130px;
+  right: -8.1%;
   border: solid;
 }
 .news p {
@@ -136,5 +112,10 @@ h1 {
   background: linear-gradient(to right, #11324d, #ff7878, #c490e4, #c1ffd7);
   animation: gradient 15s ease infinite;
   background-size: 400% 400%;
+}
+@media screen and (max-width: 1440px) {
+  .news {
+    width: 81%;
+  }
 }
 </style>
