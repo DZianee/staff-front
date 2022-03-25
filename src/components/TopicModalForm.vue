@@ -23,6 +23,13 @@
             :contentEdit="ModalForm.TopicDescription"
             @handleInput="handleInput" />
 
+          <label for="department" class="Topic-Modal-label" style="margin-top: 6px"> Department </label>
+          <select v-model="ModalForm.DepartmentID" class="form-control">
+            <option v-for="department in Departments" :key="department.id" :value="department.id">
+              {{ department.name }}
+            </option>
+          </select>
+
           <div class="Topic-Modal-Image">
             <input type="file" accept="image/*" @change="imageSelected" />
             <img style="width: 200px" :src="previewImage" />
@@ -81,8 +88,10 @@ export default {
         TopicDescription: "",
         TopicCloseIdeaDate: "",
         TopicClosureDate: "",
+        DepartmentID: "",
         file: "",
       },
+      Departments: [],
       previewImage: undefined,
 
       Disable: true,
@@ -186,6 +195,7 @@ export default {
         }
         topic.append("ClosureDate", ClosetimeStamp);
         topic.append("UserId", user.id);
+        topic.append("DepartmentId", this.ModalForm.DepartmentID);
         if (this.ModalForm.file) {
           topic.append("file", this.ModalForm.file, this.ModalForm.file.name);
         }
@@ -198,6 +208,18 @@ export default {
         //
       }
     },
+    async GetDepartments() {
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        const res = await this.$axios.get(`api/v1/Department`, this.$axios.defaults.headers["Authorization"]);
+        this.Departments = res.data.content;
+      } catch (e) {
+        //
+      }
+    },
+  },
+  mounted() {
+    this.GetDepartments();
   },
 };
 </script>

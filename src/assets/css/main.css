@@ -16,7 +16,7 @@ html {
   /* height: 100%; */
   /* font-family: Helvetica, Arial, sans-serif; */
   font-family: "Roboto";
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 .body-content {
   position: relative;
@@ -745,6 +745,11 @@ iframe {
   color: rgb(240, 240, 240);
   font-size: 14px;
 }
+.container-left {
+  position: relative;
+  left: 240px;
+  width: calc(100% - 240px);
+}
 @media screen and (max-width: 1440px) {
   .nav {
     width: 240px;
@@ -759,6 +764,10 @@ iframe {
 @media screen and (max-width: 1025px) {
   .nav {
     width: 80px;
+  }
+  .container-left {
+    left: 80px;
+    width: calc(100% - 80px);
   }
   /* .nav-items {
     top: -20px;
@@ -795,6 +804,12 @@ iframe {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .uni-logo {
     display: none;
+  }
+  .container-left {
+    position: relative;
+    left: 0px;
+    top: 78px;
+    width: 100%;
   }
   .header {
     display: block;

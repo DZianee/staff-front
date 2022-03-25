@@ -24,6 +24,10 @@
             </select>
           </div>
         </div>
+        <div class="form-group col-md-6 form-topic-detail-group" style="margin-left: 14px">
+          <label>Department</label>
+          <input type="text" class="form-control" :disabled="true" placeholder="Name" v-model="topic.departmentName" />
+        </div>
         <div class="AddressInput">
           <label>Description</label>
           <!-- <input type="text" class="form-control" placeholder="Description" v-model="topic.description" /> -->
@@ -37,8 +41,17 @@
               @handleInput="handleInput"
           /></span>
         </div>
-        <div style="text-align: left">
-          <input type="file" accept="image/*" class="custom-file-input" style="font-size: 14px; margin: 16px 12px" @change="imageSelected" />
+        <div style="text-align: left; font-size: 14px; margin: 16px 12px">
+          <img :src="`https://${topic.image}`" class="img-topic" alt="img-Topic" />
+          <!-- <br />
+          <div>
+            <input type="file" accept="image/*" class="custom-file-input" style="margin-top: 16px" ref="inputImage" @change="imageSelected" />
+            <span style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; max-width: 400px">
+              <span v-if="previewImage">New image:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <img style="width: 200px" :src="previewImage" />
+              <span v-if="previewImage" @click="deleteImage"><i class="bi form-control-feedback bi-x-lg" style="font-size: 22px"></i></span>
+            </span>
+          </div> -->
         </div>
         <h2 class="container-title">Timeline</h2>
         <div class="form-row form-topic-detail-row-Date">
@@ -162,7 +175,6 @@ export default {
       ModalConfirmText: "",
       TitleConfirmText: "",
       topic: {},
-      topicImage: undefined,
       ideas: [],
       currentIdea: null,
       currentPage: 1,
@@ -175,6 +187,9 @@ export default {
       },
 
       ideaId: "",
+
+      // topicImage: undefined,
+      // previewImage: undefined,
 
       Disable: true,
       ErrorDisable: false,
@@ -220,11 +235,23 @@ export default {
     },
   },
   methods: {
+
     TopicRoute() {
       this.$router.push({ name: "topicView" })},
-    imageSelected(event) {
-      this.topicImage = event.target.files[0];
-    },
+    // imageSelected(event) {
+    //   console.log(event);
+    //   this.topicImage = event.target.files[0];
+    //   const reader = new FileReader();
+    //   reader.readAsDataURL(this.topicImage);
+    //   reader.onload = (event) => {
+    //     this.previewImage = event.target.result;
+    //   };
+    // },
+    // deleteImage() {
+    //   this.previewImage = undefined;
+    //   this.topicImage = undefined;
+    //   this.$refs.inputImage.value = null;
+    // },
     handleInput(data) {
       this.topic.description = data;
     },
@@ -322,9 +349,9 @@ export default {
           hour = parseInt(date.getHours()).toString();
         }
         if (date.getMinutes() < 10) {
-          minute = "0" + (parseInt(date.getMinutes()) + 1).toString();
+          minute = "0" + parseInt(date.getMinutes()).toString();
         } else {
-          minute = (parseInt(date.getMinutes()) + 1).toString();
+          minute = parseInt(date.getMinutes()).toString();
         }
         let DateConverted = date.getFullYear() + "-" + month + "-" + dateVal + "T" + hour + ":" + minute;
         return DateConverted;
@@ -604,7 +631,11 @@ thead tr th:nth-child(4) {
   cursor: pointer;
   border-radius: 5px;
 }
-
+.img-topic {
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+}
 @media (max-width: 960px) {
   .table-toolbar .search-input {
     max-width: 100%;
@@ -711,7 +742,7 @@ thead tr th:nth-child(4) {
   visibility: hidden;
 }
 .custom-file-input::before {
-  content: "Select image";
+  content: "Select new image";
   color: black;
   display: inline-block;
   background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);

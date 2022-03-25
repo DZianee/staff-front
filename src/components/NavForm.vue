@@ -19,6 +19,7 @@
         <span>News</span>
         <span class="tooltiptext">News</span>
       </li>
+
       <li class="nav-item" @click="TopicDetailsRoute">
         <i class="bx bx-library bx-sm bx-fw" />
         <span>Topic's Store</span>

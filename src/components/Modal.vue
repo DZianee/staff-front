@@ -16,12 +16,12 @@
             <button type="button" class="btn btn_remove btn-success" v-if="confirmText" :disabled="!activeConfirmButton" @click="submitModal">
               {{ confirmText }}
             </button>
-            <button type="button" class="btn btn_remove btn-success" v-if="CommentRejectButton" @click="CommentSubmit(false)">
+            <!-- <button type="button" class="btn btn_remove btn-success" v-if="CommentRejectButton" @click="CommentSubmit(false)">
               {{ CommentRejectButton }}
             </button>
             <button type="button" class="btn btn_remove btn-success" v-if="CommentConfirmButton" @click="CommentSubmit(true)">
               {{ CommentConfirmButton }}
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -121,10 +121,12 @@ export default {
 .Confirm-Modal-body {
   padding: 16px;
   margin-top: 55px;
+  text-align: center;
 }
 .remove-btns {
-  position: absolute;
-  bottom: 10px;
+  position: relative;
+  text-align: center;
+  bottom: 0px;
   width: 100%;
   right: 0px;
 }
