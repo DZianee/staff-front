@@ -15,7 +15,6 @@
         </div>
       </div>
     </div>
-    <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
   </div>
   <!-- <UserManage /> -->
 </template>
@@ -75,7 +74,7 @@ h1 {
   transform: scale(1.2, 1.2);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
-.card-title{
+.card-title {
   text-align: center;
 }
 .card-text {
@@ -90,13 +89,15 @@ img {
 }
 @media screen and (max-width: 1366px) {
   .container {
-    left: 140px;
-    width: 1090px;
+    /* left: 140px;
+    width: 1090px; */
+    width: 90%;
+    margin: 0;
   }
   .card {
     width: 33%;
   }
-   .card-option {
+  .card-option {
     left: -7px;
   }
   img {
@@ -106,9 +107,14 @@ img {
   }
 }
 @media screen and (max-width: 1025px) {
+  .container-left {
+    left: 80px;
+    width: calc(100% - 80px);
+  }
   .container {
-    left: 40px;
-    width: 930px;
+    /* left: 80px; */
+    /* width: 930px; */
+    width: 90%;
   }
   .card {
     width: 38%;
@@ -119,7 +125,8 @@ img {
 }
 @media screen and (max-width: 769px) {
   .card-option {
-    width: 500px;
+    /* width: 500px; */
+    width: 100%;
     height: 50%;
     top: 30px;
     left: 100px;
@@ -128,7 +135,8 @@ img {
     align-items: center;
   }
   .card {
-    width: 90%;
+    /* width: 90%; */
+    width: 98%;
   }
   img {
     /* left: 0px; */
@@ -137,13 +145,14 @@ img {
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .management-view { 
+  .management-view {
     left: 0;
     width: 100%;
     /* width: 478px; */
   }
   .card-option {
-    left: 25px;
+    /* left: 25px; */
+    left: 0;
     height: 400px;
     width: 400px;
     top: 40px;

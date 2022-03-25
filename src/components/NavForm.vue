@@ -24,7 +24,8 @@
         <span>Topic's Store</span>
         <span class="tooltiptext">Topic's Store</span>
       </li>
-      <li class="nav-item" @click="ManageRoute">
+      <!-- <li class="nav-item" @click="ManageRoute"> -->
+      <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Admin'">
         <i class="bx bx-briefcase bx-sm bx-fw" />
         <span>Manage</span>
         <span class="tooltiptext">Manage</span>
@@ -59,7 +60,7 @@
         <div class="user">
           <img class="avatar" src=" https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg" alt="user avatar" />
           <div class="user-avatar-info">
-            <span class="user-fullname"> {{ user.firstname }} {{user.lastname}}</span>
+            <span class="user-fullname"> {{ user.firstname }} {{ user.lastname }}</span>
             <span class="user-email">{{ user.username }}</span>
           </div>
         </div>
@@ -84,12 +85,15 @@ export default {
   },
   data() {
     return {
-      user:{},
+      user: {},
     };
   },
   computed: {
     routeName() {
       return this.$route.name;
+    },
+    userStored() {
+      return JSON.parse(this.$store.state.user);
     },
   },
   created() {
@@ -102,8 +106,8 @@ export default {
     HomeRoute() {
       this.$router.push({ name: "home" });
     },
-    NewsRoute(){
-      this.$router.push({name:'newsView'});
+    NewsRoute() {
+      this.$router.push({ name: "newsView" });
     },
     ManageRoute() {
       this.$router.push({ name: "manageView" });

@@ -18,7 +18,6 @@ export default {
   methods: {
     async refresh() {
       try {
-        this.$store.dispatch("fetchAccessToken");
         await this.$axios.post(`api/v1/User/RefreshToken`, this.$axios.defaults.headers["Authorization"]);
       } catch (e) {
         //

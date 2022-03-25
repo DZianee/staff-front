@@ -28,8 +28,17 @@
           <label>Description</label>
           <!-- <input type="text" class="form-control" placeholder="Description" v-model="topic.description" /> -->
           <span v-if="topic.description != null">
-            <VueQuillEditor :heightEdit="'200'" :disableEdit="false" v-model:contentEdit="topic.description" @handleInput="handleInput"
+            <VueQuillEditor
+              :theme="'snow'"
+              :toolbar="'#my-toolbar'"
+              :heightEdit="'200'"
+              :disableEdit="false"
+              v-model:contentEdit="topic.description"
+              @handleInput="handleInput"
           /></span>
+        </div>
+        <div style="text-align: left">
+          <input type="file" accept="image/*" class="custom-file-input" style="font-size: 14px; margin: 16px 12px" @change="imageSelected" />
         </div>
         <h2 class="container-title">Timeline</h2>
         <div class="form-row form-topic-detail-row-Date">
@@ -46,7 +55,12 @@
             <input type="datetime-local" class="form-control" v-model="topic.closureDate" />
           </div>
         </div>
-        <button type="submit" class="btn btn-primary btnSubmit" @click="onChange(topic.id)">Change</button>
+
+        <p class="Error-Message" v-if="ErrorDisable">All the field are required and Closure date must be > 3 days since current date</p>
+        <p class="Error-Message" v-if="IdeaErrorDisable">Close idea date must be between 2 days (1 hour gap)</p>
+        <button type="submit" :class="Disable ? 'disable' : ''" :disabled="Disable" class="btn btn-primary btnSubmit" @click="onChange(topic.id)">
+          Change
+        </button>
       </form>
     </div>
   </div>
@@ -86,16 +100,15 @@
         <tbody>
           <tr v-for="idea in ideas" :key="idea.id">
             <th scope="row">{{ idea.title }}</th>
-            <td>{{ idea.creator }}</td>
+            <td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 150px">{{ idea.creator }}</td>
             <td>{{ idea.startDate }}</td>
-            <td class="idea-adjustment">
-              <i class="bi bi-gear idea-adjustment-icon">
-                <ul class="idea-adjustment-items">
-                  <li class="idea-adjustment-item" style="border-bottom: 2px solid black">Detail</li>
-                  <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black">Modify</li> -->
-                  <li class="idea-adjustment-item" @click="onDelete(idea.id)">Delete</li>
-                </ul>
-              </i>
+            <td class="idea-adjustment" style="width: 10%">
+              <i class="bi bi-gear idea-adjustment-icon" @click="openDropdown(idea.id)" v-if="ideaId != idea.id"> </i>
+              <ul class="idea-adjustment-items" v-if="ideaId == idea.id">
+                <li class="idea-adjustment-item" style="border-bottom: 2px solid black" @click="ideaDetail(idea.id)">Detail</li>
+                <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black">Modify</li> -->
+                <li class="idea-adjustment-item" @click="onDelete(idea.id)">Delete</li>
+              </ul>
             </td>
           </tr>
         </tbody>
@@ -149,6 +162,7 @@ export default {
       ModalConfirmText: "",
       TitleConfirmText: "",
       topic: {},
+      topicImage: undefined,
       ideas: [],
       currentIdea: null,
       currentPage: 1,
@@ -159,6 +173,12 @@ export default {
         sortSelected: 0,
         sortType: "desc",
       },
+
+      ideaId: "",
+
+      Disable: true,
+      ErrorDisable: false,
+      IdeaErrorDisable: false,
     };
   },
   watch: {
@@ -168,10 +188,42 @@ export default {
         this.getIdeas();
       }, 2000);
     },
+    topic: {
+      handler(newvalue) {
+        var a = Date.parse(newvalue.startDate);
+        var b = Date.parse(newvalue.closureDate);
+        var c = Date.parse(newvalue.closeIdeaDate);
+        var d = b - a;
+        var days = Math.ceil(d / (1000 * 3600 * 24));
+
+        if (days > 3) {
+          this.ErrorDisable = false;
+        } else {
+          this.ErrorDisable = true;
+        }
+
+        if (c) {
+          if (Math.ceil(c - a) < 3600000 || Math.ceil(b - c) < 3600000) {
+            this.IdeaErrorDisable = true;
+          } else {
+            this.IdeaErrorDisable = false;
+          }
+        }
+
+        if (this.ErrorDisable == false && this.IdeaErrorDisable == false && newvalue.name && newvalue.description) {
+          this.Disable = false;
+        } else {
+          this.Disable = true;
+        }
+      },
+      deep: true,
+    },
   },
   methods: {
     TopicRoute() {
-      this.$router.push({ name: "topicView" });
+      this.$router.push({ name: "topicView" })},
+    imageSelected(event) {
+      this.topicImage = event.target.files[0];
     },
     handleInput(data) {
       this.topic.description = data;
@@ -179,6 +231,9 @@ export default {
     onPageChange(page) {
       this.currentPage = page;
       this.getIdeas();
+    },
+    ideaDetail(value) {
+      this.$router.push({ name: "ideaDetailView", params: { id: value } });
     },
     closeModal() {
       this.isOpenModal = false;
@@ -212,18 +267,27 @@ export default {
       this.currentPage = 1;
       this.getIdeas();
     },
+    clickListener(event) {
+      if (event.target.className != "bi bi-gear idea-adjustment-icon") {
+        this.ideaId = "";
+      }
+    },
+    openDropdown(data) {
+      this.ideaId = data;
+    },
+    closeDropdown() {
+      this.ideaId = "";
+    },
     async getTopicDetails() {
       try {
         this.$store.dispatch("fetchAccessToken");
         const resTopic = await this.$axios.get(`api/v1/Topic/${this.$route.params.id}`);
         if (resTopic.status == 200) {
           this.topic = resTopic.data.content;
-          // this.topic.Id = data.id;
-          // this.topic.Name = data.name;
-          // this.topic.Status = data.status;
-          // this.topic.Description = data.description;
           this.topic.startDate = dateConvert(this.topic.startDate);
-          this.topic.closeIdeaDate = dateConvert(this.topic.closeIdeaDate);
+          if (this.topic.closeIdeaDate) {
+            this.topic.closeIdeaDate = dateConvert(this.topic.closeIdeaDate);
+          }
           this.topic.closureDate = dateConvert(this.topic.closureDate);
         }
       } catch {
@@ -354,11 +418,15 @@ export default {
         case 0:
           try {
             this.$store.dispatch("fetchAccessToken");
+            var closeIdea = 0;
+            if (this.topic.closeIdeaDate) {
+              closeIdea = Date.parse(this.topic.closeIdeaDate);
+            }
             const topicEdit = {
               name: this.topic.name,
               description: this.topic.description,
               colorCode: this.topic.colorCode,
-              closeIdeaDate: Date.parse(this.topic.closeIdeaDate),
+              closeIdeaDate: closeIdea,
               closureDate: Date.parse(this.topic.closureDate),
             };
             const res = await this.$axios.put(`api/v1/Topic/${this.topic.id}`, topicEdit);
@@ -388,6 +456,10 @@ export default {
   mounted() {
     this.getTopicDetails();
     this.getIdeas();
+    window.addEventListener("click", this.clickListener);
+  },
+  beforeUnmount() {
+    window.removeEventListener("click", this.clickListener);
   },
 };
 </script>
@@ -475,6 +547,20 @@ export default {
 a {
   font-size: 16px;
 }
+
+thead tr th:nth-child(1) {
+  width: 30%;
+}
+thead tr th:nth-child(2) {
+  width: 30%;
+}
+thead tr th:nth-child(3) {
+  width: 30%;
+}
+thead tr th:nth-child(4) {
+  width: 10%;
+}
+
 .idea-adjustment {
   font-size: 22px;
   cursor: pointer;
@@ -485,18 +571,17 @@ a {
   padding: 20px;
 }
 
-.idea-adjustment-icon:hover .idea-adjustment-items {
+/* .idea-adjustment-icon:hover .idea-adjustment-items {
   display: block;
-}
+} */
 
 .idea-adjustment-items {
   list-style-type: none;
-  display: none;
   min-width: 120px;
   height: 90px;
-  top: 4%;
-  left: -14%;
-  position: absolute;
+  /* top: 4%;
+  left: 0%; */
+  /* position: absolute; */
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   text-align: right;
@@ -506,6 +591,7 @@ a {
   padding: 0;
   text-align: center;
   z-index: 1;
+  margin: 0;
 }
 
 .idea-adjustment-item {
@@ -616,5 +702,37 @@ a {
   text-align: left;
   display: inline-block;
   vertical-align: middle;
+}
+
+.custom-file-input {
+  color: transparent;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: "Select image";
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active {
+  outline: 0;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 </style>

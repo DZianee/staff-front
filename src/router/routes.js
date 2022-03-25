@@ -8,9 +8,10 @@ import TopicView from "../views/TopicView.vue";
 import UserView from "../views/UserManView.vue";
 import ManageView from "../views/ManageView.vue";
 import ProfileView from "../views/ProfileView.vue";
-import IdeaView from "../views/IdeaView.vue";
+import TopicIdeaView from "../views/TopicIdeaView.vue";
 import NewsView from "../views/NewsView.vue";
 import TopicListDetailsView from "../views/TopicListDetails.vue";
+import ideaDetailView from "../views/IdeaDetailView.vue";
 
 const router = [
   {
@@ -61,9 +62,9 @@ const router = [
     component: ProfileView,
   },
   {
-    path: "/idea-view/:id",
-    name: "ideaView",
-    component: IdeaView,
+    path: "/topicidea-view/:id",
+    name: "topicideaView",
+    component: TopicIdeaView,
   },
   {
     path: "/news-view",
@@ -74,6 +75,11 @@ const router = [
     path: "/topic-list-view/:id",
     name: "topicListView",
     component: TopicListDetailsView,
+  },
+  {
+    path: "/ideaDetail-view/:id",
+    name: "ideaDetailView",
+    component: ideaDetailView,
   },
 ];
 

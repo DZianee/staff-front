@@ -1,18 +1,18 @@
 <template>
   <div class="ideaView">
-    <TopicIdeaView />
+    <TopicIdea />
   </div>
 </template>
 
 <script>
-import TopicIdeaView from "../components/TopicIdeaView.vue";
+import TopicIdea from "../components/TopicIdea.vue";
 export default {
   name: "IdeaView",
-  components: { TopicIdeaView },
+  components: { TopicIdea },
 };
 </script>
 
-<style>
+<style scoped>
 .ideaView {
   position: relative;
   left: 270px;
