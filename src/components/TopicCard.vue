@@ -1,9 +1,11 @@
 <template>
   <div class="table-toolbar d-flex justify-content-end form-search-padding">
+    <div class="topic-title">Topic Management</div>
     <div class="table-search-box">
       <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="topicName" />
       <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
     </div>
+    <button class="create-topic" @click="modalAct()">New Topic +</button>
     <div class="create-icon" @click="modalAct()">
       <i class="bi bi-plus-circle"></i>
     </div>
@@ -164,21 +166,39 @@ a {
   align-items: center;
 }
 .form-search-padding {
-  padding-right: 36px;
+  padding-right: 180px;
   gap: 24px;
+}
+.bi-plus-circle {
+  display: none;
 }
 .bi-plus-circle::before {
   background-color: lavenderblush;
   border-radius: 50%;
 }
+.topic-title {
+  font-weight: 500;
+  font-size: 30px;
+  padding-right: 40%;
+}
 .table-search-box {
   position: relative;
 }
-.create-icon {
-  font-size: 34px;
+.create-topic {
+  height: 35px;
+  line-height: 10px;
+  font-size: 16px;
+  width: 13%;
+  color: white;
+  background: #3d5afe;
+  font-weight: 500;
   cursor: pointer;
+  padding: 10px;
+  border-radius: 0.25rem;
 }
-
+.create-topic:hover {
+  background: #1976d2;
+}
 .table-search-box .fa-search {
   position: absolute;
   top: 20px;
@@ -187,6 +207,7 @@ a {
 
 .table-search-box input {
   padding-right: 35px;
+  height: 35px;
 }
 
 .table-search-box span {
@@ -196,9 +217,9 @@ a {
   padding: 2px;
 }
 .card {
-  width: 370px;
+  width: 300px;
   height: 268px;
-  border-radius: 23px;
+  border-radius: 24px;
 }
 .card:hover {
   transform: scale(1.1, 1.1);
@@ -240,7 +261,7 @@ span:hover {
   color: red;
 }
 .content {
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 115px;
   /* border-radius: 23px; */
   margin-top: 27px;
@@ -249,10 +270,12 @@ h1 {
   text-align: center;
   font-size: 22px;
   display: flex;
+  font-weight: 500;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   height: 110px;
+  letter-spacing: 0.5px;
 }
 .card-footer {
   border-top-color: rgb(177, 177, 177);
@@ -261,8 +284,8 @@ h1 {
   cursor: pointer;
 }
 .card-footer p {
-  font-size: 18px;
-  font-weight: 750;
+  font-size: 16px;
+  font-weight: 500;
   padding-top: 18px;
 }
 @media screen and (max-width: 1440px) {
@@ -271,10 +294,16 @@ h1 {
     grid-template-columns: repeat(3, 28%);
     column-gap: 50px;
     row-gap: 100px;
+    padding: 50px 0 70px 70px;
   }
   .card {
-    width: 340px;
     height: 268px;
+  }
+  .topic-title {
+    padding-right: 32%;
+  }
+  .form-search-padding {
+    padding-right: 100px;
   }
 }
 @media screen and (max-width: 1280px) {
@@ -285,43 +314,71 @@ h1 {
     row-gap: 100px;
   }
   .card {
-    width: 355px;
     height: 268px;
   }
   .card_border--effect {
     width: 355px;
+  }
+  .topic-title {
+    padding-right: 24%;
+  }
+  .form-search-padding {
+    padding-right: 100px;
   }
 }
 @media screen and (max-width: 1025px) {
   .topic-card {
     display: grid;
     grid-template-columns: repeat(3, 28%);
-    column-gap: 30px;
-    row-gap: 100px;
-    padding-left: 24px;
+    padding: 50px 0 70px 50px;
   }
   .card {
-    width: 355px;
-    height: 268px;
+    height: 248px;
+  }
+  .card-content {
+    height: 200px;
   }
   .card_border--effect {
     width: 355px;
+  }
+  .topic-title {
+    padding-right: 20%;
   }
 }
 @media screen and (max-width: 780px) {
   .topic-card {
     display: grid;
     grid-template-columns: repeat(2, 47%);
-    column-gap: 34px;
+    column-gap: 20px;
     row-gap: 70px;
-    padding: 50px;
+    padding: 50px 0 70px 60px;
   }
   .card {
-    width: 295px;
-    height: 268px;
+    width: 250px;
+    height: 230px;
   }
-  h1 {
-    font-size: 16px;
+  .card-content {
+    height: 180px;
+  }
+  .topic-title {
+    padding-right: 14%;
+    font-size: 24px;
+  }
+  .form-search-padding {
+    padding-right: 50px;
+    gap: 10px;
+  }
+  .create-topic {
+    width: 17%;
+    font-size: 15px;
+  }
+  .table-search-box input {
+    height: 35px;
+    width: 180px;
+    font-size: 15px;
+  }
+  .card-content h1 {
+    font-size: 18px;
   }
   .card-footer p {
     font-size: 14px;
@@ -334,24 +391,61 @@ h1 {
 @media screen and (max-width: 570px) {
   .topic-card {
     grid-template-columns: 100%;
+    padding: 50px 80px 70px 80px;
+    row-gap: 40px;
+  }
+  .bi-plus-circle {
+    display: block;
+    font-size: 30px;
+  }
+  .bi-plus-circle::before {
+    background-color: #3d5afe;
+    color: white;
   }
   .card {
     width: 100%;
+  }
+  .topic-title {
+    padding-right: 8%;
+    font-size: 24px;
+  }
+  .form-search-padding {
+    padding-right: 20px;
+    gap: 10px;
+  }
+  .create-topic {
+    display: none;
+  }
+  .table-search-box input {
+    height: 35px;
+    width: 160px;
+    font-size: 15px;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .topic-card {
-    display: grid;
-    grid-template-columns: 100%;
-    width: 100%;
     row-gap: 60px;
   }
   .card {
     width: 100%;
-    height: 268px;
   }
-  .card_border--effect {
-    width: 300px;
+  .topic-title {
+    padding-right: 5%;
+    font-size: 24px;
+  }
+  .form-search-padding {
+    padding-top: 30px;
+  }
+}
+@media screen and (max-width: 412px) {
+ 
+  .topic-title {
+    padding-right: 2%;
+    font-size: 22px;
+  }
+  .table-search-box input {
+    width: 120px;
+    font-size: 15px;
   }
 }
 </style>

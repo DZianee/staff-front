@@ -1,6 +1,5 @@
 <template>
   <div class="topic">
-    <h1>testing</h1>
     <TopicCard />
   </div>
 </template>

@@ -260,7 +260,6 @@ export default {
   transform: translateX(-50%);
   width: 80%; */
 }
-
 .user-man-header {
   display: flex;
   justify-content: space-around;

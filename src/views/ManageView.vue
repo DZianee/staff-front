@@ -9,6 +9,8 @@
             <p class="card-text">Available to create, modify and delete topic along with manage ideas inside each topic</p>
           </div>
         </div>
+
+      </div>
         <div class="card" @click="Route('userView')">
           <div class="card-body">
             <h4 class="card-title">User Management</h4>
@@ -29,7 +31,10 @@
         </div>
         <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
       </div>
+
+
       <!-- <img src="../assets/images/Wonder-Learners-Math-Class.png" alt="img" /> -->
+
     </div>
   </div>
   <!-- <UserManage /> -->
