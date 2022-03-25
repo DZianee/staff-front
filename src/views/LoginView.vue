@@ -15,11 +15,7 @@
         <span class="font-weight-bold"> Password </span>
       </div>
       <PasswordInput v-model:value="password" />
-
-      <div class="w-full text-right p-t-15 p-r-10">
-        <span class="font-weight-bold forgot-password"> Forgot Password </span>
-      </div>
-      <div class="container-login100-form-btn m-t-17">
+      <div class="container-login100-form-btn m-t-37">
         <button class="login100-form-btn" tag="button" type="submit" to="/change-password" :disabled="loading">
           <span class="spinner-border spinner-border-sm m-r-10" role="status" aria-hidden="true" v-if="loading"></span>
           {{ loading ? "Logging In... " : "Log In" }}
