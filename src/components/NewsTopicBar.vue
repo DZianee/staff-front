@@ -36,7 +36,7 @@ export default {
     #f64f59,
     #c471ed,
     #12c2e9,
-    #f6f621
+    #e040fb
   ); 
 }
 .news-topic-bar {

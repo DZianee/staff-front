@@ -727,6 +727,7 @@ iframe {
   font-size: 14px;
   color: #4a585f;
 }
+
 /* .log-out{
   transform: translate(0,440px);
 } */
@@ -747,6 +748,12 @@ iframe {
 @media screen and (max-width: 1440px) {
   .nav {
     width: 240px;
+  }
+  .user-avatar-info .user-email {
+    width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 @media screen and (max-width: 1025px) {

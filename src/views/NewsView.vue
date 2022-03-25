@@ -63,6 +63,7 @@ export default {
   position: relative;
   right: -8.1%;
   /* border: solid; */
+  width: calc(100% - 336px);
 }
 .news p {
   font-size: 20px;
@@ -85,7 +86,7 @@ h1 {
   position: relative;
   width: 97%;
   background: url("https://cdn.dribbble.com/users/1355613/screenshots/15349243/media/71e74eb3be96c50e3769c5fc5c8ba995.jpg?compress=1&resize=1200x900&vertical=top")
-    20px -120px;
+    no-repeat 0 -120px;
 }
 @keyframes gradient {
   0% {
@@ -113,40 +114,58 @@ h1 {
 }
 @media screen and (max-width: 1440px) {
   .news {
-    width: 81%;
+    width: calc(100% - 272px);
   }
   h1 {
-  top: 28%;
-}
+    top: 28%;
+  }
 }
 @media screen and (max-width: 1366px) {
   .news {
-    width: 78%;
+    width: calc(100% - 300px);
     right: -9%;
   }
 }
 @media screen and (max-width: 1025px) {
   .news {
-    width: 90%;
+    width: calc(100% - 101px);
     right: -4%;
   }
   .news-topic-idea {
-    background-position: -50px -120px;
+    background-position: center -80px;
+    background-size: cover;
   }
 }
 @media screen and (max-width: 768px) {
   .news {
-    width: 88%;
+     width: calc(100% - 92px);
     right: -5%;
   }
   .news-topic-idea {
-    background-position: -50px -120px;
+    background-position-y: -50px;
     height: 250px;
   }
   .news-topic-idea::after {
     height: 250px;
   }
-  h1{
+  h1 {
+    font-size: 45px;
+  }
+}
+@media screen and (max-width: 765px) {
+  .news {
+     width: calc(100% - 224px);
+    border: solid;
+    right: -5%;
+  }
+  .news-topic-idea {
+    background-position-y: -50px;
+    height: 250px;
+  }
+  .news-topic-idea::after {
+    height: 250px;
+  }
+  h1 {
     font-size: 45px;
   }
 }
@@ -158,16 +177,19 @@ h1 {
     height: 3640px;
   }
   h1 {
-  font-size: 35px;
-  top: 35%;
+    font-size: 35px;
+    top: 35%;
+  }
 }
-}
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 450px) {
   .news {
     width: 100%;
     right: 0;
     top: 80px;
     height: 3480px;
+  }
+  .news-topic-idea {
+    background-position-y: -20px;
   }
 }
 </style>

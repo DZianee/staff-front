@@ -271,6 +271,19 @@ export default {
     height: 160px;
   }
 }
+@media screen and (max-width: 820px) {
+  .news-idea-list .all-ideas {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+  }
+  .news-idea-list .all-ideas .card {
+    left: -2%;
+    width: 88%;
+  }
+  .card-image {
+    height: 140px;
+  }
+}
 @media screen and (max-width: 769px) {
   .news-idea-list .all-ideas {
     grid-template-columns: 1fr 1fr;
@@ -296,8 +309,8 @@ export default {
     padding: 20px;
   }
   .news-idea-list .all-ideas .card {
-    left: -1%;
-    width: 90%;
+    left: -7%;
+    width: 100%;
   }
   .card-image {
     height: 170px;
