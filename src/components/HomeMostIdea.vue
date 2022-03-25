@@ -50,7 +50,8 @@ export default {
       this.ideaList = res.data.content;
       console.log(res);
     });
-
+  },
+  mounted() {
     const ele = document.getElementById("DragScroll");
     // ele.scrollTop = 100;
     // ele.scrollLeft = 150;
