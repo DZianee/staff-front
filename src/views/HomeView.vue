@@ -13,9 +13,17 @@
             <i class="bx bx-home bx-sm bx-fw" />
             Home
           </li>
+          <li  @click="showExplore"> 
+            <i class="bx bxs-hot bx-sm bx-fw" />
+            Explore
+          </li>
           <li @click="showNews">
             <i class="bx bx-news bx-sm bx-fw" />
             News
+          </li>
+          <li @click="showTopicLists">
+            <i class="bx bx-library bx-sm bx-fw" />
+            Topic's Store
           </li>
           <li @click="showManagement">
             <i class="bx bx-briefcase bx-sm bx-fw" />
@@ -125,6 +133,12 @@ export default {
     showNews() {
       this.$router.push({ name: "newsView" });
     },
+    showExplore() {
+      this.$router.push({ name: "exploreView" });
+    },
+    showTopicLists() {
+      this.$router.push({ name: "topicListsView" });
+    },
     showManagement() {
       this.$router.push({ name: "manageView" });
     },
@@ -173,7 +187,7 @@ export default {
   left: 0;
   background: white;
   width: 220px;
-  height: 340px;
+  height: 460px;
   border: solid grey;
 }
 .menu-bar ul li {
@@ -299,7 +313,7 @@ export default {
   }
   .menu-bar ul {
     width: 200px;
-    height: 310px;
+    height: 420px;
     top: 66px;
   }
   .menu-bar ul li {
@@ -323,7 +337,7 @@ export default {
   }
   .menu-bar ul {
     width: 150px;
-    height: 260px;
+    height: 350px;
     top: 65px;
   }
   .menu-bar ul li {

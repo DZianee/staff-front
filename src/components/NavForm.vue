@@ -19,13 +19,13 @@
         <span>News</span>
         <span class="tooltiptext">News</span>
       </li>
-      <li class="nav-item" @click="TopicDetailsRoute">
+      <li class="nav-item" @click="TopicListsRoute">
         <i class="bx bx-library bx-sm bx-fw" />
         <span>Topic's Store</span>
         <span class="tooltiptext">Topic's Store</span>
       </li>
       <!-- <li class="nav-item" @click="ManageRoute"> -->
-      <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Admin'">
+      <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Manager'">
         <i class="bx bx-briefcase bx-sm bx-fw" />
         <span>Manage</span>
         <span class="tooltiptext">Manage</span>
@@ -108,6 +108,12 @@ export default {
     },
     NewsRoute() {
       this.$router.push({ name: "newsView" });
+    },
+    ExploreRoute() {
+      this.$router.push({ name: "exploreView" });
+    },
+    TopicListsRoute() {
+      this.$router.push({ name: "topicListsView" });
     },
     ManageRoute() {
       this.$router.push({ name: "manageView" });
