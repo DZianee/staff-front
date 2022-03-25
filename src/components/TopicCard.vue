@@ -10,6 +10,7 @@
       <i class="bi bi-plus-circle"></i>
     </div>
   </div>
+  <button type="button" class="btn btn-secondary" @click="openModal()">Create Idea</button>
   <div class="topic-card">
     <div v-for="topic in Topics" :key="topic.id">
       <div class="card">
@@ -54,6 +55,47 @@
     <RemoveModal :topicInfo="topicInfoActive" />
     <RemoveErrorModal />
   </div>
+  <!-- Create Idea Modal  -->
+  <div class="create-modal">
+    <component
+      :is="'confirm-modal'"
+      title="Create your idea"
+      :ConfirmModalActive="isOpenModal"
+      :activeConfirmButton="isActiveConfirm"
+      :confirmText="'Submit'"
+      @submitModal="confirm"
+      @closeModal="closeModal">
+      <div class="content-condition">
+        <form>
+          <div class="form-group select-box">
+            <select class="form-control">
+              <option disabled selected>Topic</option>
+              <option v-for="topic in Topics" :key="topic.id" :value="topic.id">{{ topic.name }}</option>
+            </select>
+          </div>
+          <div class="form-group text-area-container">
+            <textarea class="form-control" rows="6" placeholder="What do yout think?..."></textarea>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" @change="onCheckbox" />
+              <label class="form-check-label" for="flexCheckDefault">
+                I agree with the terms & conditions
+                <a @click="toggleTermCondition">{{ `${isShowTermCondition ? "Hide" : "Show"}  terms & conditions` }}</a></label
+              >
+            </div>
+          </div>
+        </form>
+        <div class="terms-conditions" v-if="isShowTermCondition">
+          <p>
+            Welcome to our digital information network. These are our terms and conditions for use of use of the network, which you may access in
+            several ways, including but not limited to the World Wide Web via the Greenwich University. In these terms and conditions, when we say the
+            “Guardian Site” we mean the digital information network operated by Greenwich University.
+          </p>
+        </div>
+      </div>
+    </component>
+  </div>
 </template>
 
 <script>
@@ -63,7 +105,6 @@ import RemoveErrorModal from "@/components/RemoveErrorModal.vue";
 import { ref } from "vue";
 
 var timeOut;
-
 export default {
   name: "TopicCard",
   components: { RemoveModal, RemoveErrorModal, CreateTopicModal },
@@ -73,6 +114,15 @@ export default {
       Topics: [],
       currentPage: 1,
       totalPage: 1,
+      isOpenModal: false,
+      isActiveConfirm: false,
+      isShowTermCondition: false,
+      config: {
+        theme: "modern",
+        fontsize_formats: "8px 10px 12px 14px 16px 18px 20px 22px 24px 26px 39px 34px 38px 42px 48px",
+        plugins: "print preview fullpage powerpaste searchreplace autolink",
+        toolbar1: "formatselect fontsizeselect | bold italic strikethrough forecolor backcolor link",
+      },
     };
   },
   methods: {
@@ -100,6 +150,25 @@ export default {
         this.totalPage = res.data.totalPage;
       } catch (e) {
         //
+      }
+    },
+    openModal() {
+      this.isOpenModal = true;
+      if (this.isShowTermCondition) this.isShowTermCondition = false;
+    },
+    closeModal() {
+      this.isOpenModal = false;
+    },
+    onCheckbox(e) {
+      this.isActiveConfirm = e.target.checked;
+    },
+    toggleTermCondition() {
+      this.isShowTermCondition = !this.isShowTermCondition;
+      const modal = document.getElementsByClassName("Confirm-Modal-container")[0];
+      if (this.isShowTermCondition) {
+        modal.classList.add("more-height");
+      } else {
+        modal.classList.remove("more-height");
       }
     },
   },
@@ -425,6 +494,11 @@ h1 {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .topic-card {
     row-gap: 60px;
+    display: grid;
+    grid-template-columns: 100%;
+    width: 100%;
+    row-gap: 60px;
+    margin-left: 0;
   }
   .card {
     width: 100%;
@@ -438,7 +512,6 @@ h1 {
   }
 }
 @media screen and (max-width: 412px) {
- 
   .topic-title {
     padding-right: 2%;
     font-size: 22px;
@@ -447,5 +520,83 @@ h1 {
     width: 120px;
     font-size: 15px;
   }
+}
+
+/** for idea modal */
+.form-group {
+  width: 100% !important;
+  margin-bottom: 1rem !important;
+}
+.form-check .form-check-input {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 5px;
+}
+.form-check .form-check-label {
+  font-size: 1rem;
+  text-align: left;
+}
+.form-check .form-check-label a {
+  margin-left: 10px;
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #0d6efd;
+  text-decoration: underline;
+}
+.form-check .form-check-label a:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+.create-modal /deep/ .Confirm-Modal-container {
+  width: 500px;
+  min-height: 400px;
+  height: 400px;
+}
+.create-modal /deep/ .more-height {
+  min-height: 500px;
+  height: 500px;
+}
+@media screen and (max-width: 480px) {
+  .create-modal /deep/ .Confirm-Modal-container {
+    min-height: 430px;
+    height: 430px;
+  }
+  .create-modal /deep/ .more-height {
+    min-height: 580px;
+    height: 580px;
+  }
+}
+.create-modal /deep/ .remove-btns {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+}
+.create-modal /deep/ .btn_cancel {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+.create-modal /deep/ .btn-success {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+.select-box {
+  max-width: 30%;
+}
+.text-area-container {
+  max-height: 160px;
+  overflow-x: auto;
+}
+.terms-conditions p {
+  font-size: 0.75rem;
+  font-weight: normal;
 }
 </style>
