@@ -1,5 +1,11 @@
 <template>
   <div class="topic-list-details container">
+    <nav aria-label="breadcrumb" style="padding-top: 20px">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" @click="TopicListRoute">Topic's Store</li>
+        <li class="breadcrumb-item active" aria-current="page">Topic details</li>
+      </ol>
+    </nav>
     <div class="topic-details container">
       <div class="topic-detail-header">
         <div class="detail-title">
@@ -58,6 +64,9 @@ export default {
     }
   },
   methods: {
+    TopicListRoute() {
+      this.$router.push({ name: "topicListsView" });
+    },
     getStartDate(date) {
       const dateCreate = new Date(date);
       const dmy = dateCreate.toLocaleString();
@@ -88,6 +97,15 @@ export default {
 </script>
 
 <style scoped>
+.breadcrumb-item:hover {
+  font-weight: 500;
+  cursor: pointer;
+}
+.breadcrumb-item.active {
+  color: rgb(67, 139, 255);
+  font-weight: 500;
+  text-decoration: underline;
+}
 .topic-list-details {
   padding-top: 40px;
   right: -8.1%;
@@ -106,8 +124,7 @@ export default {
 img {
   height: max(556px);
   width: max(825px);
-    object-fit: cover;
-
+  object-fit: cover;
 }
 .detail-des {
   padding: 20px;
@@ -141,8 +158,7 @@ img {
 .item-img img {
   width: max(88%);
   height: max(110px);
-    object-fit: cover;
-
+  object-fit: cover;
 }
 .item-des p:not(.time) {
   font-size: 18px;
@@ -200,9 +216,9 @@ img {
     font-size: 16px;
   }
   .detail-des {
-  font-size: 18px;
-}
-.item-img img {
+    font-size: 18px;
+  }
+  .item-img img {
     width: max(90%);
     height: max(100px);
   }

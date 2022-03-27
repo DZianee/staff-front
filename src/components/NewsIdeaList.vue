@@ -269,7 +269,7 @@ export default {
     width: 88%;
   }
   .card-image {
-    height: 160px;
+    height: 180px;
   }
 }
 @media screen and (max-width: 820px) {
@@ -282,7 +282,7 @@ export default {
     width: 88%;
   }
   .card-image {
-    height: 140px;
+    height: 200px;
   }
 }
 @media screen and (max-width: 769px) {
@@ -314,18 +314,13 @@ export default {
     width: 100%;
   }
   .card-image {
-    height: 170px;
+    height: fit-content;
   }
   .card-content .content h3 {
   font-size: 15px;
 }
   .card-content{
-    margin-top: 20%;
-  }
-}
-@media screen and (max-width: 412px) {
-  .card-content{
-    margin-top: 40px;
+    margin-top: -7%;
   }
 }
 </style>

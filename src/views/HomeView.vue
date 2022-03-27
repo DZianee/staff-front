@@ -25,7 +25,7 @@
             <i class="bx bx-briefcase bx-sm bx-fw" />
             Management
           </li>
-          <li>
+          <li v-if="userStored.roleName == 'Manager'">
             <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
             Statistic
           </li>
@@ -185,7 +185,7 @@ export default {
   left: 0;
   background: white;
   width: 220px;
-  height: 400px;
+  height: fit-content;
   border: solid grey;
 }
 .menu-bar ul li {
@@ -311,7 +311,7 @@ export default {
   }
   .menu-bar ul {
     width: 200px;
-    height: 370px;
+    /* height: 370px; */
     top: 66px;
   }
   .menu-bar ul li {
@@ -335,7 +335,7 @@ export default {
   }
   .menu-bar ul {
     width: 150px;
-    height: 310px;
+    /* height: 310px; */
     top: 65px;
   }
   .menu-bar ul li {
