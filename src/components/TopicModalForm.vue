@@ -24,7 +24,8 @@
             @handleInput="handleInput" />
 
           <label for="department" class="Topic-Modal-label" style="margin-top: 6px"> Department </label>
-          <select v-model="ModalForm.DepartmentID" class="form-control">
+          <select v-model="ModalForm.DepartmentID" class="form-control Topic-Modal-input">
+            <option value="" disabled selected hidden>Please Choose...</option>
             <option v-for="department in Departments" :key="department.id" :value="department.id">
               {{ department.name }}
             </option>
@@ -246,6 +247,10 @@ export default {
   overflow-y: scroll;
   text-align: left;
   z-index: 2;
+}
+.Topic-Modal-Image {
+  font-size: 14px;
+  margin: 16px 0;
 }
 @media (max-width: 1024px) {
   .Topic-Modal-container {

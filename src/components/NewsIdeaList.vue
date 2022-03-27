@@ -1,18 +1,34 @@
 <template>
   <div class="news-idea-list container">
+    <div class="sortType" v-if="choice != 'via' && ideaList && ideaList.length > 0">
+      <select class="form-control" v-model="sortType" @change="getIdeaList">
+        <option value="0">Newest Ideas</option>
+        <option value="1">Most reacted Ideas</option>
+        <option value="2">Most viewed ideas</option>
+        <option value="3">Lastest commented ideas</option>
+      </select>
+    </div>
+    <div class="sortType" v-else-if="choice == 'via'">
+      <button class="create-topic" @click="IdeaModalOpen()">New Idea +</button>
+      <div class="create-icon" @click="IdeaModalOpen()">
+        <i class="bi bi-plus-circle"></i>
+      </div>
+    </div>
     <div v-if="choice === 'via'">
-      <div v-if="ideaListViaTopic == ''">
+      <div v-if="ideaList == ''">
         <p style="color: gray; text-align: center; font-size: 16px; margin-top: 40px; font-style: italic">There is no idea existed yet</p>
       </div>
       <div v-else>
-        <div class="all-ideas">
-          <div class="card" v-for="ideas in ideaListViaTopic" :key="ideas.index">
+        <div class="all-ideas" style="margin-top: 24px">
+          <div class="card" v-for="ideas in ideaList" :key="ideas.index" @click="routeIdea(idea.id)" style="cursor: pointer">
             <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://cdn.dribbble.com/users/1338391/screenshots/15412369/media/db9cc51e777dd9f42e89034027d0786b.jpg?compress=1&resize=1200x900&vertical=top"
-                  alt="Placeholder image" />
-              </figure>
+              <!-- <figure class="image is-4by3"> -->
+              <img v-if="ideas.image != null && ideas.image" :src="`https://${ideas.image}`" alt="Placeholder image" />
+              <img
+                v-else
+                src="https://cdn.dribbble.com/users/1338391/screenshots/15412369/media/db9cc51e777dd9f42e89034027d0786b.jpg?compress=1&resize=1200x900&vertical=top"
+                alt="Placeholder image" />
+              <!-- </figure> -->
             </div>
             <div class="card-content">
               <div class="content">
@@ -23,20 +39,20 @@
             </div>
             <footer class="card-footer">
               <div class="card-footer-item react-like">
-                999
+                {{ ideas.totalLikes }}
                 <i class="bx bx-like bx-fw" />
               </div>
               <div class="card-footer-item react-dislike">
-                999
+                {{ ideas.totalDislikes }}
                 <i class="bx bx-dislike bx-fw" />
               </div>
               <div class="card-footer-item comment">
-                999
+                {{ ideas.totalComments }}
                 <i class="bx bx-message-square-detail bx-fw" />
               </div>
             </footer>
           </div>
-          <div v-if="ideaListViaTopic.length > 0" class="pagination-container">
+          <div v-if="ideaList.length > 0" class="pagination-container">
             <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageViaChange">
             </component>
           </div>
@@ -48,53 +64,62 @@
         <p style="color: gray; text-align: center; font-size: 16px; margin-top: 40px; font-style: italic">There is no idea existed yet</p>
       </div>
       <div v-else>
-        <div class="all-ideas">
-          <div class="card" v-for="idea in ideaList" :key="idea.index">
+        <div class="all-ideas" style="margin-top: 24px">
+          <div class="card" v-for="idea in ideaList" :key="idea.index" @click="routeIdea(idea.id)" style="cursor: pointer">
             <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://cdn.dribbble.com/users/1338391/screenshots/15412369/media/db9cc51e777dd9f42e89034027d0786b.jpg?compress=1&resize=1200x900&vertical=top"
-                  alt="Placeholder image" />
-              </figure>
+              <!-- <figure class="image is-4by3"> -->
+              <img v-if="idea.image != null && idea.image" :src="`https://${idea.image}`" alt="Placeholder image" />
+              <img
+                v-else
+                src="https://cdn.dribbble.com/users/1338391/screenshots/15412369/media/db9cc51e777dd9f42e89034027d0786b.jpg?compress=1&resize=1200x900&vertical=top"
+                alt="Placeholder image" />
+              <!-- </figure> -->
             </div>
             <div class="card-content">
               <div class="content">
                 <h1>{{ idea.title }}</h1>
-                <h3 class="topic-title" @click="topicDetailRoute">{{ idea.topicName }}</h3>
-                <time datetime="2016-1-1">{{ getIdeaDateCreate(idea.startDate) }}</time>
+                <h3 class="topic-title" @click.stop="topicDetailRoute">{{ idea.topicName }}</h3>
+                <time datetime="2016-1-1">{{ getIdeaDateCreate(idea.createdDate) }}</time>
               </div>
             </div>
             <footer class="card-footer">
               <div class="card-footer-item react-like">
-                999
+                {{ idea.totalLikes }}
                 <i class="bx bx-like bx-fw" />
               </div>
               <div class="card-footer-item react-dislike">
-                999
+                {{ idea.totalDislikes }}
                 <i class="bx bx-dislike bx-fw" />
               </div>
               <div class="card-footer-item comment">
-                999
+                {{ idea.totalComments }}
                 <i class="bx bx-message-square-detail bx-fw" />
               </div>
             </footer>
           </div>
-          <div v-if="ideaList.length > 0" class="pagination-container">
-            <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange">
-            </component>
-          </div>
+        </div>
+        <div v-if="ideaList.length > 0" class="pagination-container">
+          <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
         </div>
       </div>
     </div>
   </div>
+  <IdeaCreate @closeIdea="IdeaModalClose()" :IdeaModalActive="IdeaModalActive" :TopicID="id" :TopicName="name" />
 </template>
 
 <script>
+import IdeaCreate from "../components/IdeaModalForm.vue";
+import { ref } from "vue";
+
 export default {
   name: "NewsIdeaList",
+  components: {
+    IdeaCreate,
+  },
   props: {
     choice: String,
     id: String,
+    name: String,
   },
   data() {
     return {
@@ -103,34 +128,46 @@ export default {
       totalPage: 1,
       ideaListViaTopic: [],
       ideaList: [],
+      sortType: 0,
     };
+  },
+  setup() {
+    const IdeaModalActive = ref(false);
+
+    const IdeaModalOpen = () => {
+      IdeaModalActive.value = true;
+    };
+    const IdeaModalClose = () => {
+      IdeaModalActive.value = false;
+    };
+
+    return { IdeaModalActive, IdeaModalOpen, IdeaModalClose };
   },
   created() {},
   methods: {
     // ideaDetailRoute(){
     //   this.$router.push({path})
     // }
+    routeIdea(value) {
+      this.$router.push({ name: "ideaDetailView", params: { id: value } });
+    },
     topicDetailRoute() {
       this.$router.push({ name: "topicListView", params: { id: this.id } });
     },
-    async getIdeaList() {
+    async getIdeaList(event) {
+      if (event && event.target.value == this.sortType) {
+        this.currentPage = 1;
+      }
       try {
         this.$store.dispatch("fetchAccessToken");
-
-        const getIdeaList = await this.$axios.post(
-          `api/v1/Idea/getList`,
-          { searchTitle: "", sortTitle: "", sortCreatedDate: "", sortUserName: "" },
-          {
-            params: {
-              PageSize: 6,
-              CurrentPage: this.currentPage,
-            },
+        const getIdeaList = await this.$axios.get(`api/v1/Idea/getIdeasByType/?type=${this.sortType}`, {
+          params: {
+            PageSize: 6,
+            CurrentPage: this.currentPage,
           },
-          this.$axios.defaults.headers["Authorization"]
-        );
+        });
         this.ideaList = getIdeaList.data.content;
         this.totalPage = getIdeaList.data.totalPage;
-        console.log(this.ideaList);
       } catch (e) {
         console.log(e);
       }
@@ -148,7 +185,7 @@ export default {
             },
           }
         );
-        this.ideaListViaTopic = getIdeaListviaTopic.data.content;
+        this.ideaList = getIdeaListviaTopic.data.content;
         this.totalPage = getIdeaListviaTopic.data.totalPage;
       } catch (e) {
         console.log(e);
@@ -174,7 +211,16 @@ export default {
     },
   },
   watch: {
+    choice(newValue) {
+      this.currentPage = 1;
+      if (newValue == "all") {
+        this.getIdeaList();
+      } else {
+        //
+      }
+    },
     id() {
+      this.currentPage = 1;
       this.getIdeaViaTopic();
     },
   },
@@ -185,20 +231,47 @@ export default {
 </script>
 
 <style scoped>
+.create-topic {
+  height: 35px;
+  line-height: 10px;
+  font-size: 16px;
+  width: 100%;
+  color: white;
+  background: #3d5afe;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 0.25rem;
+}
+.create-topic:hover {
+  background: #1976d2;
+}
+.bi-plus-circle {
+  display: none;
+}
+.bi-plus-circle::before {
+  background-color: lavenderblush;
+  border-radius: 50%;
+}
 .news-idea-list .all-ideas {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr; */
   /* column-gap: 10px; */
   /* border: solid blue; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 16px;
   height: fit-content;
   padding: 20px;
+  padding-bottom: 90px;
 }
 .news-idea-list .all-ideas .card {
   border-radius: 12px;
-  left: 7%;
-  width: 75%;
+  /* left: 7%; */
+  width: 30%;
   height: auto;
-  margin: 40px 22px;
+  margin: 40px 0;
   bottom: 5%;
   text-align: unset;
 }
@@ -208,6 +281,9 @@ export default {
 .card-content .content h1 {
   font-size: 18px;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .card-content .content h1:hover,
 .card-content .content h3:hover {
@@ -220,33 +296,51 @@ export default {
   font-weight: 500;
   color: rgb(102, 97, 97);
   letter-spacing: 0.6px;
+  height: 54px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .card-content .content time {
   font-size: 14px;
 }
 .card-image {
   height: 230px;
+  margin: 0;
 }
 .card-image img {
   border-radius: 0% !important;
-  top: -10px;
+  /* top: -10px; */
+  width: 100%;
+  height: 100%;
 }
 .card-footer {
   height: 45px;
+  padding: 0;
+  width: 100%;
 }
 .card-footer-item {
   font-size: 15px;
+  padding: 0;
+  width: calc(100% / 3);
 }
 .card-footer-item i {
   padding: 0 5px;
 }
-.pagination-container {
+/* .pagination-container {
   bottom: 10px;
+} */
+.sortType {
+  position: absolute;
+  right: 0;
+  width: 26% !important;
 }
 @media screen and (max-width: 1440px) {
   .news-idea-list .all-ideas .card {
-    left: 5%;
-    width: 80%;
+    /* left: 5%; */
+    /* width: 80%; */
   }
   .card-image {
     height: 200px;
@@ -265,8 +359,8 @@ export default {
 }
 @media screen and (max-width: 1025px) {
   .news-idea-list .all-ideas .card {
-    left: -2%;
-    width: 88%;
+    /* left: -2%; */
+    /* width: 88%; */
   }
   .card-image {
     height: 160px;
@@ -274,57 +368,88 @@ export default {
 }
 @media screen and (max-width: 820px) {
   .news-idea-list .all-ideas {
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
     column-gap: 10px;
+    padding-top: 70px;
   }
   .news-idea-list .all-ideas .card {
-    left: -2%;
-    width: 88%;
+    left: 0;
+    width: 48%;
+    margin: 0 0 20px 0;
   }
   .card-image {
     height: 140px;
   }
+  .sortType {
+    width: 30% !important;
+  }
 }
 @media screen and (max-width: 769px) {
   .news-idea-list .all-ideas {
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
     column-gap: 10px;
+    padding-left: 0;
+    padding-right: 0;
   }
   .news-idea-list .all-ideas .card {
     left: 0;
     bottom: 0;
-
   }
   .card-image {
     height: 170px;
   }
   .card-content .content h3 {
-  font-size: 15px;
+    font-size: 15px;
+  }
+  .sortType {
+    width: 50% !important;
+  }
+  .create-topic {
+    font-size: 15px;
+  }
 }
+@media screen and (max-width: 680px) {
+  .news-idea-list .all-ideas .card {
+    /* left: -7%; */
+    width: 100%;
+  }
+  .create-topic {
+    display: none;
+  }
+  .bi-plus-circle {
+    display: block;
+    font-size: 30px;
+  }
+  .bi-plus-circle::before {
+    background-color: #3d5afe;
+    color: white;
+  }
 }
 @media screen and (max-width: 480px) {
   .news-idea-list .all-ideas {
-    grid-template-columns: 100%;
+    /* grid-template-columns: 100%; */
     column-gap: 0;
     height: fit-content;
     padding: 20px;
+    padding-top: 60px;
+    padding-bottom: 160px;
   }
   .news-idea-list .all-ideas .card {
-    left: -7%;
+    /* left: -7%; */
     width: 100%;
   }
   .card-image {
     height: 170px;
   }
   .card-content .content h3 {
-  font-size: 15px;
-}
-  .card-content{
+    font-size: 15px;
+  }
+  .card-content {
     margin-top: 20%;
   }
 }
 @media screen and (max-width: 412px) {
-  .card-content{
+  .card-content {
     margin-top: 40px;
   }
 }

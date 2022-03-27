@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <NewsIdeaList :choice="choice" :id="topicId" />
+    <NewsIdeaList :choice="choice" :id="topicId" :name="newsTitle" />
   </div>
 </template>
 
@@ -36,7 +36,16 @@ export default {
     this.$store.dispatch("getUser");
     try {
       this.$store.dispatch("fetchAccessToken");
-      const getTopicList = await this.$axios.post(`api/v1/Topic/GetList`, { searchName: "" }, this.$axios.defaults.headers["Authorization"]);
+      const getTopicList = await this.$axios.post(
+        `api/v1/Topic/GetList`,
+        { searchName: "" },
+        {
+          params: {
+            PageSize: 2147483647,
+            CurrentPage: this.currentPage,
+          },
+        }
+      );
       this.topicList = getTopicList.data.content;
     } catch (e) {
       console.log("error");
@@ -51,7 +60,6 @@ export default {
       this.topicId = item;
       this.choice = txt;
       this.newsTitle = name;
-      console.log(this.topicId);
     },
   },
 };
@@ -77,6 +85,11 @@ h1 {
   z-index: 1;
   font-size: 60px;
   color: white;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .news-topic-idea {
   text-align: center;
@@ -138,7 +151,7 @@ h1 {
 }
 @media screen and (max-width: 768px) {
   .news {
-     width: calc(100% - 92px);
+    width: calc(100% - 92px);
     right: -5%;
   }
   .news-topic-idea {
@@ -154,7 +167,7 @@ h1 {
 }
 @media screen and (max-width: 765px) {
   .news {
-     width: calc(100% - 224px);
+    width: calc(100% - 224px);
     border: solid;
     right: -5%;
   }
@@ -174,7 +187,7 @@ h1 {
     width: 100%;
     right: 0;
     top: 80px;
-    height: 3640px;
+    height: 360px;
   }
   h1 {
     font-size: 35px;
@@ -186,7 +199,7 @@ h1 {
     width: 100%;
     right: 0;
     top: 80px;
-    height: 3480px;
+    height: 360px;
   }
   .news-topic-idea {
     background-position-y: -20px;

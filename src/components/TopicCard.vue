@@ -162,11 +162,11 @@ a {
   text-decoration: none;
 }
 .justify-content-end {
-  justify-content: flex-end !important;
+  justify-content: space-evenly !important;
   align-items: center;
 }
 .form-search-padding {
-  padding-right: 180px;
+  /* padding-right: 180px; */
   gap: 24px;
 }
 .bi-plus-circle {
@@ -179,7 +179,7 @@ a {
 .topic-title {
   font-weight: 500;
   font-size: 30px;
-  padding-right: 40%;
+  /* padding-right: 40%; */
 }
 .table-search-box {
   position: relative;
@@ -188,7 +188,7 @@ a {
   height: 35px;
   line-height: 10px;
   font-size: 16px;
-  width: 13%;
+  width: 18%;
   color: white;
   background: #3d5afe;
   font-weight: 500;
@@ -300,10 +300,10 @@ h1 {
     height: 268px;
   }
   .topic-title {
-    padding-right: 32%;
+    /* padding-right: 32%; */
   }
   .form-search-padding {
-    padding-right: 100px;
+    /* padding-right: 100px; */
   }
 }
 @media screen and (max-width: 1280px) {
@@ -320,10 +320,10 @@ h1 {
     width: 355px;
   }
   .topic-title {
-    padding-right: 24%;
+    /* padding-right: 24%; */
   }
   .form-search-padding {
-    padding-right: 100px;
+    /* padding-right: 100px; */
   }
 }
 @media screen and (max-width: 1025px) {
@@ -342,7 +342,7 @@ h1 {
     width: 355px;
   }
   .topic-title {
-    padding-right: 20%;
+    /* padding-right: 20%; */
   }
 }
 @media screen and (max-width: 780px) {
@@ -361,11 +361,11 @@ h1 {
     height: 180px;
   }
   .topic-title {
-    padding-right: 14%;
+    /* padding-right: 14%; */
     font-size: 24px;
   }
   .form-search-padding {
-    padding-right: 50px;
+    /* padding-right: 50px; */
     gap: 10px;
   }
   .create-topic {
@@ -406,11 +406,11 @@ h1 {
     width: 100%;
   }
   .topic-title {
-    padding-right: 8%;
+    /* padding-right: 8%; */
     font-size: 24px;
   }
   .form-search-padding {
-    padding-right: 20px;
+    /* padding-right: 20px; */
     gap: 10px;
   }
   .create-topic {
@@ -438,7 +438,6 @@ h1 {
   }
 }
 @media screen and (max-width: 412px) {
- 
   .topic-title {
     padding-right: 2%;
     font-size: 22px;

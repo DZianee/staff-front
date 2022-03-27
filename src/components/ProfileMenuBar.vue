@@ -42,7 +42,9 @@ export default {
   border-right: solid #f2ebeb;
   height: fit-content;
   width: 220px;
-  margin-top: 60px;
+  margin-top: 25px;
+  /* left: 50% !important;
+  transform: translateX(-50%) !important; */
 }
 .sidebar-items {
   margin-top: 37px;
@@ -54,7 +56,7 @@ export default {
   width: 200px;
   transition: ease-in 0.3s;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .nav-item:hover {
   background: white;
@@ -128,7 +130,7 @@ export default {
     font-weight: 600;
     font-size: 16px;
     position: relative;
-    left: 30px;
+    left: 0 !important;
     padding: 0;
     color: black;
   }
