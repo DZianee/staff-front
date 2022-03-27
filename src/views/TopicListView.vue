@@ -119,6 +119,7 @@ export default {
 img {
   height: max(495px);
   width: max(660px);
+  object-fit: cover;
 }
 .other-topics {
   margin-top: 5%;
@@ -146,6 +147,8 @@ img {
 .item-img img {
   width: max(88%);
   height: max(220px);
+  object-fit: cover;
+
 }
 .item-des {
   text-align: left;

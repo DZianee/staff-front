@@ -1,18 +1,13 @@
 <template>
   <div class="nav">
     <div class="uni-logo">
-      <img class="navbar-logo-image" src="../assets/images/logo.jpg" />
+      <img class="navbar-logo-image" src="../assets/images/FGW_logo_d.jpeg" />
     </div>
     <ul class="nav-items">
       <li class="nav-item" @click="HomeRoute">
         <i class="bx bx-home bx-sm bx-fw" />
         <span>Home</span>
         <span class="tooltiptext">Home</span>
-      </li>
-      <li class="nav-item" @click="ExploreRoute">
-        <i class="bx bxs-hot bx-sm bx-fw" />
-        <span>Explore</span>
-        <span class="tooltiptext">Explore</span>
       </li>
       <li class="nav-item" @click="NewsRoute">
         <i class="bx bx-news bx-sm bx-fw" />
@@ -25,7 +20,7 @@
         <span class="tooltiptext">Topic's Store</span>
       </li>
       <!-- <li class="nav-item" @click="ManageRoute"> -->
-      <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Manager'">
+      <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Admin'">
         <i class="bx bx-briefcase bx-sm bx-fw" />
         <span>Manage</span>
         <span class="tooltiptext">Manage</span>
@@ -108,9 +103,6 @@ export default {
     },
     NewsRoute() {
       this.$router.push({ name: "newsView" });
-    },
-    ExploreRoute() {
-      this.$router.push({ name: "exploreView" });
     },
     TopicListsRoute() {
       this.$router.push({ name: "topicListsView" });
