@@ -12,8 +12,9 @@ import TopicIdeaView from "../views/TopicIdeaView.vue";
 import NewsView from "../views/NewsView.vue";
 import TopicListDetailsView from "../views/TopicListDetails.vue";
 import TopicListView from "../views/TopicListView.vue";
-import ExploreView from "../views/ExploreView.vue";
 import ideaDetailView from "../views/IdeaDetailView.vue";
+import RoleView from "../views/RoleView.vue";
+import DepartmentView from "../views/DepartmentView.vue";
 
 const router = [
   {
@@ -89,9 +90,14 @@ const router = [
     component: ideaDetailView,
   },
   {
-    path: "/explore-view/",
-    name: "exploreView",
-    component: ExploreView,
+    path: "/department-view",
+    name: "DepartmentView",
+    component: DepartmentView,
+  },
+  {
+    path: "/role-view",
+    name: "RoleView",
+    component: RoleView,
   },
 ];
 

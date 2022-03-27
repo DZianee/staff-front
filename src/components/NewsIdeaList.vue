@@ -200,6 +200,7 @@ export default {
   height: auto;
   margin: 40px 22px;
   bottom: 5%;
+  text-align: unset;
 }
 .card .card-image:hover {
   cursor: pointer;

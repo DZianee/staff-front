@@ -35,7 +35,7 @@
         <img src="../assets/pic/Plus.png" />
       </li> -->
       <!-- <router-link to="/"> -->
-      <li class="nav-item">
+      <li class="nav-item" v-if="userStored.roleName == 'Manager'">
         <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
         <span>Statistic</span>
         <span class="tooltiptext">Statistic</span>

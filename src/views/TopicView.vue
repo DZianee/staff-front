@@ -18,9 +18,8 @@ export default {
 <style scoped>
 .topic {
   position: relative;
-  left: 270px;
-  top: 40px;
-  width: calc(100% - 270px);
+  left: 240px;
+  width: calc(100% - 240px);
 }
 @media (min-width: 481px) and (max-width: 1025px) {
   .topic {
@@ -33,7 +32,7 @@ export default {
   .topic {
     position: relative;
     left: 0px;
-    top: 100px;
+    top: 78px;
     width: 100%;
   }
 }

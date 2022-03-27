@@ -21,7 +21,7 @@
             <i class="bx bx-library bx-sm bx-fw" />
             Topic's Store
           </li>
-          <li @click="showManagement">
+          <li v-if="userStored.roleName == 'Manager'" @click="showManagement">
             <i class="bx bx-briefcase bx-sm bx-fw" />
             Management
           </li>
@@ -89,6 +89,11 @@ export default {
       isHiddenNav: true,
       isHiddenUser: true,
     };
+  },
+  computed: {
+    userStored() {
+      return JSON.parse(this.$store.state.user);
+    },
   },
   async created() {
     this.$store.dispatch("getUser");

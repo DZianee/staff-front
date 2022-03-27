@@ -5,53 +5,65 @@
       <div class="container-content">
         <div class="container-content-top">
           <div class="container-content-info">
-            <img :src="`http://${idea.creatorAvatar}`" alt="user-Img" />
+            <img :src="`https://${idea.creatorAvatar}`" alt="user-Img" />
             <div class="container-content-subInfo">
               <span>{{ idea.creator }}</span> <i class="bi bi-caret-right-fill"></i>
               <span>{{ idea.topicName }}</span>
               <p>{{ idea.startDate }}</p>
             </div>
           </div>
-          <i class="bi bi-three-dots-vertical container-content-info_icon-modify" @click="openDropdown()">
+          <i v-if="userStored.roleName == 'Manager'" class="bi bi-three-dots-vertical container-content-info_icon-modify" @click="openDropdown()">
             <ul class="idea-adjustment-items" v-if="DropDown">
               <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black" @click="ModifyIdea()">Modify</li> -->
-              <li class="idea-adjustment-item" @click="DeleteIdea()">Delete</li>
+              <!-- <li class="idea-adjustment-item" @click="DeleteIdea()">Delete</li> -->
+              <!-- <li class="idea-adjustment-item" @click="IdeaModalAct()">Delete</li> -->
+              <li class="idea-adjustment-item" @click="Delete">Delete</li>
             </ul>
           </i>
         </div>
         <div class="container-content-body">
           <div class="container-content-body_content" v-html="idea.title" contenteditable="false"></div>
           <div class="container-content-body_content" v-html="idea.description" contenteditable="false"></div>
+
           <div
             class="container-content-body_img"
-            v-if="idea.image != null && idea.image != []"
+            v-if="idea.image != null && idea.image.length > 0"
             :style="images.length <= 3 ? { height: '420px' } : ''">
-            <ul class="container-content-body_imgGrid1" v-if="images.length == 1">
+            <ul class="container-content-body_imgGrid1" v-if="images.length == 1 && images != null">
               <li class="container-content-body_img1" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img :src="`http://${image}`" alt="user-Img" />
+                <img :src="`https://${image}`" alt="user-Img" />
               </li>
             </ul>
-            <ul class="container-content-body_imgGrid2" v-if="images.length == 2">
+            <ul class="container-content-body_imgGrid2" v-if="images.length == 2 && images != null">
               <li class="container-content-body_img2" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img :src="`http://${image}`" alt="user-Img" />
+                <img :src="`https://${image}`" alt="user-Img" />
               </li>
             </ul>
-            <ul class="container-content-body_imgGrid3" v-if="images.length == 3">
+            <ul class="container-content-body_imgGrid3" v-if="images.length == 3 && images != null">
               <li class="container-content-body_img3" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img :src="`http://${image}`" alt="user-Img" />
+                <img :src="`https://${image}`" alt="user-Img" />
               </li>
             </ul>
-            <ul class="container-content-body_imgGrid4" v-if="images.length == 4">
+            <ul class="container-content-body_imgGrid4" v-if="images.length == 4 && images != null">
               <li class="container-content-body_img4" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img :src="`http://${image}`" alt="user-Img" />
+                <img :src="`https://${image}`" alt="user-Img" />
               </li>
             </ul>
-            <ul class="container-content-body_imgGrid5" v-if="images.length >= 5">
+            <ul class="container-content-body_imgGrid5" v-if="images.length >= 5 && images != null">
               <li class="container-content-body_img5" v-for="(image, index) in images" :key="image" @click="modalAct(index)">
-                <img v-if="index < 5" :src="`http://${image}`" alt="user-Img" />
+                <img v-if="index < 5" :src="`https://${image}`" alt="user-Img" />
                 <span v-if="index == 4">+{{ images.length - 5 }}</span>
               </li>
             </ul>
+          </div>
+
+          <div class="previewFilesContainer" v-if="files != null && files.length > 0">
+            <span class="previewItem" v-for="file in files" :key="file">
+              <span @click="openpdf(file)">
+                <i class="bi bi-file-earmark-pdf"></i>
+                <p>File name super aquesum</p>
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -85,7 +97,7 @@
         <div class="container-comment-body">
           <ul v-for="comment in idea.comments" :key="comment.id">
             <li style="margin-bottom: 16px">
-              <img :src="`http://${comment.userAvatar}`" alt="user-Img" />
+              <img :src="`https://${comment.userAvatar}`" alt="user-Img" />
               <div>
                 <div class="container-comment-detail" contenteditable="false">
                   <span>
@@ -122,15 +134,12 @@
           </span>
         </div>
         <div class="container-comment-footer">
+          <i class="bi bi-send" @click.once="submitComment()" :key="buttonKey"></i>
           <div class="footer-checkbox">
             <input type="checkbox" name="Anonymous" v-model="commentInput.isAnonymous" />
             <label for="Anonymous"> Anonymous </label>
           </div>
-          <textarea
-            placeholder="Write your comment"
-            v-model="commentInput.text"
-            @input="resize($event)"
-            @keypress.enter="submitCommentModal($event)"></textarea>
+          <textarea placeholder="Write your comment" v-model="commentInput.text" @input="resize($event)"></textarea>
         </div>
       </div>
     </div>
@@ -148,22 +157,27 @@
     <p>You want to post comment <strong>overtly</strong> or <strong>anonymously</strong></p>
     <br />
   </component> -->
-  <Image-light-box v-if="modalActive" :modalActive="modalActive" :imagesIndex="imageRef" :images="images" @close="modalAct(-1)" />
+  <Image-light-box v-if="modalActive" :imageUrl="true" :modalActive="modalActive" :imagesIndex="imageRef" :images="images" @close="modalAct(-1)" />
+  <IdeaCreate @closeIdea="IdeaModalAct()" :IdeaModalActive="IdeaModalActive" />
 </template>
 
 <script>
 import ImageLightBox from "../components/ImageLightBox.vue";
 import { ref } from "vue";
 
+import IdeaCreate from "../components/IdeaModalForm.vue";
+
 export default {
   name: "TopicView",
   components: {
     ImageLightBox,
+    IdeaCreate,
   },
   data() {
     return {
       idea: {},
       images: [],
+      files: [],
       comment: [],
       reaction: [],
 
@@ -171,6 +185,8 @@ export default {
         theme: "bubble",
         disableEdit: true,
       },
+
+      buttonKey: 1,
 
       DropDown: false,
 
@@ -184,18 +200,19 @@ export default {
   setup() {
     const modalActive = ref(false);
     const imageRef = ref(0);
-    const isOpenModal = ref(false);
 
     const modalAct = (imageindex) => {
       modalActive.value = !modalActive.value;
       imageRef.value = imageindex;
     };
 
-    const opencloseModal = () => {
-      isOpenModal.value = !isOpenModal.value;
+    const IdeaModalActive = ref(false);
+
+    const IdeaModalAct = () => {
+      IdeaModalActive.value = !IdeaModalActive.value;
     };
 
-    return { modalActive, imageRef, isOpenModal, modalAct, opencloseModal };
+    return { modalActive, imageRef, IdeaModalActive, modalAct, IdeaModalAct };
   },
   computed: {
     ReplyCommentContent() {
@@ -204,6 +221,9 @@ export default {
         content = this.commentInput.ReplyComment.comment.replaceAll("<br />", " ");
       }
       return content;
+    },
+    userStored() {
+      return JSON.parse(this.$store.state.user);
     },
   },
   methods: {
@@ -214,6 +234,10 @@ export default {
       if (event.target.className != "bi bi-three-dots-vertical container-content-info_icon-modify") {
         this.DropDown = false;
       }
+    },
+    openpdf(value) {
+      var url = `https://${value}`;
+      window.open(url);
     },
     // selectedOption() {
     //   var x;
@@ -264,48 +288,44 @@ export default {
     Reply(value) {
       this.commentInput.ReplyComment = value;
     },
-    submitCommentModal(evt) {
-      if (evt.keyCode == 13 && !evt.shiftKey && this.commentInput.text.trim() != "") {
-        // this.opencloseModal();
-        this.submitComment();
-      }
-    },
     async submitComment() {
       try {
-        const user = JSON.parse(this.$store.state.user);
-        var context = this.commentInput.text.trim();
-        do {
-          context = context.replaceAll("\n\n", "\n");
-        } while (context.includes("\n\n"));
-        var string = context.replaceAll("\n", "<br />");
-        let data;
-        if (this.commentInput.ReplyComment) {
-          data = {
-            userId: user.id,
-            comment: string,
-            parentId: this.commentInput.ReplyComment.id,
-            isAnonymous: this.commentInput.isAnonymous,
-          };
-        } else {
-          data = {
-            userId: user.id,
-            comment: string,
-            parentId: null,
-            isAnonymous: this.commentInput.isAnonymous,
-          };
+        if (this.commentInput.text.trim() != "") {
+          const user = JSON.parse(this.$store.state.user);
+          var context = this.commentInput.text.trim();
+          do {
+            context = context.replaceAll("\n\n", "\n");
+          } while (context.includes("\n\n"));
+          var string = context.replaceAll("\n", "<br />");
+          let data;
+          if (this.commentInput.ReplyComment) {
+            data = {
+              userId: user.id,
+              comment: string,
+              parentId: this.commentInput.ReplyComment.id,
+              isAnonymous: this.commentInput.isAnonymous,
+            };
+          } else {
+            data = {
+              userId: user.id,
+              comment: string,
+              parentId: null,
+              isAnonymous: this.commentInput.isAnonymous,
+            };
+          }
+          const res = await this.$axios.post(`api/v1/Idea/${this.$route.params.id}/comment`, data);
+          if (res.status == 200) {
+            this.getIdeaDetails();
+            const textareaTag = document.getElementsByTagName("textarea");
+            textareaTag[0].style.height = "auto";
+            this.commentInput = {
+              text: "",
+              ReplyComment: null,
+              isAnonymous: false,
+            };
+            this.buttonKey++;
+          }
         }
-        console.log(data);
-        // const res = await this.$axios.post(`api/v1/Idea/${this.$route.params.id}/comment`, data);
-        // if (res.status == 200) {
-        //   this.getIdeaDetails();
-        //   const textareaTag = document.getElementsByTagName("textarea");
-        //   textareaTag[0].style.height = "auto";
-        //   this.commentInput = {
-        //     text: "",
-        //     ReplyComment: null,
-        //     isAnonymous: false,
-        //   };
-        // }
       } catch {
         console.log("error");
       }
@@ -336,6 +356,16 @@ export default {
         //
       }
     },
+    async Delete() {
+      try {
+        const res = await this.$axios.delete(`api/v1/Idea/${this.$route.params.id}`);
+        if (res.status == 200) {
+          this.$router.push({ name: "topicView" });
+        }
+      } catch {
+        //
+      }
+    },
     async getIdeaDetails() {
       try {
         const res = await this.$axios.get(`api/v1/Idea/${this.$route.params.id}`);
@@ -345,6 +375,7 @@ export default {
           this.comment = this.idea.comments;
           this.reaction = this.idea.reactions;
           this.images = this.idea.image;
+          this.files = this.idea.document;
         }
       } catch {
         //
@@ -462,7 +493,7 @@ export default {
   cursor: pointer;
 }
 .container-content-body_img img {
-  object-fit: cover;
+  object-fit: contain;
   image-rendering: -webkit-optimize-contrast;
   height: 100%;
   width: 100%;
@@ -633,7 +664,7 @@ export default {
 }
 .container-comment-body {
   margin-top: 20px;
-  height: 500px;
+  max-height: 400px;
   overflow-y: auto;
 }
 .container-comment-body ul {
@@ -698,6 +729,7 @@ export default {
 .container-comment-footer {
   background-color: rgb(240, 242, 245);
   border-radius: 16px;
+  position: relative;
 }
 textarea {
   width: 100%;
@@ -715,6 +747,22 @@ textarea {
   padding: 0 12px;
   border-radius: 8px;
 }
+.bi-send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 8px;
+  right: 21px;
+  font-size: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.bi-send:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
 .footer-reply i {
   position: absolute;
   right: 10%;
@@ -726,11 +774,54 @@ textarea {
   align-items: center;
   gap: 10px;
   position: absolute;
-  bottom: 10px;
-  right: 12px;
+  bottom: 0;
+  right: -10px;
 }
 .invisible {
   visibility: unset !important;
+}
+.previewFilesContainer {
+  display: flex;
+  gap: 8px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 1px solid black; */
+  padding: 12px;
+  border-radius: 16px;
+  overflow-x: auto;
+}
+.previewFilesContainer .previewItem {
+  position: relative;
+  min-width: 100px;
+  min-height: 85px;
+  max-width: 130px;
+  max-height: 70px;
+  text-align: center;
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+.previewItem i {
+  font-size: 26px;
+}
+.previewItem > span {
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 8px;
+}
+.previewItem > span:hover {
+  background-color: antiquewhite;
+  border-radius: 16px;
+}
+.previewItem > span > p {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
 }
 @media (min-width: 481px) and (max-width: 1025px) {
   .ideaDetail {
