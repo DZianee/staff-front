@@ -14,23 +14,23 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>FirstName</label>
-                <input type="text" class="form-control" placeholder="FirstName" v-model="User.firstname" />
+                <input type="text" class="form-control" placeholder="FirstName" v-model="User.firstname" required />
               </div>
               <div class="form-group col-md-6">
                 <label>LastName</label>
-                <input type="text" class="form-control" placeholder="LastName" v-model="User.lastname" />
+                <input type="text" class="form-control" placeholder="LastName" v-model="User.lastname" required />
               </div>
             </div>
             <div class="form-row">
               <div class="form-oneInput">
                 <label>Username</label>
-                <input type="email" class="form-control" placeholder="Username" v-model="User.username" />
+                <input type="email" class="form-control" placeholder="Username" v-model="User.username" required />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Gender</label>
-                <select class="form-control" v-model="User.gender">
+                <select class="form-control" v-model="User.gender" required>
                   <option value="0" :selected="User.gender == 0">Male</option>
                   <option value="1" :selected="User.gender == 1">Female</option>
                   <option value="2" :selected="User.gender == 2">Other</option>
@@ -38,19 +38,20 @@
               </div>
               <div class="form-group col-md-6">
                 <label>Date of Birth</label>
-                <input type="date" class="form-control" placeholder="Date of Birth" v-model="User.dob" />
+                <input type="date" class="form-control" placeholder="Date of Birth" v-model="User.dob" required />
               </div>
             </div>
             <div class="form-row">
               <div class="form-oneInput">
                 <label>Address</label>
-                <input type="text" class="form-control" placeholder="Address" v-model="User.address" />
+                <input type="text" class="form-control" placeholder="Address" v-model="User.address" required />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Department</label>
-                <select v-model="User.departmentId" class="form-control">
+                <select v-model="User.departmentId" class="form-control" required>
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   <option v-for="department in Departments" :key="department.id" :value="department.id">
                     {{ department.name }}
                   </option>
@@ -58,10 +59,26 @@
               </div>
               <div class="form-group col-md-6">
                 <label>Phone</label>
-                <input type="text" maxlength="10" @keypress="isNumber($event)" class="form-control" placeholder="Phone" v-model="User.phone" />
+                <input
+                  type="text"
+                  maxlength="10"
+                  @keypress="isNumber($event)"
+                  class="form-control"
+                  placeholder="Phone"
+                  v-model="User.phone"
+                  required />
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%" @click="openModal">Create</button>
+            <p v-if="ErrorMessage" style="color: red">You must fill all the fields</p>
+            <button
+              :disabled="ErrorMessage"
+              :class="ErrorMessage ? 'disable' : ''"
+              type="submit"
+              class="btn btn-primary"
+              style="margin-top: 10px; width: 100%"
+              @click="openModal">
+              Create
+            </button>
           </form>
         </div>
       </div>
@@ -96,6 +113,7 @@ export default {
         gender: 0,
         departmentId: "",
       },
+      ErrorMessage: true,
       isOpenModal: false,
     };
   },
@@ -109,6 +127,26 @@ export default {
       emit("closeCreate");
     };
     return { closeCreate };
+  },
+  watch: {
+    User: {
+      handler(newvalue) {
+        if (
+          newvalue.username &&
+          newvalue.phone.length == 10 &&
+          newvalue.address &&
+          newvalue.firstname &&
+          newvalue.lastname &&
+          newvalue.dob &&
+          newvalue.departmentId
+        ) {
+          this.ErrorMessage = false;
+        } else {
+          this.ErrorMessage = true;
+        }
+      },
+      deep: true,
+    },
   },
   methods: {
     isNumber(evt) {
@@ -171,7 +209,9 @@ export default {
 .form-oneInput {
   width: 96%;
 }
-
+.disable {
+  opacity: 0.3;
+}
 @media (max-width: 740px) {
   .UserCreate-Modal-header {
     height: 20px;

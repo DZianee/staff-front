@@ -87,11 +87,11 @@ h1 {
   background: #b2ff59;
 }
 .card {
-  width: 30%;
+  width: 40%;
   transition: ease 0.5s;
   box-shadow: none;
   padding: 10px;
-  height: 150px;
+  height: 180px;
 }
 .card:hover {
   cursor: pointer;

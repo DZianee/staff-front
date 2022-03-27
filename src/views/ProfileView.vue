@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-view body-content container">
+  <div class="profile-view body-content container" v-if="userProfile && ideaUser">
     <!-- <div><ProfileContainer :userInfo="userProfile" /></div> -->
     <ProfileMenuBar @open-option="openProfile" @open-options="openIdea" />
     <ProfileOverview :user="userProfile" />
@@ -7,7 +7,7 @@
       <ProfileInfo :userDetails="userProfile" />
     </div>
     <div v-else-if="choice === 'idea'">
-      <UserIdeas :userIdea="ideaUser"/>
+      <UserIdeas :userIdea="ideaUser" />
     </div>
     <div v-else>
       <ProfileInfo :userDetails="userProfile" />
@@ -45,7 +45,6 @@ export default {
     this.$store.dispatch("fetchAccessToken");
     this.$axios.get(`api/v1/User/${this.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.userProfile = res.data.content;
-      console.log(this.userProfile);
     });
     this.$axios
       .post(
@@ -55,7 +54,6 @@ export default {
       )
       .then((res) => {
         this.ideaUser = res.data.content;
-        console.log(this.ideaUser);
       });
   },
   methods: {

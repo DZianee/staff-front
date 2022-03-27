@@ -80,11 +80,14 @@
   <div class="container">
     <h1 class="container-title">Ideas Management</h1>
     <div class="content">
-      <div class="table-toolbar d-flex justify-content-end">
+      <div class="table-toolbar d-flex justify-content-end" style="gap: 18px">
         <div class="table-search-box">
           <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="ideaSearchForm.searchTitle" />
           <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
         </div>
+        <button :class="topic.status != 2 ? 'disable' : ''" :disabled="topic.status != 2" class="downloadIdea" @click="download()">
+          Ideas <i class="bi bi-download"></i>
+        </button>
       </div>
       <table class="table table-striped table-bordered">
         <thead>
@@ -111,14 +114,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="idea in ideas" :key="idea.id">
-            <th scope="row">{{ idea.title }}</th>
-            <td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 150px">{{ idea.creator }}</td>
-            <td>{{ idea.startDate }}</td>
+          <tr class="idearow" v-for="idea in ideas" :key="idea.id">
+            <th scope="row" @click="ideaDetail(idea.id)">{{ idea.title }}</th>
+            <td @click="ideaDetail(idea.id)">{{ idea.creator }}</td>
+            <td @click="ideaDetail(idea.id)">{{ idea.startDate }}</td>
             <td class="idea-adjustment" style="width: 10%">
               <i class="bi bi-gear idea-adjustment-icon" @click="openDropdown(idea.id)" v-if="ideaId != idea.id"> </i>
               <ul class="idea-adjustment-items" v-if="ideaId == idea.id">
-                <li class="idea-adjustment-item" style="border-bottom: 2px solid black" @click="ideaDetail(idea.id)">Detail</li>
+                <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black" @click="ideaDetail(idea.id)">Detail</li> -->
                 <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black">Modify</li> -->
                 <li class="idea-adjustment-item" @click="onDelete(idea.id)">Delete</li>
               </ul>
@@ -235,9 +238,9 @@ export default {
     },
   },
   methods: {
-
     TopicRoute() {
-      this.$router.push({ name: "topicView" })},
+      this.$router.push({ name: "topicView" });
+    },
     // imageSelected(event) {
     //   console.log(event);
     //   this.topicImage = event.target.files[0];
@@ -491,6 +494,9 @@ export default {
 };
 </script>
 <style scoped>
+.disable {
+  opacity: 0.3;
+}
 .breadcrumb-item:hover {
   font-weight: 500;
   cursor: pointer;
@@ -566,6 +572,22 @@ export default {
   font-weight: bold !important;
 }
 
+.downloadIdea {
+  height: 35px;
+  line-height: 10px;
+  font-size: 16px;
+  width: 18%;
+  color: white;
+  background: #3d5afe;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 0.25rem;
+}
+.downloadIdea:hover {
+  background: #1976d2;
+}
+
 .content table td,
 .content table th {
   vertical-align: middle;
@@ -588,6 +610,18 @@ thead tr th:nth-child(4) {
   width: 10%;
 }
 
+.idearow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  cursor: pointer;
+}
+
+.idearow:hover {
+  background-color: aqua;
+}
+
 .idea-adjustment {
   font-size: 22px;
   cursor: pointer;
@@ -604,8 +638,8 @@ thead tr th:nth-child(4) {
 
 .idea-adjustment-items {
   list-style-type: none;
-  min-width: 120px;
-  height: 90px;
+  min-width: 100px;
+  height: 45px;
   /* top: 4%;
   left: 0%; */
   /* position: absolute; */

@@ -59,7 +59,7 @@
       </li>
       <li class="user-shortcut" @click="ProfileRoute">
         <div class="user">
-          <img class="avatar" src=" https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg" alt="user avatar" />
+          <img class="avatar" :src="`https://${user.profileImage}`" alt="user avatar" />
           <div class="user-avatar-info">
             <span class="user-fullname"> {{ user.firstname }} {{ user.lastname }}</span>
             <span class="user-email">{{ user.username }}</span>
@@ -152,6 +152,18 @@ export default {
 </script>
 
 <style scoped>
+.user {
+  justify-content: space-between;
+}
+.user-avatar-info {
+  margin: 0;
+}
+@media screen and (max-width: 1025px) {
+  .user {
+    justify-content: center;
+    padding: 0;
+  }
+}
 /* .bagText {
   display: none;
 }

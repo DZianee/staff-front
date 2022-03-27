@@ -1,7 +1,7 @@
 <template>
   <div class="profile-account-details container">
     <div class="card">
-      <h4 class="card-header">Account Information</h4>
+      <h4 class="card-header" style="width: 100%; left: 50%; transform: translateX(-50%)">Account Information</h4>
       <div class="card-body">
         <h5 class="card-title"></h5>
         <div class="user-account">
@@ -10,8 +10,8 @@
             <input type="text" :value="accountInfo.username" disabled />
           </div>
           <div class="password">
-            <div class="btn" data-bs-toggle="modal" @click="openModal">
-              <ul>
+            <div class="btn" style="left: 0" @click="openModal">
+              <ul style="padding-left: 0">
                 <li><i class="bx-fw bx bx-lock bx-sm bx-tada-hover" /></li>
                 <li>Change password</li>
               </ul>
@@ -168,7 +168,7 @@ input {
 .btn {
   background: #ffccbc;
   width: 80%;
-  height: 44px;
+  height: fit-content;
   color: #263238;
   font-size: 17px;
   font-weight: bold;
@@ -196,9 +196,11 @@ input {
 .btn ul {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .btn ul li {
-  padding: 3px 10px 0 0;
+  /* padding: 3px 10px 0 0; */
+  padding: 0 !important;
 }
 .btn:hover {
   color: white;
@@ -279,5 +281,15 @@ modal
 }
 .error-label {
   font-size: 15px;
+}
+.username {
+  align-items: center;
+  justify-content: center;
+}
+.username label,
+.username input {
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 </style>
