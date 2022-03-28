@@ -17,11 +17,15 @@
             <i class="bx bx-news bx-sm bx-fw" />
             News
           </li>
+          <li @click="showTopicLists">
+            <i class="bx bx-library bx-sm bx-fw" />
+            Topic's Store
+          </li>
           <li v-if="userStored.roleName == 'Manager'" @click="showManagement">
             <i class="bx bx-briefcase bx-sm bx-fw" />
             Management
           </li>
-          <li @click="$router.push({ path: 'report' })">
+          <li v-if="userStored.roleName == 'Manager'" @click="$router.push({ path: 'report' })">     
             <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
             Statistic
           </li>
@@ -146,6 +150,9 @@ export default {
     showNews() {
       this.$router.push({ name: "newsView" });
     },
+    showTopicLists() {
+      this.$router.push({ name: "topicListsView" });
+    },
     showManagement() {
       this.$router.push({ name: "manageView" });
     },
@@ -194,7 +201,7 @@ export default {
   left: 0;
   background: white;
   width: 220px;
-  height: 340px;
+  height: fit-content;
   border: solid grey;
 }
 .menu-bar ul li {
@@ -320,7 +327,7 @@ export default {
   }
   .menu-bar ul {
     width: 200px;
-    height: 310px;
+    /* height: 370px; */
     top: 66px;
   }
   .menu-bar ul li {
@@ -344,7 +351,7 @@ export default {
   }
   .menu-bar ul {
     width: 150px;
-    height: 260px;
+    /* height: 310px; */
     top: 65px;
   }
   .menu-bar ul li {
