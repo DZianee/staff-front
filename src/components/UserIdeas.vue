@@ -1,5 +1,5 @@
 <template>
-  <div class="user-ideas">
+  <div id="DragScroll" class="user-ideas">
     <div v-if="userIdea == ''" style="text-align: center; margin-top: 20px; color: gray">You haven't got any idea yet</div>
     <div v-else>
       <div class="card" v-for="idea in userIdea" :key="idea.id">
@@ -17,15 +17,15 @@
         <div class="card-footer">
           <div class="reaction">
             <div class="react-like">
-              0
+              {{ idea.totalLikes }}
               <i class="bx bx-like bx-fw" />
             </div>
             <div class="react-dislike">
-              0
+              {{ idea.totalDislikes }}
               <i class="bx bx-dislike bx-fw" />
             </div>
           </div>
-          <div class="comment">0 comments</div>
+          <div class="comment">{{ idea.totalComments }} comments</div>
         </div>
       </div>
     </div>
@@ -38,10 +38,54 @@ export default {
   props: {
     userIdea: Array,
   },
+  mounted() {
+    const ele = document.getElementById("DragScroll");
+    // ele.scrollTop = 100;
+    // ele.scrollLeft = 150;
+    let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+    const mouseDownHandler = function (e) {
+      ele.style.cursor = "grabbing";
+      ele.style.userSelect = "none";
+      pos = {
+        // The current scroll
+        left: ele.scrollLeft,
+        top: ele.scrollTop,
+        // Get the current mouse position
+        x: e.clientX,
+        y: e.clientY,
+      };
+
+      document.addEventListener("mousemove", mouseMoveHandler);
+      document.addEventListener("mouseup", mouseUpHandler);
+    };
+    const mouseMoveHandler = function (e) {
+      // How far the mouse has been moved
+      const dx = e.clientX - pos.x;
+      const dy = e.clientY - pos.y;
+
+      // Scroll the element
+      ele.scrollTop = pos.top - dy;
+      ele.scrollLeft = pos.left - dx;
+    };
+    const mouseUpHandler = function () {
+      document.removeEventListener("mousemove", mouseMoveHandler);
+      document.removeEventListener("mouseup", mouseUpHandler);
+
+      ele.style.cursor = "grab";
+      ele.style.removeProperty("user-select");
+    };
+    ele.addEventListener("mousedown", mouseDownHandler);
+  },
 };
 </script>
 
 <style scoped>
+#DragScroll {
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  /* scroll-snap-type: x mandatory; */
+}
 .user-ideas {
   border-top: solid lightgrey;
   margin-top: 55px;
@@ -180,7 +224,7 @@ h1 {
     font-size: 28px;
     font-weight: 600;
   }
-   .topic-type-create-time .topic-type{
+  .topic-type-create-time .topic-type {
     padding: 0 0;
   }
   .content-title {

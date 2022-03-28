@@ -25,7 +25,7 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Gender</label>
-                <select class="form-control" v-model="User.gender">
+                <select class="form-control" v-model="User.gender" required>
                   <option value="0" :selected="User.gender == 0">Male</option>
                   <option value="1" :selected="User.gender == 1">Female</option>
                   <option value="2" :selected="User.gender == 2">Other</option>
@@ -33,13 +33,14 @@
               </div>
               <div class="form-group col-md-6">
                 <label>Date of Birth</label>
-                <input type="date" class="form-control" placeholder="Date of Birth" v-model="User.dob" />
+                <input type="date" class="form-control" placeholder="Date of Birth" v-model="User.dob" required />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Department</label>
-                <select v-model="User.departmentId" class="form-control">
+                <select v-model="User.departmentId" class="form-control" required>
+                  <option value="" disabled selected hidden>Please Choose...</option>
                   <option v-for="department in Departments" :key="department.id" :value="department.id">
                     {{ department.name }}
                   </option>
@@ -47,7 +48,14 @@
               </div>
               <div class="form-group col-md-6">
                 <label>Phone</label>
-                <input type="text" maxlength="10" @keypress="isNumber($event)" class="form-control" placeholder="Phone" v-model="User.phone" />
+                <input
+                  type="text"
+                  maxlength="10"
+                  @keypress="isNumber($event)"
+                  class="form-control"
+                  placeholder="Phone"
+                  v-model="User.phone"
+                  required />
               </div>
             </div>
             <div class="form-row length">
@@ -98,6 +106,7 @@ export default {
         gender: 0,
         departmentId: "",
       },
+      ErrorMessage: true,
       isOpenModal: false,
     };
   },
@@ -111,6 +120,26 @@ export default {
       emit("closeCreate");
     };
     return { closeCreate };
+  },
+  watch: {
+    User: {
+      handler(newvalue) {
+        if (
+          newvalue.username &&
+          newvalue.phone.length == 10 &&
+          newvalue.address &&
+          newvalue.firstname &&
+          newvalue.lastname &&
+          newvalue.dob &&
+          newvalue.departmentId
+        ) {
+          this.ErrorMessage = false;
+        } else {
+          this.ErrorMessage = true;
+        }
+      },
+      deep: true,
+    },
   },
   methods: {
     isNumber(evt) {
@@ -182,6 +211,9 @@ button.btn.btn-primary {
 }
 .length {
   width: 100%;
+}
+.disable {
+  opacity: 0.3;
 }
 @media (max-width: 740px) {
   .UserCreate-Modal-header {

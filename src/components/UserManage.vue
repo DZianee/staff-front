@@ -42,7 +42,7 @@
       <div v-for="user in Users" :key="user.id">
         <div class="card">
           <div class="card-image">
-            <img src="https://bachkhoawiki.com/wp-content/uploads/2021/08/dark-meme-la-gi-tot-hay-xau-su-dung-sao-cho-dung-3.jpg" alt="User image" />
+            <img :src="`https:${user.profileImage}`" alt="User image" />
           </div>
           <div class="card-content" style="padding: 0">
             <div class="content">
@@ -357,6 +357,7 @@ h1 {
   width: 80px;
   height: 80px;
   border-radius: 50% !important;
+  object-fit: cover;
 }
 .card-footerchange {
   background-color: white !important;

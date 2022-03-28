@@ -36,11 +36,7 @@
         </ul>
       </div>
       <div class="user-avatar">
-        <img
-          class="avatar"
-          src=" https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg"
-          alt="user avatar"
-          @click="isHiddenUser = !isHiddenUser" />
+        <img class="avatar" :src="`https://${user.profileImage}`" alt="user avatar" @click="isHiddenUser = !isHiddenUser" />
         <div class="user-avatar-info" v-if="!isHiddenUser">
           <ul>
             <span class="user-email">{{ user.username }}</span>
@@ -60,7 +56,7 @@
 
     <HomeOpenTitle />
     <HomeAnnounceTopic />
-    <HomeMostIdea :topicList="topicList" />
+    <HomeMostIdea />
     <HomeTopicCounter :totalIdea="totalIdea" :totalTopic="totalTopic" />
   </div>
 </template>
@@ -97,15 +93,35 @@ export default {
   },
   async created() {
     this.$store.dispatch("getUser");
-    const data = JSON.parse(this.$store.state.user);
-    this.user = data;
+    try {
+      const data = JSON.parse(this.$store.state.user);
+      this.$axios.get(`api/v1/User/${data.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
+        this.user = res.data.content;
+      });
+    } catch {
+      //
+    }
     try {
       this.$store.dispatch("fetchAccessToken");
-      const getTopicList = await this.$axios.post(`api/v1/Topic/GetList`, { searchName: "" }, this.$axios.defaults.headers["Authorization"]);
+      const getTopicList = await this.$axios.post(
+        `api/v1/Topic/GetList`,
+        { searchName: "" },
+        {
+          params: {
+            PageSize: 2147483647,
+            CurrentPage: this.currentPage,
+          },
+        }
+      );
       const getIdeaList = await this.$axios.post(
         `api/v1/Idea/getList`,
-        { searchTitle: "", sortTitle: "", sortCreatedDate: "", sortUserName: "" },
-        this.$axios.defaults.headers["Authorization"]
+        { searchTitle: "" },
+        {
+          params: {
+            PageSize: 2147483647,
+            CurrentPage: this.currentPage,
+          },
+        }
       );
       this.topicList = getTopicList.data.content;
       this.totalTopic = this.topicList.length;

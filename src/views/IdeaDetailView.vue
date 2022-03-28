@@ -139,7 +139,12 @@
             <input type="checkbox" name="Anonymous" v-model="commentInput.isAnonymous" />
             <label for="Anonymous"> Anonymous </label>
           </div>
-          <textarea placeholder="Write your comment" v-model="commentInput.text" @input="resize($event)"></textarea>
+          <textarea
+            :disabled="idea.status == 1"
+            :class="idea.status == 1 ? 'disable' : ''"
+            placeholder="Write your comment"
+            v-model="commentInput.text"
+            @input="resize($event)"></textarea>
         </div>
       </div>
     </div>
@@ -158,20 +163,16 @@
     <br />
   </component> -->
   <Image-light-box v-if="modalActive" :imageUrl="true" :modalActive="modalActive" :imagesIndex="imageRef" :images="images" @close="modalAct(-1)" />
-  <IdeaCreate @closeIdea="IdeaModalAct()" :IdeaModalActive="IdeaModalActive" />
 </template>
 
 <script>
 import ImageLightBox from "../components/ImageLightBox.vue";
 import { ref } from "vue";
 
-import IdeaCreate from "../components/IdeaModalForm.vue";
-
 export default {
   name: "TopicView",
   components: {
     ImageLightBox,
-    IdeaCreate,
   },
   data() {
     return {
@@ -206,13 +207,7 @@ export default {
       imageRef.value = imageindex;
     };
 
-    const IdeaModalActive = ref(false);
-
-    const IdeaModalAct = () => {
-      IdeaModalActive.value = !IdeaModalActive.value;
-    };
-
-    return { modalActive, imageRef, IdeaModalActive, modalAct, IdeaModalAct };
+    return { modalActive, imageRef, modalAct };
   },
   computed: {
     ReplyCommentContent() {
@@ -360,7 +355,7 @@ export default {
       try {
         const res = await this.$axios.delete(`api/v1/Idea/${this.$route.params.id}`);
         if (res.status == 200) {
-          this.$router.push({ name: "topicView" });
+          this.$router.go(-1);
         }
       } catch {
         //
@@ -430,6 +425,9 @@ export default {
 </script>
 
 <style scoped>
+.disable {
+  opacity: 0.3;
+}
 .container {
   overflow: unset;
   border: 1px solid black;
