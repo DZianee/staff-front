@@ -18,6 +18,7 @@ export default {
 <style scoped>
 .topic {
   position: relative;
+  top: 20px;
   left: 240px;
   width: calc(100% - 240px);
 }
