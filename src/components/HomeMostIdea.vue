@@ -1,10 +1,10 @@
 <template>
-  <div class="most-idea_react">
+  <div class="most-idea_react" v-if="ideaList.length > 0">
     <img class="img-trophy-1" src="../assets/images/trophy.png" alt="trophy" />
     <img class="img-trophy-2" src="../assets/images/trophy.png" alt="trophy" />
     <h1>Top of the Most Highest Idea's Achievement</h1>
     <div id="DragScroll" class="idea container">
-      <div class="idea-info DragScroll" v-for="idea in ideaList" :key="idea.index" :id="idea.topicName">
+      <div class="idea-info" v-for="idea in ideaList" :key="idea.index" :id="idea.topicName">
         <div class="topic-name" :style="{ backgroundColor: idea.colorCode }">{{ idea.topicName }}</div>
         <div class="card user-idea">
           <div class="idea-content">
@@ -26,7 +26,7 @@
 </template>
 
 <style scoped>
-.DragScroll {
+#DragScroll {
   cursor: grab;
   -webkit-overflow-scrolling: touch;
   /* scroll-snap-type: x mandatory; */
@@ -42,50 +42,54 @@ export default {
     };
   },
   props: {
-    topicList: Array,
+    // topicList: Array,
   },
-  mounted() {
+  created() {
+    this.$store.dispatch("fetchAccessToken");
     this.$axios.get(`api/v1/Idea/mostReact`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.ideaList = res.data.content;
     });
+  },
+  updated() {
+    if (this.ideaList.length > 0) {
+      const ele = document.getElementById("DragScroll");
+      // ele.scrollTop = 100;
+      // ele.scrollLeft = 150;
+      let pos = { top: 0, left: 0, x: 0, y: 0 };
 
-    const ele = document.getElementById("DragScroll");
-    // ele.scrollTop = 100;
-    // ele.scrollLeft = 150;
-    let pos = { top: 0, left: 0, x: 0, y: 0 };
+      const mouseDownHandler = function (e) {
+        ele.style.cursor = "grabbing";
+        ele.style.userSelect = "none";
+        pos = {
+          // The current scroll
+          left: ele.scrollLeft,
+          top: ele.scrollTop,
+          // Get the current mouse position
+          x: e.clientX,
+          y: e.clientY,
+        };
 
-    const mouseDownHandler = function (e) {
-      ele.style.cursor = "grabbing";
-      ele.style.userSelect = "none";
-      pos = {
-        // The current scroll
-        left: ele.scrollLeft,
-        top: ele.scrollTop,
-        // Get the current mouse position
-        x: e.clientX,
-        y: e.clientY,
+        document.addEventListener("mousemove", mouseMoveHandler);
+        document.addEventListener("mouseup", mouseUpHandler);
       };
+      const mouseMoveHandler = function (e) {
+        // How far the mouse has been moved
+        const dx = e.clientX - pos.x;
+        const dy = e.clientY - pos.y;
 
-      document.addEventListener("mousemove", mouseMoveHandler);
-      document.addEventListener("mouseup", mouseUpHandler);
-    };
-    const mouseMoveHandler = function (e) {
-      // How far the mouse has been moved
-      const dx = e.clientX - pos.x;
-      const dy = e.clientY - pos.y;
+        // Scroll the element
+        ele.scrollTop = pos.top - dy;
+        ele.scrollLeft = pos.left - dx;
+      };
+      const mouseUpHandler = function () {
+        document.removeEventListener("mousemove", mouseMoveHandler);
+        document.removeEventListener("mouseup", mouseUpHandler);
 
-      // Scroll the element
-      ele.scrollTop = pos.top - dy;
-      ele.scrollLeft = pos.left - dx;
-    };
-    const mouseUpHandler = function () {
-      document.removeEventListener("mousemove", mouseMoveHandler);
-      document.removeEventListener("mouseup", mouseUpHandler);
-
-      ele.style.cursor = "grab";
-      ele.style.removeProperty("user-select");
-    };
-    ele.addEventListener("mousedown", mouseDownHandler);
+        ele.style.cursor = "grab";
+        ele.style.removeProperty("user-select");
+      };
+      ele.addEventListener("mousedown", mouseDownHandler);
+    }
   },
   methods: {
     touchEvent(Event) {

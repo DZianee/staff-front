@@ -4,18 +4,28 @@
       <img class="navbar-logo-image" src="../assets/images/logo.jpg" />
     </div>
     <ul class="nav-items">
-      <!-- <router-link to="/" style="text-decoration: none"> -->
       <li class="nav-item" @click="HomeRoute">
         <i class="bx bx-home bx-sm bx-fw" />
         <span>Home</span>
         <span class="tooltiptext">Home</span>
       </li>
-      <!-- </router-link> -->
+      <li class="nav-item" @click="ExploreRoute">
+        <i class="bx bxs-hot bx-sm bx-fw" />
+        <span>Explore</span>
+        <span class="tooltiptext">Explore</span>
+      </li>
       <li class="nav-item" @click="NewsRoute">
         <i class="bx bx-news bx-sm bx-fw" />
         <span>News</span>
         <span class="tooltiptext">News</span>
       </li>
+
+      <li class="nav-item" @click="TopicDetailsRoute">
+        <i class="bx bx-library bx-sm bx-fw" />
+        <span>Topic's Store</span>
+        <span class="tooltiptext">Topic's Store</span>
+      </li>
+      <!-- <li class="nav-item" @click="ManageRoute"> -->
       <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Manager'">
         <i class="bx bx-briefcase bx-sm bx-fw" />
         <span>Manage</span>
@@ -49,7 +59,7 @@
       </li>
       <li class="user-shortcut" @click="ProfileRoute">
         <div class="user">
-          <img class="avatar" src=" https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg" alt="user avatar" />
+          <img class="avatar" :src="`https://${user.profileImage}`" alt="user avatar" />
           <div class="user-avatar-info">
             <span class="user-fullname"> {{ user.firstname }} {{ user.lastname }}</span>
             <span class="user-email">{{ user.username }}</span>
@@ -142,6 +152,18 @@ export default {
 </script>
 
 <style scoped>
+.user {
+  justify-content: space-between;
+}
+.user-avatar-info {
+  margin: 0;
+}
+@media screen and (max-width: 1025px) {
+  .user {
+    justify-content: center;
+    padding: 0;
+  }
+}
 /* .bagText {
   display: none;
 }

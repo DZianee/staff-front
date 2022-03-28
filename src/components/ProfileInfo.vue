@@ -1,7 +1,7 @@
 <template>
   <div class="profile-info">
     <ProfileDetails :userDetails="userDetails" />
-    <ProfileAccountInfo  :accountInfo="userDetails"/>
+    <ProfileAccountInfo :accountInfo="userDetails" />
   </div>
 </template>
 
@@ -30,8 +30,8 @@ div:not(:first-child) {
 }
 @media screen and (max-width: 1440px) {
   .profile-info {
-  margin-top: 80px;
-}
+    margin-top: 80px;
+  }
 }
 @media screen and (max-width: 1366px) {
   .profile-info {

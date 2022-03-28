@@ -197,7 +197,7 @@ export default {
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
-  padding-bottom: 75px;
+  padding-bottom: 110px;
 }
 ul li {
   display: inline-block;

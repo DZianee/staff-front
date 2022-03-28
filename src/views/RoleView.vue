@@ -197,7 +197,7 @@ export default {
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
-  padding-bottom: 75px;
+  padding-bottom: 110px;
 }
 ul li {
   display: inline-block;
@@ -213,7 +213,7 @@ td {
 }
 @media screen and (max-width: 480px) {
   .container-content {
-    padding-bottom: 155px;
+    padding-bottom: 180px;
   }
 }
 </style>

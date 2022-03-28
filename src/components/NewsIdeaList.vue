@@ -1,88 +1,456 @@
 <template>
   <div class="news-idea-list container">
-    <div class="card">
-      <img
-        src="https://cdn.dribbble.com/users/3537662/screenshots/16342773/media/a6e69afafc3af1c62ef1d581c59fa4f1.png?compress=1&resize=1200x900&vertical=top"
-        alt="running man" />
-      <div class="card-content">
-        <h1 class="content-title">Chao mung cac ban den voi vuong quoc dieu ki cua soc nhi</h1>
-        <div class="topic-type-create-time">
-          <h6 class="topic-type">Vui la chinh</h6>
-          <span> . </span>
-          <div class="idea-create-time">12:12:12</div>
+    <div class="sortType" v-if="choice != 'via' && ideaList && ideaList.length > 0">
+      <select class="form-control" v-model="sortType" @change="getIdeaList">
+        <option value="0">Newest Ideas</option>
+        <option value="1">Most reacted Ideas</option>
+        <option value="2">Most viewed ideas</option>
+        <option value="3">Lastest commented ideas</option>
+      </select>
+    </div>
+    <div class="sortType" v-else-if="choice == 'via'">
+      <button class="create-topic" @click="IdeaModalOpen()">New Idea +</button>
+      <div class="create-icon" @click="IdeaModalOpen()">
+        <i class="bi bi-plus-circle"></i>
+      </div>
+    </div>
+    <div v-if="choice === 'via'">
+      <div v-if="ideaList == ''">
+        <p style="color: gray; text-align: center; font-size: 16px; margin-top: 40px; font-style: italic">There is no idea existed yet</p>
+      </div>
+      <div v-else>
+        <div class="all-ideas" style="margin-top: 24px">
+          <div class="card" v-for="ideas in ideaList" :key="ideas.index" @click="routeIdea(idea.id)" style="cursor: pointer">
+            <div class="card-image">
+              <!-- <figure class="image is-4by3"> -->
+              <img v-if="ideas.image != null && ideas.image" :src="`https://${ideas.image}`" alt="Placeholder image" />
+              <img
+                v-else
+                src="https://cdn.dribbble.com/users/1338391/screenshots/15412369/media/db9cc51e777dd9f42e89034027d0786b.jpg?compress=1&resize=1200x900&vertical=top"
+                alt="Placeholder image" />
+              <!-- </figure> -->
+            </div>
+            <div class="card-content">
+              <div class="content">
+                <h1>{{ ideas.title }}</h1>
+                <h3 class="topic-title" @click="topicDetailRoute">{{ ideas.topicName }}</h3>
+                <time datetime="2016-1-1">{{ getIdeaDateCreate(ideas.startDate) }}</time>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <div class="card-footer-item react-like">
+                {{ ideas.totalLikes }}
+                <i class="bx bx-like bx-fw" />
+              </div>
+              <div class="card-footer-item react-dislike">
+                {{ ideas.totalDislikes }}
+                <i class="bx bx-dislike bx-fw" />
+              </div>
+              <div class="card-footer-item comment">
+                {{ ideas.totalComments }}
+                <i class="bx bx-message-square-detail bx-fw" />
+              </div>
+            </footer>
+          </div>
+          <div v-if="ideaList.length > 0" class="pagination-container">
+            <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageViaChange">
+            </component>
+          </div>
         </div>
       </div>
-      <div class="card-footer">
-        <div class="reaction">
-          <div class="react-like">
-            300
-            <i class="bx bx-like bx-fw" />
-          </div>
-          <div class="react-dislike">
-            30
-            <i class="bx bx-dislike bx-fw" />
+    </div>
+    <div v-else>
+      <div v-if="ideaList == ''">
+        <p style="color: gray; text-align: center; font-size: 16px; margin-top: 40px; font-style: italic">There is no idea existed yet</p>
+      </div>
+      <div v-else>
+        <div class="all-ideas" style="margin-top: 24px">
+          <div class="card" v-for="idea in ideaList" :key="idea.index" @click="routeIdea(idea.id)" style="cursor: pointer">
+            <div class="card-image">
+              <!-- <figure class="image is-4by3"> -->
+              <img v-if="idea.image != null && idea.image" :src="`https://${idea.image}`" alt="Placeholder image" />
+              <img
+                v-else
+                src="https://cdn.dribbble.com/users/1338391/screenshots/15412369/media/db9cc51e777dd9f42e89034027d0786b.jpg?compress=1&resize=1200x900&vertical=top"
+                alt="Placeholder image" />
+              <!-- </figure> -->
+            </div>
+            <div class="card-content">
+              <div class="content">
+                <h1>{{ idea.title }}</h1>
+                <h3 class="topic-title" @click.stop="topicDetailRoute">{{ idea.topicName }}</h3>
+                <time datetime="2016-1-1">{{ getIdeaDateCreate(idea.createdDate) }}</time>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <div class="card-footer-item react-like">
+                {{ idea.totalLikes }}
+                <i class="bx bx-like bx-fw" />
+              </div>
+              <div class="card-footer-item react-dislike">
+                {{ idea.totalDislikes }}
+                <i class="bx bx-dislike bx-fw" />
+              </div>
+              <div class="card-footer-item comment">
+                {{ idea.totalComments }}
+                <i class="bx bx-message-square-detail bx-fw" />
+              </div>
+            </footer>
           </div>
         </div>
-        <div class="comment">500 comments</div>
+        <div v-if="ideaList.length > 0" class="pagination-container">
+          <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
+        </div>
       </div>
     </div>
   </div>
+  <IdeaCreate @closeIdea="IdeaModalClose()" :IdeaModalActive="IdeaModalActive" :TopicID="id" :TopicName="name" />
 </template>
 
 <script>
+import IdeaCreate from "../components/IdeaModalForm.vue";
+import { ref } from "vue";
+
 export default {
   name: "NewsIdeaList",
+  components: {
+    IdeaCreate,
+  },
+  props: {
+    choice: String,
+    id: String,
+    name: String,
+  },
+  data() {
+    return {
+      ideaDateCreate: "",
+      currentPage: 1,
+      totalPage: 1,
+      ideaListViaTopic: [],
+      ideaList: [],
+      sortType: 0,
+    };
+  },
+  setup() {
+    const IdeaModalActive = ref(false);
+
+    const IdeaModalOpen = () => {
+      IdeaModalActive.value = true;
+    };
+    const IdeaModalClose = () => {
+      IdeaModalActive.value = false;
+    };
+
+    return { IdeaModalActive, IdeaModalOpen, IdeaModalClose };
+  },
+  created() {},
+  methods: {
+    // ideaDetailRoute(){
+    //   this.$router.push({path})
+    // }
+    routeIdea(value) {
+      this.$router.push({ name: "ideaDetailView", params: { id: value } });
+    },
+    topicDetailRoute() {
+      this.$router.push({ name: "topicListView", params: { id: this.id } });
+    },
+    async getIdeaList(event) {
+      if (event && event.target.value == this.sortType) {
+        this.currentPage = 1;
+      }
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        const getIdeaList = await this.$axios.get(`api/v1/Idea/getIdeasByType/?type=${this.sortType}`, {
+          params: {
+            PageSize: 6,
+            CurrentPage: this.currentPage,
+          },
+        });
+        this.ideaList = getIdeaList.data.content;
+        this.totalPage = getIdeaList.data.totalPage;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getIdeaViaTopic() {
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        const getIdeaListviaTopic = await this.$axios.post(
+          `api/v1/Idea/topic/${this.id}`,
+          { searchTitle: "", sortTitle: "", sortCreatedDate: "", sortUserName: "" },
+          {
+            params: {
+              PageSize: 6,
+              CurrentPage: this.currentPage,
+            },
+          }
+        );
+        this.ideaList = getIdeaListviaTopic.data.content;
+        this.totalPage = getIdeaListviaTopic.data.totalPage;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    onPageChange(page) {
+      this.currentPage = page;
+      this.getIdeaList();
+    },
+    onPageViaChange(page) {
+      this.currentPage = page;
+      this.getIdeaViaTopic();
+    },
+    getIdeaDateCreate(date) {
+      const dateCreate = new Date(date);
+      // var year = dateCreate.getFullYear();
+      // var month = ("0" + (dateCreate.getMonth() + 1)).slice(-2);
+      // var day = ("0" + dateCreate.getDate()).slice(-2);
+      // var hour =
+      // const dmy = day + "/" + month + "/" + year;
+      const dmy = dateCreate.toLocaleString();
+      return dmy;
+    },
+  },
+  watch: {
+    choice(newValue) {
+      this.currentPage = 1;
+      if (newValue == "all") {
+        this.getIdeaList();
+      } else {
+        //
+      }
+    },
+    id() {
+      this.currentPage = 1;
+      this.getIdeaViaTopic();
+    },
+  },
+  mounted() {
+    this.getIdeaList();
+  },
 };
 </script>
 
 <style scoped>
-.user-ideas .card {
-  border-radius: 12px;
+.create-topic {
+  height: 35px;
+  line-height: 10px;
+  font-size: 16px;
   width: 100%;
-  height: 270px;
-  margin: 60px 0;
-  display: block;
+  color: white;
+  background: #3d5afe;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 0.25rem;
 }
-.card img {
-  width: 50%;
-  height: auto;
-  position: relative;
-  top: 0px;
-  border-top-left-radius: 12px;
-  float: left;
+.create-topic:hover {
+  background: #1976d2;
 }
-.card-content {
-  width: 50%;
-  float: right;
+.bi-plus-circle {
+  display: none;
 }
-.topic-type-create-time .topic-type,
-.topic-type-create-time span,
-.topic-type-create-time .idea-create-time {
-  display: inline-block;
-  padding: 0 5px;
+.bi-plus-circle::before {
+  background-color: lavenderblush;
+  border-radius: 50%;
 }
-.topic-type-create-time span {
-  font-size: 30px;
-  font-weight: 600;
-}
-h1 {
-  font-size: 27px;
+.news-idea-list .all-ideas {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr; */
+  /* column-gap: 10px; */
+  /* border: solid blue; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 16px;
   height: fit-content;
+  padding: 20px;
+  padding-bottom: 90px;
+}
+.news-idea-list .all-ideas .card {
+  border-radius: 12px;
+  /* left: 7%; */
+  width: 30%;
+  height: auto;
+  margin: 40px 0;
+  bottom: 5%;
+  text-align: unset;
+}
+.card .card-image:hover {
+  cursor: pointer;
+}
+.card-content .content h1 {
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-content .content h1:hover,
+.card-content .content h3:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.card-content .content h3 {
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(102, 97, 97);
+  letter-spacing: 0.6px;
+  height: 54px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-content .content time {
+  font-size: 14px;
+}
+.card-image {
+  height: 230px;
+  margin: 0;
+}
+.card-image img {
+  border-radius: 0% !important;
+  /* top: -10px; */
+  width: 100%;
+  height: 100%;
 }
 .card-footer {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  clear: both;
+  height: 45px;
+  padding: 0;
+  width: 100%;
 }
-.react-like,
-.react-dislike {
-  display: inline-block;
-  padding: 0 10px;
+.card-footer-item {
   font-size: 15px;
+  padding: 0;
+  width: calc(100% / 3);
 }
-.comment {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 40px;
+.card-footer-item i {
+  padding: 0 5px;
+}
+/* .pagination-container {
+  bottom: 10px;
+} */
+.sortType {
+  position: absolute;
+  right: 0;
+  width: 26% !important;
+}
+@media screen and (max-width: 1440px) {
+  .news-idea-list .all-ideas .card {
+    /* left: 5%; */
+    /* width: 80%; */
+  }
+  .card-image {
+    height: 200px;
+  }
+  .card-content .content h3 {
+    padding: 10px 0;
+  }
+}
+@media screen and (max-width: 1366px) {
+  .card-image {
+    height: 180px;
+  }
+  .card-content .content h3 {
+    padding: 0 0;
+  }
+}
+@media screen and (max-width: 1025px) {
+  .news-idea-list .all-ideas .card {
+    /* left: -2%; */
+    /* width: 88%; */
+  }
+  .card-image {
+    height: 160px;
+  }
+}
+@media screen and (max-width: 820px) {
+  .news-idea-list .all-ideas {
+    /* grid-template-columns: 1fr 1fr; */
+    column-gap: 10px;
+    padding-top: 70px;
+  }
+  .news-idea-list .all-ideas .card {
+    left: 0;
+    width: 48%;
+    margin: 0 0 20px 0;
+  }
+  .card-image {
+    height: 140px;
+  }
+  .sortType {
+    width: 30% !important;
+  }
+}
+@media screen and (max-width: 769px) {
+  .news-idea-list .all-ideas {
+    /* grid-template-columns: 1fr 1fr; */
+    column-gap: 10px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .news-idea-list .all-ideas .card {
+    left: 0;
+    bottom: 0;
+  }
+  .card-image {
+    height: 170px;
+  }
+  .card-content .content h3 {
+    font-size: 15px;
+  }
+  .sortType {
+    width: 50% !important;
+  }
+  .create-topic {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 680px) {
+  .news-idea-list .all-ideas .card {
+    /* left: -7%; */
+    width: 100%;
+  }
+  .create-topic {
+    display: none;
+  }
+  .bi-plus-circle {
+    display: block;
+    font-size: 30px;
+  }
+  .bi-plus-circle::before {
+    background-color: #3d5afe;
+    color: white;
+  }
+}
+@media screen and (max-width: 480px) {
+  .news-idea-list .all-ideas {
+    /* grid-template-columns: 100%; */
+    column-gap: 0;
+    height: fit-content;
+    padding: 20px;
+    padding-top: 60px;
+    padding-bottom: 160px;
+  }
+  .news-idea-list .all-ideas .card {
+    /* left: -7%; */
+    width: 100%;
+  }
+  .card-image {
+    height: 170px;
+  }
+  .card-content .content h3 {
+    font-size: 15px;
+  }
+  .card-content {
+    margin-top: 20%;
+  }
+}
+@media screen and (max-width: 412px) {
+  .card-content {
+    margin-top: 40px;
+  }
 }
 </style>

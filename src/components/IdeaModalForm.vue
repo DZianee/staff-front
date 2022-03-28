@@ -10,7 +10,7 @@
           <p>Create New Idea</p>
         </header>
         <div class="Idea-Modal-body">
-          <label for="Idea-name" class="Idea-Modal-label"> Topic: </label>
+          <label for="Idea-name" class="Idea-Modal-label"> Topic: {{ TopicName }}</label>
 
           <label for="Idea-name" class="Idea-Modal-label"> Idea's title </label>
           <input type="text" class="Idea-Modal-input" maxlength="35" placeholder="Idea's title" v-model="ModalForm.IdeaTitle" />
@@ -156,7 +156,7 @@ export default {
     };
   },
 
-  props: ["IdeaModalActive"],
+  props: ["IdeaModalActive", "TopicID", "TopicName"],
   emits: ["closeIdea"],
   setup() {
     const ImageLightBoxActive = ref(false);

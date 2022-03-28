@@ -1,7 +1,7 @@
 <template>
   <div class="profile-details">
     <div class="card">
-      <h4 class="card-header">My profile</h4>
+      <h4 class="card-header" style="width: 100%; left: 50%; transform: translateX(-50%)">My profile</h4>
       <div class="card-body">
         <div class="info-details">
           <div class="firstname">
@@ -90,6 +90,17 @@ h4 {
   column-gap: 5px;
   row-gap: 30px;
 }
+.firstname,
+.lastname,
+.birthDate,
+.gender,
+.address,
+.phone {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 3px 0;
+  align-items: center;
+}
 .firstname label,
 .lastname label,
 .birthDate label,
@@ -142,16 +153,6 @@ input {
   }
   .card-header {
     left: 130px;
-  }
-  .firstname,
-  .lastname,
-  .birthDate,
-  .gender,
-  .address,
-  .phone {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    padding: 3px 0;
   }
   label {
     margin-left: 50px;
@@ -251,5 +252,15 @@ input {
   .phone {
     padding: 4px 0;
   }
+}
+.card-body {
+  justify-content: center;
+  align-items: center;
+}
+.card-body label,
+.card-body input {
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 </style>
