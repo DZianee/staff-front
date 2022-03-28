@@ -119,7 +119,7 @@ export default {
         clearTimeout(timeOut);
         timeOut = setTimeout(() => {
           this.GetUsers();
-        }, 2000);
+        }, 1000);
       },
       deep: true,
     },

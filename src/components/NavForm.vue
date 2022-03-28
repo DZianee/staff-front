@@ -31,6 +31,11 @@
         </ul>
         <span class="bagText">Bag</span> -->
       </li>
+      <li class="nav-item" @click="TopicRoute" v-if="userStored.roleName == 'QA Manager'">
+        <i class="bx bx-briefcase bx-sm bx-fw" />
+        <span>Topic Manage</span>
+        <span class="tooltiptext">Topic Manage</span>
+      </li>
       <!-- <li v-if="this.$route.name == 'topicView' || this.$route.name == 'manageview'" class="nav-item js-add" @click="modalAct(this.$route.name)">
         <img src="../assets/pic/Plus.png" />
       </li> -->
@@ -109,6 +114,9 @@ export default {
     },
     ManageRoute() {
       this.$router.push({ name: "manageView" });
+    },
+    TopicRoute() {
+      this.$router.push({ name: "topicView" });
     },
     ProfileRoute() {
       this.$router.push({ name: "profileView", params: { id: this.id } });
