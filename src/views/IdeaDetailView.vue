@@ -59,9 +59,9 @@
 
           <div class="previewFilesContainer" v-if="files != null && files.length > 0">
             <span class="previewItem" v-for="file in files" :key="file">
-              <span @click="openpdf(file)">
+              <span @click="openpdf(file.imageUrl)">
                 <i class="bi bi-file-earmark-pdf"></i>
-                <p>File name super aquesum</p>
+                <p>{{ file.fileName }}</p>
               </span>
             </span>
           </div>

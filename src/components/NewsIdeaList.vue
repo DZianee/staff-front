@@ -445,7 +445,7 @@ export default {
     font-size: 15px;
   }
   .card-content {
-    margin-top: 20%;
+    /* margin-top: 20%; */
   }
 }
 @media screen and (max-width: 412px) {
