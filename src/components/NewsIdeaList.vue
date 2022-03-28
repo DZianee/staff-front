@@ -78,7 +78,7 @@
             <div class="card-content">
               <div class="content">
                 <h1>{{ idea.title }}</h1>
-                <h3 class="topic-title" @click.stop="topicDetailRoute">{{ idea.topicName }}</h3>
+                <h3 class="topic-title" @click.stop="topicDetailRoute(idea.topicId)">{{ idea.topicName }}</h3>
                 <time datetime="2016-1-1">{{ getIdeaDateCreate(idea.createdDate) }}</time>
               </div>
             </div>
@@ -151,8 +151,8 @@ export default {
     routeIdea(value) {
       this.$router.push({ name: "ideaDetailView", params: { id: value } });
     },
-    topicDetailRoute() {
-      this.$router.push({ name: "topicListView", params: { id: this.id } });
+    topicDetailRoute(value) {
+      this.$router.push({ name: "topicListView", params: { id: value } });
     },
     async getIdeaList(event) {
       if (event && event.target.value == this.sortType) {
