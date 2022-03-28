@@ -85,9 +85,6 @@
           <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="ideaSearchForm.searchTitle" />
           <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
         </div>
-        <button :class="topic.status != 2 ? 'disable' : ''" :disabled="topic.status != 2" class="downloadIdea" @click="download()">
-          Ideas <i class="bi bi-download"></i>
-        </button>
       </div>
       <table class="table table-striped table-bordered">
         <thead>
@@ -119,11 +116,14 @@
             <td @click="ideaDetail(idea.id)">{{ idea.creator }}</td>
             <td @click="ideaDetail(idea.id)">{{ idea.startDate }}</td>
             <td class="idea-adjustment" style="width: 10%">
-              <i class="bi bi-gear idea-adjustment-icon" @click="openDropdown(idea.id)" v-if="ideaId != idea.id"> </i>
+              <i class="bi bi-gear idea-adjustment-icon" @click="openDropdown(idea.id)"> </i>
               <ul class="idea-adjustment-items" v-if="ideaId == idea.id">
                 <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black" @click="ideaDetail(idea.id)">Detail</li> -->
                 <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black">Modify</li> -->
-                <li class="idea-adjustment-item" @click="onDelete(idea.id)">Delete</li>
+                <li class="idea-adjustment-item" @click="onDelete(idea.id)" style="border-bottom: 2px solid black">Delete</li>
+                <li :class="topic.status != 2 ? 'disable' : ''" :disabled="topic.status != 2" class="idea-adjustment-item" @click="download(idea.id)">
+                  Ideas <i class="bi bi-download"></i>
+                </li>
               </ul>
             </td>
           </tr>
@@ -241,12 +241,10 @@ export default {
     TopicRoute() {
       this.$router.push({ name: "topicView" });
     },
-    async download() {
+    async download(data) {
       try {
         this.$store.dispatch("fetchAccessToken");
-        // const resTopic = await this.$axios.get(`api/v1/Idea/asd/downloadData`);
-        // if (resTopic.status == 200) {
-        // }
+        await this.$axios.get(`api/v1/Idea/${data}/downloadData`);
       } catch {
         //
       }
@@ -568,9 +566,19 @@ export default {
   width: 30% !important;
 }
 
+.form-topic-detail-group {
+  width: 46% !important;
+  margin: 10px 0;
+}
+
 .AddressInput {
   width: 96%;
   margin: 0px auto 20px;
+}
+
+.form-row {
+  width: 100%;
+  justify-content: space-evenly;
 }
 
 .btnSubmit {
@@ -649,10 +657,10 @@ thead tr th:nth-child(4) {
 .idea-adjustment-items {
   list-style-type: none;
   min-width: 100px;
-  height: 45px;
-  /* top: 4%;
-  left: 0%; */
-  /* position: absolute; */
+  height: 90px;
+  top: -5%;
+  left: 0%;
+  position: absolute;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   text-align: right;
@@ -699,14 +707,10 @@ thead tr th:nth-child(4) {
   .form-topic-detail-row-Date {
     display: flex;
   }
-  .form-topic-detail-group {
-    width: 46% !important;
-    margin: 10px 0;
-  }
-  .idea-adjustment-items {
+  /* .idea-adjustment-items {
     top: -142%;
     left: -45%;
-  }
+  } */
 }
 
 @media (min-width: 320px) and (max-width: 545px) {
@@ -730,10 +734,10 @@ thead tr th:nth-child(4) {
   .content {
     overflow-x: scroll;
   }
-  .idea-adjustment-items {
+  /* .idea-adjustment-items {
     top: -94%;
     left: -50%;
-  }
+  } */
 }
 @media (min-width: 320px) and (max-width: 790px) {
   .pagination-container {

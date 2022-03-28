@@ -97,7 +97,8 @@ export default {
     width: 50%;
     border: solid 2px;
     border-radius: 23px;
-    left: 230px;
+    left: 50%;
+    transform: translateX(-50%);
     top: 0;
   }
   .sidebar-items {
@@ -141,13 +142,11 @@ export default {
 @media screen and (max-width: 769px) {
   .profile_sidebar {
     width: 60%;
-    left: 140px;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .profile_sidebar {
     width: 70%;
-    left: 70px;
     height: 44px;
     top: -30px;
     background: #e3f2fd;

@@ -1,7 +1,7 @@
 <template>
   <div class="profile-overview container">
     <div class="card">
-      <div class="user-avatar">
+      <div class="user-avatar" style="text-align: center">
         <img :src="`https://${user.profileImage}`" class="card-img-top" alt="user avatar" />
       </div>
       <div class="card-body">
@@ -9,7 +9,7 @@
         <h6 class="card-text">{{ user.departmentName }}</h6>
       </div>
       <div class="password">
-        <div class="btn" style="left: 0">
+        <div class="btn">
           <ul style="padding-left: 0" @click="$refs.fileInput.click()">
             <li><i class="bi bi-image"></i></li>
             <li>Change avatar</li>
@@ -52,9 +52,9 @@ export default {
 
 <style scoped>
 .profile-overview {
-  display: flex;
-  justify-content: center;
-  width: 90%;
+  /* display: flex; */
+  /* justify-content: center; */
+  width: 100%;
   height: fit-content;
   position: relative;
   /* left: 50% !important;
@@ -65,6 +65,9 @@ export default {
   width: fit-content;
   height: fit-content;
   border-radius: 12px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 img {
   padding: 10px;
@@ -92,7 +95,8 @@ img {
   font-weight: bold;
   border-radius: 10px;
   position: relative;
-  left: 50px;
+  left: 50%;
+  transform: translateX(-50%);
   transition: ease-in 0.35s;
   z-index: 0;
 }
@@ -136,11 +140,11 @@ img {
   } */
 }
 @media screen and (max-width: 1025px) {
-  .card {
+  /* .card {
     margin-left: 20px;
-  }
+  } */
   .profile-overview {
-    width: 90%;
+    /* width: 90%; */
     top: 40px;
   }
   img {
@@ -149,12 +153,13 @@ img {
   }
 }
 @media screen and (max-width: 769px) {
-  .card {
+  /* .card {
     margin-left: -10%;
-  }
+  } */
   .profile-overview {
-    width: 80%;
-    left: 30px;
+    /* width: 80%; */
+    left: 50%;
+    transform: translateX(-50%);
   }
   img {
     width: 210px;
@@ -169,7 +174,8 @@ img {
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .profile-overview {
-    left: 5px;
+    left: 50%;
+    transform: translateX(-50%);
     top: 0px;
   }
   .card {

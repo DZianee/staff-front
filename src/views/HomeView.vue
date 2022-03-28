@@ -25,7 +25,11 @@
             <i class="bx bx-briefcase bx-sm bx-fw" />
             Management
           </li>
-          <li v-if="userStored.roleName == 'Manager'" @click="$router.push({ path: 'report' })">     
+          <li v-if="userStored.roleName == 'QA Manager'" @click="showTopic">
+            <i class="bx bx-briefcase bx-sm bx-fw" />
+            Topic Manage
+          </li>
+          <li v-if="userStored.roleName == 'Manager'" @click="$router.push({ path: 'report' })">
             <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
             Statistic
           </li>
@@ -155,6 +159,9 @@ export default {
     },
     showManagement() {
       this.$router.push({ name: "manageView" });
+    },
+    showTopic() {
+      this.$router.push({ name: "topicView" });
     },
   },
 };
