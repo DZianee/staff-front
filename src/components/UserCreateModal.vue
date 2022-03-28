@@ -61,7 +61,7 @@
                 <input type="text" maxlength="10" @keypress="isNumber($event)" class="form-control" placeholder="Phone" v-model="User.phone" />
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px" @click="openModal">Create</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%" @click="openModal">Create</button>
           </form>
         </div>
       </div>

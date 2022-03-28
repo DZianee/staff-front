@@ -2,13 +2,29 @@
   <QuillEditor
     style="background-color: white"
     :theme="theme"
-    :toolbar="toolbar"
+    :toolbar="[
+      'bold',
+      'italic',
+      'underline',
+      'strike',
+      'blockquote',
+      'code-block',
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' },
+      { size: ['small', false, 'large', 'huge'] },
+      { header: [1, 2, 3, 4, 5, 6, false] },
+      { color: [] },
+      { background: [] },
+      { align: [] },
+    ]"
     contentType="html"
     :readOnly="disableEdit"
     :style="{ height: heightEdit + 'px' }"
     v-model:content="contentEditor"
     @update:content="handleInput">
-    <template #toolbar>
+    <!-- <template #toolbar>
       <div id="my-toolbar">
         <button class="ql-bold"></button>
         <button class="ql-italic"></button>
@@ -28,7 +44,7 @@
         <select class="ql-background"></select>
         <select class="ql-align"></select>
       </div>
-    </template>
+    </template> -->
   </QuillEditor>
 </template>
 

@@ -12,6 +12,8 @@ import TopicIdeaView from "../views/TopicIdeaView.vue";
 import NewsView from "../views/NewsView.vue";
 import TopicListDetailsView from "../views/TopicListDetails.vue";
 import ideaDetailView from "../views/IdeaDetailView.vue";
+import RoleView from "../views/RoleView.vue";
+import DepartmentView from "../views/DepartmentView.vue";
 import ReportView from "../views/ReportView.vue";
 
 const router = [
@@ -73,7 +75,7 @@ const router = [
     component: NewsView,
   },
   {
-    path: "/topic-list-view",
+    path: "/topic-list-view/:id",
     name: "topicListView",
     component: TopicListDetailsView,
   },
@@ -81,6 +83,16 @@ const router = [
     path: "/ideaDetail-view/:id",
     name: "ideaDetailView",
     component: ideaDetailView,
+  },
+  {
+    path: "/department-view",
+    name: "DepartmentView",
+    component: DepartmentView,
+  },
+  {
+    path: "/role-view",
+    name: "RoleView",
+    component: RoleView,
   },
   {
     path: "/report",

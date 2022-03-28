@@ -7,8 +7,11 @@
     <div class="Image-Modal-left" @click.stop="prev" :class="{ invisible: !hasPrev() }">
       <i class="bi bi-caret-left-fill" style="font-size: 46px"></i>
     </div>
-    <div class="Image-Modal-container">
-      <img :src="`http://${images[index]}`" />
+    <div class="Image-Modal-container" v-if="imageUrl">
+      <img :src="`https://${images[index]}`" />
+    </div>
+    <div class="Image-Modal-container" v-if="imageUrl == false">
+      <img :src="images[index]" />
     </div>
     <div class="Image-Modal-right" @click.stop="next" :class="{ invisible: !hasNext() }">
       <i class="bi bi-caret-right-fill" style="font-size: 46px"></i>
@@ -30,6 +33,10 @@ export default {
     images: {
       type: Array,
       default: () => [],
+    },
+    imageUrl: {
+      type: Boolean,
+      required: true,
     },
   },
   data() {
@@ -117,7 +124,7 @@ export default {
   position: relative;
   width: 60%;
   height: 85%;
-  background-color: white;
+  background-color: black;
   border-radius: 5px;
   animation: modalfadein ease 0.3s;
 
@@ -131,8 +138,9 @@ export default {
 .Image-Modal-container img {
   width: 100%;
   height: auto;
-  object-fit: cover;
-  image-rendering: -webkit-optimize-contrast;
+  object-fit: contain;
+  /* image-rendering: -webkit-optimize-contrast; */
+  image-rendering: pixelated;
 }
 .Image-Modal i::before {
   color: white;

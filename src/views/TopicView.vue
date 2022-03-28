@@ -1,6 +1,5 @@
 <template>
   <div class="topic">
-    <h1>testing</h1>
     <TopicCard />
   </div>
 </template>
@@ -33,7 +32,7 @@ export default {
   .topic {
     position: relative;
     left: 0px;
-    top: 70px;
+    top: 78px;
     width: 100%;
   }
 }

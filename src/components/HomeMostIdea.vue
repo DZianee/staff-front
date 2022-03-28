@@ -44,11 +44,14 @@ export default {
   props: {
     topicList: Array,
   },
-  mounted() {
+  created() {
+    this.$store.dispatch("fetchAccessToken");
     this.$axios.get(`api/v1/Idea/mostReact`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.ideaList = res.data.content;
+      console.log(res);
     });
-
+  },
+  mounted() {
     const ele = document.getElementById("DragScroll");
     // ele.scrollTop = 100;
     // ele.scrollLeft = 150;

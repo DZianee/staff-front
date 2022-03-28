@@ -4,19 +4,29 @@
       <img class="navbar-logo-image" src="../assets/images/logo.jpg" />
     </div>
     <ul class="nav-items">
-      <!-- <router-link to="/" style="text-decoration: none"> -->
       <li class="nav-item" @click="HomeRoute">
         <i class="bx bx-home bx-sm bx-fw" />
         <span>Home</span>
         <span class="tooltiptext">Home</span>
       </li>
-      <!-- </router-link> -->
+      <li class="nav-item" @click="ExploreRoute">
+        <i class="bx bxs-hot bx-sm bx-fw" />
+        <span>Explore</span>
+        <span class="tooltiptext">Explore</span>
+      </li>
       <li class="nav-item" @click="NewsRoute">
         <i class="bx bx-news bx-sm bx-fw" />
         <span>News</span>
         <span class="tooltiptext">News</span>
       </li>
-      <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Admin'">
+
+      <li class="nav-item" @click="TopicDetailsRoute">
+        <i class="bx bx-library bx-sm bx-fw" />
+        <span>Topic's Store</span>
+        <span class="tooltiptext">Topic's Store</span>
+      </li>
+      <!-- <li class="nav-item" @click="ManageRoute"> -->
+      <li class="nav-item" @click="ManageRoute" v-if="userStored.roleName == 'Manager'">
         <i class="bx bx-briefcase bx-sm bx-fw" />
         <span>Manage</span>
         <span class="tooltiptext">Manage</span>
