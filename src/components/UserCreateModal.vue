@@ -7,26 +7,21 @@
           <i class="bi form-control-feedback bi-x-lg" style="font-size: 22px"></i>
         </div>
         <header class="UserCreate-Modal-header">
-          <p>User Details</p>
+          <p>New User</p>
         </header>
         <div class="UserInfo-Modal-body">
           <form>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label>FirstName</label>
-                <input type="text" class="form-control" placeholder="FirstName" v-model="User.firstname" required />
+                <label>Firstname</label>
+                <input type="text" class="form-control" placeholder="Firstname" v-model="User.firstname" />
               </div>
               <div class="form-group col-md-6">
-                <label>LastName</label>
-                <input type="text" class="form-control" placeholder="LastName" v-model="User.lastname" required />
+                <label>Lastname</label>
+                <input type="text" class="form-control" placeholder="Lastname" v-model="User.lastname" />
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-oneInput">
-                <label>Username</label>
-                <input type="email" class="form-control" placeholder="Username" v-model="User.username" required />
-              </div>
-            </div>
+
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label>Gender</label>
@@ -39,12 +34,6 @@
               <div class="form-group col-md-6">
                 <label>Date of Birth</label>
                 <input type="date" class="form-control" placeholder="Date of Birth" v-model="User.dob" required />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-oneInput">
-                <label>Address</label>
-                <input type="text" class="form-control" placeholder="Address" v-model="User.address" required />
               </div>
             </div>
             <div class="form-row">
@@ -69,16 +58,20 @@
                   required />
               </div>
             </div>
-            <p v-if="ErrorMessage" style="color: red">You must fill all the fields</p>
-            <button
-              :disabled="ErrorMessage"
-              :class="ErrorMessage ? 'disable' : ''"
-              type="submit"
-              class="btn btn-primary"
-              style="margin-top: 10px; width: 100%"
-              @click="openModal">
-              Create
-            </button>
+            <div class="form-row length">
+              <div class="form-oneInput">
+                <label>Address</label>
+                <input type="text" class="form-control" placeholder="Address" v-model="User.address" />
+              </div>
+            </div>
+            <div class="form-row length">
+              <div class="form-oneInput">
+                <label>Username</label>
+                <input type="email" class="form-control" placeholder="Username" v-model="User.username" />
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%" @click="openModal">Create</button>
           </form>
         </div>
       </div>
@@ -191,7 +184,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .UserCreate-Modal-header {
   position: absolute;
   width: 80%;
@@ -204,10 +197,20 @@ export default {
 
 .UserCreate-Modal-header p {
   font-size: 26px;
+  font-weight: 500;
 }
-
+.UserInfo-Modal-body {
+  margin-top: 70px;
+}
 .form-oneInput {
-  width: 96%;
+  width: 100%;
+}
+button.btn.btn-primary {
+  font-size: 17px;
+  font-weight: 500;
+}
+.length {
+  width: 100%;
 }
 .disable {
   opacity: 0.3;

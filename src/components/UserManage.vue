@@ -1,5 +1,6 @@
 <template>
-  <div class="user-man">
+  <div class="user-man container">
+    <h1>User Management</h1>
     <div class="user-man-header">
       <select v-model="searchForm.departmentName" class="form-select selectDepartment">
         <option value="">All Department</option>
@@ -23,6 +24,8 @@
       <div class="user-man-header-search">
         <div class="table-search-box">
           <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchForm.name" />
+          <!-- <button class="create-topic" @click="modalAct()">New Topic +</button> -->
+
           <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
         </div>
         <div
@@ -34,46 +37,7 @@
           <i class="bi bi-plus-circle"></i>
         </div>
       </div>
-      <!-- <button
-        class="btn btn-primary"
-        @click="
-          CreateUserAct();
-          DepartmentAct(Departments);
-        ">
-        Create
-      </button> -->
     </div>
-    <!-- <div class="user-man-content">
-      <table class="table table-bordered">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">Username</th>
-            <th scope="col">FullName</th>
-            <th scope="col">Role</th>
-            <th scope="col">Department</th>
-            <th scope="col">IsActive</th>
-          </tr>
-        </thead>
-        <tbody v-for="user in Users" :key="user.id">
-          <tr>
-            <td>{{ user.username }}</td>
-            <td>{{ user.fullname }}</td>
-            <td>{{ user.role }}</td>
-            <td>{{ user.department }}</td>
-            <td>{{ user.active }}</td>
-            <button
-              class="btn btn-info"
-              @click="
-                modalAct();
-                UserIDAct(user.id);
-                DepartmentAct(Departments);
-              ">
-              View Details
-            </button>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
     <div class="user-card">
       <div v-for="user in Users" :key="user.id">
         <div class="card">
@@ -83,7 +47,6 @@
           <div class="card-content" style="padding: 0">
             <div class="content">
               <h1>{{ user.firstname }} {{ user.lastname }}</h1>
-              <h2>{{ user.department }}</h2>
               <div class="content-details">
                 <span class="content-details-item">
                   <i class="bi bi-envelope"></i>
@@ -115,7 +78,7 @@
         </div>
       </div>
     </div>
-    <div v-if="Users.length > 0" class="pagination-container">
+    <div v-if="Users.length > 0" class="pagination-container pagination">
       <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange"> </component>
     </div>
   </div>
@@ -252,18 +215,22 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style scoped>
+h1 {
+  padding: 10px;
+}
 .user-man {
-  position: relative;
-  top: 35px;
+  border: solid;
+  height: fit-content;
   /* left: 46%;
   transform: translateX(-50%);
   width: 80%; */
 }
 .user-man-header {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-evenly;
+  /* align-items: center; */
+  border: solid red;
 }
 
 .table-search-box {
@@ -272,8 +239,24 @@ export default {
 .create-icon {
   font-size: 34px;
   cursor: pointer;
+  color: white;
+  /* display: none; */
 }
-
+.create-topic {
+  height: 35px;
+  line-height: 10px;
+  font-size: 16px;
+  width: 13%;
+  color: white;
+  background: #3d5afe;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 0.25rem;
+}
+.create-topic:hover {
+  background: #1976d2;
+}
 .table-search-box .fa-search {
   position: absolute;
   top: 20px;
@@ -291,7 +274,7 @@ export default {
   padding: 2px;
 }
 .bi-plus-circle::before {
-  background-color: lavenderblush;
+  background-color: #3d5afe;
   border-radius: 50%;
 }
 
@@ -307,7 +290,9 @@ export default {
 }
 
 .selectDepartment {
-  width: 160px !important;
+  width: 15% !important;
+  height: 38px;
+  margin-top: 5px;
 }
 
 .user-man-header-sort {
@@ -324,34 +309,39 @@ export default {
 } */
 .user-card {
   display: grid;
-  grid-template-columns: repeat(3, 29%);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 40px;
   row-gap: 80px;
-  padding: 50px 20px 90px 20px;
+  padding: 50px 0;
+  margin: auto;
+  /* background: #e1f5fe; */
+  /* border-radius: 15px; */
 }
-.card {
-  width: 370px;
-  height: 268px;
-  border-radius: 23px;
+
+.user-card .card {
+  width: max(322px);
+  height: fit-content;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
   overflow: hidden;
   text-align: center;
+  left: 10%;
+}
+.user-card .card:hover {
+  box-shadow: 0 0 7px 2px #29b6f6;
 }
 .card-content h1 {
   font-size: 20px;
   height: 22.5px;
   text-overflow: ellipsis;
-  margin: 0;
-}
-.card-content h2 {
-  font-size: 14px;
-  margin: 0;
-  margin-top: 0 !important;
+  padding: 15px;
 }
 .content-details {
-  text-align: left;
-  padding: 0 16px;
+  /* text-align: left; */
+  padding: 0 50px;
   margin-top: 12px;
   font-weight: 600;
+  line-height: 35px;
 }
 .content-details-item {
   display: flex;
@@ -374,21 +364,32 @@ export default {
   border-top: none !important;
   display: block;
 }
+.pagination {
+  bottom: 0px;
+}
 @media screen and (max-width: 1440px) {
-  .user-card {
+  /* .user-card {
     display: grid;
     grid-template-columns: repeat(3, 30%);
     column-gap: 50px;
     row-gap: 100px;
-  }
-  .card {
+  } */
+  /* .card {
     width: 340px;
     height: 268px;
+  } */
+  .user-card {
+    row-gap: 70px;
+  }
+  .user-card .card {
+    left: 3%;
+  }
+  .pagination {
+    bottom: 0px;
   }
 }
 @media screen and (max-width: 1280px) {
   .user-man-header-search input {
-    /* height: 30px; */
     width: 168px;
   }
   .user-card {

@@ -62,7 +62,7 @@ export default {
   top: 10px !important;
 }
 .card {
-  width: 80%;
+  width: fit-content;
   height: fit-content;
   border-radius: 12px;
 }
@@ -80,7 +80,7 @@ img {
   text-align: center;
   padding: 5px;
 }
-h5 {
+.card-body h5 {
   font-weight: 600;
 }
 .password .btn {
@@ -124,10 +124,6 @@ h5 {
   color: white;
 }
 @media screen and (max-width: 1440px) {
-  .card {
-    width: 100%;
-    /* height: 300px; */
-  }
   img {
     /* left: 25px; */
     width: 220px;
@@ -135,13 +131,12 @@ h5 {
   }
 }
 @media screen and (max-width: 1366px) {
-  img {
-    /* left: 18px; */
-  }
+  /* img {
+     left: 18px;
+  } */
 }
 @media screen and (max-width: 1025px) {
   .card {
-    width: 40%;
     margin-left: 20px;
   }
   .profile-overview {
@@ -151,14 +146,11 @@ h5 {
   img {
     width: 230px;
     height: 200px;
-    /* left: 40px; */
   }
 }
 @media screen and (max-width: 769px) {
   .card {
-    width: 50%;
-    /* height: 260px; */
-    margin-left: -30px;
+    margin-left: -10%;
   }
   .profile-overview {
     width: 80%;
@@ -167,7 +159,6 @@ h5 {
   img {
     width: 210px;
     height: 160px;
-    /* left: 25px; */
   }
   h5 {
     font-size: 18px;
@@ -182,18 +173,14 @@ h5 {
     top: 0px;
   }
   .card {
-    width: 74%;
-    /* height: 200px; */
     margin-left: 0px;
   }
   img {
     width: 180px;
     height: 140px;
-    /* left: 32px; */
   }
   .card-body {
     position: relative;
-    top: -28px;
   }
   h5 {
     font-size: 16px;

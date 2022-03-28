@@ -167,8 +167,7 @@ h1 {
 }
 @media screen and (max-width: 765px) {
   .news {
-    width: calc(100% - 224px);
-    border: solid;
+     width: calc(100% - 224px);
     right: -5%;
   }
   .news-topic-idea {

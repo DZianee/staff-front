@@ -1,7 +1,7 @@
 <template>
   <div class="nav">
     <div class="uni-logo">
-      <img class="navbar-logo-image" src="../assets/images/logo.jpg" />
+      <img class="navbar-logo-image" src="../assets/images/FGW_logo_d.jpeg" />
     </div>
     <ul class="nav-items">
       <li class="nav-item" @click="HomeRoute">
@@ -9,18 +9,12 @@
         <span>Home</span>
         <span class="tooltiptext">Home</span>
       </li>
-      <li class="nav-item" @click="ExploreRoute">
-        <i class="bx bxs-hot bx-sm bx-fw" />
-        <span>Explore</span>
-        <span class="tooltiptext">Explore</span>
-      </li>
       <li class="nav-item" @click="NewsRoute">
         <i class="bx bx-news bx-sm bx-fw" />
         <span>News</span>
         <span class="tooltiptext">News</span>
       </li>
-
-      <li class="nav-item" @click="TopicDetailsRoute">
+      <li class="nav-item" @click="TopicListsRoute">
         <i class="bx bx-library bx-sm bx-fw" />
         <span>Topic's Store</span>
         <span class="tooltiptext">Topic's Store</span>
@@ -41,7 +35,7 @@
         <img src="../assets/pic/Plus.png" />
       </li> -->
       <!-- <router-link to="/"> -->
-      <li class="nav-item" @click="$router.push({ path: 'report' })">
+      <li class="nav-item" v-if="userStored.roleName == 'Manager'">
         <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
         <span>Statistic</span>
         <span class="tooltiptext">Statistic</span>
@@ -109,6 +103,9 @@ export default {
     },
     NewsRoute() {
       this.$router.push({ name: "newsView" });
+    },
+    TopicListsRoute() {
+      this.$router.push({ name: "topicListsView" });
     },
     ManageRoute() {
       this.$router.push({ name: "manageView" });

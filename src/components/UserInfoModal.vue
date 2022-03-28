@@ -20,9 +20,9 @@
           <i class="bi bi-filter-left" style="font-size: 22px" @click="displayButtons(!IsdisplayButtons)"></i>
         </div>
         <div class="User-ActButtons" :class="{ displayButtons: IsdisplayButtons }">
-          <button class="btn btn-primary btn-mar-right" @click="editDetail">Edit</button>
           <button class="btn btn-primary btn-mar-right" @click="assignRole">Assign Role</button>
           <button class="btn btn-primary btn-mar-right" @click="ResetsubmitModal">Reset Password</button>
+          <button class="btn btn-primary btn-mar-right" @click="editDetail">Edit</button>
           <button class="btn btn-primary btn-mar-right" @click="BansubmitModal">Ban</button>
           <button class="btn btn-primary" @click="DeletesubmitModal">Delete</button>
         </div>
@@ -383,17 +383,18 @@ export default {
   position: relative;
   width: 466px;
   max-width: calc(100% - 32px);
-  min-height: 200px;
+  height: fit-content;
   background-color: white;
   border-radius: 5px;
-  animation: modalfadein ease 0.3s;
-
+  animation: modalfadein ease 0.7s;
+  top: -8%;
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 30px;
   line-height: 26px;
   z-index: 2;
+  overflow-y: auto;
 }
 
 .UserInfo-Modal-header {
@@ -403,10 +404,11 @@ export default {
   transform: translateX(-50%);
   top: 52px;
   text-align: center;
+  font-weight: 500;
 }
 
 .User-ActButtons {
-  background-color: bisque;
+  background-color: white;
   position: absolute;
   left: 38px;
   top: 2px;
@@ -414,7 +416,7 @@ export default {
   border-radius: 15px;
   display: none;
   z-index: 1;
-  animation: fade ease-in-out 0.15s;
+  animation: fade ease-in-out 0.5s;
 }
 .User-ActButtons-icon {
   position: absolute;
@@ -468,7 +470,7 @@ export default {
   border: 1px solid #ccc;
   background-color: #c4c4c4;
   border-radius: 9px;
-  width: 100%;
+  width: 90%;
   padding: 10px;
   font-size: 15px;
   margin-bottom: 10px;
@@ -477,22 +479,27 @@ export default {
 .UserInfo-Modal-body label {
   text-align: left;
   padding-left: 10px;
-  font-size: 12px;
+  font-size: 15px;
   margin-bottom: 4px;
+  letter-spacing: 0.8px;
+  color: rgb(144, 140, 140);
 }
 .form-row {
+  margin-bottom: 10px;
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
+  width: 48%;
+  gap: 12px;
 }
 .form-group {
-  width: 46% !important;
+  width: 100% !important;
+  margin: 10px 0;
+  
 }
 .form-control {
   font-size: 12px;
 }
 .AddressInput {
-  width: 96%;
+  width: 100%;
   margin: 0px auto 20px;
 }
 .checkboxFlex {
