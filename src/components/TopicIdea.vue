@@ -241,6 +241,16 @@ export default {
     TopicRoute() {
       this.$router.push({ name: "topicView" });
     },
+    async download() {
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        // const resTopic = await this.$axios.get(`api/v1/Idea/asd/downloadData`);
+        // if (resTopic.status == 200) {
+        // }
+      } catch {
+        //
+      }
+    },
     // imageSelected(event) {
     //   console.log(event);
     //   this.topicImage = event.target.files[0];
