@@ -1,7 +1,7 @@
 <template>
   <div class="profile-details">
     <div class="card">
-      <h4 class="card-header" style="width: 100%; left: 50%; transform: translateX(-50%)">My profile</h4>
+      <h4 class="card-header" style="width: 80%; left: 50%; transform: translateX(-50%)">My profile</h4>
       <div class="card-body">
         <div class="info-details">
           <div class="firstname">

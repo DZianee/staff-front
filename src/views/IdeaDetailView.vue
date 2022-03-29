@@ -12,7 +12,10 @@
               <p>{{ idea.startDate }}</p>
             </div>
           </div>
-          <i v-if="userStored.roleName == 'Manager'" class="bi bi-three-dots-vertical container-content-info_icon-modify" @click="openDropdown()">
+          <i
+            v-if="userStored.roleName == 'Manager' || userStored.roleName == 'QA Manager'"
+            class="bi bi-three-dots-vertical container-content-info_icon-modify"
+            @click="openDropdown()">
             <ul class="idea-adjustment-items" v-if="DropDown">
               <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black" @click="ModifyIdea()">Modify</li> -->
               <!-- <li class="idea-adjustment-item" @click="DeleteIdea()">Delete</li> -->
@@ -59,9 +62,9 @@
 
           <div class="previewFilesContainer" v-if="files != null && files.length > 0">
             <span class="previewItem" v-for="file in files" :key="file">
-              <span @click="openpdf(file)">
+              <span @click="openpdf(file.imageUrl)">
                 <i class="bi bi-file-earmark-pdf"></i>
-                <p>File name super aquesum</p>
+                <p>{{ file.fileName }}</p>
               </span>
             </span>
           </div>

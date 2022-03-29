@@ -23,14 +23,14 @@ export default {
   background-color: #e3f2fd;
   border-radius: 12px;
   padding: 25px;
-  margin-top: 80px;
+  margin-top: 10px;
 }
 div:not(:first-child) {
   margin-top: 95px;
 }
 @media screen and (max-width: 1440px) {
   .profile-info {
-    margin-top: 80px;
+    margin-top: 10px;
   }
 }
 @media screen and (max-width: 1366px) {
@@ -42,7 +42,8 @@ div:not(:first-child) {
   .profile-info {
     width: 80%;
     position: relative;
-    left: 100px;
+    left: 50%;
+    transform: translateX(-50%);
     padding: 35px;
     margin-top: 30px;
   }
@@ -50,7 +51,6 @@ div:not(:first-child) {
 @media screen and (max-width: 769px) {
   .profile-info {
     width: 84%;
-    left: 65px;
     margin-top: 50px;
     padding: 35px;
   }
@@ -59,7 +59,6 @@ div:not(:first-child) {
   .profile-info {
     width: 100%;
     height: calc(100% + 40px);
-    left: 0px;
     margin-top: 30px;
     padding: 15px;
   }

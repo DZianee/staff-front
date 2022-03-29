@@ -25,7 +25,7 @@
         <span>Manage</span>
         <span class="tooltiptext">Manage</span>
       </li>
-      <li class="nav-item" v-if="userStored.roleName == 'Manager'" @click="$router.push({ path: 'report' })">
+      <li class="nav-item" v-if="userStored.roleName == 'QA Manager'" @click="$router.push({ path: 'report' })">
         <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
         <span>Statistic</span>
         <span class="tooltiptext">Statistic</span>
@@ -98,6 +98,9 @@ export default {
     },
     ManageRoute() {
       this.$router.push({ name: "manageView" });
+    },
+    TopicRoute() {
+      this.$router.push({ name: "topicView" });
     },
     ProfileRoute() {
       this.$router.push({ name: "profileView", params: { id: this.id } });

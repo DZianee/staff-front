@@ -78,7 +78,7 @@
             <div class="card-content">
               <div class="content">
                 <h1>{{ idea.title }}</h1>
-                <h3 class="topic-title" @click.stop="topicDetailRoute">{{ idea.topicName }}</h3>
+                <h3 class="topic-title" @click.stop="topicDetailRoute(idea.topicId)">{{ idea.topicName }}</h3>
                 <time datetime="2016-1-1">{{ getIdeaDateCreate(idea.createdDate) }}</time>
               </div>
             </div>
@@ -152,8 +152,8 @@ export default {
     routeIdea(value) {
       this.$router.push({ name: "ideaDetailView", params: { id: value } });
     },
-    topicDetailRoute() {
-      this.$router.push({ name: "topicListView", params: { id: this.id } });
+    topicDetailRoute(value) {
+      this.$router.push({ name: "topicListView", params: { id: value } });
     },
     async getIdeaList(event) {
       if (event && event.target.value == this.sortType) {
@@ -340,8 +340,8 @@ export default {
 }
 @media screen and (max-width: 1440px) {
   /* .news-idea-list .all-ideas .card { */
-    /* left: 5%; */
-    /* width: 80%; */
+  /* left: 5%; */
+  /* width: 80%; */
   /* } */
   .card-image {
     height: 200px;
@@ -360,8 +360,8 @@ export default {
 }
 @media screen and (max-width: 1025px) {
   /* .news-idea-list .all-ideas .card { */
-    /* left: -2%; */
-    /* width: 88%; */
+  /* left: -2%; */
+  /* width: 88%; */
   /* } */
   .card-image {
     height: 180px;
@@ -443,10 +443,13 @@ export default {
     height: fit-content;
   }
   .card-content .content h3 {
-  font-size: 15px;
-}
-  .card-content{
-    margin-top: -2%;
+    font-size: 15px;
   }
+  /* .card-content {
+    margin-top: 20%;
+  } */
+  /* .card-content{
+    margin-top: -2%;
+  } */
 }
 </style>

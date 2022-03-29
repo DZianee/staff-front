@@ -15,12 +15,22 @@ router.beforeEach((to, from, next) => {
     if (sessionStorage.getItem("User") != null && sessionStorage.getItem("Token") != null && sessionStorage.getItem("Auth") != null) {
       switch (to.name) {
         case "login":
+        case "changePass":
           next("/");
           break;
         case "manageView":
+        case "DepartmentView":
+        case "RoleView":
+        case "userView":
+          if (user.roleName == "Manager") {
+            next();
+          } else {
+            next("/");
+          }
+          break;
         case "topicView":
         case "topicideaView":
-          if (user.roleName == "Manager") {
+          if (user.roleName == "Manager" || user.roleName == "QA Manager") {
             next();
           } else {
             next("/");
@@ -28,6 +38,7 @@ router.beforeEach((to, from, next) => {
           break;
         default:
           next();
+          break;
       }
     } else if (to.name == "changePass") {
       next();
