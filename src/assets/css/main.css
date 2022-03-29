@@ -708,12 +708,14 @@ iframe {
   display: flex;
   width: 100%;
   padding-left: 10px;
+  justify-content: unset;
 }
 .user .avatar {
   width: 45px;
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
+  margin: 0 10px;
 }
 .user-avatar-info {
   margin-left: 20px;

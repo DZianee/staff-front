@@ -263,7 +263,7 @@ export default {
   justify-content: space-evenly;
   gap: 16px;
   height: fit-content;
-  padding: 20px;
+  padding: 50px;
   padding-bottom: 90px;
 }
 .news-idea-list .all-ideas .card {
@@ -387,7 +387,7 @@ export default {
 @media screen and (max-width: 769px) {
   .news-idea-list .all-ideas {
     /* grid-template-columns: 1fr 1fr; */
-    column-gap: 10px;
+    column-gap: 20px;
     padding-left: 0;
     padding-right: 0;
   }
