@@ -1,16 +1,18 @@
 <template>
-  <div class="table-toolbar d-flex justify-content-end form-search-padding">
+  <div class="table-toolbar form-search-padding">
     <div class="topic-title">Topic Management</div>
-    <div class="table-search-box">
-      <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="topicName" />
-      <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
-    </div>
-    <button class="create-topic" @click="modalAct()">New Topic +</button>
-    <div class="create-icon" @click="modalAct()">
-      <i class="bi bi-plus-circle"></i>
+    <div class="search-create">
+      <div class="table-search-box">
+        <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="topicName" />
+        <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
+      </div>
+      <button class="create-topic" @click="modalAct()">New Topic +</button>
+      <div class="create-icon" @click="modalAct()">
+        <i class="bi bi-plus-circle"></i>
+      </div>
     </div>
   </div>
-  <div class="topic-card">
+  <div class="topic-card container">
     <div v-for="topic in Topics" :key="topic.id">
       <div class="card">
         <!-- <div class="topic-card_adjust"> -->
@@ -132,10 +134,12 @@ export default {
 <style scoped>
 .topic-card {
   display: grid;
+  height: fit-content;
+  width: 90%;
   grid-template-columns: repeat(3, 29%);
   column-gap: 40px;
   row-gap: 80px;
-  padding: 50px 0 90px 90px;
+  padding: 50px 0 90px 30px;
 }
 .card_border--effect {
   width: 370px;
@@ -161,13 +165,16 @@ export default {
 a {
   text-decoration: none;
 }
-.justify-content-end {
-  justify-content: space-evenly !important;
+.search-create {
+  justify-content: flex-end;
   align-items: center;
+  display: flex;
+  gap: 10px;
+  padding-right: 9%;
 }
-.form-search-padding {
-  /* padding-right: 180px; */
-  gap: 24px;
+.topic-title {
+  font-weight: 500;
+  font-size: 30px;
 }
 .bi-plus-circle {
   display: none;
@@ -176,11 +183,7 @@ a {
   background-color: lavenderblush;
   border-radius: 50%;
 }
-.topic-title {
-  font-weight: 500;
-  font-size: 30px;
-  /* padding-right: 40%; */
-}
+
 .table-search-box {
   position: relative;
 }
@@ -188,7 +191,7 @@ a {
   height: 35px;
   line-height: 10px;
   font-size: 16px;
-  width: 18%;
+  width: 15%;
   color: white;
   background: #3d5afe;
   font-weight: 500;
@@ -218,6 +221,7 @@ a {
 }
 .card {
   width: 300px;
+  margin-left: auto;
   height: 268px;
   border-radius: 24px;
 }
@@ -268,7 +272,7 @@ span:hover {
 }
 h1 {
   text-align: center;
-  font-size: 22px;
+  font-size: 20px;
   display: flex;
   font-weight: 500;
   align-items: center;
@@ -276,6 +280,10 @@ h1 {
   overflow: hidden;
   height: 110px;
   letter-spacing: 0.5px;
+}
+.card-footer:last-child {
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
 }
 .card-footer {
   border-top-color: rgb(177, 177, 177);
@@ -290,23 +298,15 @@ h1 {
 }
 @media screen and (max-width: 1440px) {
   .topic-card {
-    display: grid;
-    grid-template-columns: repeat(3, 28%);
     column-gap: 50px;
-    row-gap: 100px;
-    padding: 50px 0 70px 70px;
+    width: 100%;
   }
-  .card {
-    height: 268px;
-  }
-  .topic-title {
-    /* padding-right: 32%; */
-  }
-  .form-search-padding {
-    /* padding-right: 100px; */
+  .search-create {
+    gap: 10px;
+    padding-right: 4%;
   }
 }
-@media screen and (max-width: 1280px) {
+/* @media screen and (max-width: 1280px) {
   .topic-card {
     display: grid;
     grid-template-columns: repeat(3, 27%);
@@ -316,60 +316,34 @@ h1 {
   .card {
     height: 268px;
   }
-  .card_border--effect {
-    width: 355px;
-  }
-  .topic-title {
-    /* padding-right: 24%; */
-  }
-  .form-search-padding {
-    /* padding-right: 100px; */
-  }
-}
+} */
 @media screen and (max-width: 1025px) {
   .topic-card {
-    display: grid;
-    grid-template-columns: repeat(3, 28%);
-    padding: 50px 0 70px 50px;
+    padding: 50px 0 90px 14px;
   }
   .card {
     height: 248px;
   }
-  .card-content {
-    height: 200px;
-  }
-  .card_border--effect {
-    width: 355px;
-  }
-  .topic-title {
-    /* padding-right: 20%; */
-  }
 }
 @media screen and (max-width: 780px) {
   .topic-card {
-    display: grid;
-    grid-template-columns: repeat(2, 47%);
+    grid-template-columns: repeat(2, 48%);
     column-gap: 20px;
-    row-gap: 70px;
-    padding: 50px 0 70px 60px;
+    padding: 50px 0 90px 0px;
   }
   .card {
-    width: 250px;
+    width: 280px;
     height: 230px;
+    margin-left: 5%;
   }
   .card-content {
     height: 180px;
   }
   .topic-title {
-    /* padding-right: 14%; */
     font-size: 24px;
   }
-  .form-search-padding {
-    /* padding-right: 50px; */
-    gap: 10px;
-  }
   .create-topic {
-    width: 17%;
+    width: 22%;
     font-size: 15px;
   }
   .table-search-box input {
@@ -384,11 +358,8 @@ h1 {
     font-size: 14px;
     padding-top: 18px;
   }
-  .card_border--effect {
-    width: 295px;
-  }
 }
-@media screen and (max-width: 570px) {
+/* @media screen and (max-width: 570px) {
   .topic-card {
     grid-template-columns: 100%;
     padding: 50px 80px 70px 80px;
@@ -406,11 +377,9 @@ h1 {
     width: 100%;
   }
   .topic-title {
-    /* padding-right: 8%; */
     font-size: 24px;
   }
   .form-search-padding {
-    /* padding-right: 20px; */
     gap: 10px;
   }
   .create-topic {
@@ -421,30 +390,34 @@ h1 {
     width: 160px;
     font-size: 15px;
   }
-}
+} */
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .topic-card {
-    row-gap: 60px;
+     grid-template-columns: 100%;
+    padding: 40px 0 90px 0px;
+    row-gap: 40px;
   }
   .card {
-    width: 100%;
-  }
-  .topic-title {
-    padding-right: 5%;
-    font-size: 24px;
+    width: 80%;
+    margin-left: 10%;
   }
   .form-search-padding {
-    padding-top: 30px;
+    padding-top: 20px;
   }
-}
-@media screen and (max-width: 412px) {
-  .topic-title {
-    padding-right: 2%;
-    font-size: 22px;
+  .topic-title{
+    text-align: center;
+    font-size: 30px;
+  }
+  .search-create{
+    padding: 15px 0;
+    justify-content: center;
   }
   .table-search-box input {
-    width: 120px;
+    width: 100%;
     font-size: 15px;
+  }
+  .create-topic{
+    width: 30%;
   }
 }
 </style>
