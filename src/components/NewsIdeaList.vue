@@ -92,6 +92,7 @@
                 <i class="bx bx-dislike bx-fw" />
               </div>
               <div class="card-footer-item comment">
+                
                 {{ idea.totalComments }}
                 <i class="bx bx-message-square-detail bx-fw" />
               </div>
