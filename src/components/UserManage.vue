@@ -24,18 +24,25 @@
       <div class="user-man-header-search">
         <div class="table-search-box">
           <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchForm.name" />
-          <!-- <button class="create-topic" @click="modalAct()">New Topic +</button> -->
+          <button
+            class="create-topic"
+            @click="
+              CreateUserAct();
+              DepartmentAct(Departments);
+            ">
+            New Topic +
+          </button>
 
-          <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
+          <!-- <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span> -->
         </div>
-        <div
+        <!-- <div
           class="create-icon"
           @click="
             CreateUserAct();
             DepartmentAct(Departments);
           ">
           <i class="bi bi-plus-circle"></i>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="user-card">

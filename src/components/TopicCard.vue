@@ -174,7 +174,7 @@ a {
 }
 .topic-title {
   font-weight: 500;
-  font-size: 30px;
+  font-size: 40px;
 }
 .bi-plus-circle {
   display: none;
@@ -323,6 +323,9 @@ h1 {
   }
   .card {
     height: 248px;
+  }
+  .topic-title{
+    font-size: 30px;
   }
 }
 @media screen and (max-width: 780px) {

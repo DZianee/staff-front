@@ -1,12 +1,13 @@
 <template>
-  <div class="container-left">
+  <div class="container">
+    <h1 class="container-title">Roles Management</h1>
     <div class="container-management">
-      <h1 class="container-title">Roles Management</h1>
-      <i class="bi bi-plus-circle" @click="Create"></i>
+      <button class="create-role" @click="Create">New role +</button>
+      <!-- <i class="bi bi-plus-circle" @click="Create"></i> -->
       <div class="container-content">
         <div style="overflow-x: auto">
-          <table class="table table-striped table-bordered">
-            <thead>
+          <table class="table table-hover">
+            <thead class="table-light">
               <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
@@ -20,10 +21,10 @@
                 <td scope="col">
                   <ul>
                     <li>
-                      <button type="button" class="btn btn-secondary" @click="Modify(role)">Modify</button>
+                      <button type="button" class="btn btn-success" @click="Modify(role)">Modify</button>
                     </li>
                     <li>
-                      <button type="button" class="btn btn-secondary" @click="Delete(role)">Delete</button>
+                      <button type="button" class="btn btn-danger" @click="Delete(role)">Delete</button>
                     </li>
                   </ul>
                 </td>
@@ -181,18 +182,41 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  padding-top: 30px;
+  right: -8.1%;
+  width: calc(100% - 336px);
+}
 .container-management {
   position: relative;
+  border: solid white;
 }
-.bi-plus-circle {
+.create-role {
+  float: right;
+  height: 35px;
+  line-height: 10px;
+  font-size: 16px;
+  width: 13%;
+  color: white;
+  background: #3d5afe;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px;
+  margin: 2% 5% 0 0;
+  border-radius: 0.25rem;
+}
+.create-role:hover {
+  background: #1976d2;
+}
+/* .bi-plus-circle {
   font-size: 34px;
   position: absolute;
   top: 0;
   right: 32px;
   cursor: pointer;
-}
+} */
 .container-content {
-  margin-top: 24px;
+  margin-top: 70px;
   position: relative;
   width: 90%;
   left: 50%;
@@ -205,6 +229,42 @@ ul li {
 }
 td {
   width: 33%;
+}
+@media screen and (max-width: 1025px) {
+  .container {
+    width: calc(100% - 101px);
+    right: -4%;
+  }
+}
+@media screen and (max-width: 769px) {
+  .container {
+    width: calc(100% - 92px);
+    right: -5%;
+  }
+  .create-role {
+    font-size: 16px;
+    width: 22%;
+  }
+  .table-light tr th {
+    text-align: center;
+  }
+  tbody tr td {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 480px) {
+  .container {
+    width: 100%;
+    right: 0;
+    top: 80px;
+  }
+  h1{
+    text-align: center;
+  }
+  .create-role {
+    width: 30%;
+    margin: 5% 5% 0 0;
+  }
 }
 @media screen and (max-width: 560px) {
   .container-content {

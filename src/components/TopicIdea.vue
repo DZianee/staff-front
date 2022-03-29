@@ -567,7 +567,7 @@ export default {
 }
 
 .form-topic-detail-group {
-  width: 46%;
+  width: 46% !important;
   margin: 10px 0;
 }
 
@@ -637,7 +637,7 @@ thead tr th:nth-child(4) {
 }
 
 .idearow:hover {
-  background-color: aqua;
+  background-color: rgb(201, 251, 247);
 }
 
 .idea-adjustment {
@@ -708,11 +708,8 @@ thead tr th:nth-child(4) {
     display: flex;
     flex-direction: column;
   }
-  .form-group{
-    width: 100%;
-  }
-  .form-topic-detail-group{
-    width: 100%;
+  .form-topic-detail-group {
+    width: 100% !important;
   }
   /* .idea-adjustment-items {
     top: -142%;
