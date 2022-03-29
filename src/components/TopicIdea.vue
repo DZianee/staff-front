@@ -567,7 +567,7 @@ export default {
 }
 
 .form-topic-detail-group {
-  width: 46% !important;
+  width: 46%;
   margin: 10px 0;
 }
 
@@ -706,6 +706,13 @@ thead tr th:nth-child(4) {
   .form-topic-detail-row,
   .form-topic-detail-row-Date {
     display: flex;
+    flex-direction: column;
+  }
+  .form-group{
+    width: 100%;
+  }
+  .form-topic-detail-group{
+    width: 100%;
   }
   /* .idea-adjustment-items {
     top: -142%;
@@ -728,7 +735,7 @@ thead tr th:nth-child(4) {
   }
   .btnSubmit {
     margin-right: 0px;
-    float: none;
+    /* float: none; */
     width: 120px;
   }
   .content {
