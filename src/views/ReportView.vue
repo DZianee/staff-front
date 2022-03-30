@@ -43,7 +43,7 @@
                   <thead>
                     <tr>
                       <th>Department</th>
-                      <th>Ideas</th>
+                      <th>Contributor</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -108,7 +108,6 @@ export default {
           labels,
           datasets: [
             {
-              label: "Number idea",
               backgroundColor: randomColors,
               data: ideaCounts,
             },
@@ -179,7 +178,7 @@ export default {
                     label += ": ";
                   }
                   if (context.parsed !== null) {
-                    label += `${context.parsed} %`;
+                    label += `${(Number(context.parsed)).toFixed(1)} %`;
                   }
                   return label;
                 },
