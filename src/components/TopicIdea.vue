@@ -244,9 +244,19 @@ export default {
     async download(data) {
       try {
         this.$store.dispatch("fetchAccessToken");
-        await this.$axios.get(`api/v1/Idea/${data}/downloadData`);
+        const resTopic = await this.$axios.get(`api/v1/Idea/${data}/downloadData`, { responseType: "arraybuffer" });
+        if (resTopic.status == 200) {
+          var FILE = window.URL.createObjectURL(new Blob([resTopic.data], { type: "application/zip" }));
+          window.open(FILE);
+
+          // var docUrl = document.createElement("x");
+          // docUrl.href = FILE;
+          // docUrl.setAttribute("download", data + ".zip");
+          // document.body.appendChild(docUrl);
+          // docUrl.click();
+        }
       } catch {
-        //
+        console.log("he");
       }
     },
     // imageSelected(event) {
