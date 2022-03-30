@@ -115,6 +115,9 @@ export default {
         },
         options: {
           plugins: {
+            legend: {
+              display: false,
+            },
             tooltip: {
               usePointStyle: true,
               callbacks: {
@@ -178,7 +181,7 @@ export default {
                     label += ": ";
                   }
                   if (context.parsed !== null) {
-                    label += `${(Number(context.parsed)).toFixed(1)} %`;
+                    label += `${Number(context.parsed).toFixed(1)} %`;
                   }
                   return label;
                 },
