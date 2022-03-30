@@ -637,7 +637,7 @@ thead tr th:nth-child(4) {
 }
 
 .idearow:hover {
-  background-color: aqua;
+  background-color: rgb(201, 251, 247);
 }
 
 .idea-adjustment {
@@ -706,6 +706,10 @@ thead tr th:nth-child(4) {
   .form-topic-detail-row,
   .form-topic-detail-row-Date {
     display: flex;
+    flex-direction: column;
+  }
+  .form-topic-detail-group {
+    width: 100% !important;
   }
   /* .idea-adjustment-items {
     top: -142%;
@@ -728,7 +732,7 @@ thead tr th:nth-child(4) {
   }
   .btnSubmit {
     margin-right: 0px;
-    float: none;
+    /* float: none; */
     width: 120px;
   }
   .content {

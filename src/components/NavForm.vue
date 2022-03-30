@@ -24,28 +24,12 @@
         <i class="bx bx-briefcase bx-sm bx-fw" />
         <span>Manage</span>
         <span class="tooltiptext">Manage</span>
-
-        <!-- <ul class="nav-item-manage">
-          <li class="nav-item-manage-item" @click="TopicRoute">Topic</li>
-          <li class="nav-item-manage-item" @click="ManageRoute">Manage User</li>
-        </ul>
-        <span class="bagText">Bag</span> -->
       </li>
-      <li class="nav-item" @click="TopicRoute" v-if="userStored.roleName == 'QA Manager'">
-        <i class="bx bx-briefcase bx-sm bx-fw" />
-        <span>Topic Manage</span>
-        <span class="tooltiptext">Topic Manage</span>
-      </li>
-      <!-- <li v-if="this.$route.name == 'topicView' || this.$route.name == 'manageview'" class="nav-item js-add" @click="modalAct(this.$route.name)">
-        <img src="../assets/pic/Plus.png" />
-      </li> -->
-      <!-- <router-link to="/"> -->
-      <li class="nav-item" v-if="userStored.roleName == 'Manager'">
+      <li class="nav-item" v-if="userStored.roleName == 'QA Manager'" @click="$router.push({ path: 'report' })">
         <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
         <span>Statistic</span>
         <span class="tooltiptext">Statistic</span>
       </li>
-      <!-- </router-link> -->
       <li class="nav-item">
         <i class="bx bx-cog bx-sm bx-fw" />
         <span>Setting</span>
@@ -157,9 +141,9 @@ export default {
 </script>
 
 <style scoped>
-.user {
+/* .user {
   justify-content: space-between;
-}
+} */
 .user-avatar-info {
   margin: 0;
 }
