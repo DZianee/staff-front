@@ -92,7 +92,7 @@
       <div v-for="user in Users" :key="user.id">
         <div class="card">
           <div class="card-image">
-            <img :src="`https:${user.profileImage}`" alt="User image" />
+            <img :src="`https://${user.profileImage}`" alt="User image" />
           </div>
           <div class="card-content" style="padding: 0">
             <div class="content">
