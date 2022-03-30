@@ -19,6 +19,7 @@
             <img :src="`https://${topicDetail.image}`" alt="detail image" />
           </div>
           <div class="detail-des" v-html="topicDetail.description"></div>
+          <p class="view-topic-idea" @click="NewsRoute">Move to the News</p>
         </div>
         <div class="other-topic-list">
           <div class="other-topic-header"><h2>Other Topics</h2></div>
@@ -66,6 +67,9 @@ export default {
   methods: {
     TopicListRoute() {
       this.$router.push({ name: "topicListsView" });
+    },
+    NewsRoute() {
+      this.$router.push({ name: "newsView"});
     },
     getStartDate(date) {
       const dateCreate = new Date(date);
@@ -124,13 +128,23 @@ export default {
 img {
   height: max(556px);
   width: max(825px);
-  object-fit: cover;
+  object-fit: contain;
 }
 .detail-des {
   padding: 20px;
   line-height: 40px;
   font-size: 20px;
   text-align: justify;
+}
+.view-topic-idea {
+  font-size: 16px;
+  padding: 20px;
+  color: black;
+}
+.view-topic-idea:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: rgb(228, 85, 85);
 }
 /* p {
   font-size: 18px;
