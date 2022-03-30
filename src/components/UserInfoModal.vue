@@ -493,7 +493,6 @@ export default {
 .form-group {
   width: 100% !important;
   margin: 10px 0;
-  
 }
 .form-control {
   font-size: 12px;
@@ -536,7 +535,7 @@ export default {
 
   .UserInfo-Modal-body {
     padding: 16px;
-    margin-top: 40px;
+    margin-top: 30px;
   }
 
   .UserInfo-Modal-input {
@@ -556,10 +555,13 @@ export default {
   .form-row {
     display: block;
     margin-bottom: 0px;
+    margin: 10px 0;
+
+    width: 100%;
   }
   .form-group {
     width: 100% !important;
-    margin: 10px 0;
+    margin: 15px 0;
   }
   .btn-mar-right {
     margin-right: 2px;

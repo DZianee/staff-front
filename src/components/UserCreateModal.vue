@@ -224,5 +224,22 @@ button.btn.btn-primary {
   .form-oneInput {
     width: 100%;
   }
+  .UserInfo-Modal-body {
+    margin-top: 50px;
+  }
+}
+@media (max-width: 480px) {
+  .UserCreate-Modal-header {
+    position: absolute;
+    width: 80%;
+    height: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+    text-align: center;
+  }
+  .form-oneInput {
+    width: 100%;
+  }
 }
 </style>

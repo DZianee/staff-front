@@ -37,15 +37,14 @@ export default {
     right: -4%;
   }
 }
+/* @media screen and (max-width: 940px) {
+  .user-management {
+    right: 0%;
+  }
+} */
 @media screen and (max-width: 768px) {
   .user-management {
     width: calc(100% - 92px);
-    right: -5%;
-  }
-}
-@media screen and (max-width: 765px) {
-  .user-management {
-    width: calc(100% - 224px);
     right: -5%;
   }
 }
@@ -54,7 +53,7 @@ export default {
     width: 100%;
     right: 0;
     top: 80px;
-    height: 2650px;
+    height: fit-content;
   }
 }
 @media screen and (max-width: 450px) {
@@ -62,7 +61,6 @@ export default {
     width: 100%;
     right: 0;
     top: 80px;
-    height: 2650px;
   }
 }
 /* @media (min-width: 481px) and (max-width: 1025px) {

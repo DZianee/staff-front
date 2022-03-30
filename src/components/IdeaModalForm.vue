@@ -290,6 +290,7 @@ export default {
   overflow-y: scroll;
   text-align: left;
   z-index: 2;
+  border: solid;
 }
 
 .Idea-Modal {

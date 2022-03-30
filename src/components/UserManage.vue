@@ -2,40 +2,90 @@
   <div class="user-man container">
     <h1>User Management</h1>
     <div class="user-man-header">
-      <select v-model="searchForm.departmentName" class="form-select selectDepartment">
-        <option value="">All Department</option>
-        <option v-for="department in Departments" :key="department.id" :value="department.name">{{ department.name }}</option>
-      </select>
-      <div class="user-man-header-sort">
-        <p>By:</p>
-        <select v-model="searchForm.sortBy" class="form-select sortType">
-          <option value="0">Created Date</option>
-          <option value="1">Name</option>
-          <option value="2">Department</option>
-        </select>
-      </div>
-      <div class="user-man-header-sort">
-        <p>Type:</p>
-        <select v-model="searchForm.sortType" class="form-select sortType">
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </div>
-      <div class="user-man-header-search">
-        <div class="table-search-box">
-          <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchForm.name" />
-          <!-- <button class="create-topic" @click="modalAct()">New Topic +</button> -->
-
-          <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+          <div class="accordion-header" id="flush-headingOne">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne"
+              aria-expanded="false"
+              aria-controls="flush-collapseOne">
+              <i class="bx bx-sort bx-fw"></i>
+            </button>
+          </div>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="sort-bar">
+                <select v-model="searchForm.departmentName" class="form-select selectDepartment-sort-bar">
+                  <option value="">All Department</option>
+                  <option v-for="department in Departments" :key="department.id" :value="department.name">{{ department.name }}</option>
+                </select>
+                <div class="user-man-header-sort">
+                  <p>By:</p>
+                  <select v-model="searchForm.sortBy" class="form-select sortType">
+                    <option value="0">Created Date</option>
+                    <option value="1">Name</option>
+                    <option value="2">Department</option>
+                  </select>
+                </div>
+                <div class="user-man-header-sort">
+                  <p>Type:</p>
+                  <select v-model="searchForm.sortType" class="form-select sortType">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div
+      </div>
+      <div class="header-menu">
+        <select v-model="searchForm.departmentName" class="form-select selectDepartment">
+          <option value="">All Department</option>
+          <option v-for="department in Departments" :key="department.id" :value="department.name">{{ department.name }}</option>
+        </select>
+        <div class="user-man-header-sort">
+          <p>By:</p>
+          <select v-model="searchForm.sortBy" class="form-select sortType">
+            <option value="0">Created Date</option>
+            <option value="1">Name</option>
+            <option value="2">Department</option>
+          </select>
+        </div>
+        <div class="user-man-header-sort">
+          <p>Type:</p>
+          <select v-model="searchForm.sortType" class="form-select sortType">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
+
+        <!-- <div
           class="create-icon"
           @click="
             CreateUserAct();
             DepartmentAct(Departments);
           ">
           <i class="bi bi-plus-circle"></i>
+        </div> -->
+      </div>
+      <div class="user-man-header-search">
+        <div class="table-search-box">
+          <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchForm.name" />
+
+          <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
         </div>
+        <button
+          class="create-user"
+          @click="
+            CreateUserAct();
+            DepartmentAct(Departments);
+          ">
+          New User +
+        </button>
       </div>
     </div>
     <div class="user-card">
@@ -111,6 +161,7 @@ export default {
 
       currentPage: 1,
       totalPage: 1,
+      isHidden: true,
     };
   },
   watch: {
@@ -220,7 +271,6 @@ h1 {
   padding: 10px;
 }
 .user-man {
-  border: solid;
   height: fit-content;
   /* left: 46%;
   transform: translateX(-50%);
@@ -230,9 +280,45 @@ h1 {
   display: flex;
   justify-content: space-evenly;
   /* align-items: center; */
-  border: solid red;
+  /* border: solid; */
+  padding: 5px 0;
+  border-top: solid lightgrey;
+  border-bottom: solid lightgrey;
 }
-
+/* .sort-icon {
+  position: relative;
+  display: none;
+} */
+.accordion {
+  position: relative;
+  width: 60px;
+  height: fit-content;
+}
+.accordion-button {
+  padding: 10px 7px;
+}
+.sort-bar {
+  position: absolute;
+  width: 270px;
+  border: solid gray;
+  top: 0;
+  border-radius: 5%;
+  left: 64px;
+  z-index: 1;
+  background: #eaeaea;
+  padding: 10px;
+  /* display: none; */
+}
+.sort-bar select,
+.sort-bar .user-man-header-sort {
+  margin: 7px 10px;
+}
+.header-menu {
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  align-items: center;
+}
 .table-search-box {
   position: relative;
 }
@@ -242,11 +328,11 @@ h1 {
   color: white;
   /* display: none; */
 }
-.create-topic {
+.create-user {
   height: 35px;
   line-height: 10px;
   font-size: 16px;
-  width: 13%;
+  width: 50%;
   color: white;
   background: #3d5afe;
   font-weight: 500;
@@ -254,8 +340,11 @@ h1 {
   padding: 10px;
   border-radius: 0.25rem;
 }
-.create-topic:hover {
+.create-user:hover {
   background: #1976d2;
+}
+.selectDepartment-sort-bar {
+  width: 90%;
 }
 .table-search-box .fa-search {
   position: absolute;
@@ -280,6 +369,7 @@ h1 {
 
 .user-man-header-search {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 12px;
   /* margin-right: 20px; */
@@ -290,7 +380,7 @@ h1 {
 }
 
 .selectDepartment {
-  width: 15% !important;
+  width: 25% !important;
   height: 38px;
   margin-top: 5px;
 }
@@ -368,21 +458,24 @@ h1 {
   bottom: 0px;
 }
 @media screen and (max-width: 1440px) {
-  /* .user-card {
-    display: grid;
-    grid-template-columns: repeat(3, 30%);
-    column-gap: 50px;
-    row-gap: 100px;
-  } */
-  /* .card {
-    width: 340px;
-    height: 268px;
-  } */
   .user-card {
     row-gap: 70px;
+    width: 90%;
   }
   .user-card .card {
     left: 3%;
+  }
+}
+@media screen and (max-width: 1366px) {
+  .user-card {
+    row-gap: 70px;
+    /* padding: 0 0; */
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+  .user-card .card {
+    left: 0%;
+    width: 310px;
   }
   .pagination {
     bottom: 0px;
@@ -395,12 +488,22 @@ h1 {
   .user-card {
     display: grid;
     grid-template-columns: repeat(3, 30%);
-    column-gap: 50px;
-    row-gap: 100px;
+    /* column-gap: 50px; */
   }
   .card {
-    width: 355px;
-    height: 268px;
+    /* width: 355px; */
+  }
+  .content-details {
+    /* text-align: left; */
+    padding: 0 25px;
+  }
+  .user-man-header-sort {
+    display: flex;
+    align-items: center;
+    width: 150px;
+  }
+  .create-user {
+    width: 120px;
   }
 }
 @media screen and (max-width: 1025px) {
@@ -408,45 +511,40 @@ h1 {
     display: grid;
     grid-template-columns: repeat(2, 47%);
     column-gap: 30px;
-    row-gap: 100px;
-    padding-left: 24px;
+    /* row-gap: 100px; */
+    padding-left: 10%;
   }
   .card {
     width: 355px;
     height: 268px;
   }
 }
-@media (min-width: 1024px) {
-}
 /* Tablet */
 
 @media (max-width: 940px) {
+  h1 {
+    font-size: 30px;
+  }
   .user-man-header {
-    flex-direction: column;
-    width: 220px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    justify-content: space-between;
   }
-  .user-man-header-sort {
-    margin-bottom: 8px;
+  .sort-icon {
+    display: block;
   }
-  .selectDepartment {
-    margin-bottom: 8px;
-    width: 100% !important;
+  .sort-icon i {
+    line-height: 30px;
   }
-  .user-man-header-search {
-    margin-bottom: 10px;
+  .sort-bar {
+    display: block;
+  }
+  .header-menu {
+    display: none;
   }
   .user-man-header-search input {
-    /* height: 30px; */
-    width: 220px;
+    width: 200px;
   }
-  .selectDepartment {
-    margin-bottom: 8px;
-  }
-  .btn {
-    margin-top: 8px;
+  .user-card {
+    padding-left: 2%;
   }
 }
 
@@ -461,32 +559,24 @@ h1 {
   .user-card {
     display: grid;
     grid-template-columns: repeat(2, 47%);
-    column-gap: 34px;
-    row-gap: 70px;
-    padding: 50px 50px 160px 50px;
-  }
-  .card {
-    width: 100%;
-    height: 268px;
   }
 }
 
 @media (max-width: 740px) {
-  .user-man {
+  /* .user-man {
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
-  }
+  } */
   /* .user-man-content {
     overflow-x: scroll;
   } */
 }
 @media (max-width: 620px) {
   .user-card {
-    display: grid;
     grid-template-columns: 100%;
     row-gap: 60px;
-    padding-left: 53px;
+    padding: 50px 17%;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
@@ -494,11 +584,18 @@ h1 {
     display: grid;
     grid-template-columns: 100%;
     row-gap: 60px;
-    padding-left: 53px;
+    width: 100%;
+    padding: 50px 14%;
   }
   .card {
     width: 100%;
-    height: 268px;
+  }
+  h1 {
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  .user-man {
+    margin-bottom: 200px;
   }
 }
 </style>
