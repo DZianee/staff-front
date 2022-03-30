@@ -117,7 +117,7 @@
             <td @click="ideaDetail(idea.id)">{{ idea.startDate }}</td>
             <td class="idea-adjustment" style="width: 10%">
               <i class="bi bi-gear idea-adjustment-icon" @click="openDropdown(idea.id)"> </i>
-              <ul class="idea-adjustment-items" v-if="ideaId == idea.id">
+              <ul class="idea-adjustment-items" :class="'download' ? topic.status == 2 : ''" v-if="ideaId == idea.id">
                 <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black" @click="ideaDetail(idea.id)">Detail</li> -->
                 <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black">Modify</li> -->
                 <li class="idea-adjustment-item" @click="onDelete(idea.id)" style="border-bottom: 2px solid black">Delete</li>
@@ -244,9 +244,19 @@ export default {
     async download(data) {
       try {
         this.$store.dispatch("fetchAccessToken");
-        await this.$axios.get(`api/v1/Idea/${data}/downloadData`);
+        const resTopic = await this.$axios.get(`api/v1/Idea/${data}/downloadData`, { responseType: "arraybuffer" });
+        if (resTopic.status == 200) {
+          var FILE = window.URL.createObjectURL(new Blob([resTopic.data], { type: "application/zip" }));
+          window.open(FILE);
+
+          // var docUrl = document.createElement("x");
+          // docUrl.href = FILE;
+          // docUrl.setAttribute("download", data + ".zip");
+          // document.body.appendChild(docUrl);
+          // docUrl.click();
+        }
       } catch {
-        //
+        console.log("he");
       }
     },
     // imageSelected(event) {
@@ -657,7 +667,7 @@ thead tr th:nth-child(4) {
 .idea-adjustment-items {
   list-style-type: none;
   min-width: 100px;
-  height: 90px;
+  height: 45px;
   top: -5%;
   left: 0%;
   position: absolute;
@@ -671,6 +681,10 @@ thead tr th:nth-child(4) {
   text-align: center;
   z-index: 1;
   margin: 0;
+}
+
+.download {
+  height: 90px;
 }
 
 .idea-adjustment-item {
