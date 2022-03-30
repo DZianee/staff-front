@@ -16,7 +16,7 @@
     </div>
     <div v-if="choice === 'via'">
       <div v-if="ideaList == ''">
-        <p style="color: gray; text-align: center; font-size: 16px; margin-top: 40px; font-style: italic">There is no idea existed yet</p>
+        <p style="color: gray; text-align: center; font-size: 16px; position: relative; top: 60px; font-style: italic">There is no idea existed yet</p>
       </div>
       <div v-else>
         <div class="all-ideas" style="margin-top: 24px">
@@ -236,13 +236,15 @@ export default {
   height: 35px;
   line-height: 10px;
   font-size: 16px;
-  width: 100%;
+  width: 60%;
   color: white;
   background: #3d5afe;
   font-weight: 500;
   cursor: pointer;
   padding: 10px;
   border-radius: 0.25rem;
+  float: right;  
+  margin-top: 7px;
 }
 .create-topic:hover {
   background: #1976d2;
@@ -338,6 +340,9 @@ export default {
   right: 0;
   width: 26% !important;
 }
+.form-control{
+  width: 90%;
+}
 @media screen and (max-width: 1440px) {
   /* .news-idea-list .all-ideas .card { */
   /* left: 5%; */
@@ -407,6 +412,7 @@ export default {
   }
   .create-topic {
     font-size: 15px;
+    width: 60%;
   }
 }
 @media screen and (max-width: 680px) {
@@ -414,13 +420,13 @@ export default {
     /* left: -7%; */
     width: 100%;
   }
-  .create-topic {
+  /* .create-topic {
     display: none;
-  }
-  .bi-plus-circle {
+  } */
+  /* .bi-plus-circle {
     display: block;
     font-size: 30px;
-  }
+  } */
   .bi-plus-circle::before {
     background-color: #3d5afe;
     color: white;
