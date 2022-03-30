@@ -3,7 +3,9 @@
     <div v-if="userIdea == ''" style="text-align: center; margin-top: 20px; color: gray">You haven't got any idea yet</div>
     <div v-else>
       <div class="card" v-for="idea in userIdea" :key="idea.id">
+        <img v-if="idea.image" :src="`https://${idea.image}`" alt="running man" />
         <img
+          v-else
           src="https://cdn.dribbble.com/users/3537662/screenshots/16342773/media/a6e69afafc3af1c62ef1d581c59fa4f1.png?compress=1&resize=1200x900&vertical=top"
           alt="running man" />
         <div class="card-content">
