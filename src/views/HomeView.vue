@@ -33,10 +33,10 @@
             <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
             Statistic
           </li>
-          <li>
+          <!-- <li>
             <i class="bx bx-cog bx-sm bx-fw" />
             Setting
-          </li>
+          </li> -->
         </ul>
       </div>
       <div class="user-avatar">
@@ -231,6 +231,7 @@ export default {
   align-items: center;
   margin-right: 1%;
   overflow: hidden;
+  object-fit: cover;
 }
 .user-avatar:hover {
   cursor: pointer;

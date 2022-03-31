@@ -15,7 +15,7 @@
       </ul>
     </div>
   </div>
-  <Nav-Form :id="user.id"/>
+  <Nav-Form :id="id"/>
 
   <div class="router-view">
     <slot />
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       user: {},
+      id:'',
     };
   },  
   created() {
@@ -39,9 +40,12 @@ export default {
     // const data = JSON.parse(this.$store.state.user);
     // this.user = data;
     try {
+      this.$store.dispatch("getUser");
       const data = JSON.parse(this.$store.state.user);
       this.$axios.get(`api/v1/User/${data.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
         this.user = res.data.content;
+        this.id = this.user.id;
+        console.log(this.id)
       });
     } catch {
       //
