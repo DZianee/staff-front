@@ -35,11 +35,11 @@
         <span>Statistic</span>
         <span class="tooltiptext">Statistic</span>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <i class="bx bx-cog bx-sm bx-fw" />
         <span>Setting</span>
         <span class="tooltiptext">Setting</span>
-      </li>
+      </li> -->
       <li class="nav-item log-out" @click="logout">
         <i class="bx bx-log-out bx-sm bx-fw" />
         <span>Log-out</span>
