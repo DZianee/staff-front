@@ -250,7 +250,7 @@ img {
   }
   .route {
     font-size: 13px;
-    margin: -40px -30px 0 0;
+    margin: -30px 0px 0 0;
   }
   .new-topic-content {
     height: 90%;

@@ -241,7 +241,7 @@ img {
   .topic-list-details {
     width: 100%;
     right: 0;
-    top: 70px;
+    top: 50px;
   }
   .topic-detail-header .detail-title h1 {
     font-size: 24px;

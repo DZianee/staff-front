@@ -8,7 +8,7 @@
         <h5 class="card-title">{{ user.username }}</h5>
         <h6 class="card-text">{{ user.departmentName }}</h6>
       </div>
-      <div class="password">
+      <div class="password" style="padding-bottom: 15px">
         <div class="btn">
           <ul style="padding-left: 0" @click="$refs.fileInput.click()">
             <li><i class="bi bi-image"></i></li>
@@ -68,6 +68,7 @@ export default {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  padding: 10px;
 }
 img {
   padding: 10px;
@@ -147,10 +148,6 @@ img {
     /* width: 90%; */
     top: 40px;
   }
-  img {
-    width: 230px;
-    height: 200px;
-  }
 }
 @media screen and (max-width: 769px) {
   /* .card {
@@ -163,7 +160,6 @@ img {
   }
   img {
     width: 210px;
-    height: 160px;
   }
   h5 {
     font-size: 18px;
@@ -180,10 +176,11 @@ img {
   }
   .card {
     margin-left: 0px;
+    padding: 0;
   }
   img {
     width: 180px;
-    height: 140px;
+    height: 160px;
   }
   .card-body {
     position: relative;

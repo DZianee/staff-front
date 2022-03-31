@@ -84,6 +84,8 @@ export default {
   grid-template-columns: 1fr 2fr 3fr;
   column-gap: 10px;
   height: 100%;
+  position: relative;
+  top: 50px;
 }
 @media screen and (max-width: 1440px) {
   .profile-view {
@@ -95,6 +97,7 @@ export default {
   .profile-view {
     grid-template-columns: 100%;
     grid-template-rows: 0.5fr 1.5fr 3fr;
+    top: 20px;
   }
 }
 @media screen and (max-width: 769px) {
@@ -106,6 +109,8 @@ export default {
 @media screen and (min-width: 320px) and (max-width: 483px) {
   .profile-view {
     grid-template-rows: 0.2fr 0.9fr 3fr;
+    top: 100px;
+
   }
 }
 </style>

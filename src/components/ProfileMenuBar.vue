@@ -56,7 +56,7 @@ export default {
   width: 200px;
   transition: ease-in 0.3s;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .nav-item:hover {
   background: white;
@@ -115,6 +115,7 @@ export default {
     height: 45px;
     border-radius: 0;
     margin: 5px 0;
+    justify-content: center;
   }
   .profile {
     margin-right: 0;
