@@ -3,7 +3,7 @@
     <img class="header-logo-image" src="../assets/images/FGW_logo_d.jpeg" />
     <div class="header-user">
       <!-- <img class="header-user-image" src="../assets/pic/users.png" /> -->
-      <img class="header-user-image" src=" https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg" alt="user avatar" />
+      <img class="header-user-image" :src="`https://${user.profileImage}`" alt="user avatar" />
 
       <ul class="header-user-info">
         <li class="user-emails">{{user.username}}</li>
@@ -33,11 +33,19 @@ export default {
     return {
       user: {},
     };
-  },
+  },  
   created() {
-    this.$store.dispatch("getUser");
-    const data = JSON.parse(this.$store.state.user);
-    this.user = data;
+    // this.$store.dispatch("getUser");
+    // const data = JSON.parse(this.$store.state.user);
+    // this.user = data;
+    try {
+      const data = JSON.parse(this.$store.state.user);
+      this.$axios.get(`api/v1/User/${data.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
+        this.user = res.data.content;
+      });
+    } catch {
+      //
+    }
   },
   computed: {
     User() {
