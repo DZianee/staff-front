@@ -22,7 +22,7 @@
           <span> Timeline posted: </span>
           {{ getStartDate }} - {{ getEndDate }}
         </p>
-        <p class="route" @click="toTopicListDetails">Click to view more<i class="bx bx-right-arrow-alt bx-fw bx-sm" /></p>
+        <p class="route" @click="toTopicListDetails(newTopic.id)">View more<i class="bx bx-right-arrow-alt bx-fw bx-sm" /></p>
       </div>
     </div>
   </div>
@@ -59,8 +59,8 @@ export default {
     },
   },
   methods: {
-    toTopicListDetails() {
-      this.$router.push({ name: "topicListView" });
+    toTopicListDetails(id) {
+      this.$router.push({ name: "topicListView", params:{id: id} });
     },
   },
 };
@@ -174,6 +174,7 @@ img {
 }
 .route:hover {
   color: darkorchid;
+  cursor: pointer;
 }
 @media screen and (max-width: 1440px) {
   .new-topic-content::after {
@@ -249,7 +250,7 @@ img {
   }
   .route {
     font-size: 13px;
-    margin: -40px -30px 0 0;
+    margin: -30px 0px 0 0;
   }
   .new-topic-content {
     height: 90%;

@@ -293,6 +293,7 @@ h1 {
   position: relative;
   width: 60px;
   height: fit-content;
+  display: none;
 }
 .accordion-button {
   padding: 10px 7px;
@@ -301,9 +302,9 @@ h1 {
   position: absolute;
   width: 270px;
   border: solid gray;
-  top: 0;
+  top: 42px;
   border-radius: 5%;
-  left: 64px;
+  left: 0px;
   z-index: 1;
   background: #eaeaea;
   padding: 10px;
@@ -382,7 +383,7 @@ h1 {
 .selectDepartment {
   width: 25% !important;
   height: 38px;
-  margin-top: 5px;
+  margin-top: 0%;
 }
 
 .user-man-header-sort {
@@ -528,23 +529,20 @@ h1 {
   .user-man-header {
     justify-content: space-between;
   }
-  .sort-icon {
-    display: block;
-  }
   .sort-icon i {
     line-height: 30px;
-  }
-  .sort-bar {
-    display: block;
   }
   .header-menu {
     display: none;
   }
   .user-man-header-search input {
-    width: 200px;
+    width: 170px;
   }
   .user-card {
     padding-left: 2%;
+  }
+  .accordion {
+    display: block;
   }
 }
 

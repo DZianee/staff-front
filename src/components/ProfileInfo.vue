@@ -58,7 +58,7 @@ div:not(:first-child) {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .profile-info {
     width: 100%;
-    height: calc(100% + 40px);
+    /* height: calc(100% + 40px); */
     margin-top: 30px;
     padding: 15px;
   }

@@ -27,7 +27,7 @@
           </li>
           <li v-if="userStored.roleName == 'QA Manager'" @click="showTopic">
             <i class="bx bx-briefcase bx-sm bx-fw" />
-            Topic Manage
+             Manage
           </li>
           <li v-if="userStored.roleName == 'Manager'" @click="$router.push({ path: 'report' })">
             <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
@@ -225,17 +225,23 @@ export default {
   position: relative;
   float: right;
   top: -120px;
-  width: 200px;
+  width: 50px;
+  height: inherit;
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+  overflow: hidden;
 }
 .user-avatar:hover {
   cursor: pointer;
 }
 .user-avatar img {
-  width: 24%;
-  float: right;
-  margin-top: 10px;
-  margin-right: 50px;
-  border-radius: 50%;
+  width: 100%;
+  height: max(50px);
+
+  /* margin-top: 2%; */
+  /* margin-right: 50px; */
+  border-radius:50px;
   border: solid gray;
 }
 .user-avatar-info {
@@ -283,6 +289,9 @@ export default {
   .menu-bar ul {
     top: 68px;
   }
+  .user-avatar img {
+    margin-top: 3%;
+  }
 }
 @media screen and (max-width: 1025px) {
   .logo-img {
@@ -292,9 +301,9 @@ export default {
     height: 80px;
   }
   .user-avatar img {
-    margin-right: 10px;
-    width: 20%;
-    margin-top: 5px;
+    /* width: 20%; */
+    /* height: 50px; */
+    margin-top: -10px;
   }
   .user-avatar-info::after {
     right: 14px;
@@ -312,7 +321,7 @@ export default {
     line-height: 40px;
   }
   .user-avatar img {
-    width: 19%;
+    margin-top: 0%;
   }
   .user-avatar-info {
     height: 150px;
@@ -351,7 +360,7 @@ export default {
     height: 65px;
     line-height: 30px;
     overflow: hidden;
-    /* width: 447px; */
+    width: fit-content;
   }
   .menu-bar .bx-menu {
     padding-top: 10px;
@@ -368,6 +377,10 @@ export default {
   }
   .user-avatar-info {
     height: 140px;
+  }
+  .user-avatar img {
+    /* height: max(40px); */
+    margin-top: 4%;
   }
   .user-avatar-info ul li,
   .user-email {

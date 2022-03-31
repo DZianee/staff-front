@@ -111,6 +111,7 @@ export default {
   font-size: 40px;
   cursor: pointer;
   color: #3d5afe;
+  transition: 0.5s linear;
   text-decoration: underline;
 }
 .lastest-topic-content p {
@@ -119,7 +120,7 @@ export default {
 img {
   height: max(495px);
   width: max(660px);
-  object-fit: cover;
+  object-fit: contain;
 }
 .other-topics {
   margin-top: 5%;
