@@ -231,6 +231,7 @@ export default {
   align-items: center;
   margin-right: 1%;
   overflow: hidden;
+  object-fit: cover;
 }
 .user-avatar:hover {
   cursor: pointer;

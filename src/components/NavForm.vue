@@ -69,9 +69,9 @@ export default {
   components: {
     // TopicModalForm,
   },
-  props: {
-    id: String,
-  },
+  // props: {
+  //   id: String,
+  // },
   data() {
     return {
       user: {},
@@ -86,9 +86,11 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("fetchAccessToken");
-    this.$axios.get(`api/v1/User/${this.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
+     this.$store.dispatch("getUser");
+      const data = JSON.parse(this.$store.state.user);
+    this.$axios.get(`api/v1/User/${data.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.user = res.data.content;
+      console.log(this.user)
     });
   },
   methods: {
@@ -111,7 +113,7 @@ export default {
       this.$router.push({ name: "topicView" });
     },
     ProfileRoute() {
-      this.$router.push({ name: "profileView", params: { id: this.id } });
+      this.$router.push({ name: "profileView", params: { id: this.user.id } });
     },
     // StatisticRoute(){
     //   this.$router.push({name:''});

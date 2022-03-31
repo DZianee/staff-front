@@ -589,7 +589,7 @@ iframe {
   width: 50px;
   height: 50px;
 }
-.header-user-image {
+.header-user img {
   position: relative;
   width: 30px;
   height: 30px;
@@ -597,6 +597,7 @@ iframe {
   border: solid gray 1px;
   transform: translateY(10%);
   z-index: 1;
+  object-fit: contain;
 }
 
 .header .header-user .header-user-info {
