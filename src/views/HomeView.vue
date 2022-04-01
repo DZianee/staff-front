@@ -27,7 +27,7 @@
           </li>
           <li v-if="userStored.roleName == 'QA Manager'" @click="showTopic">
             <i class="bx bx-briefcase bx-sm bx-fw" />
-             Manage
+            Manage
           </li>
           <li v-if="userStored.roleName == 'Manager'" @click="$router.push({ path: 'report' })">
             <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
@@ -237,27 +237,28 @@ export default {
   cursor: pointer;
 }
 .user-avatar img {
-  width: 100%;
-  height: max(50px);
+  width: 40px;
+  height: max(40px);
 
   /* margin-top: 2%; */
   /* margin-right: 50px; */
-  border-radius:50px;
-  border: solid gray;
+  border-radius: 50px;
+  /* border: solid gray; */
 }
 .user-avatar-info {
   position: fixed;
-  top: 80px;
+  top: 8%;
   padding: 12px;
   background: #f6def6;
   border-radius: 10px;
-  right: 0;
+  right: 1%;
+  width: fit-content;
 }
 .user-avatar-info::after {
   --background: #f6def6;
   content: "";
   position: absolute;
-  right: 70px;
+  right: 25px;
   top: -20px;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
@@ -306,8 +307,9 @@ export default {
     /* height: 50px; */
     margin-top: -10px;
   }
-  .user-avatar-info::after {
-    right: 14px;
+  .user-avatar-info {
+    top: 10%;
+    right: 1%;
   }
   .menu-bar ul {
     top: 75px;
@@ -323,14 +325,6 @@ export default {
   }
   .user-avatar img {
     margin-top: 0%;
-  }
-  .user-avatar-info {
-    height: 150px;
-    width: 170px;
-    top: 60px;
-  }
-  .user-avatar-info::after {
-    right: 22px;
   }
   .user-avatar-info ul {
     margin: 0 auto;
@@ -377,7 +371,7 @@ export default {
     font-size: 15px;
   }
   .user-avatar-info {
-    height: 140px;
+    top: 9%;
   }
   .user-avatar img {
     /* height: max(40px); */
