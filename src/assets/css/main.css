@@ -870,6 +870,7 @@ iframe {
     position: relative;
     display: flex;
     justify-content: center;
+    font-size: 13px;
   }
   .log-out {
     display: none;

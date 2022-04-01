@@ -23,7 +23,7 @@
           </li>
           <li v-if="userStored.roleName == 'Manager'" @click="showManagement">
             <i class="bx bx-briefcase bx-sm bx-fw" />
-            Management
+            Manage
           </li>
           <li v-if="userStored.roleName == 'QA Manager'" @click="showTopic">
             <i class="bx bx-briefcase bx-sm bx-fw" />
@@ -172,7 +172,7 @@ export default {
   display: block;
 }
 .nav-bar {
-  border-bottom: solid rgb(111, 109, 109);
+  /* border-bottom: solid rgb(111, 109, 109); */
   padding: 7px;
   position: fixed;
   height: 80px;
@@ -209,7 +209,7 @@ export default {
   background: white;
   width: 220px;
   height: fit-content;
-  border: solid grey;
+  border: solid 1px rgb(188, 183, 183);
 }
 .menu-bar ul li {
   padding: 20px;
