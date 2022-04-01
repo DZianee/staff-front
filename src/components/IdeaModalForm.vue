@@ -237,7 +237,7 @@ export default {
         console.log(this.ModalForm);
         const user = JSON.parse(this.$store.state.user);
         const idea = new FormData();
-        idea.append("TopicId", "623b08d9260fba38387b451d");
+        idea.append("TopicId", this.TopicID);
         idea.append("Title", this.ModalForm.IdeaTitle);
         idea.append("Description", this.ModalForm.IdeaDescription);
         idea.append("Description", this.ModalForm.IdeaDescription);
