@@ -18,7 +18,9 @@
           </div>
           <div class="gender">
             <label for="gender">Gender</label>
-            <input type="text" :value="userDetails.gender" disabled />
+            <input type="text" v-if="userDetails.gender == 0" value="Male" disabled />
+            <input type="text" v-else-if="userDetails.gender == 1" value="Female" disabled />
+            <input type="text" v-else value="Other" disabled />
           </div>
           <div class="phone">
             <label for="phone">Phone no</label>
