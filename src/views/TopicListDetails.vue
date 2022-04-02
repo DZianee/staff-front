@@ -26,10 +26,11 @@
           <div class="other-topic-wrap container">
             <div class="topic-item" v-for="item in topicList" :key="item.index">
               <div class="item-img">
-                <img :src="`https://${item.topicImage}`" alt="item image" />
-                <!-- <img
+                <img v-if="item.topicImage != null && item.topicImage" :src="`https://${item.topicImage}`" alt="item image" />
+                <img
+                  v-else
                   src="https://cdn.dribbble.com/users/823181/screenshots/14754851/media/b4f38450eb494e4e37beb8b206c7f9c0.png?compress=1&resize=1200x900&vertical=top"
-                  alt="item image" /> -->
+                  alt="item image" />
               </div>
               <div class="item-des">
                 <p @click="openTopic(item.id)">{{ item.name }}</p>
@@ -69,7 +70,7 @@ export default {
       this.$router.push({ name: "topicListsView" });
     },
     NewsRoute() {
-      this.$router.push({ name: "newsView"});
+      this.$router.push({ name: "newsView" });
     },
     getStartDate(date) {
       const dateCreate = new Date(date);
