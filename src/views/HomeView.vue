@@ -29,7 +29,7 @@
             <i class="bx bx-briefcase bx-sm bx-fw" />
             Manage
           </li>
-          <li v-if="userStored.roleName == 'Manager'" @click="$router.push({ path: 'report' })">
+          <li v-if="userStored.roleName == 'Manager' || userStored.roleName == 'QA Manager'" @click="$router.push({ name: 'reportView' })">
             <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
             Statistic
           </li>
