@@ -27,7 +27,7 @@
           </li>
           <li v-if="userStored.roleName == 'QA Manager'" @click="showTopic">
             <i class="bx bx-briefcase bx-sm bx-fw" />
-             Manage
+            Manage
           </li>
           <li v-if="userStored.roleName == 'Manager'" @click="$router.push({ path: 'report' })">
             <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
@@ -242,7 +242,7 @@ export default {
 
   /* margin-top: 2%; */
   /* margin-right: 50px; */
-  border-radius:50px;
+  border-radius: 50px;
   border: solid gray;
 }
 .user-avatar-info {
