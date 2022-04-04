@@ -120,7 +120,7 @@ export default {
   .profile {
     margin-right: 0;
     border-bottom-left-radius: 23px;
-    border-right: solid;
+    /* border-right: solid; */
     border-top-left-radius: 23px;
   }
   .ideas {

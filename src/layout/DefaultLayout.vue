@@ -6,16 +6,19 @@
       <img class="header-user-image" :src="`https://${user.profileImage}`" alt="user avatar" />
 
       <ul class="header-user-info">
-        <li class="user-emails">{{user.username}}</li>
-        <li @click="showProfile">My Profile</li>
+        <li class="user-emails">{{ user.username }}</li>
+        <li @click="showProfile">
+          <i class="bx bx-user-pin bx-sm bx-fw" />
+          My Profile
+        </li>
         <li class="header-user-logout" @click="logout">
-          <i class="bx bx-log-out bx-xs bx-fw" />
+          <i class="bx bx-log-out bx-sm bx-fw" />
           Logout
         </li>
       </ul>
     </div>
   </div>
-  <Nav-Form :id="id"/>
+  <Nav-Form :id="id" />
 
   <div class="router-view">
     <slot />
@@ -32,9 +35,9 @@ export default {
   data() {
     return {
       user: {},
-      id:'',
+      id: "",
     };
-  },  
+  },
   created() {
     // this.$store.dispatch("getUser");
     // const data = JSON.parse(this.$store.state.user);
@@ -45,7 +48,7 @@ export default {
       this.$axios.get(`api/v1/User/${data.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
         this.user = res.data.content;
         this.id = this.user.id;
-        console.log(this.id)
+        console.log(this.id);
       });
     } catch {
       //

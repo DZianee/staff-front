@@ -1,6 +1,11 @@
 <template>
   <div class="ideaDetail" v-if="idea != null && idea != {}">
-    <h1>testing</h1>
+    <nav aria-label="breadcrumb" style="padding-top: 20px">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" @click="NewsRoute">News</li>
+        <li class="breadcrumb-item active" aria-current="page">Idea's detail</li>
+      </ol>
+    </nav>
     <div class="container">
       <div class="container-content">
         <div class="container-content-top">
@@ -86,7 +91,8 @@
           </div>
           <span>
             <i class="bi bi-chat-right-text"></i>
-            <span>{{ idea.totalComment }} <span class="invisible">comments</span></span>
+            <span>{{ idea.totalComment }} </span>
+            <!-- <span class="invisible">comments</span> -->
           </span>
         </div>
       </div>
@@ -225,6 +231,9 @@ export default {
     },
   },
   methods: {
+     NewsRoute() {
+      this.$router.push({ name: "newsView" });
+    },
     openDropdown() {
       this.DropDown = true;
     },
@@ -428,13 +437,29 @@ export default {
 </script>
 
 <style scoped>
+.breadcrumb{
+  padding: 0 0 0 50px;
+  font-size: 16px;
+}
+.breadcrumb-item:hover {
+  font-weight: 500;
+  cursor: pointer;
+}
+.breadcrumb-item.active {
+  color: rgb(67, 139, 255);
+  font-weight: 500;
+  text-decoration: underline;
+}
+.ideaDetail {
+  padding-top: 10px;
+}
 .disable {
   opacity: 0.3;
 }
 .container {
   overflow: unset;
-  border: 1px solid black;
-  width: 96%;
+  border: 1px solid rgb(160, 157, 157);
+  width: 60%;
   padding: 12px 16px;
   background-color: #fff;
   border-radius: 10px;
@@ -450,10 +475,10 @@ export default {
 .container-content {
   width: 100%;
   padding-bottom: 20px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(201, 196, 196);
 }
 .container-reaction {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(201, 196, 196);
 }
 .container-content-top,
 .container-reaction-top {
@@ -836,6 +861,13 @@ textarea {
     height: 340px !important;
   }
 }
+@media screen and (max-width: 769px) {
+  .container{
+   width: 100%;
+   border: none;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .footer-reply {
     margin: 0 20px;
@@ -870,5 +902,6 @@ textarea {
   .container-comment-top {
     margin: 4px 0 0 4px;
   }
+  
 }
 </style>

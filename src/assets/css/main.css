@@ -569,7 +569,7 @@ iframe {
   z-index: 2;
   width: 100%;
   height: var(--nav-header-height);
-  border-bottom: solid lightgray;
+  border-bottom: solid 1px rgb(234, 232, 232);
   background-color: white;
 }
 
@@ -591,13 +591,13 @@ iframe {
 }
 .header-user img {
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: solid gray 1px;
+  /* border: solid gray 1px; */
   transform: translateY(10%);
   z-index: 1;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .header .header-user .header-user-info {
@@ -605,9 +605,9 @@ iframe {
   display: none;
   min-width: 140px;
   height: 124px;
-  top: 50px;
-  left: -95px;
-  position: absolute;
+  top: 10%;
+  right: 1%;
+  position: fixed;
   border: solid lightslategray;
   text-align: center;
   line-height: 40px;
@@ -622,6 +622,11 @@ iframe {
 .user-emails {
   background-color: var(--color-bg);
   color: rgb(248, 248, 248);
+  width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 10px;
 }
 .header .header-user .header-user-info::after {
   /* display: none; */
@@ -629,7 +634,7 @@ iframe {
   width: 20px;
   height: auto;
   top: -17px;
-  left: 100px;
+  right: 14px;
   position: absolute;
   background-color: white;
   border-left: 10px solid transparent;
@@ -718,11 +723,17 @@ iframe {
   object-fit: cover;
   margin: 0 10px;
 }
-.user-avatar-info {
+/* .user-avatar-info {
   margin-left: 20px;
-}
+} */
 .user-avatar-info span {
   display: block;
+}
+.user-avatar-info .user-email {
+  width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .user-avatar-info :nth-child(1) {
   font-weight: var(--font-weight);
@@ -758,12 +769,12 @@ iframe {
   .nav {
     width: 240px;
   }
-  .user-avatar-info .user-email {
+  /* .user-avatar-info .user-email {
     width: 160px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
+  } */
 }
 @media screen and (max-width: 1025px) {
   .nav {
@@ -859,6 +870,7 @@ iframe {
     position: relative;
     display: flex;
     justify-content: center;
+    font-size: 13px;
   }
   .log-out {
     display: none;
