@@ -3,17 +3,20 @@
     <div v-if="userIdea == ''" style="text-align: center; margin-top: 20px; color: gray">You haven't got any idea yet</div>
     <div v-else>
       <div class="card" v-for="idea in userIdea" :key="idea.id">
-        <img v-if="idea.image" :src="`https://${idea.image}`" alt="running man" />
-        <img
-          v-else
-          src="https://cdn.dribbble.com/users/3537662/screenshots/16342773/media/a6e69afafc3af1c62ef1d581c59fa4f1.png?compress=1&resize=1200x900&vertical=top"
-          alt="running man" />
-        <div class="card-content">
-          <h1 class="content-title">{{ idea.title }}</h1>
-          <div class="topic-type-create-time">
-            <h6 class="topic-type">{{ idea.topicName }}</h6>
-            <span> . </span>
-            <div class="idea-create-time">15:12:02</div>
+        <div style="height: 80%">
+          <img v-if="idea.image" :src="`https://${idea.image}`" alt="running man" />
+          <img
+            v-else
+            src="https://cdn.dribbble.com/users/3537662/screenshots/16342773/media/a6e69afafc3af1c62ef1d581c59fa4f1.png?compress=1&resize=1200x900&vertical=top"
+            alt="running man" />
+          <div class="card-content">
+            <h1 class="content-title">{{ idea.title }}</h1>
+            <div class="topic-type-create-time">
+              <h6 class="topic-type">{{ idea.topicName }}</h6>
+              <br />
+              <span> . </span>
+              <div class="idea-create-time">{{ getIdeaDateCreate(idea.startDate) }}</div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
@@ -79,6 +82,18 @@ export default {
     };
     ele.addEventListener("mousedown", mouseDownHandler);
   },
+  methods: {
+    getIdeaDateCreate(date) {
+      const dateCreate = new Date(date);
+      // var year = dateCreate.getFullYear();
+      // var month = ("0" + (dateCreate.getMonth() + 1)).slice(-2);
+      // var day = ("0" + dateCreate.getDate()).slice(-2);
+      // var hour =
+      // const dmy = day + "/" + month + "/" + year;
+      const dmy = dateCreate.toLocaleDateString();
+      return dmy;
+    },
+  },
 };
 </script>
 
@@ -115,11 +130,12 @@ export default {
 }
 .card img {
   width: 50%;
-  height: auto;
+  height: 100%;
   position: relative;
   top: 0px;
   border-top-left-radius: 12px;
   float: left;
+  object-fit: cover;
 }
 .card-content {
   width: 50%;
@@ -143,6 +159,7 @@ h1 {
   display: grid;
   grid-template-columns: 50% 50%;
   clear: both;
+  height: 20%;
 }
 .react-like,
 .react-dislike {
@@ -153,7 +170,7 @@ h1 {
 .comment {
   display: flex;
   justify-content: flex-end;
-  margin-right: 40px;
+  /* margin-right: 40px; */
 }
 @media screen and (max-width: 1440px) {
   .react-like,

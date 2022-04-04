@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <NewsIdeaList :choice="choice" :id="topicId" :name="newsTitle" />
+    <NewsIdeaList :choice="choice" :id="topicId" :name="newsTitle" :status="topicStatus" />
   </div>
 </template>
 
@@ -28,6 +28,7 @@ export default {
       choice: "",
       topicList: [],
       topicId: "",
+      topicStatus: 0,
       newsTitle: "",
     };
   },
@@ -56,10 +57,11 @@ export default {
       this.choice = item;
       this.newsTitle = item;
     },
-    getIdeaVia(item, name, txt) {
+    getIdeaVia(item, name, status, txt) {
       this.topicId = item;
       this.choice = txt;
       this.newsTitle = name;
+      this.topicStatus = status;
     },
   },
 };
@@ -167,7 +169,7 @@ h1 {
 }
 @media screen and (max-width: 765px) {
   .news {
-     width: calc(100% - 224px);
+    width: calc(100% - 224px);
     right: -5%;
   }
   .news-topic-idea {

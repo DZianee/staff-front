@@ -54,6 +54,9 @@ export default {
       )
       .then((res) => {
         this.ideaUser = res.data.content;
+        // for (var idea of this.ideaUser) {
+        // }
+        // this.ideaUser.startDate = new Date(this.ideaUser.startDate).toLocaleString();
       });
   },
   methods: {
@@ -110,7 +113,6 @@ export default {
   .profile-view {
     grid-template-rows: 0.2fr 0.9fr 3fr;
     top: 100px;
-
   }
 }
 </style>

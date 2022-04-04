@@ -517,7 +517,7 @@ export default {
     background-color: white;
     border-radius: 5px;
     animation: modalfadein ease 0.3s;
-
+    top: 0;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;

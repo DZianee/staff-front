@@ -3,7 +3,9 @@
     <div class="create-idea"></div>
     <ul id="DragScroll">
       <li @click="getAllIdea()" class="border-gradient">All</li>
-      <li @click="getIdeaViaTopic(topic.id, topic.name)" class="border-gradient" v-for="topic in topicList" :key="topic.index">{{ topic.name }}</li>
+      <li @click="getIdeaViaTopic(topic.id, topic.name, topic.status)" class="border-gradient" v-for="topic in topicList" :key="topic.index">
+        {{ topic.name }}
+      </li>
     </ul>
   </div>
 </template>
@@ -18,8 +20,8 @@ export default {
     getAllIdea() {
       this.$emit("get-all-idea", "all");
     },
-    getIdeaViaTopic(id, name) {
-      this.$emit("get-idea-via-topic", id, name, "via");
+    getIdeaViaTopic(id, name, status) {
+      this.$emit("get-idea-via-topic", id, name, status, "via");
     },
   },
   mounted() {
