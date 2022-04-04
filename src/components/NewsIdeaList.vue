@@ -9,18 +9,20 @@
       </select>
     </div>
     <div class="sortType" v-else-if="choice == 'via'">
-      <button class="create-topic" @click="IdeaModalOpen()">New Idea +</button>
+      <button class="create-topic" v-if="status < 1" @click="IdeaModalOpen()">New Idea +</button>
       <div class="create-icon" @click="IdeaModalOpen()">
         <i class="bi bi-plus-circle"></i>
       </div>
     </div>
     <div v-if="choice === 'via'">
       <div v-if="ideaList == ''">
-        <p style="color: gray; text-align: center; font-size: 16px; position: relative; top: 60px; font-style: italic">There is no idea existed yet</p>
+        <p style="color: gray; text-align: center; font-size: 16px; position: relative; top: 60px; font-style: italic">
+          There is no idea existed yet
+        </p>
       </div>
       <div v-else>
         <div class="all-ideas" style="margin-top: 24px">
-          <div class="card" v-for="ideas in ideaList" :key="ideas.index" @click="routeIdea(idea.id)" style="cursor: pointer">
+          <div class="card" v-for="ideas in ideaList" :key="ideas.index" @click="routeIdea(ideas.id)" style="cursor: pointer">
             <div class="card-image">
               <!-- <figure class="image is-4by3"> -->
               <img v-if="ideas.image != null && ideas.image" :src="`https://${ideas.image}`" alt="Placeholder image" />
@@ -33,7 +35,7 @@
             <div class="card-content">
               <div class="content">
                 <h1>{{ ideas.title }}</h1>
-                <h3 class="topic-title" @click="topicDetailRoute">{{ ideas.topicName }}</h3>
+                <h3 class="topic-title" @click.stop="topicDetailRoute(ideas.topicId)">{{ ideas.topicName }}</h3>
                 <time datetime="2016-1-1">{{ getIdeaDateCreate(ideas.startDate) }}</time>
               </div>
             </div>
@@ -92,7 +94,6 @@
                 <i class="bx bx-dislike bx-fw" />
               </div>
               <div class="card-footer-item comment">
-                
                 {{ idea.totalComments }}
                 <i class="bx bx-message-square-detail bx-fw" />
               </div>
@@ -121,6 +122,7 @@ export default {
     choice: String,
     id: String,
     name: String,
+    status: Number,
   },
   data() {
     return {
@@ -243,7 +245,7 @@ export default {
   cursor: pointer;
   padding: 10px;
   border-radius: 0.25rem;
-  float: right;  
+  float: right;
   margin-top: 7px;
 }
 .create-topic:hover {
@@ -340,7 +342,7 @@ export default {
   right: 0;
   width: 26% !important;
 }
-.form-control{
+.form-control {
   width: 90%;
 }
 @media screen and (max-width: 1440px) {
