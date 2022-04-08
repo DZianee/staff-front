@@ -19,9 +19,11 @@ export default {
   methods: {
     getAllIdea() {
       this.$emit("get-all-idea", "all");
+      this.$router.push({ name: "newsView", params: { id: "all" } });
     },
     getIdeaViaTopic(id, name, status) {
       this.$emit("get-idea-via-topic", id, name, status, "via");
+      this.$router.push({ name: "newsView", params: { id: id } });
     },
   },
   mounted() {

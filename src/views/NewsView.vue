@@ -63,6 +63,24 @@ export default {
       this.newsTitle = name;
       this.topicStatus = status;
     },
+    async getTopicDetails() {
+      try {
+        this.$store.dispatch("fetchAccessToken");
+        const resTopic = await this.$axios.get(`api/v1/Topic/${this.$route.params.id}`);
+        if (resTopic.status == 200) {
+          this.newsTitle = resTopic.data.content.name;
+        }
+      } catch {
+        //
+      }
+    },
+  },
+  mounted() {
+    if (this.$route.params.id === "all") {
+      this.newsTitle = "all";
+    } else {
+      this.getTopicDetails();
+    }
   },
 };
 </script>
