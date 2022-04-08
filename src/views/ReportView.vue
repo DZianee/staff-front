@@ -4,7 +4,81 @@
       <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Statistic</h1>
       </div>
-
+      <div class="row">
+        <div class="col-xl-4 col-md-6 mb-4">
+          <div class="card border-left-success shadow h-100 py-2 card-top" @click="showTableData(1)">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Anomyous Comments</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ideaCountStatistic.totalAnonymousComment }}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+          <div class="card border-left-info shadow h-100 py-2 card-top" @click="showTableData(2)">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ideas no Comment</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ideaCountStatistic.totalIdeaWithoutComment }}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2 card-top" @click="showTableData(0)">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Anomyous Ideas</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ideaCountStatistic.totalAnonymousIdea }}</div>
+                </div>
+                <div class="col-auto"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12">
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive main-table">
+                <table class="table table-bordered table-stripe" width="99%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Creator Name</th>
+                      <th>Content</th>
+                      <th>View Detail</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(item, index) in mainTableData" :key="index">
+                      <td>{{ item.creatorName }}</td>
+                      <td>{{ item.content }}</td>
+                      <td><router-link :to="`/ideaDetail-view/${item.ideaId}`">View</router-link></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div v-if="mainTableData.length > 0" class="pagination-container">
+                <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange">
+                </component>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xl-8 col-lg-7">
           <div class="card shadow mb-4">
@@ -98,9 +172,18 @@ export default {
     return {
       departmentReport: [],
       topFiveReport: [],
+      ideaCountStatistic: {},
+      mainTableData: [],
+      currentPage: 1,
+      totalPage: 1,
+      type: 1,
     };
   },
   methods: {
+    onPageChange(page) {
+      this.currentPage = page;
+      this.showTableData(this.type);
+    },
     initChart(labels, ideaCounts, percents) {
       new Chart(document.getElementById("myAreaChart"), {
         type: "bar",
@@ -191,6 +274,33 @@ export default {
         },
       });
     },
+    async showTableData(type) {
+      let url = "";
+      this.type = type;
+      switch (type) {
+        case 0:
+          url = "api/v1/Idea/getAnonymousIdeas";
+          break;
+        case 1:
+          url = "api/v1/Idea/getAnonymousComments";
+          break;
+        case 2:
+          url = "api/v1/Idea/getIdeasNoComment";
+          break;
+        default:
+          url = "api/v1/Idea/getAnonymousComments";
+      }
+      const res = await this.$axios.get(url, {
+        params: {
+          PageSize: 5,
+          CurrentPage: this.currentPage,
+        },
+      });
+      if (res.status === 200) {
+        this.mainTableData = res.data.content;
+        this.totalPage = res.data.totalPage;
+      }
+    },
   },
   created() {
     Chart.register(...registerables);
@@ -200,6 +310,7 @@ export default {
       const { status, data } = await this.$axios.get(`api/v1/Department/getIdeaCount`);
       const dpReportRes = await this.$axios.get(`api/v1/Department/getContributorCount`);
       const topFive = await this.$axios.get(`api/v1/User/getTopFiveContributors`);
+      const ideaCountStatisticRes = await this.$axios.get(`api/v1/Idea/getIdeaCountStatistic`);
       if (status == 200) {
         const rawReport = data.content;
         const labels = [];
@@ -218,6 +329,10 @@ export default {
       if (topFive.status === 200) {
         this.topFiveReport = topFive.data.content;
       }
+      if (ideaCountStatisticRes.status === 200) {
+        this.ideaCountStatistic = ideaCountStatisticRes.data;
+      }
+      await this.showTableData(this.type);
     } catch (e) {
       console.log(e);
     }
@@ -248,5 +363,14 @@ export default {
 }
 .table-responsive .table {
   width: 99%;
+}
+.main-table {
+  margin-bottom: 60px;
+}
+.pagination-container {
+  bottom: 40px !important;
+}
+.card-top {
+  cursor: pointer;
 }
 </style>
