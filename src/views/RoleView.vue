@@ -258,7 +258,7 @@ td {
     right: 0;
     top: 80px;
   }
-  h1{
+  h1 {
     text-align: center;
   }
   .create-role {
