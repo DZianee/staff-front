@@ -111,6 +111,7 @@
           </option>
         </select>
         <p>{{ ModalConfirmText }} {{ RoleSelected.name }}</p>
+        <p v-if="RoleAssignError" style="color: red">{{ RoleAssignMessage }}</p>
         <br />
       </component>
     </div>
@@ -138,6 +139,9 @@ export default {
       ModifyID: 0,
       isOpenModal: false,
       IsdisplayButtons: false,
+
+      RoleAssignError: false,
+      RoleAssignMessage: "",
     };
   },
 
@@ -320,15 +324,17 @@ export default {
           break;
         case 4:
           try {
-            const res = await this.$axios.put(
+            const resRole = await this.$axios.put(
               `api/v1/User/${this.UserId}/AssignRole/${this.RoleSelected.id}`,
               this.$axios.defaults.headers["Authorization"]
             );
-            if (res.status == 200) {
+            if (resRole.status == 200) {
               this.$router.go();
             }
-          } catch {
-            //
+            // throw resRole.data.message;
+          } catch (e) {
+            this.RoleAssignMessage = e.response.data.message;
+            this.RoleAssignError = true;
           }
           break;
         default:

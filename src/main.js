@@ -27,9 +27,9 @@ axios.interceptors.response.use(
   },
   async function (error) {
     switch (error.response.status) {
-      case 400:
-        console.log(error.response);
-        break;
+      // case 400:
+      //   console.log(error.response);
+      //   break;
       case 401: {
         console.log(error.response);
         if (error.response.data.Message == "Require refresh token") {
@@ -63,6 +63,7 @@ axios.interceptors.response.use(
       default:
         break;
     }
+    return Promise.reject(error);
   }
 );
 
