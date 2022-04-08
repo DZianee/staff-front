@@ -175,11 +175,11 @@ export default {
         console.log(e);
       }
     },
-    async getIdeaViaTopic() {
+    async getIdeaViaTopic(value) {
       try {
         this.$store.dispatch("fetchAccessToken");
         const getIdeaListviaTopic = await this.$axios.post(
-          `api/v1/Idea/topic/${this.id}`,
+          `api/v1/Idea/topic/${value}`,
           { searchTitle: "", sortTitle: "", sortCreatedDate: "", sortUserName: "" },
           {
             params: {
@@ -219,16 +219,20 @@ export default {
       if (newValue == "all") {
         this.getIdeaList();
       } else {
-        //
+        this.getIdeaViaTopic(this.id);
       }
     },
     id() {
       this.currentPage = 1;
-      this.getIdeaViaTopic();
+      this.getIdeaViaTopic(this.id);
     },
   },
   mounted() {
-    this.getIdeaList();
+    if (this.$route.params.id === "all") {
+      this.getIdeaList();
+    } else {
+      this.getIdeaViaTopic(this.$route.params.id);
+    }
   },
 };
 </script>

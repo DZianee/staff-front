@@ -30,7 +30,10 @@
         <span>Manage</span>
         <span class="tooltiptext">Manage</span>
       </li>
-      <li class="nav-item" v-if="userStored.roleName == 'QA Manager' || userStored.roleName == 'Manager'" @click="$router.push({ name: 'reportView' })">
+      <li
+        class="nav-item"
+        v-if="userStored.roleName == 'QA Manager' || userStored.roleName == 'Manager'"
+        @click="$router.push({ name: 'reportView' })">
         <i class="bx bx-bar-chart-alt-2 bx-sm bx-fw" />
         <span>Statistic</span>
         <span class="tooltiptext">Statistic</span>
@@ -86,11 +89,11 @@ export default {
     },
   },
   created() {
-     this.$store.dispatch("getUser");
-      const data = JSON.parse(this.$store.state.user);
+    this.$store.dispatch("getUser");
+    const data = JSON.parse(this.$store.state.user);
     this.$axios.get(`api/v1/User/${data.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.user = res.data.content;
-      console.log(this.user)
+      console.log(this.user);
     });
   },
   methods: {
@@ -101,7 +104,7 @@ export default {
       this.$router.push({ name: "home" });
     },
     NewsRoute() {
-      this.$router.push({ name: "newsView" });
+      this.$router.push({ name: "newsView", params: { id: "all" } });
     },
     TopicListsRoute() {
       this.$router.push({ name: "topicListsView" });

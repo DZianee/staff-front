@@ -152,7 +152,7 @@ export default {
       this.$router.push({ name: "profileView", params: { id: this.user.id } });
     },
     showNews() {
-      this.$router.push({ name: "newsView" });
+      this.$router.push({ name: "newsView", params: { id: "all" } });
     },
     showTopicLists() {
       this.$router.push({ name: "topicListsView" });

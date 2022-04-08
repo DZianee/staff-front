@@ -71,7 +71,7 @@ const router = [
     component: TopicIdeaView,
   },
   {
-    path: "/news-view",
+    path: "/news-view/:id",
     name: "newsView",
     component: NewsView,
   },

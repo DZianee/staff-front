@@ -231,8 +231,8 @@ export default {
     },
   },
   methods: {
-     NewsRoute() {
-      this.$router.push({ name: "newsView" });
+    NewsRoute() {
+      this.$router.push({ name: "newsView", params: { id: this.idea.topicId } });
     },
     openDropdown() {
       this.DropDown = true;
@@ -437,7 +437,7 @@ export default {
 </script>
 
 <style scoped>
-.breadcrumb{
+.breadcrumb {
   padding: 0 0 0 50px;
   font-size: 16px;
 }
@@ -862,9 +862,9 @@ textarea {
   }
 }
 @media screen and (max-width: 769px) {
-  .container{
-   width: 100%;
-   border: none;
+  .container {
+    width: 100%;
+    border: none;
   }
 }
 
@@ -902,6 +902,5 @@ textarea {
   .container-comment-top {
     margin: 4px 0 0 4px;
   }
-  
 }
 </style>

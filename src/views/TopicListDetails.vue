@@ -70,7 +70,7 @@ export default {
       this.$router.push({ name: "topicListsView" });
     },
     NewsRoute() {
-      this.$router.push({ name: "newsView" });
+      this.$router.push({ name: "newsView", params: { id: this.id } });
     },
     getStartDate(date) {
       const dateCreate = new Date(date);

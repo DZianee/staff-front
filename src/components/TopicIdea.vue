@@ -24,9 +24,12 @@
             </select>
           </div>
         </div>
-        <div class="form-group col-md-6 form-topic-detail-group" style="margin-left: 14px">
-          <label>Department</label>
-          <input type="text" class="form-control" :disabled="true" placeholder="Name" v-model="topic.departmentName" />
+        <div class="form-row form-topic-detail-row">
+          <div class="form-group col-md-6 form-topic-detail-group">
+            <label>Department</label>
+            <input type="text" class="form-control" :disabled="true" placeholder="Name" v-model="topic.departmentName" />
+          </div>
+          <div class="form-group col-md-6 form-topic-detail-group" style="opacity: 0"></div>
         </div>
         <div class="AddressInput">
           <label>Description</label>
