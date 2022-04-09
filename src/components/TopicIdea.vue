@@ -120,7 +120,7 @@
             <td @click="ideaDetail(idea.id)">{{ idea.startDate }}</td>
             <td class="idea-adjustment" style="width: 10%">
               <i class="bi bi-gear idea-adjustment-icon" @click="openDropdown(idea.id)"> </i>
-              <ul class="idea-adjustment-items" :class="'download' ? topic.status == 2 : ''" v-if="ideaId == idea.id">
+              <ul class="idea-adjustment-items" :class="topic.status == 2 ? 'download' : ''" v-if="ideaId == idea.id">
                 <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black" @click="ideaDetail(idea.id)">Detail</li> -->
                 <!-- <li class="idea-adjustment-item" style="border-bottom: 2px solid black">Modify</li> -->
                 <li class="idea-adjustment-item" @click="onDelete(idea.id)" style="border-bottom: 2px solid black">Delete</li>
@@ -516,7 +516,7 @@ export default {
 </script>
 <style scoped>
 .disable {
-  opacity: 0.3;
+  opacity: 0;
 }
 .breadcrumb-item:hover {
   font-weight: 500;
