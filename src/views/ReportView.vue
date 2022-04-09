@@ -8,7 +8,7 @@
         <div class="col-xl-4 col-md-6 mb-4">
           <div class="card border-left-success shadow h-100 py-2 card-top" @click="showTableData(1)">
             <div class="card-body">
-              <div class="row no-gutters align-items-center">
+              <div class="row no-gutters align-items-center text-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Anomyous Comments</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ideaCountStatistic.totalAnonymousComment }}</div>
@@ -23,7 +23,7 @@
         <div class="col-xl-4 col-md-6 mb-4">
           <div class="card border-left-info shadow h-100 py-2 card-top" @click="showTableData(2)">
             <div class="card-body">
-              <div class="row no-gutters align-items-center">
+              <div class="row no-gutters align-items-center text-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ideas no Comment</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ideaCountStatistic.totalIdeaWithoutComment }}</div>
@@ -38,7 +38,7 @@
         <div class="col-xl-4 col-md-6 mb-4">
           <div class="card border-left-primary shadow h-100 py-2 card-top" @click="showTableData(0)">
             <div class="card-body">
-              <div class="row no-gutters align-items-center">
+              <div class="row no-gutters align-items-center text-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Anomyous Ideas</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ideaCountStatistic.totalAnonymousIdea }}</div>
@@ -70,6 +70,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="h6 mb-0 font-weight-bold text-gray-800 text-center" v-if="mainTableData.length === 0">No Data</div>
               </div>
               <div v-if="mainTableData.length > 0" class="pagination-container">
                 <component :is="'pagination-list'" :totalPages="totalPage" :perPage="1" :currentPage="currentPage" @pagechanged="onPageChange">
@@ -372,5 +373,9 @@ export default {
 }
 .card-top {
   cursor: pointer;
+}
+.card-top:hover {
+  background-color: rgb(249, 247, 247);
+  transform: scale(1.05);
 }
 </style>
