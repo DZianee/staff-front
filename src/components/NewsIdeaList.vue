@@ -1,6 +1,10 @@
 <template>
   <div class="news-idea-list container">
-    <div class="sortType" v-if="choice != 'via' && ideaList && ideaList.length > 0">
+    <div class="sortType" v-if="paramId == 'all' && ideaList && ideaList.length > 0">
+      <!-- <div class="table-search-box">
+        <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchTitle" />
+        <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
+      </div> -->
       <select class="form-control" v-model="sortType" @change="getIdeaList">
         <option value="0">Newest Ideas</option>
         <option value="1">Most reacted Ideas</option>
@@ -8,7 +12,11 @@
         <option value="3">Lastest commented ideas</option>
       </select>
     </div>
-    <div class="sortType" v-else-if="choice == 'via'">
+    <div class="search-create" v-else-if="paramId != 'all'">
+      <div class="table-search-box">
+        <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchTitle" />
+        <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
+      </div>
       <button class="create-topic" v-if="status < 1" @click="IdeaModalOpen()">New Idea +</button>
       <div class="create-icon" @click="IdeaModalOpen()">
         <i class="bi bi-plus-circle"></i>
@@ -21,7 +29,7 @@
         </p>
       </div>
       <div v-else>
-        <div class="all-ideas" style="margin-top: 24px">
+        <div class="all-ideas">
           <div class="card" v-for="ideas in ideaList" :key="ideas.index" @click="routeIdea(ideas.id)" style="cursor: pointer">
             <div class="card-image">
               <!-- <figure class="image is-4by3"> -->
@@ -112,6 +120,7 @@
 <script>
 import IdeaCreate from "../components/IdeaModalForm.vue";
 import { ref } from "vue";
+var timeOut;
 
 export default {
   name: "NewsIdeaList",
@@ -132,7 +141,14 @@ export default {
       ideaListViaTopic: [],
       ideaList: [],
       sortType: 0,
+
+      searchTitle: "",
     };
+  },
+  computed: {
+    paramId() {
+      return this.$route.params.id;
+    },
   },
   setup() {
     const IdeaModalActive = ref(false);
@@ -175,12 +191,12 @@ export default {
         console.log(e);
       }
     },
-    async getIdeaViaTopic(value) {
+    async getIdeaViaTopic() {
       try {
         this.$store.dispatch("fetchAccessToken");
         const getIdeaListviaTopic = await this.$axios.post(
-          `api/v1/Idea/topic/${value}`,
-          { searchTitle: "", sortTitle: "", sortCreatedDate: "", sortUserName: "" },
+          `api/v1/Idea/topic/${this.paramId}`,
+          { searchTitle: this.searchTitle, sortTitle: "", sortCreatedDate: "", sortUserName: "" },
           {
             params: {
               PageSize: 6,
@@ -214,46 +230,88 @@ export default {
     },
   },
   watch: {
-    choice(newValue) {
+    // choice(newValue) {
+    //   this.currentPage = 1;
+    //   if (newValue == "all") {
+    //     this.getIdeaList();
+    //   } else {
+    //     this.getIdeaViaTopic(this.id);
+    //   }
+    // },
+    paramId(newValue) {
       this.currentPage = 1;
       if (newValue == "all") {
         this.getIdeaList();
       } else {
-        this.getIdeaViaTopic(this.id);
+        this.getIdeaViaTopic();
       }
     },
-    id() {
-      this.currentPage = 1;
-      this.getIdeaViaTopic(this.id);
+    // id() {
+    //   this.currentPage = 1;
+    //   this.getIdeaViaTopic();
+    // },
+    searchTitle() {
+      clearTimeout(timeOut);
+      timeOut = setTimeout(() => {
+        this.getIdeaViaTopic();
+      }, 500);
     },
   },
   mounted() {
     if (this.$route.params.id === "all") {
       this.getIdeaList();
     } else {
-      this.getIdeaViaTopic(this.$route.params.id);
+      this.getIdeaViaTopic();
     }
   },
 };
 </script>
 
 <style scoped>
+.search-create {
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  padding-right: 9%;
+  margin-top: 20px;
+}
+.width-form {
+  width: 15%;
+}
 .create-topic {
   height: 35px;
   line-height: 10px;
   font-size: 16px;
-  width: 60%;
+  width: 15%;
   color: white;
   background: #3d5afe;
   font-weight: 500;
   cursor: pointer;
   padding: 10px;
   border-radius: 0.25rem;
-  float: right;
-  margin-top: 7px;
 }
 .create-topic:hover {
   background: #1976d2;
+}
+.table-search-box {
+  position: relative;
+}
+.table-search-box .fa-search {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.table-search-box input {
+  padding-right: 35px;
+  height: 35px;
+}
+
+.table-search-box span {
+  position: absolute;
+  right: 30px;
+  top: 6px;
+  padding: 2px;
 }
 .bi-plus-circle {
   display: none;
@@ -360,6 +418,10 @@ export default {
   .card-content .content h3 {
     padding: 10px 0;
   }
+  .search-create {
+    gap: 10px;
+    padding-right: 4%;
+  }
 }
 @media screen and (max-width: 1366px) {
   .card-image {
@@ -416,9 +478,17 @@ export default {
   .sortType {
     width: 50% !important;
   }
-  .create-topic {
+  .table-search-box input {
+    height: 35px;
+    width: 180px;
     font-size: 15px;
-    width: 60%;
+  }
+  .create-topic {
+    width: 22%;
+    font-size: 15px;
+  }
+  .width-form {
+    width: 22%;
   }
 }
 @media screen and (max-width: 680px) {
@@ -456,6 +526,20 @@ export default {
   }
   .card-content .content h3 {
     font-size: 15px;
+  }
+  .search-create {
+    padding: 15px 0;
+    justify-content: center;
+  }
+  .table-search-box input {
+    width: 100%;
+    font-size: 15px;
+  }
+  .create-topic {
+    width: 30%;
+  }
+  .width-form {
+    width: 30%;
   }
   /* .card-content {
     margin-top: 20%;
