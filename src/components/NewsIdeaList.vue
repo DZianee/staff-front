@@ -1,11 +1,11 @@
 <template>
   <div class="news-idea-list container">
-    <div class="sortType" v-if="paramId == 'all' && ideaList && ideaList.length > 0">
-      <!-- <div class="table-search-box">
-        <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchTitle" />
+    <div class="search-create" v-if="paramId == 'all' && ideaList && ideaList.length > 0">
+      <div class="table-search-box">
+        <input type="text" class="form-control form-input" placeholder="Search anything..." @input="InputsearchTitle" v-model="searchTitle" />
         <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
-      </div> -->
-      <select class="form-control" v-model="sortType" @change="getIdeaList">
+      </div>
+      <select class="form-control width-form" v-model="sortType" @change="getIdeaList">
         <option value="0">Newest Ideas</option>
         <option value="1">Most reacted Ideas</option>
         <option value="2">Most viewed ideas</option>
@@ -14,7 +14,7 @@
     </div>
     <div class="search-create" v-else-if="paramId != 'all'">
       <div class="table-search-box">
-        <input type="text" class="form-control form-input" placeholder="Search anything..." v-model="searchTitle" />
+        <input type="text" class="form-control form-input" placeholder="Search anything..." @input="InputsearchTitle" v-model="searchTitle" />
         <span class="left-pan"> <i class="form-control-feedback bi bi-search"></i></span>
       </div>
       <button class="create-topic" v-if="status < 1" @click="IdeaModalOpen()">New Idea +</button>
@@ -22,8 +22,8 @@
         <i class="bi bi-plus-circle"></i>
       </div>
     </div>
-    <div v-if="choice === 'via'">
-      <div v-if="ideaList == ''">
+    <div v-if="paramId !== 'all'">
+      <div v-if="ideaList == '' && ideaList.length <= 0">
         <p style="color: gray; text-align: center; font-size: 16px; position: relative; top: 60px; font-style: italic">
           There is no idea existed yet
         </p>
@@ -44,7 +44,8 @@
               <div class="content">
                 <h1>{{ ideas.title }}</h1>
                 <h3 class="topic-title" @click.stop="topicDetailRoute(ideas.topicId)">{{ ideas.topicName }}</h3>
-                <time datetime="2016-1-1">{{ getIdeaDateCreate(ideas.startDate) }}</time>
+                <!-- <time datetime="2016-1-1">{{ getIdeaDate(ideas.startDate) }}</time> -->
+                <p v-text="ideas.startDate"></p>
               </div>
             </div>
             <footer class="card-footer">
@@ -70,7 +71,7 @@
       </div>
     </div>
     <div v-else>
-      <div v-if="ideaList == ''">
+      <div v-if="ideaList == '' && ideaList.length <= 0">
         <p style="color: gray; text-align: center; font-size: 16px; margin-top: 40px; font-style: italic">There is no idea existed yet</p>
       </div>
       <div v-else>
@@ -89,7 +90,8 @@
               <div class="content">
                 <h1>{{ idea.title }}</h1>
                 <h3 class="topic-title" @click.stop="topicDetailRoute(idea.topicId)">{{ idea.topicName }}</h3>
-                <time datetime="2016-1-1">{{ getIdeaDateCreate(idea.createdDate) }}</time>
+                <!-- <time datetime="2016-1-1">{{ getIdeaDate(idea.createdDate) }}</time> -->
+                <time>{{ idea.createdDate }}</time>
               </div>
             </div>
             <footer class="card-footer">
@@ -162,7 +164,6 @@ export default {
 
     return { IdeaModalActive, IdeaModalOpen, IdeaModalClose };
   },
-  created() {},
   methods: {
     // ideaDetailRoute(){
     //   this.$router.push({path})
@@ -179,7 +180,7 @@ export default {
       }
       try {
         this.$store.dispatch("fetchAccessToken");
-        const getIdeaList = await this.$axios.get(`api/v1/Idea/getIdeasByType/?type=${this.sortType}`, {
+        const getIdeaList = await this.$axios.get(`api/v1/Idea/getIdeasByType/?type=${this.sortType}&searchTitle=${this.searchTitle}`, {
           params: {
             PageSize: 6,
             CurrentPage: this.currentPage,
@@ -187,6 +188,10 @@ export default {
         });
         this.ideaList = getIdeaList.data.content;
         this.totalPage = getIdeaList.data.totalPage;
+        for (var idea of this.ideaList) {
+          const date = new Date(idea.createdDate);
+          idea.createdDate = date.toLocaleString();
+        }
       } catch (e) {
         console.log(e);
       }
@@ -206,6 +211,10 @@ export default {
         );
         this.ideaList = getIdeaListviaTopic.data.content;
         this.totalPage = getIdeaListviaTopic.data.totalPage;
+        for (var idea of this.ideaList) {
+          const date = new Date(idea.startDate);
+          idea.startDate = date.toLocaleString();
+        }
       } catch (e) {
         console.log(e);
       }
@@ -218,7 +227,7 @@ export default {
       this.currentPage = page;
       this.getIdeaViaTopic();
     },
-    getIdeaDateCreate(date) {
+    getIdeaDate(date) {
       const dateCreate = new Date(date);
       // var year = dateCreate.getFullYear();
       // var month = ("0" + (dateCreate.getMonth() + 1)).slice(-2);
@@ -227,6 +236,16 @@ export default {
       // const dmy = day + "/" + month + "/" + year;
       const dmy = dateCreate.toLocaleString();
       return dmy;
+    },
+    InputsearchTitle() {
+      clearTimeout(timeOut);
+      timeOut = setTimeout(() => {
+        if (this.paramId == "all") {
+          this.getIdeaList();
+        } else {
+          this.getIdeaViaTopic();
+        }
+      }, 500);
     },
   },
   watch: {
@@ -240,22 +259,19 @@ export default {
     // },
     paramId(newValue) {
       this.currentPage = 1;
-      if (newValue == "all") {
-        this.getIdeaList();
-      } else {
-        this.getIdeaViaTopic();
+      this.searchTitle = "";
+      if (newValue) {
+        if (newValue == "all") {
+          this.getIdeaList();
+        } else {
+          this.getIdeaViaTopic();
+        }
       }
     },
     // id() {
     //   this.currentPage = 1;
     //   this.getIdeaViaTopic();
     // },
-    searchTitle() {
-      clearTimeout(timeOut);
-      timeOut = setTimeout(() => {
-        this.getIdeaViaTopic();
-      }, 500);
-    },
   },
   mounted() {
     if (this.$route.params.id === "all") {
@@ -404,9 +420,9 @@ export default {
   right: 0;
   width: 26% !important;
 }
-.form-control {
+/* .form-control {
   width: 90%;
-}
+} */
 @media screen and (max-width: 1440px) {
   /* .news-idea-list .all-ideas .card { */
   /* left: 5%; */
