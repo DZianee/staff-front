@@ -6,7 +6,7 @@
       </div>
       <div class="row">
         <div class="col-xl-4 col-md-6 mb-4">
-          <div class="card border-left-success shadow h-100 py-2 card-top" @click="showTableData(1)">
+          <div class="card border-left-success shadow h-100 py-2 card-top" :class="[{ 'card-active': type === 1 }]" @click="showTableData(1)">
             <div class="card-body">
               <div class="row no-gutters align-items-center text-center">
                 <div class="col mr-2">
@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="col-xl-4 col-md-6 mb-4">
-          <div class="card border-left-info shadow h-100 py-2 card-top" @click="showTableData(2)">
+          <div class="card border-left-info shadow h-100 py-2 card-top" :class="[{ 'card-active': type === 2 }]" @click="showTableData(2)">
             <div class="card-body">
               <div class="row no-gutters align-items-center text-center">
                 <div class="col mr-2">
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="col-xl-4 col-md-6 mb-4">
-          <div class="card border-left-primary shadow h-100 py-2 card-top" @click="showTableData(0)">
+          <div class="card border-left-primary shadow h-100 py-2 card-top" :class="[{ 'card-active': type === 0 }]" @click="showTableData(0)">
             <div class="card-body">
               <div class="row no-gutters align-items-center text-center">
                 <div class="col mr-2">
@@ -183,7 +183,7 @@ export default {
   methods: {
     onPageChange(page) {
       this.currentPage = page;
-      this.showTableData(this.type);
+      this.showTableData(this.type, false);
     },
     initChart(labels, ideaCounts, percents) {
       new Chart(document.getElementById("myAreaChart"), {
@@ -275,7 +275,7 @@ export default {
         },
       });
     },
-    async showTableData(type) {
+    async showTableData(type, resetPage = true) {
       let url = "";
       this.type = type;
       switch (type) {
@@ -291,6 +291,7 @@ export default {
         default:
           url = "api/v1/Idea/getAnonymousComments";
       }
+      if (resetPage) this.currentPage = 1;
       const res = await this.$axios.get(url, {
         params: {
           PageSize: 5,
@@ -373,6 +374,10 @@ export default {
 }
 .card-top {
   cursor: pointer;
+}
+
+.card-active {
+  background-color: #ffefc9;
 }
 .card-top:hover {
   background-color: rgb(249, 247, 247);
