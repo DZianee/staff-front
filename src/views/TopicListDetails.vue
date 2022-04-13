@@ -58,6 +58,7 @@ export default {
     };
   },
   async created() {
+    document.title = "Topic Detail";
     try {
       const getTopicList = await this.$axios.post(`api/v1/Topic/GetList`, { searchName: "" }, this.$axios.defaults.headers["Authorization"]);
       this.topicList = getTopicList.data.content;

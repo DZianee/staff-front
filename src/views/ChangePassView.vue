@@ -68,6 +68,9 @@ export default {
       return JSON.parse(this.$store.state.user);
     },
   },
+  created() {
+    document.title = "Change Pass";
+  },
   methods: {
     onCheckbox(e) {
       this.isActiveConfirm = e.target.checked;

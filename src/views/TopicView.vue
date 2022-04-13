@@ -11,6 +11,9 @@ import TopicCard from "@/components/TopicCard.vue";
 export default {
   name: "TopicView",
   components: { TopicCard },
+  created() {
+    document.title = "Topic Management";
+  },
 };
 //
 </script>

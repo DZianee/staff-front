@@ -96,6 +96,7 @@ export default {
     },
   },
   async created() {
+    document.title = "Home page";
     this.$store.dispatch("getUser");
     try {
       const data = JSON.parse(this.$store.state.user);

@@ -39,6 +39,7 @@ export default {
     };
   },
   created() {
+    document.title = "Profile";
     this.$store.dispatch("getUser");
     const data = JSON.parse(this.$store.state.user);
     this.id = data.id;

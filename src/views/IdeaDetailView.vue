@@ -230,6 +230,9 @@ export default {
       return JSON.parse(this.$store.state.user);
     },
   },
+  created() {
+    document.title = "Idea Detail";
+  },
   methods: {
     NewsRoute() {
       this.$router.push({ name: "newsView", params: { id: this.idea.topicId } });

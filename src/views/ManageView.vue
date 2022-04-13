@@ -48,6 +48,9 @@ export default {
       this.$router.push({ name: value });
     },
   },
+  created() {
+    document.title = "Manage page";
+  },
 };
 </script>
 
