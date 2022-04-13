@@ -34,6 +34,7 @@ export default {
   },
   components: { NewsTopicBar, NewsIdeaList },
   async created() {
+    document.title = "News";
     this.$store.dispatch("getUser");
     try {
       this.$store.dispatch("fetchAccessToken");

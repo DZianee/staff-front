@@ -11,6 +11,9 @@ export default {
   components: {
     UserManage,
   },
+  created() {
+    document.title = "User Management";
+  },
 };
 </script>
 

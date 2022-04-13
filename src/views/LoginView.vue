@@ -43,6 +43,9 @@ export default {
       loading: false,
     };
   },
+  created() {
+    document.title = "Login";
+  },
   computed: {},
   methods: {
     async login() {

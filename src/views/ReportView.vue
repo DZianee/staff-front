@@ -306,6 +306,7 @@ export default {
   },
   created() {
     Chart.register(...registerables);
+    document.title = "Statistic";
   },
   async mounted() {
     try {

@@ -19,9 +19,9 @@
           <div class="item-img">
             <img v-if="item.topicImage != null && item.topicImage" :src="`https://${item.topicImage}`" alt="item image" />
             <img
-                  v-else
-                  src="https://cdn.dribbble.com/users/823181/screenshots/14754851/media/b4f38450eb494e4e37beb8b206c7f9c0.png?compress=1&resize=1200x900&vertical=top"
-                  alt="item image" />
+              v-else
+              src="https://cdn.dribbble.com/users/823181/screenshots/14754851/media/b4f38450eb494e4e37beb8b206c7f9c0.png?compress=1&resize=1200x900&vertical=top"
+              alt="item image" />
           </div>
           <div class="item-des">
             <p @click="TopicDetailsRoute(item.id)">{{ item.name }}</p>
@@ -43,6 +43,7 @@ export default {
     };
   },
   async created() {
+    document.title = "Topic's Store";
     try {
       //   this.$store.dispatch("fetchAccessToken");
       const getTopicList = await this.$axios.post(`api/v1/Topic/GetList`, { searchName: "" }, this.$axios.defaults.headers["Authorization"]);
@@ -153,7 +154,6 @@ img {
   width: max(88%);
   height: max(220px);
   object-fit: cover;
-
 }
 .item-des {
   text-align: left;

@@ -83,6 +83,9 @@ export default {
       rotate: true,
     };
   },
+  created() {
+    document.title = "Role Management";
+  },
   methods: {
     onPageChange(page) {
       this.currentPage = page;

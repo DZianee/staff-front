@@ -9,6 +9,9 @@ import TopicIdea from "../components/TopicIdea.vue";
 export default {
   name: "IdeaView",
   components: { TopicIdea },
+  created() {
+    document.title = "Topic-Idea Management";
+  },
 };
 </script>
 
