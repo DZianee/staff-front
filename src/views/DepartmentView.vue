@@ -129,7 +129,7 @@ export default {
                 this.$router.go();
               }
             } catch (e) {
-              console.log("Create Department error");
+              //
               this.ErrorName = true;
               this.rotate = true;
             }
@@ -141,7 +141,7 @@ export default {
                 this.$router.go();
               }
             } catch (e) {
-              console.log("Modify Department error");
+              //
               this.ErrorName = true;
               this.rotate = true;
             }
@@ -153,7 +153,7 @@ export default {
                 this.$router.go();
               }
             } catch (e) {
-              console.log("Delete Department error");
+              //
               this.ErrorName = true;
               this.rotate = true;
             }
@@ -174,7 +174,7 @@ export default {
           this.totalPage = res.data.totalPage;
         }
       } catch (e) {
-        console.log("Departments Error");
+        //
       }
     },
   },

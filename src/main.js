@@ -22,20 +22,16 @@ app.use(VSwitch);
 
 axios.interceptors.response.use(
   function (response) {
-    console.log(response);
     return response;
   },
   async function (error) {
     switch (error.response.status) {
       // case 400:
-      //   console.log(error.response);
       //   break;
       case 401: {
-        console.log(error.response);
         if (error.response.data.Message == "Require refresh token") {
           try {
             await axios.post(`api/v1/User/RefreshToken`).then((res) => {
-              console.log(res.response);
               if (res.status == 200) {
                 router.go();
               }
@@ -43,22 +39,16 @@ axios.interceptors.response.use(
           } catch {
             store.dispatch("logout");
             router.push({ name: "login" });
-            console.log("catch");
           }
         } else {
           store.dispatch("logout");
           router.push({ name: "login" });
-          console.log("catch");
         }
         break;
       }
       case 403:
-        console.log(error.response);
-        console.log("Forbidden");
         break;
       case 500:
-        console.log(error.response);
-        console.log(error.response.data.Message);
         break;
       default:
         break;

@@ -171,7 +171,6 @@ export default {
           gender: parseInt(this.User.gender),
           departmentId: this.User.departmentId,
         };
-        console.log(createUser);
         const res = await this.$axios.post(`api/v1/User`, createUser, this.$axios.defaults.headers["Authorization"]);
         if (res.status == 200) {
           this.$router.go();

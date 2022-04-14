@@ -259,11 +259,10 @@ export default {
           // docUrl.click();
         }
       } catch {
-        console.log("he");
+        //
       }
     },
     // imageSelected(event) {
-    //   console.log(event);
     //   this.topicImage = event.target.files[0];
     //   const reader = new FileReader();
     //   reader.readAsDataURL(this.topicImage);

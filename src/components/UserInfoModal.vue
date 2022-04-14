@@ -279,7 +279,6 @@ export default {
               gender: parseInt(this.User.gender),
               departmentId: this.DepartmentID,
             };
-            console.log(editUser);
             const res = await this.$axios.put(`api/v1/User`, editUser, {
               params: {
                 id: this.UserId,

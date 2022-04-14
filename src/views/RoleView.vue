@@ -129,7 +129,6 @@ export default {
                 this.$router.go();
               }
             } catch (e) {
-              console.log("Create Role error");
               this.ErrorName = true;
               this.rotate = true;
             }
@@ -141,7 +140,6 @@ export default {
                 this.$router.go();
               }
             } catch (e) {
-              console.log("Modify Role error");
               this.ErrorName = true;
               this.rotate = true;
             }
@@ -153,7 +151,6 @@ export default {
                 this.$router.go();
               }
             } catch (e) {
-              console.log("Delete Role error");
               this.ErrorName = true;
               this.rotate = true;
             }
@@ -174,7 +171,7 @@ export default {
           this.totalPage = res.data.totalPage;
         }
       } catch (e) {
-        console.log("Roles Error");
+        //
       }
     },
   },

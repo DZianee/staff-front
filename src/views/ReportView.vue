@@ -220,7 +220,7 @@ export default {
         this.topFiveReport = topFive.data.content;
       }
     } catch (e) {
-      console.log(e);
+      //
     }
   },
 };

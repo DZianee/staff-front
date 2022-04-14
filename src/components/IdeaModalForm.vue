@@ -234,7 +234,6 @@ export default {
     },
     async submit() {
       try {
-        console.log(this.ModalForm);
         const user = JSON.parse(this.$store.state.user);
         const idea = new FormData();
         idea.append("TopicId", this.TopicID);
@@ -261,7 +260,7 @@ export default {
           this.$router.go();
         }
       } catch (e) {
-        console.log("error");
+        //
       }
     },
   },

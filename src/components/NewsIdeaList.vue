@@ -193,7 +193,7 @@ export default {
           idea.createdDate = date.toLocaleString();
         }
       } catch (e) {
-        console.log(e);
+        //
       }
     },
     async getIdeaViaTopic() {
@@ -216,7 +216,7 @@ export default {
           idea.startDate = date.toLocaleString();
         }
       } catch (e) {
-        console.log(e);
+        //
       }
     },
     onPageChange(page) {

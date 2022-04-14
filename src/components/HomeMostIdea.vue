@@ -91,11 +91,7 @@ export default {
       ele.addEventListener("mousedown", mouseDownHandler);
     }
   },
-  methods: {
-    touchEvent(Event) {
-      console.log(Event);
-    },
-  },
+  methods: {},
 };
 </script>
 

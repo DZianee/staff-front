@@ -29,8 +29,6 @@ export default {
   },
   methods: {
     async changeAvatar(event) {
-      console.log(event.target.files[0]);
-      console.log(this.user.id);
       try {
         const avatar = new FormData();
         avatar.append("file", event.target.files[0]);
@@ -43,7 +41,7 @@ export default {
           this.$router.go();
         }
       } catch (e) {
-        console.log("error");
+        //
       }
     },
   },

@@ -966,21 +966,6 @@ iframe {
   cursor: pointer;
 }
 
-.Topic-Modal-color {
-  list-style: none;
-  margin-bottom: 10px;
-}
-
-.Topic-Modal-color {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(25, 1fr);
-  gap: 10px;
-  height: 30px;
-  width: 30px;
-  font-size: 16px;
-}
-
 .inner-circle {
   display: block;
   height: 25px;
@@ -1222,18 +1207,6 @@ iframe {
     cursor: pointer;
   }
 
-  .Topic-Modal-color {
-    list-style: none;
-    margin-bottom: 5px;
-  }
-
-  .Topic-Modal-color {
-    position: relative;
-    height: 30px;
-    width: fit-content;
-    font-size: 16px;
-  }
-
   .inner-circle {
     display: block;
     height: 20px;
@@ -1248,9 +1221,6 @@ iframe {
   }
 }
 @media (max-width: 413px) {
-  .Topic-Modal-color {
-    grid-template-columns: repeat(10, 1fr);
-  }
   .submit-add {
     margin-top: 25px;
   }
