@@ -50,7 +50,7 @@ export default {
       );
       this.topicList = getTopicList.data.content;
     } catch (e) {
-      console.log("error");
+      //
     }
   },
   methods: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" v-if="id">
     <img class="header-logo-image" src="../assets/images/FGW_logo_d.jpeg" />
     <div class="header-user">
       <!-- <img class="header-user-image" src="../assets/pic/users.png" /> -->
@@ -48,7 +48,6 @@ export default {
       this.$axios.get(`api/v1/User/${data.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
         this.user = res.data.content;
         this.id = this.user.id;
-        console.log(this.id);
       });
     } catch {
       //
@@ -68,6 +67,8 @@ export default {
     //   this.$router.push({ name: "login" });
     // },
     async logout() {
+      this.user = {};
+      this.id = "";
       try {
         this.$store.dispatch("fetchAccessToken");
         await this.$axios.delete(`api/v1/User/RevokeSelfToken`);

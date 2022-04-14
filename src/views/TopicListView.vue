@@ -50,11 +50,9 @@ export default {
       const getLastesTopic = await this.$axios.get(`api/v1/Topic/newest`, this.$axios.defaults.headers["Authorization"]);
 
       this.lastestTopic = getLastesTopic.data.content;
-      console.log(this.lastestTopic);
       this.topicList = getTopicList.data.content;
-      console.log(this.topicList);
     } catch (e) {
-      console.log(e);
+      //
     }
   },
   computed: {

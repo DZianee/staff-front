@@ -337,7 +337,7 @@ export default {
       }
       await this.showTableData(this.type);
     } catch (e) {
-      console.log(e);
+      //
     }
   },
 };

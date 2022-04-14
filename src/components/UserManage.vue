@@ -218,7 +218,7 @@ export default {
         this.Users = res.data.content;
         this.totalPage = res.data.totalPage;
       } catch (e) {
-        console.log("Error");
+        //
       }
     },
     async GetDepartments() {

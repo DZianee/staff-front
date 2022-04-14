@@ -337,7 +337,7 @@ export default {
           }
         }
       } catch {
-        console.log("error");
+        //
       }
     },
     async React(value) {

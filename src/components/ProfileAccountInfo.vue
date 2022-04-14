@@ -96,7 +96,7 @@ export default {
           this.isOpenModal = true;
         }
       } catch (e) {
-        console.log("Error");
+        //
       }
     },
   },

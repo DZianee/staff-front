@@ -132,7 +132,7 @@ export default {
       this.totalTopic = this.topicList.length;
       this.totalIdea = getIdeaList.data.content.length;
     } catch (e) {
-      console.log("error");
+      //
     }
   },
   methods: {

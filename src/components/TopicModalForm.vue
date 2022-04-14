@@ -115,7 +115,6 @@ export default {
     //   const current = new Date();
     //   var a = current.getTime();
     //   var b = Date.parse(value);
-    //   console.log(b);
     //   if (b > a && this.Colorcheck && this.TopicName && this.TopicType) {
     //     this.Disable = false;
     //     this.ErrorDisable = false;
@@ -200,7 +199,6 @@ export default {
         if (this.ModalForm.file) {
           topic.append("file", this.ModalForm.file, this.ModalForm.file.name);
         }
-        console.log(topic);
         const res = await this.$axios.post(`api/v1/Topic`, topic);
         if (res.status == 200) {
           this.$router.go();
@@ -225,16 +223,30 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .disable {
   opacity: 0.5;
   pointer-events: none;
+}
+.Topic-Modal-color {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.Topic-Modal-color {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(25, 1fr);
+  gap: 10px;
+  height: 30px;
+  width: 30px;
+  font-size: 16px;
 }
 .Topic-Modal-container {
   position: relative;
   width: 40%;
   max-width: calc(100% - 32px);
-  max-height: calc(100% - 32px);
+  max-height: calc(100% - 60px);
   background-color: white;
   border-radius: 5px;
   animation: modalfadein ease 0.3s;
@@ -278,6 +290,22 @@ export default {
 @media (min-width: 320px) and (max-width: 790px) {
   .Topic-Modal-Image img {
     margin-top: 10px;
+  }
+  .Topic-Modal-input {
+    height: 44px !important;
+  }
+  .Topic-Modal-color {
+    list-style: none;
+    margin-bottom: 5px;
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  .Topic-Modal-color {
+    position: relative;
+    height: 30px;
+    width: fit-content;
+    font-size: 16px;
+    margin-bottom: 30px;
   }
 }
 </style>

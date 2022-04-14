@@ -63,7 +63,7 @@ export default {
       const getTopicList = await this.$axios.post(`api/v1/Topic/GetList`, { searchName: "" }, this.$axios.defaults.headers["Authorization"]);
       this.topicList = getTopicList.data.content;
     } catch (e) {
-      console.log(e);
+      //
     }
   },
   methods: {
@@ -85,9 +85,8 @@ export default {
       try {
         const getTopicDetail = await this.$axios.get(`api/v1/Topic/${this.id}`, this.$axios.defaults.headers["Authorization"]);
         this.topicDetail = getTopicDetail.data.content;
-        console.log(this.topicDetail);
       } catch (e) {
-        console.log(e);
+        //
       }
     },
   },

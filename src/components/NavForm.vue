@@ -93,7 +93,6 @@ export default {
     const data = JSON.parse(this.$store.state.user);
     this.$axios.get(`api/v1/User/${data.id}`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.user = res.data.content;
-      console.log(this.user);
     });
   },
   methods: {
@@ -138,8 +137,6 @@ export default {
       const modalAct = (value) => {
         if (value == "topicView") {
           modalActive.value = !modalActive.value;
-        } else {
-          console.log("aaa");
         }
       };
 

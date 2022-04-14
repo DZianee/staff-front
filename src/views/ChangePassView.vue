@@ -96,13 +96,12 @@ export default {
           this.$router.push({ name: "login" });
         }
       } catch (e) {
-        console.log("Error");
+        //
       }
     },
   },
   watch: {
     reNewPassword(newValue) {
-      console.log(newValue);
       if (newValue !== this.newPassword) {
         this.newPassError = true;
       } else {

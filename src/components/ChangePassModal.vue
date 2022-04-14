@@ -1,6 +1,5 @@
 <template>
   <div class="change-pass_modal">
-
     <!-- Modal -->
     <!-- <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -17,7 +16,6 @@
         </div>
       </div>
     </div> -->
-    
   </div>
 </template>
 
@@ -59,7 +57,7 @@ export default {
           this.$router.push({ name: "login" });
         }
       } catch (e) {
-        console.log("Error");
+        //
       }
     },
   },

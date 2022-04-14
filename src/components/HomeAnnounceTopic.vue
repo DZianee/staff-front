@@ -39,7 +39,6 @@ export default {
   mounted() {
     this.$axios.get(`api/v1/Topic/newest`, this.$axios.defaults.headers["Authorization"]).then((res) => {
       this.newTopic = res.data.content;
-      // console.log(this.newTopic);
     });
   },
   computed: {
@@ -60,7 +59,7 @@ export default {
   },
   methods: {
     toTopicListDetails(id) {
-      this.$router.push({ name: "topicListView", params:{id: id} });
+      this.$router.push({ name: "topicListView", params: { id: id } });
     },
   },
 };
@@ -75,7 +74,6 @@ export default {
   /* background: linear-gradient(to left, #C9CBFF, #F6F6F6); */
   /* -webkit-text-fill-color: transparent; */
   /* border: solid yellow; */
-
 }
 
 .announcement-topic {
