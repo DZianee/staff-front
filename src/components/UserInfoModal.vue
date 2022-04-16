@@ -191,6 +191,7 @@ export default {
         this.$store.dispatch("fetchAccessToken");
         const res = await this.$axios.get(`api/v1/User/${this.UserId}`, this.$axios.defaults.headers["Authorization"]);
         this.User = res.data.content;
+        console.log(this.User);
 
         var timeStamp = this.User.dob.toString();
         // if (timeStamp.length < 13) {
