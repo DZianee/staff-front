@@ -44,7 +44,7 @@
               @handleInput="handleInput"
           /></span>
         </div>
-        <div style="text-align: left; font-size: 14px; margin: 16px 12px">
+        <div v-if="topic.image" style="text-align: left; font-size: 14px; margin: 16px 12px">
           <img :src="`https://${topic.image}`" class="img-topic" alt="img-Topic" />
           <!-- <br />
           <div>
@@ -346,11 +346,11 @@ export default {
 
       function dateConvert(timeStamp) {
         let timeStampString = timeStamp.toString();
-        if (timeStampString.length < 13) {
-          for (var i = timeStampString.length; i < 13; i++) {
-            timeStampString += "0";
-          }
-        }
+        // if (timeStampString.length < 13) {
+        //   for (var i = timeStampString.length; i < 13; i++) {
+        //     timeStampString += "0";
+        //   }
+        // }
         const date = new Date(parseInt(timeStampString));
         let month;
         let dateVal;
@@ -429,11 +429,11 @@ export default {
 
       function startDateConvert(item, index, theArr) {
         let timeStampString = item.startDate.toString();
-        if (timeStampString.length < 13) {
-          for (var i = timeStampString.length; i < 13; i++) {
-            timeStampString += "0";
-          }
-        }
+        // if (timeStampString.length < 13) {
+        //   for (var i = timeStampString.length; i < 13; i++) {
+        //     timeStampString += "0";
+        //   }
+        // }
         const date = new Date(parseInt(timeStampString));
         let month;
         let dateVal;

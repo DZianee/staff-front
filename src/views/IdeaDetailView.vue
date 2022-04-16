@@ -393,11 +393,11 @@ export default {
 
       function dateConvert(timeStamp) {
         let timeStampString = timeStamp.toString();
-        if (timeStampString.length < 13) {
-          for (var i = timeStampString.length; i < 13; i++) {
-            timeStampString += "0";
-          }
-        }
+        // if (timeStampString.length < 13) {
+        //   for (var i = timeStampString.length; i < 13; i++) {
+        //     timeStampString += "0";
+        //   }
+        // }
         const date = new Date(parseInt(timeStampString));
         let month;
         let dateVal;
