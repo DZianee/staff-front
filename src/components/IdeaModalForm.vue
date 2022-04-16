@@ -234,6 +234,7 @@ export default {
     },
     async submit() {
       try {
+        this.Disable = true;
         const user = JSON.parse(this.$store.state.user);
         const idea = new FormData();
         idea.append("TopicId", this.TopicID);
@@ -260,7 +261,7 @@ export default {
           this.$router.go();
         }
       } catch (e) {
-        //
+        this.Disable = false;
       }
     },
   },
