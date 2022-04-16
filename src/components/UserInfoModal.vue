@@ -110,8 +110,10 @@
             {{ role.name }}
           </option>
         </select>
-        <p>{{ ModalConfirmText }} {{ RoleSelected.name }}</p>
-        <p v-if="RoleAssignError" style="color: red">{{ RoleAssignMessage }}</p>
+        <p>
+          {{ ModalConfirmText }} <span v-if="ModifyID == 4">{{ RoleSelected.name }}</span>
+        </p>
+        <p v-if="RoleAssignError && ModifyID == 4" style="color: red">{{ RoleAssignMessage }}</p>
         <br />
       </component>
     </div>
@@ -191,11 +193,11 @@ export default {
         this.User = res.data.content;
 
         var timeStamp = this.User.dob.toString();
-        if (timeStamp.length < 13) {
-          for (var i = timeStamp.length; i < 13; i++) {
-            timeStamp += "0";
-          }
-        }
+        // if (timeStamp.length < 13) {
+        //   for (var i = timeStamp.length; i < 12; ++i) {
+        //     timeStamp += "0";
+        //   }
+        // }
         const date = new Date(parseInt(timeStamp));
         var month;
         var dateVal;
@@ -392,7 +394,7 @@ export default {
   background-color: white;
   border-radius: 5px;
   animation: modalfadein ease 0.7s;
-  top: -8%;
+  /* top: -8%; */
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
