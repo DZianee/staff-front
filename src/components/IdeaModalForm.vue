@@ -240,7 +240,7 @@ export default {
         idea.append("TopicId", this.TopicID);
         idea.append("Title", this.ModalForm.IdeaTitle);
         idea.append("Description", this.ModalForm.IdeaDescription);
-        idea.append("Description", this.ModalForm.IdeaDescription);
+        idea.append("IsAnonymous", this.ModalForm.isAnonymous);
         idea.append("UserId", user.id);
         if (this.ModalForm.files.length > 0) {
           for (var i = 0; i < this.ModalForm.files.length; i++) {
