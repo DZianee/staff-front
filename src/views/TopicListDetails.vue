@@ -16,7 +16,11 @@
       <div class="detail-content-wrap">
         <div class="topic-detail-des">
           <div class="detail-img">
-            <img :src="`https://${topicDetail.image}`" alt="detail image" />
+            <img v-if="topicDetail.image" :src="`https://${topicDetail.image}`" alt="detail image" />
+            <img
+              v-else
+              src="https://cdn.dribbble.com/users/823181/screenshots/14754851/media/b4f38450eb494e4e37beb8b206c7f9c0.png?compress=1&resize=1200x900&vertical=top"
+              alt="detail image" />
           </div>
           <div class="detail-des" v-html="topicDetail.description"></div>
           <p class="view-topic-idea" @click="NewsRoute">Move to the News</p>
