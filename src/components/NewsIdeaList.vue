@@ -116,7 +116,7 @@
       </div>
     </div>
   </div>
-  <IdeaCreate @closeIdea="IdeaModalClose()" :IdeaModalActive="IdeaModalActive" :TopicID="id" :TopicName="name" />
+  <IdeaCreate @closeIdea="IdeaModalClose()" :IdeaModalActive="IdeaModalActive" :TopicID="paramId" :TopicName="name" />
 </template>
 
 <script>
